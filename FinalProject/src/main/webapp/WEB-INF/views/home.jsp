@@ -8,9 +8,7 @@
 <h1>
 	Hello world!  
 </h1>
-<p>https://github.com/dbLee1995/FinalProject.git</p>
-<p>ì§ì¸</p>
 <p>안녕</p>
-<P>  The time on the server is ${serverTime}. </P>
+<p>지인</p>
 </body>
 </html>
