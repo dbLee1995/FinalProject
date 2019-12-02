@@ -9,6 +9,7 @@
 	Hello world!  
 </h1>
 <p>https://github.com/dbLee1995/FinalProject.git</p>
+<p>지인</p>
 <P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
