@@ -65,6 +65,8 @@
 		<div id="colorlib-main">
 			<section class="ftco-section ftco-no-pt ftco-no-pb">
 	    	<div class="container">
+	    		<!-- 시험용 -->
+	    	
 	    		<div class="row d-flex">
 	    			<div class="col-xl-8 py-5 px-md-5">
 	    				<div class="row pt-md-4">
@@ -80,8 +82,13 @@
 				              		<span><i class="icon-comment2 mr-2"></i>5 Comment</span>
 				              	</p>
 			              	</div>
-				              <p class="mb-4">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-				              <p><a href="#" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+				              <p class="mb-4">1. 파일명을 클래스명.java로 저장하기
+				              <p class="mb-4">2. 컴파일하기 - C:\java>javac Test01.java</p>
+				              <p class="mb-4">3. 실행하기 - C:\java>java Test01</p>
+				              <p class="mb-4">반갑습니다.</p>
+				              <p class="mb-4"> 6개월동안 열심히 해요!</p>
+				              <!-- 주소 변경 -->
+				              <p><a href="${pageContext.request.contextPath }/member/register" class="btn-custom">회원가입<span class="ion-ios-arrow-forward"></span></a></p>
 				            </div>
 									</div>
 								</div>

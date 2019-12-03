@@ -7,7 +7,7 @@
 <title>실패</title>
 </head>
 <body>
-	<h1>시험기능: ${testFeature }</h1>
+	<h1>시험기능: ${feature }</h1>
 	<h3>오류</h3>
 </body>
 </html>
