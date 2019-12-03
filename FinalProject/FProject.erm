@@ -10,9 +10,9 @@
 		<right_margin>30</right_margin>
 	</page_setting>
 	<category_index>0</category_index>
-	<zoom>0.75</zoom>
+	<zoom>1.0</zoom>
 	<x>0</x>
-	<y>0</y>
+	<y>343</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -95,10 +95,10 @@
 				<is_open_after_saved>true</is_open_after_saved>
 			</export_image_setting>
 			<export_java_setting>
-				<java_output></java_output>
-				<package_name></package_name>
-				<class_name_suffix></class_name_suffix>
-				<src_file_encoding></src_file_encoding>
+				<java_output>src\main\java\fproject\app\fproject</java_output>
+				<package_name>fproject.app.fproject.vo</package_name>
+				<class_name_suffix>Vo</class_name_suffix>
+				<src_file_encoding>UTF-8</src_file_encoding>
 				<with_hibernate>false</with_hibernate>
 			</export_java_setting>
 			<export_testdata_setting>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-11-28 16:46:09</creation_date>
-			<updated_date>2019-12-02 17:54:57</updated_date>
+			<updated_date>2019-12-03 10:08:19</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -1678,7 +1678,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>55</word_id>
+					<word_id>56</word_id>
 					<id>5</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1711,7 +1711,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>71</word_id>
+					<word_id>70</word_id>
 					<id>6</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1744,7 +1744,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>41</word_id>
+					<word_id>40</word_id>
 					<id>7</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3336,6 +3336,8 @@
 				<normal_column>
 					<id>44</id>
 					<referenced_column>91</referenced_column>
+					<referenced_column>91</referenced_column>
+					<relation>6</relation>
 					<relation>6</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3371,6 +3373,14 @@
 					<id>45</id>
 					<referenced_column>65</referenced_column>
 					<referenced_column>65</referenced_column>
+					<referenced_column>65</referenced_column>
+					<referenced_column>65</referenced_column>
+					<referenced_column>65</referenced_column>
+					<referenced_column>65</referenced_column>
+					<relation>5</relation>
+					<relation>5</relation>
+					<relation>5</relation>
+					<relation>5</relation>
 					<relation>5</relation>
 					<relation>5</relation>
 					<description></description>
@@ -3862,7 +3872,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>6</word_id>
+					<word_id>7</word_id>
 					<id>57</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4616,7 +4626,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>34</word_id>
+					<word_id>33</word_id>
 					<id>74</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4961,8 +4971,8 @@
 						<target_yp>-1</target_yp>
 						<bendpoint>
 							<relative>false</relative>
-							<x>429</x>
-							<y>761</y>
+							<x>424</x>
+							<y>758</y>
 						</bendpoint>
 						<color>
 							<r>0</r>
@@ -4988,8 +4998,8 @@
 						<target_yp>-1</target_yp>
 						<bendpoint>
 							<relative>false</relative>
-							<x>424</x>
-							<y>758</y>
+							<x>429</x>
+							<y>761</y>
 						</bendpoint>
 						<color>
 							<r>0</r>
@@ -5028,8 +5038,8 @@
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
 			</connections>
-			<physical_name>option</physical_name>
-			<logical_name>옵션</logical_name>
+			<physical_name>present</physical_name>
+			<logical_name>선물</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -5105,7 +5115,7 @@
 				<normal_column>
 					<id>83</id>
 					<referenced_column>65</referenced_column>
-					<relation>14</relation>
+					<relation>13</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>주는사람</logical_name>
@@ -5139,7 +5149,7 @@
 				<normal_column>
 					<id>84</id>
 					<referenced_column>65</referenced_column>
-					<relation>13</relation>
+					<relation>14</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>받는사람</logical_name>
@@ -5216,15 +5226,15 @@
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
 			</connections>
-			<physical_name>chatlist</physical_name>
-			<logical_name>채팅리스트</logical_name>
+			<physical_name>chatstate</physical_name>
+			<logical_name>채팅방상태</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
 			<option></option>
 			<columns>
 				<normal_column>
-					<word_id>7</word_id>
+					<word_id>6</word_id>
 					<id>85</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -5257,7 +5267,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>33</word_id>
+					<word_id>34</word_id>
 					<id>86</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6217,7 +6227,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>56</word_id>
+					<word_id>55</word_id>
 					<id>106</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6250,7 +6260,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>70</word_id>
+					<word_id>71</word_id>
 					<id>107</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6283,7 +6293,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>40</word_id>
+					<word_id>41</word_id>
 					<id>108</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
