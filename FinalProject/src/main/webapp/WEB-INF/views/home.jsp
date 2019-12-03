@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
   <head>
     <title>Andrea - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="UTF-8">
@@ -415,3 +416,18 @@
     
   </body>
 </html>
+=======
+<head>
+	<title>Home</title>
+</head>
+<body>
+<h1>
+	Hello world!  
+</h1>
+<p>안녕</p>
+<p>지인</p>
+<p>저</p>
+<P>형</p>
+</body>
+</html>
+>>>>>>> refs/remotes/db/master
