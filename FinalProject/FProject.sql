@@ -75,24 +75,24 @@ DROP SEQUENCE SEQ_story_storynum;
 
 /* Create Sequences */
 
-CREATE SEQUENCE SEQ_account_num INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_ad_adnum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_calender_anivernum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_chatlist_clnum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_chatnotice_noticenum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_chat_cnum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_comments_commnum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_comment_commnum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_emoshop_emognum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_emoticon_emonum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_favorlist_favornum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_nationalday_anivernum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_notice_noticenum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_options_optionnum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_option_optionnum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_present_presnum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_qna_qnanum INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_story_storynum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_num INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_adnum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_anivernum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_clnum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_noticenum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_cnum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_commnum INCREMENT BY 1 START WITH 1;
+
+CREATE SEQUENCE SEQ_emognum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_emonum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_favornum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_anivernum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_noticenum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_optionnum INCREMENT BY 1 START WITH 1;
+
+CREATE SEQUENCE SEQ_presnum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_qnanum INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_storynum INCREMENT BY 1 START WITH 1;
 
 
 
@@ -102,12 +102,12 @@ CREATE SEQUENCE SEQ_story_storynum INCREMENT BY 1 START WITH 1;
 CREATE TABLE account
 (
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
+	num number(5) primary key,
 	-- 아이디
 	id varchar2(20) NOT NULL UNIQUE,
 	-- 비밀번호
-	pwd varchar2(20) NOT NULL,
-	PRIMARY KEY (num)
+	pwd varchar2(20) NOT NULL
+
 );
 
 
@@ -115,7 +115,7 @@ CREATE TABLE account
 CREATE TABLE ad
 (
 	-- 광고번호
-	adnum number(5) NOT NULL UNIQUE,
+	adnum number(5) PRIMARY KEY,
 	-- 광고이름
 	adname varchar2(50) NOT NULL,
 	-- 광고원본이미지이름
@@ -127,8 +127,8 @@ CREATE TABLE ad
 	-- 광고등록일자
 	addadregdate date NOT NULL,
 	-- 광고만료일자
-	deladregdate date NOT NULL,
-	PRIMARY KEY (adnum)
+	deladregdate date NOT NULL
+	
 );
 
 
@@ -136,13 +136,13 @@ CREATE TABLE ad
 CREATE TABLE attendinfo
 (
 	-- 채팅방번호
-	clnum number(5) NOT NULL UNIQUE,
+	clnum number(5) references chatlist (clnum),
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
+	num number(5) references account (num) ,
 	-- 회원상태 : 0:퇴장
 	-- 1:참가중
 	state number(5),
-	PRIMARY KEY (clnum, num)
+	CONSTRAINT attnendkey PRIMARY KEY (clnum,num)
 );
 
 
@@ -150,9 +150,9 @@ CREATE TABLE attendinfo
 CREATE TABLE calender
 (
 	-- 기념일번호
-	anivernum number(5) NOT NULL UNIQUE,
+	anivernum number(5) primary key,
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
+	num number(5) references account (num),
 	-- 기념일이름
 	anivername varchar2(50) NOT NULL,
 	-- 기념일날짜
@@ -164,8 +164,8 @@ CREATE TABLE calender
 	-- 2:지정기념일
 	aniverstate number(5) NOT NULL,
 	-- 알람
-	alarm number(5) NOT NULL,
-	PRIMARY KEY (anivernum)
+	alarm number(5) NOT NULL
+
 );
 
 
@@ -173,7 +173,7 @@ CREATE TABLE calender
 CREATE TABLE chat
 (
 	-- 채팅번호
-	cnum number(5) NOT NULL UNIQUE,
+	cnum number(5) primary key,
 	-- 상태 : 0:텍스트
 	-- 1:이모티콘
 	-- 2:사진
@@ -192,10 +192,11 @@ CREATE TABLE chat
 	-- 파일크기
 	imgsize long,
 	-- 채팅방번호
-	clnum number(5) NOT NULL UNIQUE,
+   clnum number(5) ,
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
-	PRIMARY KEY (cnum)
+	num number(5), 
+	Constraint fk_e Foreign Key (clnum,num) References attendinfo(clnum,num)
+	
 );
 
 
@@ -203,10 +204,10 @@ CREATE TABLE chat
 CREATE TABLE chatlist
 (
 	-- 채팅방번호
-	clnum number(5) NOT NULL UNIQUE,
+	clnum number(5) primary key,
 	-- 채팅방이름
-	name varchar2(50),
-	PRIMARY KEY (clnum)
+	name varchar2(50)
+	
 );
 
 
@@ -214,14 +215,15 @@ CREATE TABLE chatlist
 CREATE TABLE chatnotice
 (
 	-- 공지번호
-	noticenum number(5) NOT NULL,
+	noticenum number(5) primary key,
 	-- 공지
 	notice varchar2(50),
 	-- 채팅방번호
-	clnum number(5) NOT NULL UNIQUE,
+	clnum number(5) ,
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
-	PRIMARY KEY (noticenum)
+	num number(5), 
+	Constraint fk_ade Foreign Key (clnum,num) References attendinfo(clnum,num)
+	
 );
 
 
@@ -233,10 +235,11 @@ CREATE TABLE chatstate
 	-- 즐겨찾기
 	favo number(5),
 	-- 채팅방번호
-	clnum number(5) NOT NULL UNIQUE,
+	clnum number(5) ,
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
-	PRIMARY KEY (clnum, num)
+	num number(5), 
+	Constraint fk_age Foreign Key (clnum,num) References attendinfo(clnum,num),
+	CONSTRAINT chatstatekey PRIMARY KEY (clnum,num)
 );
 
 
@@ -244,11 +247,11 @@ CREATE TABLE chatstate
 CREATE TABLE comments
 (
 	-- 코멘트번호
-	commnum number(5) NOT NULL UNIQUE,
+	commnum number(5) primary key,
 	-- 스토리번호
-	storynum number(5) NOT NULL UNIQUE,
+	storynum number(5) references story (storynum),
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
+	num number(5) references account (num),
 	-- 코멘트내용
 	commcontent varchar2(50) NOT NULL,
 	-- 코멘트그룹번호
@@ -256,8 +259,8 @@ CREATE TABLE comments
 	-- 코멘트레벨
 	commlev number(5) NOT NULL,
 	-- 코멘트출력순서
-	commstep number(5) NOT NULL,
-	PRIMARY KEY (commnum)
+	commstep number(5) NOT NULL
+	
 );
 
 
@@ -265,14 +268,14 @@ CREATE TABLE comments
 CREATE TABLE emoshop
 (
 	-- 이모티콘그룹번호
-	emognum number(5) NOT NULL,
+	emognum number(5) primary key,
 	-- 가격
 	price number(10) NOT NULL,
 	-- 이모티콘그룹이름
 	name varchar2(50) NOT NULL,
 	-- 카테고리
-	category varchar2(20),
-	PRIMARY KEY (emognum)
+	category varchar2(20)
+	
 );
 
 
@@ -280,16 +283,16 @@ CREATE TABLE emoshop
 CREATE TABLE emoticon
 (
 	-- 이모티콘번호
-	emonum number(5) NOT NULL UNIQUE,
+	emonum number(5) primary key,
 	-- 이모티콘그룹번호
-	emognum number(5) NOT NULL,
+	emognum number(5) references emoshop (emognum),
 	-- 이모티콘원본이미지명
 	emoorgimg varchar2(50),
 	-- 이모티콘저장이미지명
 	emosaveimg varchar2(50),
 	-- 이모티콘파일크기
-	emoimgsize long,
-	PRIMARY KEY (emonum)
+	emoimgsize long
+	
 );
 
 
@@ -297,10 +300,10 @@ CREATE TABLE emoticon
 CREATE TABLE emoticongroup
 (
 	-- 이모티콘그룹번호
-	emognum number(5) NOT NULL,
+	emognum number(5) references emoshop (emognum),
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
-	PRIMARY KEY (emognum, num)
+	num number(5) references account (num),
+	CONSTRAINT emoticongroupkey PRIMARY KEY (emognum,num)
 );
 
 
@@ -308,14 +311,14 @@ CREATE TABLE emoticongroup
 CREATE TABLE favorlist
 (
 	-- 찜번호
-	favornum number(5) NOT NULL,
+	favornum number(5) primary key,
 	-- 찜
 	favor number(5),
 	-- 이모티콘그룹번호
-	emognum number(5) NOT NULL,
+	emognum number(5) references emoshop (emognum),
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
-	PRIMARY KEY (favornum)
+	num number(5)  references account (num)
+	
 );
 
 
@@ -323,7 +326,7 @@ CREATE TABLE favorlist
 CREATE TABLE friendlist
 (
 	-- 회원번호
-	num number(5) NOT NULL,
+	num number(5) references account (num),
 	-- 친구번호
 	fnum number(5) NOT NULL UNIQUE,
 	-- 즐겨찾기
@@ -332,7 +335,7 @@ CREATE TABLE friendlist
 	spam number(5),
 	-- 승인여부
 	approv number(5),
-	PRIMARY KEY (num, fnum)
+	CONSTRAINT friendkey PRIMARY KEY (num,fnum)
 );
 
 
@@ -340,14 +343,14 @@ CREATE TABLE friendlist
 CREATE TABLE nationalday
 (
 	-- 기념일번호
-	anivernum number(5) NOT NULL UNIQUE,
+	anivernum number(5) PRIMARY KEY,
 	-- 기념일이름
 	anivername varchar2(50) NOT NULL,
 	-- 기념일날짜
 	aniverregdate date,
 	-- 기념일내용
-	anivercontent varchar2(50),
-	PRIMARY KEY (anivernum)
+	anivercontent varchar2(50)
+	
 );
 
 
@@ -355,7 +358,7 @@ CREATE TABLE nationalday
 CREATE TABLE notice
 (
 	-- 공지사항번호
-	noticenum number(5) NOT NULL UNIQUE,
+	noticenum number(5) PRIMARY KEY,
 	-- 공지사항제목
 	noticetitle varchar2(50) NOT NULL,
 	-- 공지사항내용
@@ -363,8 +366,8 @@ CREATE TABLE notice
 	-- 공지사항작성일자
 	noticeregdate date NOT NULL,
 	-- 공지사항상태
-	noticestate number(5) DEFAULT 0 NOT NULL,
-	PRIMARY KEY (noticenum)
+	noticestate number(5) DEFAULT 0 NOT NULL
+
 );
 
 
@@ -372,14 +375,14 @@ CREATE TABLE notice
 CREATE TABLE options
 (
 	-- 옵션번호
-	optionnum number(5) NOT NULL,
+	optionnum number(5) PRIMARY KEY,
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
+	num number(5) references account (num),
 	-- 폰트크기
 	fontsize number(5) NOT NULL,
 	-- 테마
-	theme varchar2(50) NOT NULL,
-	PRIMARY KEY (optionnum)
+	theme varchar2(50) NOT NULL
+
 );
 
 
@@ -387,14 +390,14 @@ CREATE TABLE options
 CREATE TABLE present
 (
 	-- 선물번호
-	presnum number(5) NOT NULL,
+	presnum number(5) PRIMARY KEY,
 	-- 이모티콘그룹번호
-	emognum number(5) NOT NULL,
+	emognum number(5) references emoshop (emognum),
 	-- 주는사람
-	gnum number(5) NOT NULL UNIQUE,
+	gnum number(5) references account (num),
 	-- 받는사람
-	rnum number(5) NOT NULL UNIQUE,
-	PRIMARY KEY (presnum)
+	rnum number(5) references account (num)
+	
 );
 
 
@@ -402,7 +405,7 @@ CREATE TABLE present
 CREATE TABLE profiles
 (
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
+	num number(5) references account (num) ,
 	-- 이름
 	name varchar2(20) NOT NULL,
 	-- 전화번호
@@ -425,9 +428,9 @@ CREATE TABLE profiles
 CREATE TABLE qna
 (
 	-- 문의번호
-	qnanum number(5) NOT NULL UNIQUE,
+	qnanum number(5) PRIMARY KEY,
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
+	num number(5) references account (num),
 	-- 문의카테고리
 	qnacategory number(5) NOT NULL,
 	-- 문의제목
@@ -439,8 +442,8 @@ CREATE TABLE qna
 	-- 문의답변
 	qnaanswer varchar2(100) NOT NULL,
 	-- 문의답변작성일자
-	qnaqnswerregdate date NOT NULL,
-	PRIMARY KEY (qnanum)
+	qnaqnswerregdate date NOT NULL
+	
 );
 
 
@@ -448,12 +451,13 @@ CREATE TABLE qna
 CREATE TABLE readinfo
 (
 	-- 채팅번호
-	cnum number(5) NOT NULL UNIQUE,
-	-- 채팅방번호
-	clnum number(5) NOT NULL UNIQUE,
+	cnum number(5) references chat (cnum),
+
+	clnum number(5) ,
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
-	PRIMARY KEY (cnum, num)
+	num number(5), 
+	Constraint fk_ae Foreign Key (clnum,num) References attendinfo(clnum,num),
+	CONSTRAINT  readinfokey PRIMARY KEY (num,cnum)
 );
 
 
@@ -461,9 +465,9 @@ CREATE TABLE readinfo
 CREATE TABLE story
 (
 	-- 스토리번호
-	storynum number(5) NOT NULL UNIQUE,
+	storynum number(5) primary key,
 	-- 회원번호
-	num number(5) NOT NULL UNIQUE,
+	num number(5) references account (num),
 	-- 스토리제목
 	stitle varchar2(50) NOT NULL,
 	-- 스토리내용
@@ -475,8 +479,8 @@ CREATE TABLE story
 	-- 저장이미지이름
 	saveimg varchar2(50),
 	-- 파일크기
-	imgsize long,
-	PRIMARY KEY (storynum)
+	imgsize long
+	
 );
 
 
