@@ -20,6 +20,8 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	
+	<!-- 컨트롤러 어노테이션 설정 -->
 	<context:annotation-config/>
 	<context:component-scan base-package="fproject.app.fproject.Controller" />
 	
