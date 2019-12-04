@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import fproject.app.fproject.dao.MemberDao;
 import fproject.app.fproject.vo.AccountVo;
+import fproject.app.fproject.vo.ProfilesVo;
 
 @Repository
 public class MemberService {
@@ -14,7 +15,15 @@ public class MemberService {
 		this.dao = dao;
 	}
 	
-	public void insert(AccountVo vo) {
-		dao.insert(vo);
+	public int insert(AccountVo vo) {
+		return dao.insert(vo);
+	}
+	
+	public ProfilesVo selectOneNum(int num) {
+		return dao.selectOneNum(num);
+	}
+	
+	public AccountVo selectOneId(String id) {
+		return dao.selectOneId(id);
 	}
 }

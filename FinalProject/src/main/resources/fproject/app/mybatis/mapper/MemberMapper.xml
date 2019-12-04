@@ -5,7 +5,15 @@
 <mapper namespace="fproject.app.mybatis.mapper.MemberMapper">
 
 <insert id="insert" parameterType="fproject.app.fproject.vo.AccountVo">
-		insert into Account values(SEQ_num.nextval, #{id}, #{pwd})
+	insert into Account values(SEQ_num.nextval, #{id}, #{pwd})
 </insert>
+
+<select id="selectOneNum" parameterType="int" resultType="fproject.app.fproject.vo.ProfilesVo">
+	select * from profiles where num=#{num}
+</select>
+
+<select id="selectOneId" parameterType="String" resultType="fproject.app.fproject.vo.AccountVo">
+	select * from account where id=#{id}
+</select>
 
 </mapper>
