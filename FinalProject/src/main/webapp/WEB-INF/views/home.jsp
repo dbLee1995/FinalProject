@@ -89,6 +89,24 @@
 				              <p class="mb-4"> 6개월동안 열심히 해요!</p>
 				              <!-- 주소 변경 -->
 				              <p><a href="${pageContext.request.contextPath }/member/register" class="btn-custom">회원가입<span class="ion-ios-arrow-forward"></span></a></p>
+				            
+				            <ul>
+				              <c:choose>
+								<c:when test="${empty sessionScope.id }">
+									<li>
+									<a href="${pageContext.request.contextPath }/member/login" class="btn-custom">회원로그인<span class="ion-ios-arrow-forward"></span></a>
+									</li>
+								</c:when>
+								<c:otherwise>		
+									<li>${sessionScope.id }님 환영합니다.
+									<a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
+								</c:otherwise>
+							</c:choose>	
+							</ul>
+				            
+				            
+				            
+				            
 				            </div>
 									</div>
 								</div>
