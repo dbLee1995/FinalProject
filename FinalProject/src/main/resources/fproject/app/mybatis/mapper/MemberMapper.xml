@@ -16,4 +16,8 @@
 	select * from account where id=#{id}
 </select>
 
+<select id="isMember" parameterType="fproject.app.fproject.vo.AccountVo" resultType="fproject.app.fproject.vo.AccountVo">
+		select * from account where id=#{id} and pwd=#{pwd}
+</select>
+
 </mapper>
