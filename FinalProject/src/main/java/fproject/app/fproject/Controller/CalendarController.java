@@ -44,7 +44,7 @@ public class CalendarController {
 		JSONArray arr=new JSONArray();
 		int num=(Integer)(session.getAttribute("num"));
 		List<CalenderVo> list1=Cservice.list(num);
-		System.out.println(num);
+		
 		for (CalenderVo vo:list1){
 			JSONObject json=new JSONObject();			
 			json.put("_id", vo.getAnivernum());	
@@ -70,6 +70,7 @@ public class CalendarController {
 	public void insert(CalenderVo vo,HttpSession session) throws Exception{
 		int num=(Integer)(session.getAttribute("num"));
 		vo.setNum(num);
+		System.out.println(vo.getNum());
 		if(vo.getAllday().equals("true")){
 			Cservice.insertTrue(vo);
 		}else{
