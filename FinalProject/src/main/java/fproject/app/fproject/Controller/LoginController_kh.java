@@ -28,6 +28,7 @@ public class LoginController_kh {
 		
 		AccountVo vo1=service.isMember(vo);
 		if(vo1!=null){
+			session.setAttribute("num",vo1.getNum());
 			session.setAttribute("id",id);
 			return "redirect:/";	// "/"로 시작하지 않으면 @RequestMapping 경로를 기준으로 Redirect 된다.
 

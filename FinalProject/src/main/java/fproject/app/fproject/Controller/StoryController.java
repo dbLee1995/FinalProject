@@ -44,7 +44,7 @@ public class StoryController {
                 this.aservice=aservice;
         }
 	@RequestMapping(value="/story/list",method=RequestMethod.GET)
-	public ModelAndView list(String id,int num){
+	public ModelAndView list(int num){
 		List<StoryVo> list=service.list(num);
 		AccountVo vo=aservice.info(num);
 		ModelAndView mv=new ModelAndView("story/list");		
