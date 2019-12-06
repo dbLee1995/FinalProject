@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	${id }
+	${sessionScope.id }
 	<input type="text" value="1" id="room" disabled>
 	<c:forEach var="cl" items="${ChatList }">
 		<p>${cl.name }</p>
@@ -40,15 +40,15 @@
 <script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
 <script type="text/javascript">
 	var sock=null;
-	var id='${id}';
+	var id='${sessionScope.id}';
 	var ws=null;
 	$(function(){
 		$("#textID").focus();
-		if(id=='admin'){
-			//ws=new WebSocket("ws://localhost:9090/fproject/echo");
-		}else{
-			//ws=new WebSocket("ws://192.168.0.30:9090/fproject/echo");
+		if(id=='test'){
 			ws=new WebSocket("ws://localhost:9090/fproject/echo");
+		}else{
+			ws=new WebSocket("ws://192.168.0.30:9090/fproject/echo");
+			//ws=new WebSocket("ws://localhost:9090/fproject/echo");
 		}
 		function entermsg(){
 			var msg=$('input[name=chatInput]').val().trim("!%/");
