@@ -47,7 +47,7 @@
 							<li><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>								
 						</c:otherwise>	 
 					</c:choose>
-					<li><a href="travel.html">Travel</a></li>
+					<li><a href="${pageContext.request.contextPath}/ChatList">WebSocket</a></li>
 					<li><a href="about.html">About</a></li>
 					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
 				</ul>
