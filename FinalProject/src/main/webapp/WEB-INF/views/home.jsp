@@ -88,14 +88,15 @@
 				              <p class="mb-4">반갑습니다.</p>
 				              <p class="mb-4"> 6개월동안 열심히 해요!</p>
 				              <!-- 테스트 기능 주소들 -->
-				              <p><a href="${pageContext.request.contextPath }/member/register" class="btn-custom">회원가입<span class="ion-ios-arrow-forward"></span></a></p>
-<<<<<<< HEAD
+				              <p><a href="${pageContext.request.contextPath }/member/register" class="btn-custom">
+				              		회원가입<span class="ion-ios-arrow-forward"></span></a></p>
 				            
 				            <ul>
 				              <c:choose>
 								<c:when test="${empty sessionScope.id }">
 									<li>
-									<a href="${pageContext.request.contextPath }/member/login" class="btn-custom">회원로그인<span class="ion-ios-arrow-forward"></span></a>
+									<a href="${pageContext.request.contextPath }/member/login" class="btn-custom">
+										회원로그인<span class="ion-ios-arrow-forward"></span></a>
 									</li>
 								</c:when>
 								<c:otherwise>		
@@ -105,12 +106,8 @@
 							</c:choose>	
 							</ul>
 				            
-				            
-				            
-				            
-=======
+
 				              <p><a href="${cp }/emoticonShop/uploadEmoFile">이모티콘 올리기<span class="ion-ios-arrow-forward"></span></a></p>
->>>>>>> branch 'master' of https://github.com/dbLee1995/FinalProject.git
 				            </div>
 									</div>
 								</div>
