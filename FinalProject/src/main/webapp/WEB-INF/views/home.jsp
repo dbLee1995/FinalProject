@@ -108,7 +108,7 @@
 				            
 
 				              <p><a href="${cp }/emoticonShop/uploadEmoFile">이모티콘 올리기<span class="ion-ios-arrow-forward"></span></a></p>
-				            </div>
+				            	</div>
 									</div>
 								</div>
 								<div class="col-md-12">
