@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.mybatis.mapper.CommentsMapper">
+	<select id="list" resultType="fproject.app.fproject.vo.CommentsVo" >
+		select * from comments
+	</select>
+
+	<!-- order="BEFORE" ==> insert수행전에 selectkey가 실행됨 -->
+<!-- <insert id="insert" parameterType="fproject.app.fproject.vo.CommentsVo">
+       	insert into comments values(SQL_commnum.nextval,#{storynum},#{num},
+       		#{commcontent},#{commref},#{commlev},#{commstep})
+       	<if test="commnum!=null">
+       		<selectKey resultType="int" keyProperty="commnum" order="BEFORE">
+       		
+       		</selectKey>
+       	</if>
+       	
+	</insert>--><!-- <![CDATA[>]]> -->
+	
+	<insert id="insert" parameterType="fproject.app.fproject.vo.CommentsVo">
+		insert into comments values(SEQ_commnum.nextval,#{storynum},#{num},#{commcontent},#{commref},#{commlev},#{commstep})
+	</insert>
+	
+	<update id="update" parameterType="fproject.app.fproject.vo.CommentsVo">
+		update comments set commcontent=#{commcontent} where commnum=#{commnum}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from comments where commnum=#{commnum}
+	</delete>
+	
+</mapper>

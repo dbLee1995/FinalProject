@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fproject.app.mybatis.mapper.StoryMapper"> 
+	<!--  parameterType="int" -->
+
+<!-- <select id="list" resultType="hashmap" parameterType="int">
+		select s.*,a.* from story s left outer join account a on s.num=a.num 
+		where s.num=#{num} order by sregdate desc
+	</select> -->
+	
+	<select id="list" resultType="fproject.app.fproject.vo.StoryVo" parameterType="int">
+		select s.* from story s, account a
+		where s.num=#{num} and s.num=a.num order by sregdate desc
+	</select>
+	
+	<select id="info" resultType="fproject.app.fproject.vo.StoryVo" parameterType="int">
+		select * from story where storynum=#{storynum}
+	</select>
+	
+	<insert id="insert" parameterType="fproject.app.fproject.vo.StoryVo">
+        insert into story values
+        (SEQ_storynum.nextval,#{num},#{stitle},#{scontent},sysdate,#{orgimg},#{saveimg},#{imgsize})	
+	</insert>
+	
+	<update id="update" parameterType="fproject.app.fproject.vo.StoryVo">
+		update story 
+		set stitle=#{stitle},scontent=#{scontent} 
+		<if test="orgimg!=null">,
+		orgimg=#{orgimg},saveimg=#{saveimg},imgsize=#{imgsize}
+		</if>
+		where storynum=#{storynum}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from story where storynum=#{storynum}
+	</delete>
+	
+</mapper>

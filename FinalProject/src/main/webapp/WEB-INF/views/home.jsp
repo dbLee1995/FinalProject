@@ -39,7 +39,14 @@
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
 					<li class="colorlib-active"><a href="index.html">Home</a></li>
-					<li><a href="fashion.html">Fashion</a></li>
+					<c:choose>
+						<c:when test="${empty sessionScope.id}">					
+							<li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
+						</c:when>	
+				 		<c:otherwise>
+							<li><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>								
+						</c:otherwise>	 
+					</c:choose>
 					<li><a href="travel.html">Travel</a></li>
 					<li><a href="about.html">About</a></li>
 					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
