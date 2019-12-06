@@ -42,7 +42,9 @@ public class CalendarController {
 	@ResponseBody
 	public String list(HttpSession session){
 		JSONArray arr=new JSONArray();
-		List<CalenderVo> list1=Cservice.list(Integer.parseInt((String)session.getAttribute("num")));	
+		int num=(Integer)(session.getAttribute("num"));
+		List<CalenderVo> list1=Cservice.list(num);
+		System.out.println(num);
 		for (CalenderVo vo:list1){
 			JSONObject json=new JSONObject();			
 			json.put("_id", vo.getAnivernum());	
@@ -66,7 +68,8 @@ public class CalendarController {
 	}
 	@RequestMapping(value = "/calendar/insert",method=RequestMethod.POST)
 	public void insert(CalenderVo vo,HttpSession session) throws Exception{
-		vo.setNum(Integer.parseInt((String)session.getAttribute("num")));
+		int num=(Integer)(session.getAttribute("num"));
+		vo.setNum(num);
 		if(vo.getAllday().equals("true")){
 			Cservice.insertTrue(vo);
 		}else{
