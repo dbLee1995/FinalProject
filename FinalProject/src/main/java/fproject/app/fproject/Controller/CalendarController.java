@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
@@ -38,12 +40,12 @@ public class CalendarController {
 	};
 	@RequestMapping(value="/calendar/list",produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String list(){
+	public String list(HttpSession session){
 		JSONArray arr=new JSONArray();
-		List<CalenderVo> list1=Cservice.list();	
+		List<CalenderVo> list1=Cservice.list(Integer.parseInt((String)session.getAttribute("num")));	
 		for (CalenderVo vo:list1){
 			JSONObject json=new JSONObject();			
-			json.put("_id", vo.getAnivernum());
+			json.put("_id", vo.getAnivernum());	
 			json.put("title", vo.getAnivername());
 			json.put("description", vo.getAnivercontent());	
 			json.put("type",vo.getAniverimpor());
@@ -63,7 +65,8 @@ public class CalendarController {
 		return arr.toString();
 	}
 	@RequestMapping(value = "/calendar/insert",method=RequestMethod.POST)
-	public void insert(CalenderVo vo) throws Exception{
+	public void insert(CalenderVo vo,HttpSession session) throws Exception{
+		vo.setNum(Integer.parseInt((String)session.getAttribute("num")));
 		if(vo.getAllday().equals("true")){
 			Cservice.insertTrue(vo);
 		}else{

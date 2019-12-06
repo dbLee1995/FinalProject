@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fproject.app.mybatis.mapper.CalendarMapper">
-	<select id="list" resultType="fproject.app.fproject.vo.CalenderVo">
-		select * from calendar
+	<select id="list" resultType="fproject.app.fproject.vo.CalenderVo" parameterType="int">
+		select * from calendar where num=#{num}
 	</select>
 	<insert id="insertTrue" parameterType="fproject.app.fproject.vo.CalenderVo">
 		insert into calendar values(SEQ_anivernum.nextval,1,#{anivername},#{aniverstartdate},#{aniverenddate},#{anivercontent},#{aniverimpor},#{anivertype},#{aniverback},#{anivertext},#{aniveralarm},'true')

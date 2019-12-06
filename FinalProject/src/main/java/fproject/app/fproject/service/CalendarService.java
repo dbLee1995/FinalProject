@@ -12,8 +12,8 @@ import fproject.app.fproject.vo.CalenderVo;
 public class CalendarService {
 	@Autowired
 	private CalendarDao dao;
-	public List<CalenderVo> list(){
-		return dao.list();
+	public List<CalenderVo> list(int num){
+		return dao.list(num);
 	};
 	public int insertTrue(CalenderVo vo){
 		return dao.insertTrue(vo);

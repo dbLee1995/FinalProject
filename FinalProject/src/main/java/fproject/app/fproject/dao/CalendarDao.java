@@ -15,8 +15,8 @@ public class CalendarDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private final String NAMESPACE="fproject.app.mybatis.mapper.CalendarMapper";
 	
-	public List<CalenderVo> list(){
-		return sqlSessionTemplate.selectList(NAMESPACE+".list");
+	public List<CalenderVo> list(int num){
+		return sqlSessionTemplate.selectList(NAMESPACE+".list",num);
 	}
 	public int insertTrue(CalenderVo vo){
 		return sqlSessionTemplate.insert(NAMESPACE+".insertTrue",vo);
