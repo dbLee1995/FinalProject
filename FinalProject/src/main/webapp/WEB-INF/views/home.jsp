@@ -87,8 +87,9 @@
 				              <p class="mb-4">3. 실행하기 - C:\java>java Test01</p>
 				              <p class="mb-4">반갑습니다.</p>
 				              <p class="mb-4"> 6개월동안 열심히 해요!</p>
-				              <!-- 주소 변경 -->
+				              <!-- 테스트 기능 주소들 -->
 				              <p><a href="${pageContext.request.contextPath }/member/register" class="btn-custom">회원가입<span class="ion-ios-arrow-forward"></span></a></p>
+<<<<<<< HEAD
 				            
 				            <ul>
 				              <c:choose>
@@ -107,6 +108,9 @@
 				            
 				            
 				            
+=======
+				              <p><a href="${cp }/emoticonShop/uploadEmoFile">이모티콘 올리기<span class="ion-ios-arrow-forward"></span></a></p>
+>>>>>>> branch 'master' of https://github.com/dbLee1995/FinalProject.git
 				            </div>
 									</div>
 								</div>
