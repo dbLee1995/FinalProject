@@ -10,7 +10,7 @@
 		insert into calendar values(SEQ_anivernum.nextval,#{num},#{anivername},#{aniverstartdate},#{aniverenddate},#{anivercontent},#{aniverimpor},#{anivertype},#{aniverback},#{anivertext},#{aniveralarm},'true')
 	</insert>
 	<insert id="insertFalse" parameterType="fproject.app.fproject.vo.CalenderVo">
-		insert into calendar values(SEQ_anivernum.nextval,1,#{anivername},#{aniverstartdate},#{aniverenddate},#{anivercontent},#{aniverimpor},#{anivertype},#{aniverback},#{anivertext},#{aniveralarm},'false')
+		insert into calendar values(SEQ_anivernum.nextval,#{num},#{anivername},#{aniverstartdate},#{aniverenddate},#{anivercontent},#{aniverimpor},#{anivertype},#{aniverback},#{anivertext},#{aniveralarm},'false')
 	</insert>
 	<update id="updateTrue" parameterType="fproject.app.fproject.vo.CalenderVo">
 		update calendar set anivername=#{anivername},aniverstartdate=#{aniverstartdate},aniverenddate=#{aniverenddate},anivercontent=#{anivercontent},aniverimpor=#{aniverimpor},aniverback=#{aniverback},aniveralarm=#{aniveralarm},allday='true' where anivernum=#{anivernum}
