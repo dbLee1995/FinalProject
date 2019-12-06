@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/sockjs.js"></script>
 <body>
 	${sessionScope.id }
 	<input type="text" value="1" id="room" disabled>
@@ -37,12 +39,38 @@
 		</tr>
 	</table>
 </body>
-<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+
 <script type="text/javascript">
-	var sock=null;
-	var id='${sessionScope.id}';
-	var ws=null;
-	$(function(){
+$(document).ready(function() {
+
+
+	$("#buttonMessage").click(function() {
+
+			sendMessage();
+
+			$('#textID').val('')
+
+		});
+
+		$("#textID").keydown(function(key) {
+
+			if (key.keyCode == 13) {// 엔터
+
+				sendMessage();
+
+				$('#textID').val('')
+
+			}
+
+		});
+	});
+
+	var sock = new SockJS("<c:url value="/echo"/>");
+	sock.onmessage = onMessage;
+	sock.onclose = onClose;
+	var id = '${sessionScope.id}';
+	var ws = null;
+	/*$(function(){
 		$("#textID").focus();
 		if(id=='test'){
 			ws=new WebSocket("ws://localhost:9090/fproject/echo");
@@ -50,7 +78,7 @@
 			ws=new WebSocket("ws://192.168.0.30:9090/fproject/echo");
 			//ws=new WebSocket("ws://localhost:9090/fproject/echo");
 		}
-		function entermsg(){
+		/*function entermsg(){
 			var msg=$('input[name=chatInput]').val().trim("!%/");
 			var room=$("#room").val().trim("!%/");
 			ws.send(msg+"!%/"+room);
@@ -76,7 +104,24 @@
 			if(jsonData.message!=null){
 				$("#output").append(jsonData.message+"<br>");
 			}
-		};
-	});
+		};*/
+
+	function sendMessage() {
+
+		sock.send($("#textID").val());
+
+	}
+	function onMessage(msg) {
+
+		var data = msg.data;
+
+		$("#output").append(data + "<br/>");
+
+	}
+	function onClose(evt) {
+
+		$("#output").append("연결 끊김");
+
+	}
 </script>
 </html>

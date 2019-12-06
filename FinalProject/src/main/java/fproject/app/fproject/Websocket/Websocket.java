@@ -39,17 +39,17 @@ public class Websocket extends TextWebSocketHandler{
 	public void afterConnectionEstablished(
 			WebSocketSession session) throws Exception {
 		
-		Map<String, Object> map=session.getAttributes();
+		/*Map<String, Object> map=session.getAttributes();
 		AccountVo avo=(AccountVo)map.get("login");
 		String accountId=avo.getId();
 		
 		AttendinfoVo attinfo=(AttendinfoVo)map.get("selectAttendinfo");
 		chatList.put(session, attinfo.getClnum());
-		System.out.println(accountId+"´ÔÀÌ"+attinfo.getClnum()+"¹ø ¹æ¿¡ µé¾î¿Ô½À´Ï´Ù!");
+		System.out.println(accountId+"ï¿½ï¿½ï¿½ï¿½"+attinfo.getClnum()+"ï¿½ï¿½ ï¿½æ¿¡ ï¿½ï¿½ï¿½Ô½ï¿½ï¿½Ï´ï¿½!");
 		
-		mapList.put(session, accountId);
+		mapList.put(session, accountId);*/
 		sessionList.add(session);
-		
+		/*
 		for(int i=0;i<sessionList.size();++i){
 			int chatlistNum=chatList.get(sessionList.get(i));
 			if(attinfo.getClnum()==chatlistNum){
@@ -57,13 +57,13 @@ public class Websocket extends TextWebSocketHandler{
 						new TextMessage(JsonDataOpen(avo.getNum(), avo.getId())));
 			}
 			accountList=informAccount(mapList, chatlistNum);
-			System.out.println("ÇöÀç ¹æ¿¡ Âü¼®ÁßÀÎ ÀÎ¿ø ¼ö:"+accountList.size());
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½æ¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¿ï¿½ ï¿½ï¿½:"+accountList.size());
 			ChatUtil chatUtil=new ChatUtil();
 			String AccountListMessage=chatUtil.split(accountList);
 			
 			sessionList.get(i).sendMessage(
 					new TextMessage(JsonUser(AccountListMessage)));
-		}
+		}*/
 	}
 	@Override
 	public void afterConnectionClosed(
@@ -100,13 +100,13 @@ public class Websocket extends TextWebSocketHandler{
 	@Override
 	protected void handleTextMessage(
 			WebSocketSession session, TextMessage message) throws Exception {
-		
+		/*
 		Map<String, Object> map=session.getAttributes();
 		AccountVo accvo=(AccountVo)map.get("login");
 		int accountNum=accvo.getNum();
-		
+		*/
 		System.out.println(message.getPayload());
-		
+	/*	
 		String msgArr[]=new String[2]; // 0:content 1:clnum
 		msgArr=message.getPayload().split("!%/");
 		
@@ -117,7 +117,7 @@ public class Websocket extends TextWebSocketHandler{
 							new TextMessage(JsonData(accountNum, msgArr[0])));
 				}
 			}
-		}
+		}*/
 	}
 	public String JsonData(int accountNum, Object msg){
 		//chatService.
@@ -131,7 +131,7 @@ public class Websocket extends TextWebSocketHandler{
 	}
 	public String JsonDataOpen(int accnum, String id){
 		JsonObject jsonObject=Json.createObjectBuilder().add("message", 
-				id+" ´ÔÀÌ ÀÔÀåÇß½À´Ï´Ù.").build();
+				id+" ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.").build();
 		StringWriter write=new StringWriter();
 		try(JsonWriter jsonWriter=Json.createWriter(write)){
 			jsonWriter.write(jsonObject);
@@ -140,7 +140,7 @@ public class Websocket extends TextWebSocketHandler{
 	}
 	public String JsonDataClose(int accnum, String id){
 		JsonObject jsonObject=Json.createObjectBuilder().add("message", 
-				id+" ´ÔÀÌ ÅðÀåÇß½À´Ï´Ù.").build();
+				id+" ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.").build();
 		StringWriter write=new StringWriter();
 		try(JsonWriter jsonWriter=Json.createWriter(write)){
 			jsonWriter.write(jsonObject);
@@ -166,7 +166,7 @@ public class Websocket extends TextWebSocketHandler{
 			int chatlistnum=chatList.get(sessionId);
 			
 			if(chatlistnum==clnum){
-				System.out.println("¾ÆÀÌµð:"+id+", ¹æÀÌ¸§:"+chatlistnum);
+				System.out.println("ï¿½ï¿½ï¿½Ìµï¿½:"+id+", ï¿½ï¿½ï¿½Ì¸ï¿½:"+chatlistnum);
 				list.add(id);
 			}
 		}
