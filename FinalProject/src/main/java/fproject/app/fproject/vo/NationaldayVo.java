@@ -39,5 +39,10 @@ public class NationaldayVo{
 	public void setAnivercontent(String anivercontent) {
 		this.anivercontent = anivercontent;
 	}
+	@Override
+	public String toString() {
+		return "NationaldayVo [anivernum=" + anivernum + ", anivername=" + anivername + ", aniverregdate="
+				+ aniverregdate + ", anivercontent=" + anivercontent + "]";
+	}
 	
 }
