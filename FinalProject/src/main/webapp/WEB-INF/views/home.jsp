@@ -42,7 +42,7 @@
 					<li><a href="fashion.html">Fashion</a></li>
 					<li><a href="travel.html">Travel</a></li>
 					<li><a href="about.html">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
+					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
 				</ul>
 			</nav>
 
@@ -441,7 +441,11 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
-    
+    <script type="text/javascript">
+  	function showCalendar(){
+  		window.open("calendar", "[캘린더]", "width=900, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no" );    
+  	};
+  </script>
   </body>
 </html>
 
