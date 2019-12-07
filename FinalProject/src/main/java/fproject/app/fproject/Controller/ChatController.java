@@ -22,15 +22,9 @@ public class ChatController {
 	@Autowired ChatService chatService;
 	@RequestMapping(value="/ChatList", method=RequestMethod.GET)
 	public String chat(Model model, HttpServletRequest req){
-		//AccountVo avo=(AccountVo)req.getSession().getAttribute("login");
-		AccountVo avo=new AccountVo(0, "test", "1234");
-		if(avo==null){
-			return "home";
-		}
-		List<ChatlistVo> clist=chatService.getRoomList();
-		model.addAttribute("ChatList",clist);
-		System.out.println(clist.get(0).getName());
-		System.out.println(clist.get(1).getName());
+		
+		//List<ChatlistVo> clist=chatService.getAttendInfo();
+		//model.addAttribute("ChatList",clist);
 		model.addAttribute("id","test");
 		return "ChatList";
 	}
@@ -52,6 +46,11 @@ public class ChatController {
 		// 인원 수만큼
 		chatService.addAttendInfo(new AttendinfoVo(1, 1, 1));
 		chatService.addAttendInfo(new AttendinfoVo(1, 2, 1));
+		return "";
+	}
+	@RequestMapping(value="/moveChatRoom")
+	public String moveChatRoom(Model model, int clnum){
+		
 		return "";
 	}
 }

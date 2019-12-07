@@ -14,7 +14,7 @@
 	${sessionScope.id }
 	<input type="text" value="1" id="room" disabled>
 	<c:forEach var="cl" items="${ChatList }">
-		<p>${cl.name }</p>
+		<a href="${pageContext.request.contextPath }/moveChatRoom?clnum=${cl.clnum}">${cl.name }</a><br>
 	</c:forEach>
 	<table style="height=:600px; width:900px;">
 		<col width="200px">

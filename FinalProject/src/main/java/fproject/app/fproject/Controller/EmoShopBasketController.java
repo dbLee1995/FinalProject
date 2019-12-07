@@ -29,9 +29,10 @@ public class EmoShopBasketController {
 		int userNum = memberService.selectOneId(userID).getNum(); // 사용자 번호 받아오기
 		
 		int totalNum = favorListService.selectOneTotalNum(userNum); // 보관항목수
-		int totalPageNum = ; // 전체 페이지 수
-		int thisPage = ; // 
-		int pageListNum = ; // 페이지목록 길이
+		int 
+		int totalPageNum = totalNum; // 전체 페이지 수
+		int thisPage = 1; // 
+		int pageListNum = 7; // 페이지목록 길이
 		List<FavorlistVo> list = favorListService.selectList(userNum);
 		return "emoticonShop/emoBasket";
 	}
