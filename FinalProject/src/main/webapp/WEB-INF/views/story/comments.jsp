@@ -125,9 +125,14 @@
 		                <h3 class="mb-5">Leave a comment</h3>
 		                <form method="post" action="${pageContext.request.contextPath }/story/comments" class="p-3 p-md-5 bg-light">
 		                  <div class="form-group">
-		                    <label for="name" >Name *</label><br>
-		                    <label for="id" style="font-size:1.2em;">${sessionScope.id}</label>
-		                    <!-- <input type="text" name="id" value="${sessionScope.id}" disabled class="form-control" id="name"> -->
+		                  <div class="author mb-4 d-flex align-items-center">
+		                  	<a href="#" class="img" style="background-image: url(${profileimg});"></a>
+		                    <div class="ml-3 info">
+		                   	 	<label for="num" >Name *</label><br>
+		                   	 	<input type="hidden" name="num">
+		                    	<label for="id" style="font-size:1.2em;">${sessionScope.id}</label>
+		                  	</div>
+		                  </div>
 		                  </div>		                 
 		                  <div class="form-group">
 		                    <label for="message">Message</label>

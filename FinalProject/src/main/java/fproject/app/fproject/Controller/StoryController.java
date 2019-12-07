@@ -22,32 +22,41 @@ import org.springframework.web.servlet.ModelAndView;
 
 import fproject.app.fproject.service.AccountService;
 import fproject.app.fproject.service.CommentsService;
+import fproject.app.fproject.service.ProfilesService;
 import fproject.app.fproject.service.StoryService;
 import fproject.app.fproject.vo.AccountVo;
 import fproject.app.fproject.vo.CommentsVo;
+import fproject.app.fproject.vo.ProfilesVo;
 import fproject.app.fproject.vo.StoryVo;
 
 @Controller
 public class StoryController {
 	@Autowired private StoryService service;
-        public void setService(StoryService service){
-                this.service=service;
-        }
+    public void setService(StoryService service){
+        this.service=service;
+    }
     @Autowired private CommentsService cservice;
-       	public void setCservice(CommentsService cservice){
-                this.cservice=cservice;
-        }
+    public void setCservice(CommentsService cservice){
+        this.cservice=cservice;
+    }
     @Autowired private AccountService aservice;
-       	public void setAservice(AccountService aservice){
-                this.aservice=aservice;
-        }
+    public void setAservice(AccountService aservice){
+        this.aservice=aservice;
+    }     	
+    @Autowired private ProfilesService pservice;
+    public void setPservice(ProfilesService pservice){
+    	this.pservice=pservice;
+    }
+    
 	@RequestMapping(value="/story/list",method=RequestMethod.GET)
 	public ModelAndView list(int num){
 		List<StoryVo> list=service.list(num);
 		AccountVo vo=aservice.info(num);
+		ProfilesVo pvo=pservice.info(num);
 		ModelAndView mv=new ModelAndView("story/list");		
 		mv.addObject("list",list);
 		mv.addObject("id",vo.getId());
+		mv.addObject("profileimg",pvo.getProfileimg());
 		return mv;
 		
 	}
@@ -146,16 +155,17 @@ public class StoryController {
 	public ModelAndView commentsForm(int storynum,int num){
 		StoryVo vo=service.info(storynum);
 		AccountVo avo=aservice.info(num);
+		ProfilesVo pvo=pservice.info(num);
 		ModelAndView mv=new ModelAndView("story/comments");		
 		mv.addObject("vo",vo);
 		mv.addObject("id",avo.getId());
+		mv.addObject("profileimg",pvo.getProfileimg());
 		return mv;
 	}
 	@RequestMapping(value="story/comments",method=RequestMethod.POST)
 	@ResponseBody
 	public String comments(CommentsVo vo){
 		int n=cservice.insert(vo);
-		
 		StringBuffer sb=new StringBuffer();
 		sb.append("<?xml version='1.0' encoding='utf-8'?>");
 		sb.append("<result>");
@@ -164,7 +174,9 @@ public class StoryController {
 		}else{			
 			sb.append("redirect:/story/comments");
 		}
+		sb.append("<result>");
 		return sb.toString();
 		
 	}
+	
 }

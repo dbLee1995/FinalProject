@@ -11,7 +11,7 @@ import fproject.app.fproject.vo.AccountVo;
 @Service
 public class AccountService {
 	@Autowired private AccountDao accountDao;
-	 public void setMembersDao(AccountDao accountDao){
+	 public void setAccountDao(AccountDao accountDao){
 		 this.accountDao=accountDao;
 	 }
 	 public AccountVo info(int num){

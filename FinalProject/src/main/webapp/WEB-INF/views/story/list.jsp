@@ -96,7 +96,7 @@
 				              <h3 class="mb-4"><a href="#">${list.stitle}</a></h3>
 				              <p class="mb-4">${list.scontent}</p>
 				              <div class="author mb-4 d-flex align-items-center">
-				            		<a href="#" class="img" style="background-image: url(${pageContext.request.contextPath}/resources/upload/${list.saveimg});"></a>
+				            		<a href="#" class="img" style="background-image: url(${profileimg});"></a>
 				            		<div class="ml-3 info">
 				            			<span>Written by</span>
 				            			<h3><a href="#">${id}</a>, <span>${list.sregdate}</span></h3>
@@ -111,7 +111,7 @@
 					              		<c:if test="${sessionScope.id == id}">
 					              			<span><a href="${pageContext.request.contextPath}/story/update?storynum=${list.storynum}&num=${sessionScope.num}"><i class="icon-person"></i>수정</a></span>
 					              		</c:if>
-					              		<c:if test="${sessionScope.in == id}">
+					              		<c:if test="${sessionScope.id == id}">
 					              			<span><a href="${pageContext.request.contextPath}/story/delete?storynum=${list.storynum}&num=${sessionScope.num}"><i class="icon-trash"></i>삭제</a></span>
 					              		</c:if>
 					              		
