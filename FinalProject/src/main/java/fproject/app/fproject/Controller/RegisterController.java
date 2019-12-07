@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import fproject.app.fproject.Util.RandomString;
+import fproject.app.fproject.Util.SendEmail;
 import fproject.app.fproject.service.MemberService;
 import fproject.app.fproject.vo.AccountVo;
-import util.RandomString;
-import util.SendEmail;
 
 @Controller
 public class RegisterController {

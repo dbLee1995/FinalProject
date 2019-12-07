@@ -1,4 +1,4 @@
-package util;
+package fproject.app.fproject.Util;
 
 import java.util.Properties;
 
