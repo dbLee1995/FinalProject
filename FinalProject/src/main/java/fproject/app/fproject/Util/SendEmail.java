@@ -12,8 +12,8 @@ import javax.mail.internet.MimeMessage;
 
 public class SendEmail {
 	private static final int PORT = 465;
-	private static final String HOST = "smtp.naver.com";
-	private static final String EMAIL_ADDRESS = "ui_01hwc<ui_01hwc@naver.com>";
+	private static final String HOST = "smtp.gmail.com";
+	private static final String EMAIL_ADDRESS = "ui.01hwc<ui_01hwc@gmail.com>";
 
 	public void send(String email, String certification) {
 		Properties p = System.getProperties();
@@ -25,7 +25,7 @@ public class SendEmail {
 			p.put("mail.smtp.auth", "true");
 
 			Session session = Session.getDefaultInstance(p, new javax.mail.Authenticator() {
-				private final String Un = "ui_01hwc@naver.com";
+				private final String Un = "ui.01hwc@gmail.com";
 				private final String Pw = "#Inanis10.";
 
 				protected PasswordAuthentication getPasswordAuthentication() {

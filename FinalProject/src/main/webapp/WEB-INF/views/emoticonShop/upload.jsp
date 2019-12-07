@@ -39,6 +39,11 @@
 
 
     <script type="text/javascript">
+    
+    	// 카테고리 목록 표시·추가 기능 추가할 것
+    	// 이모티콘 그룹명 중복 방지·알림 기능 방법 정하고 추가할 것(ajax/alert?)
+    	// 전단에서 유효성 검사하는 것으로 충분한지 검토해볼 것
+    
     	var priviewBox = document.getElementById("previewBox");
 		document.getElementById("file").addEventListener("change", e => {
 			clearPreviewImgBox();

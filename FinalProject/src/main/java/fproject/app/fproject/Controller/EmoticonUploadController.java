@@ -17,7 +17,7 @@ import fproject.app.fproject.vo.EmoshopVo;
 import fproject.app.fproject.vo.EmoticonVo;
 
 @Controller
-public class EmoticonShopController {
+public class EmoticonUploadController {
 	@Autowired
 	private EmoShopService service;
 
