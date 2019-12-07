@@ -9,6 +9,7 @@
 </head>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/sockjs.js"></script>
+<script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 <body>
 	${sessionScope.id }
 	<input type="text" value="1" id="room" disabled>
@@ -42,34 +43,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
-
-	$("#buttonMessage").click(function() {
-
-			sendMessage();
-
-			$('#textID').val('')
-
-		});
-
-		$("#textID").keydown(function(key) {
-
-			if (key.keyCode == 13) {// 엔터
-
-				sendMessage();
-
-				$('#textID').val('')
-
-			}
-
-		});
-	});
-
-	var sock = new SockJS("<c:url value="/echo"/>");
-	sock.onmessage = onMessage;
-	sock.onclose = onClose;
-	var id = '${sessionScope.id}';
-	var ws = null;
+	//document.write( ip() );
+	//alert(ip());
+	
 	/*$(function(){
 		$("#textID").focus();
 		if(id=='test'){
@@ -105,23 +81,32 @@ $(document).ready(function() {
 				$("#output").append(jsonData.message+"<br>");
 			}
 		};*/
+		
+	$("#buttonMessage").click(function() {
+		sendMessage();
+		$('#textID').val('')
+	});
+	$("#textID").keydown(function(key) {
+		if (key.keyCode == 13) {// 엔터
+			sendMessage();
+			$('#textID').val('')
+		}
+	});
+	var sock = new SockJS("<c:url value="/echo"/>");
+	sock.onmessage = onMessage;
+	sock.onclose = onClose;
+	var id = '${sessionScope.id}';
+	var ws = null;
 
 	function sendMessage() {
-
 		sock.send($("#textID").val());
-
 	}
 	function onMessage(msg) {
-
 		var data = msg.data;
-
 		$("#output").append(data + "<br/>");
-
 	}
 	function onClose(evt) {
-
 		$("#output").append("연결 끊김");
-
 	}
 </script>
 </html>

@@ -80,22 +80,6 @@ public class Websocket extends TextWebSocketHandler{
 		
 		chatService.deleteChat(attinfo);
 		
-		for(int i=0;i<sessionList.size();++i){
-			int chatlistNum=chatList.get(sessionList.get(i));
-			Iterator<WebSocketSession> chatlistIds=chatList.keySet().iterator();
-			while(chatlistIds.hasNext()){
-				WebSocketSession chatIdsessionName=chatlistIds.next();
-				if(attinfo.getClnum()==chatlistNum){
-					chatIdsessionName.sendMessage(
-							new TextMessage(JsonDataClose(accountNum, accvo.getId())));
-				}
-			}
-			accountList=informAccount(mapList, chatlistNum);
-			ChatUtil chatUtil=new ChatUtil();
-			String chatListMessage=chatUtil.split(accountList);
-			sessionList.get(i).sendMessage(
-					new TextMessage(JsonUser(chatListMessage)));
-		}
 	}
 	@Override
 	protected void handleTextMessage(
@@ -118,58 +102,5 @@ public class Websocket extends TextWebSocketHandler{
 				}
 			}
 		}*/
-	}
-	public String JsonData(int accountNum, Object msg){
-		//chatService.
-		JsonObject jsonObject=Json.createObjectBuilder().add("message",
-				""+accountNum+" : "+msg).build();
-		StringWriter write=new StringWriter();
-		try(JsonWriter jsonWriter=Json.createWriter(write)){
-			jsonWriter.write(jsonObject);
-		};
-		return write.toString();
-	}
-	public String JsonDataOpen(int accnum, String id){
-		JsonObject jsonObject=Json.createObjectBuilder().add("message", 
-				id+" ���� �����߽��ϴ�.").build();
-		StringWriter write=new StringWriter();
-		try(JsonWriter jsonWriter=Json.createWriter(write)){
-			jsonWriter.write(jsonObject);
-		};
-		return write.toString();
-	}
-	public String JsonDataClose(int accnum, String id){
-		JsonObject jsonObject=Json.createObjectBuilder().add("message", 
-				id+" ���� �����߽��ϴ�.").build();
-		StringWriter write=new StringWriter();
-		try(JsonWriter jsonWriter=Json.createWriter(write)){
-			jsonWriter.write(jsonObject);
-		};
-		return write.toString();
-	}
-	public String JsonUser(String id){
-		JsonObject jsonObject=Json.createObjectBuilder().add("list", id).build();
-		StringWriter write=new StringWriter();
-		try(JsonWriter jsonWriter=Json.createWriter(write)){
-			jsonWriter.write(jsonObject);
-		};
-		return write.toString();
-	}
-	private List<String> informAccount(
-			Map<WebSocketSession, String> maplist, int clnum){
-		List<String> list=new ArrayList<>();
-		Iterator<WebSocketSession> sessionIds=maplist.keySet().iterator();
-		while(sessionIds.hasNext()){
-			WebSocketSession sessionId=sessionIds.next();
-			String id=maplist.get(sessionId);
-			
-			int chatlistnum=chatList.get(sessionId);
-			
-			if(chatlistnum==clnum){
-				System.out.println("���̵�:"+id+", ���̸�:"+chatlistnum);
-				list.add(id);
-			}
-		}
-		return list;
 	}
 }
