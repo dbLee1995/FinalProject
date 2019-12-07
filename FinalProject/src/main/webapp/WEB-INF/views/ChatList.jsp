@@ -92,6 +92,7 @@ $(document).ready(function() {
 			$('#textID').val('')
 		}
 	});
+	});
 	var sock = new SockJS("<c:url value="/echo"/>");
 	sock.onmessage = onMessage;
 	sock.onclose = onClose;
@@ -105,6 +106,8 @@ $(document).ready(function() {
 		var data = msg.data;
 		$("#output").append(data + "<br/>");
 	}
+	// JSON.parse() -- String 객체를 json 객체로 변환
+	// JSON.stringify -- json 객체를 String 객체로 변환
 	function onClose(evt) {
 		$("#output").append("연결 끊김");
 	}
