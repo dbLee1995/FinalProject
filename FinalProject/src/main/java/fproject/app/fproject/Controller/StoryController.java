@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import fproject.app.fproject.dao.AccountDao;
 import fproject.app.fproject.service.AccountService;
 import fproject.app.fproject.service.CommentsService;
 import fproject.app.fproject.service.StoryService;
@@ -90,17 +88,18 @@ public class StoryController {
 	}
 	
 	@RequestMapping(value="story/update",method=RequestMethod.GET)
-	public String updateForm(int storynum,Model model){
+	public String updateForm(int storynum,int num,Model model){		
 		StoryVo vo=service.info(storynum);
+		AccountVo avo=aservice.info(num);
 		model.addAttribute("vo",vo);
+		model.addAttribute("id",avo.getId());
 		return "story/update";
 	}
 	@RequestMapping(value="story/update",method=RequestMethod.POST)
-	public String update(int storynum,int num,String stitle,String scontent,Date sregdate,
-			MultipartFile file1,HttpSession session){
-
-		try{
-          if(!file1.isEmpty()){ // 첨부된파일이 있는 경우
+	public String update(String id,int num,int storynum,String stitle,String scontent,
+			MultipartFile file1,HttpSession session,Model model){
+		try{			
+			if(!file1.isEmpty()){ // 첨부된파일이 있는 경우
           // 1. 기존파일 삭제
             String path=session.getServletContext()
                                .getRealPath("/resources/upload");
@@ -121,14 +120,16 @@ public class StoryController {
             fos.close();
             //3. db수정
             long imgsize=file1.getSize();
-            StoryVo vo1=new StoryVo(storynum,num,stitle,scontent,sregdate,orgimg,saveimg,imgsize);
-            service.update(vo1);                
+            StoryVo vo1=new StoryVo(storynum,num,stitle,scontent,null,orgimg,saveimg,imgsize); 
+            service.update(vo1);
+                      
           }else {//첨부된 파일이 없는 경우
             //db수정하기
-        	  StoryVo vo1=new StoryVo(storynum,num, stitle,scontent,null,null,null,0);
-        	  service.update(vo1);
-          }
-            return "redirect:/story/list";
+        	  StoryVo vo1=new StoryVo(storynum,num,stitle,scontent,null,null,null,0);      
+        	  service.update(vo1);        	  
+          }          	
+			
+            return "redirect:/story/list?num="+num;
           }catch(Exception e){
             e.printStackTrace();
             return "test/error";

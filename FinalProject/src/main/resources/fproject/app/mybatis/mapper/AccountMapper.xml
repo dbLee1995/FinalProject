@@ -6,4 +6,5 @@
 	<select id="info" resultType="fproject.app.fproject.vo.AccountVo" parameterType="int">
 		select * from account where num=#{num}
 	</select>
+	
 </mapper>

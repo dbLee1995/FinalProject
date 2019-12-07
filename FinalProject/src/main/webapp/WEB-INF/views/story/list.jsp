@@ -38,11 +38,18 @@
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
-					<li><a href="${pageContext.request.contextPath }/./">Home</a></li>
-					<li><a href="fashion.html">Fashion</a></li>
-					<li class="colorlib-active"><a href="${pageContext.request.contextPath}/story/list">Story</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
+					<li class="colorlib-active"><a href="${cp}/./">Home</a></li>
+					<c:choose>
+						<c:when test="${empty sessionScope.id}">					
+							<li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
+						</c:when>	
+				 		<c:otherwise>
+							<li><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>								
+						</c:otherwise>	 
+					</c:choose>
+					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}">WebSocket</a></li>
+					<li><a href="${cp }/emoShop">이모티콘(원래 위치는 about.html)</a></li>
+					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
 				</ul>
 			</nav>
 
@@ -100,9 +107,14 @@
 					              	<p class="meta">
 					              		<span><i class="icon-heart"></i>3</span>
 					              		<span><i class="icon-eye"></i>100</span>
-					              		<span><a href="${pageContext.request.contextPath}/story/comments?storynum=${list.storynum}&num=${list.num}"><i class="icon-comment"></i>5</a></span>
-					              		<span><a href="${pageContext.request.contextPath}/story/update?storynum=${list.storynum}"><i class="icon-person"></i>수정</a></span>
-					              		<span><a href="${pageContext.request.contextPath}/story/delete?storynum=${list.storynum}"><i class="icon-trash"></i>삭제</a></span>
+					              		<span><a href="${pageContext.request.contextPath}/story/comments?storynum=${list.storynum}&num=${sessionScope.num}"><i class="icon-comment"></i>5</a></span>
+					              		<c:if test="${sessionScope.id == id}">
+					              			<span><a href="${pageContext.request.contextPath}/story/update?storynum=${list.storynum}&num=${sessionScope.num}"><i class="icon-person"></i>수정</a></span>
+					              		</c:if>
+					              		<c:if test="${sessionScope.in == id}">
+					              			<span><a href="${pageContext.request.contextPath}/story/delete?storynum=${list.storynum}&num=${sessionScope.num}"><i class="icon-trash"></i>삭제</a></span>
+					              		</c:if>
+					              		
 					              	</p>
 				              	</div>
 				              	<div class="half">

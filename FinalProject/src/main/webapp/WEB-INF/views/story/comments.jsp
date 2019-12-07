@@ -68,7 +68,7 @@
 		    			<div class="blog-entry-2 ftco-animate">	    						    			
 	    						<div class="author mb-4 d-flex align-items-center">
 	    							<a href="#" class="img" style="background-image: url(${pageContext.request.contextPath}/resources/upload/${vo.saveimg});"></a>
-	    							<div class="mb-3" style="margin-top:20px;margin-left:20px;">${vo.num}</div>	    								 
+	    							<div class="mb-3" style="margin-top:20px;margin-left:20px;">${id}</div>	    								 
 	    						</div>   	
 	    						<h1>${vo.stitle}</h1>			
 	    				</div>

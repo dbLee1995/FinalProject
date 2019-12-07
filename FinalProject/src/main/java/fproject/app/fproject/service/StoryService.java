@@ -20,6 +20,9 @@ public class StoryService {
 	 public StoryVo info(int storynum){
 		 return storyDao.info(storynum);
 	 }
+	 public StoryVo infonum(int num){
+		 return storyDao.infonum(num);
+	 }
 	 public int insert(StoryVo vo){
 		 return storyDao.insert(vo);
 	 }

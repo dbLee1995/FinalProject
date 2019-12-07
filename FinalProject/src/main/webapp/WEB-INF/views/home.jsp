@@ -38,7 +38,7 @@
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
-					<li class="colorlib-active"><a href="index.html">Home</a></li>
+					<li class="colorlib-active"><a href="${cp}/./">Home</a></li>
 					<c:choose>
 						<c:when test="${empty sessionScope.id}">					
 							<li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		

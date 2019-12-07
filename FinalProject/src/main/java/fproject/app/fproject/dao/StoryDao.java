@@ -24,7 +24,10 @@ public class StoryDao {
 	}
 	public StoryVo info(int storynum){
 		return sqlSessionTemplate.selectOne(NAMESPACE + ".info",storynum);
-	}	
+	}
+	public StoryVo infonum(int num){
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".infonum",num);
+	}
 	public int insert(StoryVo vo){
 		return sqlSessionTemplate.insert(NAMESPACE + ".insert",vo);
 	}

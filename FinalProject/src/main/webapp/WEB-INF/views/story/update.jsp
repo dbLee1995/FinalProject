@@ -82,12 +82,11 @@
 		                    <input type="file" id="imgInp" name="file1"/>
 		                  </div>
 		                  <div class="form-group">
-		                    <label for="name">글번호</label>
-		                    <input type="text" class="form-control" id="storynum" name="storynum" value="${vo.storynum}">
-		                  </div>
-		                  <div class="form-group">
-		                    <label for="name">작성자</label>
-		                    <input type="text" class="form-control" id="name" name="num" value="${vo.num}">
+		                  	<label id="storynum">글번호 ${vo.storynum}</label><br>
+		                  	<input type="hidden" name="storynum" value="${vo.storynum}">
+		                  	<input type="hidden" name="num" value="${vo.num}">
+		                    <label for="id">작성자</label>
+		                    <input type="text" class="form-control" id="id" name="id" value="${id}" readonly="readonly">
 		                  </div>
 		                  <div class="form-group">
 		                    <label for="email">제목</label>
