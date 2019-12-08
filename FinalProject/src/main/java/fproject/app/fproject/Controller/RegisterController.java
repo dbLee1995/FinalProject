@@ -61,8 +61,7 @@ public class RegisterController {
 	@ResponseBody
 	public String dbCheck(Model model, HttpServletRequest req, String id) {
 		boolean result = false;
-		System.out.println(id);
-		AccountVo vo = service.selectOneId(id);
+		AccountVo vo = service.getUserAccountInfo(id);
 		JSONObject json = new JSONObject();
 		if(vo == null) {
 			result = true;

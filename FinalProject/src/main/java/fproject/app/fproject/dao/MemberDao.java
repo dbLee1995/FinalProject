@@ -17,11 +17,11 @@ public class MemberDao {
 		return sqlSessionTemplate.insert(NAMESPACE + ".insert", vo);
 	}
 	
-	public ProfilesVo selectOneNum(int num) {
-		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectOneNum", num);
+	public ProfilesVo getUserProfileInfo(int num) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".getUserProfileInfo", num);
 	}
 	
-	public AccountVo selectOneId(String id) {
-		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectOneId", id);
+	public AccountVo getUserAccountInfo(String id) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".getUserAccountInfo", id);
 	}
 }
