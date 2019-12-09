@@ -30,19 +30,19 @@ public class RegisterController {
 		return "member/register";
 	}
 
-	// ¸ðµç °Ë»ç Åë°ú ÈÄ DB ÀúÀå
-	// Æ®·£Àè¼Ç ¹ÌÃ³¸®
+	// ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½
+	// Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã³ï¿½ï¿½
 	@RequestMapping(value="/member/registering", method=RequestMethod.POST)
 	public String insert(String email, String id, String pwd, String checkString, Model model) {
 		if(this.certification.equals(checkString)) {
 			AccountVo vo = new AccountVo(0, id, pwd);
-			model.addAttribute("feature", "È¸¿ø°¡ÀÔ ±â´É");
+			model.addAttribute("feature", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½");
 			try {
 				service.insert(vo);
 				return "test/success";
 			} catch(Exception e) {
 				e.printStackTrace();
-				System.out.println("È¸¿ø°¡ÀÔ DB ÀúÀå Áß ¿À·ù¹ß»ý");
+				System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß»ï¿½");
 				return "test/error";
 			}
 		} else {
@@ -50,13 +50,13 @@ public class RegisterController {
 			model.addAttribute("email", email);
 			model.addAttribute("id", id);
 			model.addAttribute("pwd", pwd);
-			model.addAttribute("certificationWrongMsg", "ÀÎÁõ¹®ÀÚ°¡ ºÒÀÏÄ¡ÇÕ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			model.addAttribute("certificationWrongMsg", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½Õ´Ï´ï¿½. ï¿½Ù½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
 			return "member/register";
 		}
 	}
 	
 	
-	// Àü´Ü¿¡¼­ ajax·Î ¾ÆÀÌµð À¯È¿¼º °Ë»ç¸¦ À§ÇÑ ÄÁÆ®·Ñ·¯
+	// ï¿½ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½ ajaxï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È¿ï¿½ï¿½ ï¿½Ë»ç¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	@RequestMapping(value="/member/registering/dbCheck")
 	@ResponseBody
 	public String dbCheck(Model model, HttpServletRequest req, String id) {
@@ -70,11 +70,11 @@ public class RegisterController {
 		return json.toString();
 	}
 	
-	// À¯È¿¼º °Ë»ç ÈÄ ÀÌ¸ÞÀÏ ¹ß¼ÛÀ» ÇÏ´Â ÄÁÆ®·Ñ·¯
+	// ï¿½ï¿½È¿ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ß¼ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	@RequestMapping(value="/member/registering/certification", method=RequestMethod.POST)
 	public String certification(Model model, HttpServletRequest req, String email, String id, String pwd) {
 		this.certification = new RandomString().create(15);
-		new SendEmail().send(email, this.certification); // util ÆÐÅ°Áö
+		new SendEmail().send(email, this.certification, 0); // util ï¿½ï¿½Å°ï¿½ï¿½
 		
 		model.addAttribute("infoCheck", true);
 		model.addAttribute("certificationPage", "/member/certification.jsp");

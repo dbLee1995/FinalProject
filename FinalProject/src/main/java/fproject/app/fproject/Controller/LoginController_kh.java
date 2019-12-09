@@ -2,45 +2,101 @@ package fproject.app.fproject.Controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import fproject.app.fproject.Util.RandomString;
+import fproject.app.fproject.Util.SendEmail;
+import fproject.app.fproject.service.MemberService;
 import fproject.app.fproject.service.UsersService;
 import fproject.app.fproject.vo.AccountVo;
+import fproject.app.fproject.vo.ProfilesVo;
 
 @Controller
 public class LoginController_kh {
-	@Autowired private UsersService service;
+	@Autowired
+	private UsersService service;
+
 	public void setService(UsersService service) {
 		this.service = service;
 	}
-	@RequestMapping(value="member/login",method=RequestMethod.GET)
-	public String loginForm(){
+
+	@Autowired
+	private MemberService service2;
+
+	public void setService(MemberService service2) {
+		this.service2 = service2;
+	}
+
+	@RequestMapping(value = "member/login", method = RequestMethod.GET)
+	public String loginForm() {
 		return "member/login";
 	}
-	@RequestMapping(value="member/login",method=RequestMethod.POST)
-	public String login(String id,String pwd,HttpSession session){
-		AccountVo vo=new AccountVo(0, id, pwd);
-		
-		AccountVo vo1=service.isMember(vo);
-		if(vo1!=null){
-			session.setAttribute("num",vo1.getNum());
-			session.setAttribute("id",id);
-			return "redirect:/";	// "/"∑Œ Ω√¿€«œ¡ˆ æ ¿∏∏È @RequestMapping ∞Ê∑Œ∏¶ ±‚¡ÿ¿∏∑Œ Redirect µ»¥Ÿ.
 
-		}else{
+	@RequestMapping(value = "member/login", method = RequestMethod.POST)
+	public String login(String id, String pwd, HttpSession session) {
+		AccountVo vo = new AccountVo(0, id, pwd);
+
+		AccountVo vo1 = service.isMember(vo);
+		if (vo1 != null) {
+			session.setAttribute("id", id);
+			return "redirect:/"; // "/"ÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ @RequestMapping ÔøΩÔøΩŒ∏ÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ Redirect ÔøΩ»¥ÔøΩ.
+
+		} else {
 			return "member/login";
 		}
 	}
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
-	}	
+	}
+
+	// ÏïÑÏù¥Îîî Ï∞æÍ∏∞ Ìèº
+	@RequestMapping(value = "member/find_id", method = RequestMethod.GET)
+	public String find_id() throws Exception {
+		return "/member/find_id";
+	}
+
+	@RequestMapping(value = "member/find_id", method = RequestMethod.POST)
+	public String find_id(HttpServletResponse response, @RequestParam("email") String email, Model md)
+			throws Exception {
+		md.addAttribute("id", service.find_id(response, email));
+		return "/member/find_idOK";
+	}
+
+	// ÎπÑÎ∞ÄÎ≤àÌò∏ Ï∞æÍ∏∞ Ìèº
+	@RequestMapping(value = "member/find_pw", method = RequestMethod.GET)
+	public String find_pw() throws Exception {
+		return "/member/find_pw";
+	}
+
+	// ÏûÑÏãúÎπÑÎ∞ÄÎ≤àÌò∏ Î©îÏùºÎ∞úÏÜ° Î∞è ÎπÑÎ∞ÄÎ≤àÌò∏ Î≥ÄÍ≤Ω
+	@RequestMapping(value = "member/find_pwd", method = RequestMethod.POST)
+	public String find_pwd(String id, String email) {
+		AccountVo vo = service2.getUserAccountInfo(id);
+		if (vo != null) {
+			int num = vo.getNum();
+			ProfilesVo vo2 = service.check_id(num, id, email);
+			if (vo2.getEmail() != null) {
+				String certification = new RandomString().create(15);
+				new SendEmail().send(email, certification, 1);
+				service.update_pwdOK(certification, id);
+				return "test/success";
+			} else {
+				return "test/error";
+			}
+		}else {
+			return "test/error";
+		}
+	}
+
 }
-
-

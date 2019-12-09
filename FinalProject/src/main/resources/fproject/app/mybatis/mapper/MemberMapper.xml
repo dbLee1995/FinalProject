@@ -20,4 +20,27 @@
 		select * from account where id=#{id} and pwd=#{pwd}
 </select>
 
+<select id="find_id" parameterType="String" resultType="String">	<!-- 아이디 찾기 (INNER조인) -->
+	SELECT A.ID
+	FROM PROFILES P INNER JOIN ACCOUNT A
+	ON P.NUM=A.NUM
+	WHERE EMAIL = #{EMAIL}					
+</select>
+
+<update id="update_pwd" parameterType="fproject.app.fproject.vo.AccountVo">					<!-- 비밀번호 변경 -->
+	update account set pwd = #{pwd} where id = #{id}
+</update>
+
+<select id="check_id" parameterType="hashMap" resultType="fproject.app.fproject.vo.ProfilesVo">	
+	select email
+	from
+    	(select a.num num, a.id id, p.email email
+    	from account a, profiles p where a.num=p.num)
+	where id=#{id} and email=#{email}
+</select>
+
+<update id="update_pwdOK" parameterType="hashMap">
+	update account set pwd= #{certification} where id=#{id}
+</update>
+
 </mapper>

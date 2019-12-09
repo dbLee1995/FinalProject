@@ -13,9 +13,9 @@ import javax.mail.internet.MimeMessage;
 public class SendEmail {
 	private static final int PORT = 465;
 	private static final String HOST = "smtp.gmail.com";
-	private static final String EMAIL_ADDRESS = "ui.01hwc<ui_01hwc@gmail.com>";
+	private static final String EMAIL_ADDRESS = "ui.01hwc<ui.01hwc@gmail.com>";
 
-	public void send(String email, String certification) {
+	public void send(String email, String certification, int num) {
 		Properties p = System.getProperties();
 		try {
 			p.put("mail.smtp.host", HOST);
@@ -35,8 +35,8 @@ public class SendEmail {
 			Message msg = new MimeMessage(session);
 			msg.setFrom(new InternetAddress(EMAIL_ADDRESS));
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
-			msg.setSubject("À¯»çÄ«Åå:::::::::::::::: °¡ÀÔ È®ÀÎ ¸ŞÀÏÀÔ´Ï´Ù");
-			msg.setText(content(certification));
+			msg.setSubject("ìœ ì‚¬ì¹´í†¡:::::::::::::: ì¸ì¦ ë©”ì¼ì…ë‹ˆë‹¤.");
+			msg.setText(content(certification, num));
 			msg.setHeader("content-Type", "text/html");
 			Transport.send(msg);
 		} catch (MessagingException me) {
@@ -44,18 +44,35 @@ public class SendEmail {
 		}
 	}
 	
-	private String content(String certification) {
-		String html = "<!DOCTYPE html> "
+	private String content(String certification, int num) {
+		String html = "";
+		if(num == 0) {
+			
+			html = "<!DOCTYPE html> "
 				+ "<html>"
 				+ "<head>"
 				+ "<meta charset='UTF-8'/>"
 				+ "</head>"
 				+ "<body>"
-				+ "<h1 style='text-align:center'>º»ÀÎ ÀÎÁõ ¸ŞÀÏÀÔ´Ï´Ù</h1>"
-				+ "<h3 style='text-align:center'>´ÙÀ½ ÀÎÁõ¹®ÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.</h3>"
+				+ "<h1 style='text-align:center'>ë³¸ì¸ ì¸ì¦ ë©”ì¼ì…ë‹ˆë‹¤</h1>"
+				+ "<h3 style='text-align:center'>ë‹¤ìŒ ì¸ì¦ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.</h3>"
 				+ "<h3 style='text-align:center'>" + certification + "</h3>"
 				+ "</body>"
 				+ "</html>";
+		} else {
+			html = "<!DOCTYPE html> "
+					+ "<html>"
+					+ "<head>"
+					+ "<meta charset='UTF-8'/>"
+					+ "</head>"
+					+ "<body>"
+					+ "<h1 style='text-align:center'>ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ ë°œì†¡ ë©”ì¼ì…ë‹ˆë‹¤</h1>"
+					+ "<h3 style='text-align:center'>ë‹¤ìŒ ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ë¡œ ë¡œê·¸ì¸í›„ ë¹„ë°€ë²ˆí˜¸ë¥¼ ë³€ê²½í•˜ì—¬ ì‚¬ìš©í•˜ì„¸ìš”.</h3>"
+					+ "<h3 style='text-align:center'>" + certification + "</h3>"
+					+ "</body>"
+					+ "</html>";
+		}
 		return html;
 	}
+
 }
