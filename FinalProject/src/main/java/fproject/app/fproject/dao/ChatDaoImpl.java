@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fproject.app.fproject.vo.AttendinfoVo;
+import fproject.app.fproject.vo.ChatVo;
 import fproject.app.fproject.vo.ChatlistVo;
 
 @Repository
@@ -34,8 +35,12 @@ public class ChatDaoImpl implements ChatDao{
 		return sqlSessionTemplate.insert(NAMESPACE+".addAttendInfo", vo);
 	}
 	@Override
-	public AttendinfoVo getAttendInfo(int num) {
-		return sqlSessionTemplate.selectOne(NAMESPACE+".getAttendInfo", num);
+	public List<AttendinfoVo> getAttendInfo(int num) {
+		return sqlSessionTemplate.selectList(NAMESPACE+".getAttendInfo", num);
+	}
+	@Override
+	public List<AttendinfoVo> getAttendInfotoclnum(int clnum) {
+		return sqlSessionTemplate.selectList(NAMESPACE+".getAttendInfotoclnum", clnum);
 	}
 	@Override
 	public List<AttendinfoVo> sameAttendInfo(int clnum) {
@@ -52,5 +57,13 @@ public class ChatDaoImpl implements ChatDao{
 	@Override
 	public List<ChatlistVo> searchRoomList(String name) {
 		return sqlSessionTemplate.selectList(NAMESPACE+".searchRoomList", name);
+	}
+	@Override
+	public int addChat(ChatVo cvo) {
+		return sqlSessionTemplate.insert(NAMESPACE+".addChat", cvo);
+	}
+	@Override
+	public List<ChatVo> getChat(int clnum) {
+		return sqlSessionTemplate.selectList(NAMESPACE+".getChat", clnum);
 	}
 }
