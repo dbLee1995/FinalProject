@@ -67,15 +67,13 @@
 	    <!-- ////////////////// title ##################/////////////////////////////// -->			   					    				    				    			
 		    			<div class="blog-entry-2 ftco-animate">	    						    			
 	    						<div class="author mb-4 d-flex align-items-center">
-	    							<a href="#" class="img" style="background-image: url(${pageContext.request.contextPath}/resources/upload/${vo.saveimg});"></a>
+	    							<a href="#" class="img" style="background-image: ${profileimg};"></a>
 	    							<div class="mb-3" style="margin-top:20px;margin-left:20px;">${id}</div>	    								 
 	    						</div>   	
 	    						<h1>${vo.stitle}</h1>			
 	    				</div>
-	    							
-		            <p>
-		              <img src="${pageContext.request.contextPath}/resources/upload/${vo.saveimg}"class="img-fluid">
-		            </p>
+            			
+		       			<img src="${pageContext.request.contextPath}/resources/upload/${vo.saveimg}"class="img-fluid">
 		            
 	<!-- ////////////////// title End ##################/////////////////////////////// -->  
 		          
@@ -85,7 +83,7 @@
 		                <a href="#" class="">#Life</a>
 		                <a href="#" class="tag-cloud-link">#Sport</a>
 		                <a href="#" class="tag-cloud-link">#Tech</a>
-		                <a href="#" class="tag-cloud-link">#Travel</a>		                
+		                <a href="#" class="tag-cloud-link">#Travel</a>               
 		              </div>
 		            </div>
 		            
@@ -101,7 +99,7 @@
 
 
 		            <div class="pt-5 mt-5">
-		              <h3 class="mb-5 font-weight-bold">6 Comments</h3>
+		              <h3 class="mb-5 font-weight-bold">Comments</h3>
 		              
 		          <c:forEach var="vo" items="${vo}">
 		              <ul class="comment-list">		            		             
@@ -123,7 +121,8 @@
 		         <!-- Form Start /////////////////////////////////////////////////--> 
 		              <div class="comment-form-wrap pt-5">
 		                <h3 class="mb-5">Leave a comment</h3>
-		                <form method="post" action="${pageContext.request.contextPath }/story/comments" class="p-3 p-md-5 bg-light">
+		                
+		                <form method="post" action="${pageContext.request.contextPath }/story/comments?num=${sessionScope.num}" class="p-3 p-md-5 bg-light">
 		                  <div class="form-group">
 		                  <div class="author mb-4 d-flex align-items-center">
 		                  	<a href="#" class="img" style="background-image: url(${profileimg});"></a>
@@ -142,6 +141,7 @@
 		                    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
 		                  </div>
 		                </form>
+		                
 		              </div>
 		            </div>
 			    		</div>

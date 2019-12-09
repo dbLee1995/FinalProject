@@ -1,5 +1,7 @@
 package fproject.app.fproject.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,5 +18,8 @@ public class AccountDao {
 	}
 	public AccountVo info(int num){
 		return sqlSessionTemplate.selectOne(NAMESPACE + ".info",num);
+	}
+	public List<AccountVo> list(){
+		return sqlSessionTemplate.selectList(NAMESPACE + ".list");
 	}
 }

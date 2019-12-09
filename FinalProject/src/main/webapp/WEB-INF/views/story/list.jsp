@@ -79,8 +79,9 @@
 	    	<div class="container">
 	    		<div class="row d-flex">
 	    			<div class="col-xl-8 px-md-5 py-5">
-	    				<h3><a href="${pageContext.request.contextPath}/story/insert">COCOA Story</a></h3>
-
+	    
+	    					<h3><a href="${pageContext.request.contextPath}/story/insert?num=${sessionScope.num}">COCOA Story</a></h3>	    					
+	    			
 	    				<c:forEach var="list" items="${list}">	
 	    				<c:choose>
 							<c:when test="${empty list.storynum}">

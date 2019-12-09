@@ -1,5 +1,7 @@
 package fproject.app.fproject.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,8 @@ public class AccountService {
 	 }
 	 public AccountVo info(int num){
 		 return accountDao.info(num);
+	 }
+	 public List<AccountVo> list(){
+		 return accountDao.list();
 	 }
 }	

@@ -65,7 +65,7 @@
 	    			
 	    			<!-- insertForm ///////////////////////////////////////////// -->             
 		                <h3 class="mb-5">MyStory Upload</h3>
-		                <form method="post" action="${pageContext.request.contextPath}/story/insert" enctype="multipart/form-data" class="p-3 p-md-5 bg-light">
+		                <form method="post" action="${pageContext.request.contextPath}/story/insert?num=${sessionScope.num}" enctype="multipart/form-data" class="p-3 p-md-5 bg-light">
 		                <div class="form-group">
 		                    <label for="website">파일첨부</label><br>
 		                    <div id="show">
@@ -74,8 +74,10 @@
 		                    <input type="file" id="file1" name="file1" accept=".jpg,.jpeg,.png,.gif"/>
 		                  </div>
 		                  <div class="form-group">
-		                    <label for="name">작성자</label>
-		                    <input type="text" class="form-control" id="name" name="num" value="${SessionScope.id}">
+		                    
+		                    <input type="hidden" id="num" name="num" value="${sessionScope.num}">
+		                    <label for="id">작성자</label>
+		                    <input type="text" class="form-control" id="id" value="${sessionScope.id}" disabled>
 		                  </div>
 		                  <div class="form-group">
 		                    <label for="email">제목</label>

@@ -62,13 +62,17 @@ public class StoryController {
 	}
 	
 	@RequestMapping(value="/story/insert",method=RequestMethod.GET)
-	public String insertForm(){		
+	public String insertForm(int num,Model model){
+		AccountVo avo=aservice.info(num);
+		model.addAttribute("id",avo.getId());
+		System.out.println("num:"+num);
 		return "story/insert";
 	}
 	@RequestMapping(value="/story/insert",method=RequestMethod.POST)
 	public String insert(int num,String stitle,String scontent,Date sregdate,
 			MultipartFile file1,HttpSession session){
 		String uploadPath=session.getServletContext().getRealPath("/resources/upload");
+		
 		// 전송된 파일명
 		System.out.println("경로" + uploadPath);
 		String orgimg=file1.getOriginalFilename();
@@ -85,11 +89,14 @@ public class StoryController {
 			FileCopyUtils.copy(fis, fos);
 			fis.close();
 			fos.close();
-
+			
+			AccountVo avo=aservice.info(num);
+			ProfilesVo pvo=pservice.info(num);
 			long imgsize=file1.getSize();
 			StoryVo vo=new StoryVo(0,num,stitle,scontent,sregdate,orgimg,saveimg,imgsize);
-			service.insert(vo);
-			return "redirect:/story/list";
+			service.insert(vo);	
+			
+			return "redirect:/story/list?num=" + num + "&id=" + avo.getId() + "&profileimg=" + pvo.getProfileimg();
 		}catch(IOException ie){
 			ie.printStackTrace();
 			return "test/error";
@@ -127,18 +134,18 @@ public class StoryController {
             FileCopyUtils.copy(is,fos);
             is.close();
             fos.close();
-            //3. db수정
+            //3. db수정            
             long imgsize=file1.getSize();
             StoryVo vo1=new StoryVo(storynum,num,stitle,scontent,null,orgimg,saveimg,imgsize); 
             service.update(vo1);
                       
           }else {//첨부된 파일이 없는 경우
-            //db수정하기
+            //db수정하기       	  
         	  StoryVo vo1=new StoryVo(storynum,num,stitle,scontent,null,null,null,0);      
         	  service.update(vo1);        	  
-          }          	
-			
-            return "redirect:/story/list?num="+num;
+          }        
+			String profileimg=pservice.info(num).getProfileimg();
+            return "redirect:/story/list?num="+num + "&profileimg" + profileimg;
           }catch(Exception e){
             e.printStackTrace();
             return "test/error";
@@ -146,9 +153,10 @@ public class StoryController {
 	}
 	
 	@RequestMapping(value="story/delete",method=RequestMethod.GET)
-	public String delete(int storynum){
+	public String delete(int storynum,int num){
 		service.delete(storynum);
-		return "redirect:/story/list";
+		ProfilesVo pvo=pservice.info(num);
+		return "redirect:/story/list?storynum=" + storynum + "&num=" + pvo.getNum() +  "&profileimg" + pvo.getProfileimg();
 	}
 	
 	@RequestMapping(value="story/comments",method=RequestMethod.GET)
@@ -164,13 +172,15 @@ public class StoryController {
 	}
 	@RequestMapping(value="story/comments",method=RequestMethod.POST)
 	@ResponseBody
-	public String comments(CommentsVo vo){
+	public String comments(CommentsVo vo,int num){
 		int n=cservice.insert(vo);
 		StringBuffer sb=new StringBuffer();
 		sb.append("<?xml version='1.0' encoding='utf-8'?>");
 		sb.append("<result>");
 		if(n>0){
-			sb.append("redirect:/story/comments");
+			AccountVo avo=aservice.info(num);
+			ProfilesVo pvo=pservice.info(num);
+			sb.append("redirect:/story/comments?num=" + num + "&profileimg=" + pvo.getProfileimg());
 		}else{			
 			sb.append("redirect:/story/comments");
 		}
