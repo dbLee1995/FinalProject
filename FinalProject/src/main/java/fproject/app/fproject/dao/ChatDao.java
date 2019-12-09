@@ -19,4 +19,5 @@ public interface ChatDao {
 	public List<ChatlistVo> searchRoomList(String name);
 	public int addChat(ChatVo cvo);
 	public List<ChatVo> getChat(int clnum);
+	public List<ChatVo> getChattime(int clnum); 
 }

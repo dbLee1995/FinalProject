@@ -50,13 +50,13 @@ public class ChatController {
 	public String moveChatRoom(Model model, int clnum, int num, 
 			HttpSession session){
 		
-		ModelAndView mv=new ModelAndView("/ChatList");
-		
 		List<ChatlistVo> clist=chatService.getRoomList();
 		List<AttendinfoVo> ailist=chatService.getAttendInfo(num);
 		model.addAttribute("ChatList",clist);
 		model.addAttribute("AcList",ailist);
 		model.addAttribute("clnum",clnum);
+		List<AccountVo> avolist=accountService.list();
+		model.addAttribute("avolist",avolist);
 		
 		if(clnum>0){
 			ChatlistVo cvo=chatService.checkRoom(clnum);
@@ -67,6 +67,8 @@ public class ChatController {
 		// 해당 방번호에 해당하는 채팅내용 로딩하기 
 		List<ChatVo> cvolist=chatService.getChat(clnum);
 		model.addAttribute("chat",cvolist);
+		List<ChatVo> cvotimelist=chatService.getChattime(clnum);
+		model.addAttribute("chattime",cvotimelist);
 		
 		return "ChatList";
 	}

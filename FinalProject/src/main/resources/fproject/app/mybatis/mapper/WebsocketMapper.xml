@@ -78,4 +78,9 @@
 		SELECT * FROM CHAT
 		WHERE CLNUM=#{CLNUM}
 	</select>
+	<select id="getChattime" parameterType="int"
+			resultType="fproject.app.fproject.vo.ChattimeVo">
+		SELECT CNUM,CLNUM,to_char(regdate,'AM HH:MI') as time FROM CHAT
+		WHERE CLNUM=#{CLNUM}
+	</select>
 </mapper>

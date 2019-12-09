@@ -1,6 +1,8 @@
 package fproject.app.fproject.Websocket;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +24,8 @@ public class Websocket extends TextWebSocketHandler{
 	@Autowired ChatService chatService;
 	@Autowired AccountService accountService;
 	
+	private int accountNum;
+	
 	private List<WebSocketSession> sessionList=
 			new ArrayList<WebSocketSession>();
 	private Map<WebSocketSession, Integer> clMap=
@@ -35,6 +39,7 @@ public class Websocket extends TextWebSocketHandler{
 		Map<String, Object> map=session.getAttributes();
 		int clnum=(Integer)map.get("clnum");
 		clMap.put(session, clnum);
+		accountNum=(Integer)map.get("num");
 	}
 	@Override
 	public void afterConnectionClosed(
@@ -56,12 +61,15 @@ public class Websocket extends TextWebSocketHandler{
 		/*
 		for(WebSocketSession wsSession : sessionList){
 		}*/
+		Date time=new Date();
+		SimpleDateFormat format=new SimpleDateFormat("a hh:mm");
 		Iterator<WebSocketSession> sessionIds = clMap.keySet().iterator();
 		while(sessionIds.hasNext()){
 			WebSocketSession wsId=sessionIds.next();
 			int accnum=clMap.get(wsId);
 			if(accnum==clnum){
-				wsId.sendMessage(new TextMessage(session.getId()+":"+accvo.getId()+":"+msgArr[2]));
+				String msg=msgArr[2]+"!%/ ( "+format.format(time)+" )";
+				wsId.sendMessage(new TextMessage(msg+"!%/"+usernum));
 			}
 		}
 		chatService.addChat(new ChatVo(0, 1, msgArr[2], null, 0, "", "", 0, clnum, usernum));
