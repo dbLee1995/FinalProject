@@ -10,6 +10,7 @@ var editEvent = function (event, element, view) {
     	$("#updateEvent").css("display","none");
     	$("#deleteEvent").css("display","none");
     	//alert(event._id);
+    	
     }else{
     	$("#updateEvent").css("display","inline");
     	$("#deleteEvent").css("display","inline");
