@@ -8,7 +8,7 @@
 	<select id="getRoom" parameterType="int" 
 			resultType="fproject.app.fproject.vo.ChatlistVo">
 		SELECT * FROM CHATLIST 
-		WHERE NUM=#{NUM}
+		WHERE CLNUM=#{CLNUM}
 	</select>
 	<!-- ### 방 추가하기 ### -->
 	<insert id="createChatRoom" parameterType="fproject.app.fproject.vo.ChatlistVo">
@@ -30,6 +30,11 @@
 			resultType="fproject.app.fproject.vo.AttendinfoVo">
 		SELECT * FROM ATTENDINFO 
 		WHERE NUM=#{NUM}
+	</select>
+	<select id="getAttendInfotoclnum" parameterType="int"
+			resultType="fproject.app.fproject.vo.AttendinfoVo">
+		SELECT * FROM ATTENDINFO 
+		WHERE CLNUM=#{CLNUM}
 	</select>
 	<!-- ### (파라미터)같은 방에 존재하는 사람 정보 가져오기 ### -->
 	<select id="sameAttendInfo" parameterType="int"
@@ -62,6 +67,15 @@
 		WHERE NAME LIKE '%'||#{NAME}||'%'
 	</select>
 	
-	<insert id="addChat"> <!-- 채팅 추가 -->
+	<!-- 채팅 추가 -->
+	<insert id="addChat" parameterType="fproject.app.fproject.vo.ChatVo"> 
+		INSERT INTO CHAT
+		VALUES(SEQ_CNUM.NEXTVAL,#{state},#{content},SYSDATE,#{emoticonnum},#{orgimg},#{saveimg},#{imgsize},#{clnum},#{num})
 	</insert>
+	<!-- 해당 방의 채팅내용 가져오기 -->
+	<select id="getChat" parameterType="int"
+			resultType="fproject.app.fproject.vo.ChatVo">
+		SELECT * FROM CHAT
+		WHERE CLNUM=#{CLNUM}
+	</select>
 </mapper>

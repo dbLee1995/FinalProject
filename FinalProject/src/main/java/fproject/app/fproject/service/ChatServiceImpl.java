@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import fproject.app.fproject.dao.ChatDao;
 import fproject.app.fproject.vo.AttendinfoVo;
+import fproject.app.fproject.vo.ChatVo;
 import fproject.app.fproject.vo.ChatlistVo;
 
 @Service
@@ -29,8 +30,12 @@ public class ChatServiceImpl implements ChatService{
 		return dao.addAttendInfo(vo);
 	}
 	@Override
-	public AttendinfoVo getAttendInfo(int num) {
+	public List<AttendinfoVo> getAttendInfo(int num) {
 		return dao.getAttendInfo(num);
+	}
+	@Override
+	public List<AttendinfoVo> getAttendInfotoclnum(int clnum) {
+		return dao.getAttendInfotoclnum(clnum);
 	}
 	@Override
 	public List<AttendinfoVo> sameAttendInfo(int clnum) {
@@ -47,5 +52,13 @@ public class ChatServiceImpl implements ChatService{
 	@Override
 	public List<ChatlistVo> searchRoomList(String name) {
 		return dao.searchRoomList(name);
+	}
+	@Override
+	public int addChat(ChatVo cvo) {
+		return dao.addChat(cvo);
+	}
+	@Override
+	public List<ChatVo> getChat(int clnum) {
+		return dao.getChat(clnum);
 	}
 }
