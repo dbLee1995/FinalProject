@@ -5,13 +5,23 @@ var editEvent = function (event, element, view) {
 	
     $('.popover.fade.top').remove();
     $(element).popover("hide");
-
+   
+   if(Number(event._id)<=90){
+    	$("#updateEvent").css("display","none");
+    	$("#deleteEvent").css("display","none");
+    	//alert(event._id);
+    }else{
+    	$("#updateEvent").css("display","inline");
+    	$("#deleteEvent").css("display","inline");
+    }
+    
+    //alert(typeof Number(event._id));
     if (event.allDay === true) {
         editAllDay.prop('checked', true);
     } else {
         editAllDay.prop('checked', false);
     }
-
+    
     if (event.end === null) {
         event.end = event.start;
     }
