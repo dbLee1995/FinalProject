@@ -5,14 +5,17 @@ import java.sql.Date;
 public class NationaldayVo{
 	private int anivernum;
 	private String anivername;
-	private Date aniverregdate;
+	private String aniverstartdate;
+	private String aniverenddate;
 	private String anivercontent;
 	public NationaldayVo() {}
-	public NationaldayVo(int anivernum, String anivername, Date aniverregdate, String anivercontent) {
+	public NationaldayVo(int anivernum, String anivername, String aniverstartdate, String aniverenddate,
+			String anivercontent) {
 		super();
 		this.anivernum = anivernum;
 		this.anivername = anivername;
-		this.aniverregdate = aniverregdate;
+		this.aniverstartdate = aniverstartdate;
+		this.aniverenddate = aniverenddate;
 		this.anivercontent = anivercontent;
 	}
 	public int getAnivernum() {
@@ -27,11 +30,17 @@ public class NationaldayVo{
 	public void setAnivername(String anivername) {
 		this.anivername = anivername;
 	}
-	public Date getAniverregdate() {
-		return aniverregdate;
+	public String getAniverstartdate() {
+		return aniverstartdate;
 	}
-	public void setAniverregdate(Date aniverregdate) {
-		this.aniverregdate = aniverregdate;
+	public void setAniverstartdate(String aniverstartdate) {
+		this.aniverstartdate = aniverstartdate;
+	}
+	public String getAniverenddate() {
+		return aniverenddate;
+	}
+	public void setAniverenddate(String aniverenddate) {
+		this.aniverenddate = aniverenddate;
 	}
 	public String getAnivercontent() {
 		return anivercontent;
@@ -39,10 +48,6 @@ public class NationaldayVo{
 	public void setAnivercontent(String anivercontent) {
 		this.anivercontent = anivercontent;
 	}
-	@Override
-	public String toString() {
-		return "NationaldayVo [anivernum=" + anivernum + ", anivername=" + anivername + ", aniverregdate="
-				+ aniverregdate + ", anivercontent=" + anivercontent + "]";
-	}
+	
 	
 }

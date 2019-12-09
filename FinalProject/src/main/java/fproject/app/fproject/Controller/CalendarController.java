@@ -26,12 +26,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import fproject.app.fproject.service.CalendarService;
-
+import fproject.app.fproject.service.NationalDayService;
 import fproject.app.fproject.vo.CalenderVo;
 import fproject.app.fproject.vo.NationaldayVo;
 
 @Controller
 public class CalendarController {
+	@Autowired
+	private NationalDayService Nservice;
 	@Autowired
 	private CalendarService Cservice;
 	@RequestMapping("/calendar")
@@ -42,9 +44,26 @@ public class CalendarController {
 	@ResponseBody
 	public String list(HttpSession session){
 		JSONArray arr=new JSONArray();
-		int num=(Integer)(session.getAttribute("num"));
+		int num=0;
+		if(session.getAttribute("num")!=null){
+			num=(Integer)(session.getAttribute("num"));
+		}
 		List<CalenderVo> list1=Cservice.list(num);
-		
+		List<NationaldayVo> list2=Nservice.list();
+		for(NationaldayVo vo:list2){
+			JSONObject json=new JSONObject();			
+			json.put("_id", vo.getAnivernum());	
+			json.put("title", vo.getAnivername());
+			json.put("description", vo.getAnivercontent());	
+			json.put("type","보통");
+			json.put("username","국가공휴일");
+			json.put("backgroundColor", "#d80000");
+			json.put("textColor", "#ffffff");
+			json.put("start", vo.getAniverstartdate());	
+			json.put("end",vo.getAniverenddate());	
+			json.put("allDay", true);
+			arr.put(json);
+		}
 		for (CalenderVo vo:list1){
 			JSONObject json=new JSONObject();			
 			json.put("_id", vo.getAnivernum());	
