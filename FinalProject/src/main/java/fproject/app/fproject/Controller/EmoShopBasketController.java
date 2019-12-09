@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import fproject.app.fproject.Util.Paging_WishList;
 import fproject.app.fproject.service.MemberService;
 import fproject.app.fproject.vo.FavorlistVo;
 
@@ -23,16 +25,15 @@ public class EmoShopBasketController {
 	
 	
 	@RequestMapping(value="/emoShop/buyList", method=RequestMethod.GET)
-	public String pageMove(Model model, HttpServletRequest req) {
+	public String pageMove(Model model, HttpServletRequest req, @RequestParam(value="page", required=false, defaultValue="1") int thisPage) {
 		String userID = (String)req.getSession().getAttribute("id"); // 사용자 아이디 받아오기
 		int userNum = memberService. getUserAccountInfo(userID).getNum(); // 사용자 번호 받아오기
 		
-		int thisPage = 1; // 사용자가 현재 보고있는 페이지 번호(기본 1)
-		//int totalCount = favorListService.getTotalCount(userNum); // 보관항목수
-		//int totalPageCount = totalNum; // 전체 페이지 수
+		Paging_WishList pg = new Paging_WishList(10, favorListService.getCount(userNum), thisPage);
+		model.addAttribute("startPage", pg.getStartPage());
+		model.addAttribute("endPage", pg.getEndPage());
+		//model.addAttribute()
 		
-		int pageListNum = 7; // 페이지목록 길이
-		//List<FavorlistVo> list = favorListService.selectList(userNum);
 		return "emoticonShop/emoBasket";
 	}
 }
