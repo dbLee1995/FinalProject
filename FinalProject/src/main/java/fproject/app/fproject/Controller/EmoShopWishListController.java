@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import fproject.app.fproject.Util.Paging_WishList;
+import fproject.app.fproject.Util.Paging;
 import fproject.app.fproject.service.FavorListService;
 import fproject.app.fproject.service.MemberService;
 import fproject.app.fproject.vo.EmoWishListVo;
@@ -34,7 +34,7 @@ public class EmoShopWishListController {
 	public String pageMove(Model model, HttpServletRequest req, @RequestParam(required=false, defaultValue="1") int thisPage) {
 		String userID = (String)req.getSession().getAttribute("id"); // 사용자 아이디 받아오기
 		int userNum = memberService. getUserAccountInfo(userID).getNum(); // 사용자 번호 받아오기
-		Paging_WishList pg = new Paging_WishList(10, favorListService.getCount(userNum), thisPage);
+		Paging pg = new Paging(10, favorListService.getCount(userNum), thisPage);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pg.getStartRow());
 		map.put("endRow", pg.getEndRow());
