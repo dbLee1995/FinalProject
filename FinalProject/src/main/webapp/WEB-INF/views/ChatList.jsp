@@ -725,7 +725,7 @@
 			<div id="contacts">
 				<ul>
 					<c:forEach var="al" items="${AcList }">
-						<li class="contact"><!-- "contact active" -->
+						<li class="contact<c:if test="${sessionScope.clnum==al.clnum }"> active</c:if>"><!-- "contact active" -->
 							<div class="wrap">
 								<span class="contact-status online"></span>
 								<img src="" alt="" />
@@ -823,7 +823,7 @@
 		}
 		
 		$('.message-input input').val(null);
-		$('.contact.active .preview').html('<span>You: </span>' + msgArr[0]);
+		$('.contact.active .preview').html('<span>N </span>' + msgArr[0]);
 		$(".messages").animate({ scrollTop: 999999 }, "fast");
 	}
 	// JSON.parse() -- String 객체를 json 객체로 변환
