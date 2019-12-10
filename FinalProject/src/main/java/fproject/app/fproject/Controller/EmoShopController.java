@@ -13,7 +13,12 @@ public class EmoShopController {
 	
 	@RequestMapping(value="/emoShop", method=RequestMethod.GET)
 	public String pageMove(Model model, HttpServletRequest req) {
-		
+		String userId = (String)req.getSession().getAttribute("id"); // 로그인 검사
+		if(userId!=null) {
+			
+		} else {
+			
+		}
 		return "emoticonShop/main";
 	}
 }

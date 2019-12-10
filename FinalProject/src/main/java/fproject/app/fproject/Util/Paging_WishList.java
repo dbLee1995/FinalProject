@@ -2,11 +2,13 @@ package fproject.app.fproject.Util;
 
 public class Paging_WishList {
 	private int pageRow; // 페이지당 항목 수
+	private int startRow;
+	private int endRow;
 	private int totalCount; // 총 항목 수
 	private int totalPageCount; // 전체 페이지 수
-	private int thisPage = 1; // 현재 페이지 번호(기본 1)
-	int startPage;
-	int endPage;
+	private int thisPage; // 현재 페이지 번호(기본값 1은 @RequestParam으로)
+	private int startPage;
+	private int endPage;
 	
 	public Paging_WishList() {}
 	
@@ -17,12 +19,15 @@ public class Paging_WishList {
 	 * @param thisPage 현재 페이지
 	 */
 	public Paging_WishList(int pageRow, int totalCount, int thisPage) {
+		this.pageRow = pageRow;
 		this.thisPage = thisPage;
 		this.totalPageCount = totalCount%pageRow>0 ? totalCount/pageRow+1 : totalCount/pageRow;
 		if(thisPage > totalPageCount) thisPage = totalPageCount;
 		this.startPage = thisPage==1 ? 1: thisPage-3;
 		this.endPage = thisPage+3;
 		if(endPage>totalPageCount) endPage=totalPageCount;
+		this.endRow = thisPage * pageRow;
+		this.startRow = endRow - (pageRow-1);
 	}
 
 	public int getPageRow() {
@@ -71,5 +76,21 @@ public class Paging_WishList {
 
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
+	}
+
+	public int getStartRow() {
+		return startRow;
+	}
+
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	public int getEndRow() {
+		return endRow;
+	}
+
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
 	}
 }

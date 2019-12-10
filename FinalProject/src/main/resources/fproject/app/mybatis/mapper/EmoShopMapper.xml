@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="fproject.app.mybatis.mapper.EmoShopMapper">
+	<select id="getUserWishList" parameterType="hashmap" resultType="fproject.app.fproject.vo.EmoWishListVo">
+		select a.rnum, a.num, a.emognum, a.category, a.name, a.price
+		from(
+			select rownum rnum, j.num, j.emognum, j.category, j.name, j.price
+			from (
+				select userfavo.favor num, userfavo.emognum emognum, es.category category, es.name name, es.price price
+				from 
+					(select *
+					from favorlist
+					where num=#{userNum}) userfavo, emoshop es
+				where userfavo.emognum = es.emognum
+				order by userfavo.favornum desc) j
+			where rownum <![CDATA[<=]]> #{endRow}) a
+		where a.rnum <![CDATA[>=]]> #{startRow};
+	</select>
+	
+	<select id="getCount" parameterType="int" resultType="int">
+		select count(*) from favorlist where num = #{userNum}
+	</select>
+</mapper>
