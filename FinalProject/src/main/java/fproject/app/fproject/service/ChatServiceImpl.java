@@ -65,4 +65,8 @@ public class ChatServiceImpl implements ChatService{
 	public List<ChatVo> getChattime(int clnum) {
 		return dao.getChattime(clnum);
 	}
+	@Override
+	public String getLastChat(int clnum) {
+		return dao.getLastChat(clnum);
+	}
 }

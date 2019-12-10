@@ -70,4 +70,8 @@ public class ChatDaoImpl implements ChatDao{
 	public List<ChatVo> getChattime(int clnum) {
 		return sqlSessionTemplate.selectList(NAMESPACE+".getChattime", clnum);
 	}
+	@Override
+	public String getLastChat(int clnum) {
+		return sqlSessionTemplate.selectOne(NAMESPACE+".getLastChat", clnum);
+	}
 }

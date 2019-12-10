@@ -47,6 +47,7 @@ public class LoginController_kh {
 		AccountVo vo1 = service.isMember(vo);
 		if (vo1 != null) {
 			session.setAttribute("id", id);
+			session.setAttribute("num", vo1.getNum());
 			return "redirect:/"; // "/"�� �������� ������ @RequestMapping ��θ� �������� Redirect �ȴ�.
 
 		} else {

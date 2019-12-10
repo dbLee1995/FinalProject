@@ -83,4 +83,11 @@
 		SELECT CNUM,CLNUM,to_char(regdate,'AM HH:MI') as time FROM CHAT
 		WHERE CLNUM=#{CLNUM}
 	</select>
+	<select id="getLastChat" parameterType="int" resultType="String">
+		SELECT CC.CONTENT FROM(
+			SELECT CONTENT, ROWNUM RNUM FROM CHAT
+			WHERE CLNUM=#{CLNUM}
+			ORDER BY CNUM DESC
+		)CC WHERE RNUM=1
+	</select>
 </mapper>

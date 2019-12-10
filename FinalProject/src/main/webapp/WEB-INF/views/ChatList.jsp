@@ -735,7 +735,7 @@
 											<c:if test="${cl.clnum == al.clnum }"><p class="name">${cl.name }</p></c:if>
 										</c:forEach>
 									</a>
-									<p class="preview">You just got LITT up, Mike.</p>
+									<p class="preview">${clnameMap[al.clnum] }</p>
 								</div>
 							</div>
 						</li>

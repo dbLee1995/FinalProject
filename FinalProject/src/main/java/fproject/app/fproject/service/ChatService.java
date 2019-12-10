@@ -20,4 +20,5 @@ public interface ChatService {
 	public int addChat(ChatVo cvo);
 	public List<ChatVo> getChat(int clnum);
 	public List<ChatVo> getChattime(int clnum);
+	public String getLastChat(int clnum);
 }

@@ -53,11 +53,11 @@ public class ChatController {
 			Model model, HttpServletRequest req, int num){
 		
 		/*
-		chatService.createChatRoom("³ª¿ÍÀÇ Ã¤ÆÃ");
-		int roomnum=chatService.getRoomforName("³ª¿ÍÀÇ Ã¤ÆÃ");
-		ÆÄ¶ó¹ÌÅÍ·Î ÃÊ´ëÇÒ Ä£±¸ ¹øÈ£µµ ¹Ş±â fnum
+		chatService.createChatRoom("ë°©ìƒì„±");
+		int roomnum=chatService.getRoomforName("ë°©ìƒì„±");
+		fnum ì¹œêµ¬ ë²ˆí˜¸ë¥¼ ê°™ì´ ë°›ì•„ì„œ ë„£ê¸° 
 		if(fnum==0){
-			¸¸¾à Ä£±¸ ¹øÈ£°¡ 0ÀÌ¸é ³ª¿ÍÀÇ Ã¤ÆÃ¹æ! 
+			ì¹œêµ¬ë²ˆí˜¸ê°€ 0ì´ë©´ ë‚˜ì™€ì˜ì±„íŒ…
 		}
 		*/
 		
