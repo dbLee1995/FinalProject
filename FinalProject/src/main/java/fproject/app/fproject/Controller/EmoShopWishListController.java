@@ -45,8 +45,7 @@ public class EmoShopWishListController {
 		List<EmoWishListVo> list = favorListService.getUserWishList(map);
 		model.addAttribute("list", list);
 		model.addAttribute("map", map);
-		   
-		
+
 		return "emoticonShop/emoBasket";
 	}
 }
