@@ -12,7 +12,7 @@ import fproject.app.fproject.vo.CommentsVo;
 @Repository
 public class CommentsDao {
 	@Autowired private SqlSessionTemplate sqlSessionTemplate;
-	private final String NAMESPACE="test.mybatis.mapper.CommentsMapper";
+	private final String NAMESPACE="fproject.app.mybatis.mapper.CommentsMapper";
 	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate){
 		this.sqlSessionTemplate=sqlSessionTemplate;
 	}
@@ -25,6 +25,9 @@ public class CommentsDao {
 	}
 	public int update(CommentsVo vo){
 		return sqlSessionTemplate.update(NAMESPACE + ".update",vo);
+	}
+	public int insertReply(CommentsVo vo){
+		return sqlSessionTemplate.insert(NAMESPACE + ".insertReply",vo);
 	}
 	public int delete(int commnum){
 		return sqlSessionTemplate.delete(NAMESPACE + ".delete",commnum);

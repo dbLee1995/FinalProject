@@ -26,6 +26,9 @@ public class CommentsService {
 	 public int update(CommentsVo vo){
 		 return commentsDao.update(vo);
 	 }
+	 public int insertReply(CommentsVo vo){
+		 return commentsDao.insertReply(vo);
+	 }
 	 public int delete(int commnum){
 		 return commentsDao.delete(commnum);
 	 }

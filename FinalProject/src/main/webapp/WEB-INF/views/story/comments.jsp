@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -62,8 +63,7 @@
 	    	<div class="container">
 	    		<div class="row d-flex">
 	    			<div class="col-lg-8 px-md-5 py-5">	    			
-	    				<div class="row pt-md-4"> 
-	    			
+	    				<div class="row pt-md-4"> 	    			
 	    <!-- ////////////////// title ##################/////////////////////////////// -->			   					    				    				    			
 		    			<div class="blog-entry-2 ftco-animate">	    						    			
 	    						<div class="author mb-4 d-flex align-items-center">
@@ -97,39 +97,49 @@
 		              </div>
 		            </div>
 
-
-		            <div class="pt-5 mt-5">
-		              <h3 class="mb-5 font-weight-bold">Comments</h3>
-		              
-		          <c:forEach var="vo" items="${vo}">
-		              <ul class="comment-list">		            		             
-		                <li class="comment">
+<!-- ///////////////////// 댓글리스트 //////////////////////////////////////// -->
+		          <div class="pt-5 mt-5">  
+		              <h3 class="mb-5 font-weight-bold">Comments</h3>		              
+					<c:forEach var="vo" items="${cvo}">
+		              <ul class="comment-list">			              	            		             
+		                <li class="comment">		                
 		                  <div class="vcard bio">
-		                    <img src="images/person_1.jpg" alt="Image placeholder">
+		                    <img src="${pageContext.request.contextPath}/resources/upload/${profileimg}">
+		                  	${id}
 		                  </div>
 		                  <div class="comment-body">
-		                    <h3></h3>
-		                    <div class="meta">October 03, 2018 at 2:21pm</div>
-		                    <p></p>
-		                    <p><a href="#" class="reply">Reply</a></p>
-		                  </div>
-		          		 </li>
-		              </ul>
-		            </c:forEach>                
+		                    <div>${vo.commcontent}<br>
+		                    	<a href="${pageContext.request.contextPath}/story/commentsDel" class="icon-trash"></a>
+		                    </div>		                    		                    
+		            <!--///// reply 답글 /////--> 		                    
+		                    <input type="button" id="replyForm" class="reply" value="Reply">
+		                    <form method="post" action="${pageContext.request.contextPath}/story/commentsReply">		                		               
+		                 		<div id="commentReplyForm1" style="display:none;">
+		                 		<div class="img" style="background-image: ${profileimg};">${sessionScope.id}</div>
+		                 			<input type="text" name="commcontent" style="width:600px;height:80px;">
+		                 			<input type="submit" value="저장" class="reply">
+		                 			<input type="reset" value="취소" class="reply">		             	
+		                 		</div>			                 		      
+		                 	</form>           			                 					        			
+		        	<!--///// reply 답글end /////--> 	
+		                  </div>        
+		          		 </li>		          		 
+		              </ul>	
+		       	   </c:forEach>                        
 		         <!-- END comment-list -->
 		             
 		         <!-- Form Start /////////////////////////////////////////////////--> 
 		              <div class="comment-form-wrap pt-5">
 		                <h3 class="mb-5">Leave a comment</h3>
 		                
-		                <form method="post" action="${pageContext.request.contextPath }/story/comments?num=${sessionScope.num}" class="p-3 p-md-5 bg-light">
+		                <form method="post" action="${pageContext.request.contextPath}/story/comments?storynum=${vo.storynum}&num=${sessionScope.num}" class="p-3 p-md-5 bg-light">
 		                  <div class="form-group">
 		                  <div class="author mb-4 d-flex align-items-center">
 		                  	<a href="#" class="img" style="background-image: url(${profileimg});"></a>
 		                    <div class="ml-3 info">
 		                   	 	<label for="num" >Name *</label><br>
-		                   	 	<input type="hidden" name="num">
 		                    	<label for="id" style="font-size:1.2em;">${sessionScope.id}</label>
+		                    	
 		                  	</div>
 		                  </div>
 		                  </div>		                 
@@ -144,7 +154,8 @@
 		                
 		              </div>
 		            </div>
-			    		</div>
+<!-- ///////////////////// 댓글리스트 END //////////////////////////////////////// -->
+			    </div>
 			 <!-- Form END /////////////////////////////////////////////////-->
 			 
 			    	</div>
@@ -261,6 +272,21 @@
 
   <script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
+  <script type="text/javascript" src="${cp}/resources/js/jquery-3.4.1.js"></script> 
+  <script type="text/javascript">
+  	$(function(){
+		for(var i=1;i<=$("#replyForm").length;i++){
+			var input="<div id=$('#commentReplyForm" + 1+=i + "') style='display:none;'></div>";
+			$("#commentReplyForm1").append(input);	
+		}
+		
+		$("#replyForm").click(function(){
+		  	$("#commentReplyForm1").slideToggle(100);
+		  });
+  	});	 		
+  	
+  </script>
+
   <script src="${pageContext.request.contextPath }/resources/js/popper.min.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/jquery.easing.1.3.js"></script>

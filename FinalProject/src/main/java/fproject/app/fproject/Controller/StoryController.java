@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,39 +155,56 @@ public class StoryController {
 	
 	@RequestMapping(value="story/delete",method=RequestMethod.GET)
 	public String delete(int storynum,int num){
-		service.delete(storynum);
-		ProfilesVo pvo=pservice.info(num);
-		return "redirect:/story/list?storynum=" + storynum + "&num=" + pvo.getNum() +  "&profileimg" + pvo.getProfileimg();
+		StoryVo vo=service.info(num);
+		int n=service.delete(storynum);	
+		if(n>0){
+			ProfilesVo pvo=pservice.info(num);
+			return "redirect:/story/list?num=" + num +  "&profileimg=" + pvo.getProfileimg();
+		}else{
+			return "test/error";
+		}
 	}
 	
 	@RequestMapping(value="story/comments",method=RequestMethod.GET)
 	public ModelAndView commentsForm(int storynum,int num){
 		StoryVo vo=service.info(storynum);
+		List<CommentsVo> cvo=cservice.list();
 		AccountVo avo=aservice.info(num);
 		ProfilesVo pvo=pservice.info(num);
-		ModelAndView mv=new ModelAndView("story/comments");		
+		ModelAndView mv=new ModelAndView("story/comments");
 		mv.addObject("vo",vo);
 		mv.addObject("id",avo.getId());
 		mv.addObject("profileimg",pvo.getProfileimg());
+		mv.addObject("storynum",storynum);
+		mv.addObject("num",num);
+		mv.addObject("cvo",cvo);
 		return mv;
 	}
-	@RequestMapping(value="story/comments",method=RequestMethod.POST)
-	@ResponseBody
-	public String comments(CommentsVo vo,int num){
-		int n=cservice.insert(vo);
-		StringBuffer sb=new StringBuffer();
-		sb.append("<?xml version='1.0' encoding='utf-8'?>");
-		sb.append("<result>");
-		if(n>0){
-			AccountVo avo=aservice.info(num);
-			ProfilesVo pvo=pservice.info(num);
-			sb.append("redirect:/story/comments?num=" + num + "&profileimg=" + pvo.getProfileimg());
-		}else{			
-			sb.append("redirect:/story/comments");
-		}
-		sb.append("<result>");
-		return sb.toString();
-		
-	}
 	
+	@RequestMapping(value="story/comments",method=RequestMethod.POST)
+	public String comments(CommentsVo vo,int storynum,int num,Model model,HttpServletRequest req){
+		int n=cservice.insert(vo); // db¿¡ Ãß°¡
+
+		if(n>0){
+			StoryVo svo=service.info(storynum);
+			ProfilesVo pvo=pservice.info(num);
+			AccountVo avo=aservice.info(num);
+			model.addAttribute("profileimg",pvo.getProfileimg());
+			return "redirect:/story/comments?num=" + num + "&storynum=" + storynum;
+		}else{
+			return "test/error";
+		}		
+	}
+	@RequestMapping(value="story/commentsReply",method=RequestMethod.GET)
+	public String commentsReplyForm(CommentsVo vo,int num,int storynum){
+		
+		
+		return "redirect:/story/comments?num=" + num + "&storynum=" + storynum;
+	}
+	@RequestMapping(value="story/commentsReply",method=RequestMethod.POST)
+	public String commentsReply(CommentsVo vo,int num,int storynum){
+		
+		
+		return "redirect:/story/comments?num=" + num + "&storynum=" + storynum;
+	}
 }
