@@ -50,7 +50,7 @@ public class ChatController {
 	@RequestMapping(value="/CreateChat", 
 			method={RequestMethod.POST,RequestMethod.GET})
 	public String createChat(
-			Model model, HttpServletRequest req, int num){
+			Model model, HttpServletRequest req, int num, String[] fvalue){
 		
 		/*
 		chatService.createChatRoom("방생성");
@@ -60,6 +60,10 @@ public class ChatController {
 			친구번호가 0이면 나와의채팅
 		}
 		*/
+		for(int i=0;i<fvalue.length;++i){
+			System.out.println(fvalue[i]); // fvalue 를 돌면서 
+			// 안에 있는 회원번호 꺼내기 (String)
+		}
 		
 		List<ChatlistVo> clist=chatService.getRoomList();
 		model.addAttribute("ChatList",clist);

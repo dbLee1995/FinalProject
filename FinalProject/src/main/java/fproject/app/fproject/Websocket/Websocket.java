@@ -52,7 +52,7 @@ public class Websocket extends TextWebSocketHandler{
 	protected void handleTextMessage(
 			WebSocketSession session, TextMessage message) throws Exception {
 		
-		// 0: È¸¿ø¹øÈ£ / 1: ¹æ¹øÈ£ / 2: Ã¤ÆÃ³»¿ë
+		// 0: íšŒì›ë²ˆí˜¸ / 1: ë°©ë²ˆí˜¸ / 2: ë‚´ìš©
 		String msgArr[]=new String[3];
 		msgArr=message.getPayload().split("!%/");
 		int usernum=Integer.parseInt(msgArr[0]);
