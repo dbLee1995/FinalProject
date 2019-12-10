@@ -824,7 +824,7 @@
 		
 		$('.message-input input').val(null);
 		$('.contact.active .preview').html('<span>You: </span>' + msgArr[0]);
-		$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+		$(".messages").animate({ scrollTop: 999999 }, "fast");
 	}
 	// JSON.parse() -- String 객체를 json 객체로 변환
 	// JSON.stringify -- json 객체를 String 객체로 변환
@@ -845,7 +845,7 @@
 	  }
 	});
 	
-	$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+	$(".messages").animate({ scrollTop: 999999 }, "fast");
 	$("#profile-img").click(function() {
 		$("#status-options").toggleClass("active");
 	});

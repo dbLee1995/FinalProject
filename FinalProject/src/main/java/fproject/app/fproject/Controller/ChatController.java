@@ -1,7 +1,9 @@
 package fproject.app.fproject.Controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,6 +30,12 @@ public class ChatController {
 	public String chat(Model model, HttpServletRequest req, int num, int clnum){
 		
 		List<ChatlistVo> clist=chatService.getRoomList();
+		Map<Integer, String> clnameMap=new HashMap<>();
+		for(int i=0;i<clist.size();++i){
+			String clname=chatService.getLastChat(clist.get(i).getClnum());
+			clnameMap.put(clist.get(i).getClnum(), clname);
+		}
+		model.addAttribute("clnameMap", clnameMap);
 		List<AttendinfoVo> ailist=chatService.getAttendInfo(num);
 		model.addAttribute("ChatList",clist);
 		model.addAttribute("AcList",ailist);
@@ -42,19 +50,54 @@ public class ChatController {
 	@RequestMapping(value="/CreateChat", 
 			method={RequestMethod.POST,RequestMethod.GET})
 	public String createChat(
-			Model model, HttpServletRequest req, ChatlistVo clvo){
-
-		return "";
+			Model model, HttpServletRequest req, int num){
+		
+		/*
+		chatService.createChatRoom("나와의 채팅");
+		int roomnum=chatService.getRoomforName("나와의 채팅");
+		파라미터로 초대할 친구 번호도 받기 fnum
+		if(fnum==0){
+			만약 친구 번호가 0이면 나와의 채팅방! 
+		}
+		*/
+		
+		List<ChatlistVo> clist=chatService.getRoomList();
+		model.addAttribute("ChatList",clist);
+		
+		Map<Integer, String> clnameMap=new HashMap<>();
+		for(int i=0;i<clist.size();++i){
+			String clname=chatService.getLastChat(clist.get(i).getClnum());
+			clnameMap.put(clist.get(i).getClnum(), clname);
+		}
+		model.addAttribute("clnameMap", clnameMap);
+		List<AttendinfoVo> ailist=chatService.getAttendInfo(num);
+		model.addAttribute("ChatList",clist);
+		model.addAttribute("AcList",ailist);
+		
+		AccountVo accvo=accountService.info(num);
+		model.addAttribute("id",accvo.getId());
+		
+		return "ChatList";
 	}
 	@RequestMapping(value="/moveChatRoom")
 	public String moveChatRoom(Model model, int clnum, int num, 
 			HttpSession session){
 		
 		List<ChatlistVo> clist=chatService.getRoomList();
-		List<AttendinfoVo> ailist=chatService.getAttendInfo(num);
 		model.addAttribute("ChatList",clist);
+		
+		Map<Integer, String> clnameMap=new HashMap<>();
+		for(int i=0;i<clist.size();++i){
+			String clname=chatService.getLastChat(clist.get(i).getClnum());
+			clnameMap.put(clist.get(i).getClnum(), clname);
+		}
+		model.addAttribute("clnameMap", clnameMap);
+		
+		List<AttendinfoVo> ailist=chatService.getAttendInfo(num);
 		model.addAttribute("AcList",ailist);
+		
 		model.addAttribute("clnum",clnum);
+		
 		List<AccountVo> avolist=accountService.list();
 		model.addAttribute("avolist",avolist);
 		
@@ -64,9 +107,9 @@ public class ChatController {
 		}
 		session.setAttribute("clnum", clnum);
 		
-		// 해당 방번호에 해당하는 채팅내용 로딩하기 
 		List<ChatVo> cvolist=chatService.getChat(clnum);
 		model.addAttribute("chat",cvolist);
+		
 		List<ChatVo> cvotimelist=chatService.getChattime(clnum);
 		model.addAttribute("chattime",cvotimelist);
 		
