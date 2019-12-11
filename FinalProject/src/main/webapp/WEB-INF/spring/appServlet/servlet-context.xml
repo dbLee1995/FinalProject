@@ -32,14 +32,14 @@
 	</beans:bean>
 	
 	<!-- interceptor 설정 -->
+
 	<interceptors>
 		<interceptor>
-			<mapping path="/**/*"/>
-			<exclude-mapping path="/adminMng/checkLogin"/>
-			<exclude-mapping path="/adminMng/logout"/>
-			<exclude-mapping path="/member/*"/>
+			<mapping path="/emoShop"/>
+			<mapping path="/emoShop/*"/>
 			<beans:bean class="fproject.app.fproject.interceptor.LoginInterceptorImpl"/>
 		</interceptor>
 	</interceptors>
+
 	
 </beans:beans>

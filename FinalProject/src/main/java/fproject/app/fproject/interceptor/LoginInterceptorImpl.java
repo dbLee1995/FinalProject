@@ -18,7 +18,7 @@ public class LoginInterceptorImpl implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String id = (String)request.getSession().getAttribute("id");
 		if(id==null) {
-			response.sendRedirect("member/login?auth=lack");
+			response.sendRedirect("/fproject/member/login?auth=lack");
 			return false;
 		} else {
 			return true;
