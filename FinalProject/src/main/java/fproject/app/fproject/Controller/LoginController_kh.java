@@ -36,7 +36,8 @@ public class LoginController_kh {
 	}
 
 	@RequestMapping(value = "member/login", method = RequestMethod.GET)
-	public String loginForm() {
+	public String loginForm(@RequestParam(defaultValue="false") String auth, Model model) {
+		model.addAttribute("auth", auth);
 		return "member/login";
 	}
 
@@ -48,7 +49,7 @@ public class LoginController_kh {
 		if (vo1 != null) {
 			session.setAttribute("id", id);
 			session.setAttribute("num", vo1.getNum());
-			return "redirect:/"; // "/"�� �������� ������ @RequestMapping ��θ� �������� Redirect �ȴ�.
+			return "redirect:/";
 
 		} else {
 			return "member/login";
@@ -61,7 +62,7 @@ public class LoginController_kh {
 		return "redirect:/";
 	}
 
-	// 아이디 찾기 폼
+
 	@RequestMapping(value = "member/find_id", method = RequestMethod.GET)
 	public String find_id() throws Exception {
 		return "/member/find_id";
@@ -74,13 +75,13 @@ public class LoginController_kh {
 		return "/member/find_idOK";
 	}
 
-	// 비밀번호 찾기 폼
+
 	@RequestMapping(value = "member/find_pw", method = RequestMethod.GET)
 	public String find_pw() throws Exception {
 		return "/member/find_pw";
 	}
 
-	// 임시비밀번호 메일발송 및 비밀번호 변경
+
 	@RequestMapping(value = "member/find_pwd", method = RequestMethod.POST)
 	public String find_pwd(String id, String email) {
 		AccountVo vo = service2.getUserAccountInfo(id);

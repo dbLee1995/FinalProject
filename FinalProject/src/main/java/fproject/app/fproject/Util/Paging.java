@@ -1,6 +1,14 @@
 package fproject.app.fproject.Util;
 
-public class Paging_WishList {
+/**
+ * @author JHTA
+ *
+ */
+/**
+ * @author JHTA
+ *
+ */
+public class Paging {
 	private int pageRow; // 페이지당 항목 수
 	private int startRow;
 	private int endRow;
@@ -10,15 +18,15 @@ public class Paging_WishList {
 	private int startPage;
 	private int endPage;
 	
-	public Paging_WishList() {}
+	public Paging() {}
 	
 	/**
-	 * <p>  페이지 목록 길이는 startPage와 endPage로 수정합니다.<p>
+	 * <p>가변형 페이지 목록. 페이지 목록 길이는 startPage와 endPage로 수정합니다.<p>
 	 * @param pageRow 한 페이지당 항목 수
 	 * @param totalCount 전체 항목 수
 	 * @param thisPage 현재 페이지
 	 */
-	public Paging_WishList(int pageRow, int totalCount, int thisPage) {
+	public Paging(int pageRow, int totalCount, int thisPage) {
 		this.pageRow = pageRow;
 		this.thisPage = thisPage;
 		this.totalPageCount = totalCount%pageRow>0 ? totalCount/pageRow+1 : totalCount/pageRow;
@@ -26,6 +34,22 @@ public class Paging_WishList {
 		this.startPage = thisPage==1 ? 1: thisPage-3;
 		this.endPage = thisPage+3;
 		if(endPage>totalPageCount) endPage=totalPageCount;
+		this.endRow = thisPage * pageRow;
+		this.startRow = endRow - (pageRow-1);
+	}
+	
+	/**
+	 * <p>불변형 페이지 목록. 페이지 목록 길이는 startPage와 endPage로 수정합니다.<p>
+	 * @param basket - 오버로딩용 구분자이므로 null 넣어주세요.
+	 */
+	public Paging(int pageRow, int totalCount, int thisPage, String basket) {
+		this.pageRow = pageRow;
+		this.thisPage = thisPage;
+		this.totalPageCount = totalCount%pageRow>0 ? totalCount/pageRow+1 : totalCount/pageRow;
+		if(thisPage > totalPageCount) thisPage = totalPageCount;
+		this.startPage = ((thisPage-1)%10)*10 + 1;
+		this.endPage = startPage-9;
+		if(endPage>totalPageCount) endPage = totalPageCount;
 		this.endRow = thisPage * pageRow;
 		this.startRow = endRow - (pageRow-1);
 	}

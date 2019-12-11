@@ -18,7 +18,7 @@
 		<h1>이모티콘 모음을 올려주세요</h1>
 	</div>
 	<div>
-		<form method="post" action="${cp }/emoticonShop/uploadEmoFile" enctype="multipart/form-data">
+		<form method="post" action="${cp }/emoShop/uploadEmoFile" enctype="multipart/form-data">
 			<label for="category">카테고리</label> <br>
 				<input type="text" name="category" id="category" required> <br>
 			<label for="name">이모티콘 이름</label> <br>

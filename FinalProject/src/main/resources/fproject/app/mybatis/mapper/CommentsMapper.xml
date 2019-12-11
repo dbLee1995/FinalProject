@@ -2,29 +2,30 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="test.mybatis.mapper.CommentsMapper">
-	<select id="list" resultType="fproject.app.fproject.vo.CommentsVo" >
+<mapper namespace="fproject.app.mybatis.mapper.CommentsMapper">
+<!-- order="BEFORE" ==> insert수행전에 selectkey가 실행됨 
+       		<selectKey resultType="int" keyProperty="commnum" order="BEFORE">       		
+       			select SEQ_commnum.nextval from dual
+       		</selectKey>
+       		
+--><!-- <![CDATA[>]]> -->
+	
+	<select id="list" resultType="fproject.app.fproject.vo.CommentsVo">
 		select * from comments
 	</select>
 
-	<!-- order="BEFORE" ==> insert수행전에 selectkey가 실행됨 -->
-<!-- <insert id="insert" parameterType="fproject.app.fproject.vo.CommentsVo">
-       	insert into comments values(SQL_commnum.nextval,#{storynum},#{num},
-       		#{commcontent},#{commref},#{commlev},#{commstep})
-       	<if test="commnum!=null">
-       		<selectKey resultType="int" keyProperty="commnum" order="BEFORE">
-       		
-       		</selectKey>
-       	</if>
-       	
-	</insert>--><!-- <![CDATA[>]]> -->
-	
 	<insert id="insert" parameterType="fproject.app.fproject.vo.CommentsVo">
-		insert into comments values(SEQ_commnum.nextval,#{storynum},#{num},#{commcontent},#{commref},#{commlev},#{commstep})
+			insert into comments
+			values(SEQ_commnum.nextval,#{storynum},#{num},#{commcontent},#{commstep},#{commref},#{commlev})
 	</insert>
-	
+		
 	<update id="update" parameterType="fproject.app.fproject.vo.CommentsVo">
 		update comments set commcontent=#{commcontent} where commnum=#{commnum}
+	</update>
+	
+	<update id="insertReply" parameterType="fproject.app.fproject.vo.CommentsVo">
+		update comments set commstep=commstep+1 
+		where commref=#{commref} and commstep=#{commstep}	
 	</update>
 	
 	<delete id="delete" parameterType="int">

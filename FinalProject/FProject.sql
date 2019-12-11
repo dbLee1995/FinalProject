@@ -71,7 +71,7 @@ DROP SEQUENCE SEQ_story_storynum;
 
 
 /* Create Sequences */
-/* ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ */
+/* ÄÃ·³¸íÀ¸·Î Ã£±â */
 
 CREATE SEQUENCE SEQ_num INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_adnum INCREMENT BY 1 START WITH 1;
@@ -96,393 +96,393 @@ CREATE SEQUENCE SEQ_storynum INCREMENT BY 1 START WITH 1;
 
 /* Create Tables */
 
--- ï¿½ï¿½ï¿½ï¿½
+-- °èÁ¤
 CREATE TABLE account
 (
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5) primary key,
-	-- ï¿½ï¿½ï¿½Ìµï¿½
+	-- ¾ÆÀÌµð
 	id varchar2(20) NOT NULL UNIQUE,
-	-- ï¿½ï¿½Ð¹ï¿½È£
+	-- ºñ¹Ð¹øÈ£
 	pwd varchar2(20) NOT NULL
 );
 
 
--- ï¿½ï¿½ï¿½ï¿½
+-- ±¤°í
 CREATE TABLE ad
 (
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	-- ±¤°í¹øÈ£
 	adnum number(5) PRIMARY KEY,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	-- ±¤°íÀÌ¸§
 	adname varchar2(50) NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	-- ±¤°í¿øº»ÀÌ¹ÌÁöÀÌ¸§
 	adorgimg varchar2(50) NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	-- ±¤°íÀúÀåÀÌ¹ÌÁöÀÌ¸§
 	adsaveimg varchar2(50) NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½
+	-- ±¤°íÆÄÀÏÅ©±â
 	adimgsize long NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ±¤°íµî·ÏÀÏÀÚ
 	addadregdate date NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ±¤°í¸¸·áÀÏÀÚ
 	deladregdate date NOT NULL
 	
 );
 
 
--- ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½
+-- Âü¿©ÀÎ¿øÁ¤º¸
 CREATE TABLE attendinfo
 (
-	-- Ã¤ï¿½Ã¹ï¿½ï¿½È£
+	-- Ã¤ÆÃ¹æ¹øÈ£
 	clnum number(5) references chatlist (clnum),
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5) references account (num) ,
-	-- È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : 0:ï¿½ï¿½ï¿½ï¿½
-	-- 1:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- È¸¿ø»óÅÂ : 0:ÅðÀå
+	-- 1:Âü°¡Áß
 	state number(5),
 	CONSTRAINT attnendkey PRIMARY KEY (clnum,num)
 );
 
 
--- ï¿½Þ·ï¿½
+-- ´Þ·Â
 CREATE TABLE calender
 (
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	-- ÀÏÁ¤¹øÈ£
 	anivernum number(5) primary key,
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5) references account (num),
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	-- ÀÏÁ¤ÀÌ¸§
 	anivername varchar2(50) NOT NULL,
-	-- ï¿½ï¿½ï¿½Û³ï¿½Â¥
+	-- ½ÃÀÛ³¯Â¥
 	aniverstartdate varchar2(60),
-	-- ï¿½ï¿½ï¿½á³¯Â¥
+	-- Á¾·á³¯Â¥
 	aniverenddate varchar2(60),
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ÀÏÁ¤³»¿ë
 	anivercontent varchar2(200),
-	-- ï¿½ß¿äµµ
+	-- Áß¿äµµ
 	aniverimpor varchar2(200),
-	-- ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
+	-- ÀÏÁ¤Å¸ÀÔ
 	anivertype varchar2(200),
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ÀÏÁ¤»ö»ó
 	aniverback varchar2(200),
-	-- ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½
+	-- ÆùÆ®»ö»ó
 	anivertext varchar2(200),
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½Ë¶ï¿½
+	-- ÀÏÁ¤¾Ë¶÷
 	aniveralarm number(5),
-	-- ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ÇÏ·çÁ¾ÀÏ
 	allday varchar2(200)
 );
 
 
--- Ã¤ï¿½ï¿½
+-- Ã¤ÆÃ
 CREATE TABLE chat
 (
-	-- Ã¤ï¿½Ã¹ï¿½È£
+	-- Ã¤ÆÃ¹øÈ£
 	cnum number(5) primary key,
-	-- ï¿½ï¿½ï¿½ï¿½ : 0:ï¿½Ø½ï¿½Æ®
-	-- 1:ï¿½Ì¸ï¿½Æ¼ï¿½ï¿½
-	-- 2:ï¿½ï¿½ï¿½ï¿½
-	-- 3:#ï¿½Ë»ï¿½(ï¿½ï¿½Å©)
+	-- »óÅÂ : 0:ÅØ½ºÆ®
+	-- 1:ÀÌ¸ðÆ¼ÄÜ
+	-- 2:»çÁø
+	-- 3:#°Ë»ö(¸µÅ©)
 	state number(5) NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½
+	-- ³»¿ë
 	content varchar2(100),
-	-- ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ÀÛ¼ºÀÏÀÚ
 	regdate date,
-	-- ï¿½Ì¸ï¿½Æ¼ï¿½Ü¹ï¿½È£
+	-- ÀÌ¸ðÆ¼ÄÜ¹øÈ£
 	emoticonnum number(5),
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	-- ¿øº»ÀÌ¹ÌÁöÀÌ¸§
 	orgimg varchar2(50),
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	-- ÀúÀåÀÌ¹ÌÁöÀÌ¸§
 	saveimg varchar2(50),
-	-- ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½
+	-- ÆÄÀÏÅ©±â
 	imgsize long,
-	-- Ã¤ï¿½Ã¹ï¿½ï¿½È£
+	-- Ã¤ÆÃ¹æ¹øÈ£
    clnum number(5) ,
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5), 
 	Constraint fk_e Foreign Key (clnum,num) References attendinfo(clnum,num)
 	
 );
 
 
--- Ã¤ï¿½Ã¸ï¿½ï¿½ï¿½Æ®
+-- Ã¤ÆÃ¸®½ºÆ®
 CREATE TABLE chatlist
 (
-	-- Ã¤ï¿½Ã¹ï¿½ï¿½È£
+	-- Ã¤ÆÃ¹æ¹øÈ£
 	clnum number(5) primary key,
-	-- Ã¤ï¿½Ã¹ï¿½ï¿½Ì¸ï¿½
+	-- Ã¤ÆÃ¹æÀÌ¸§
 	name varchar2(50)
 	
 );
 
 
--- ï¿½ï¿½ï¿½ï¿½
+-- °øÁö
 CREATE TABLE chatnotice
 (
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	-- °øÁö¹øÈ£
 	noticenum number(5) primary key,
-	-- ï¿½ï¿½ï¿½ï¿½
+	-- °øÁö
 	notice varchar2(50),
-	-- Ã¤ï¿½Ã¹ï¿½ï¿½È£
+	-- Ã¤ÆÃ¹æ¹øÈ£
 	clnum number(5) ,
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5), 
 	Constraint fk_ade Foreign Key (clnum,num) References attendinfo(clnum,num)
 	
 );
 
 
--- Ã¤ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½
+-- Ã¤ÆÃ¹æ»óÅÂ
 CREATE TABLE chatstate
 (
-	-- ï¿½Ë¶ï¿½
+	-- ¾Ë¶÷
 	alarm number(5) NOT NULL,
-	-- ï¿½ï¿½ï¿½Ã£ï¿½ï¿½
+	-- Áñ°ÜÃ£±â
 	favo number(5),
-	-- Ã¤ï¿½Ã¹ï¿½ï¿½È£
+	-- Ã¤ÆÃ¹æ¹øÈ£
 	clnum number(5) ,
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5), 
 	Constraint fk_age Foreign Key (clnum,num) References attendinfo(clnum,num),
 	CONSTRAINT chatstatekey PRIMARY KEY (clnum,num)
 );
 
 
--- ï¿½Ú¸ï¿½Æ®
+-- ÄÚ¸àÆ®
 CREATE TABLE comments
 (
-	-- ï¿½Ú¸ï¿½Æ®ï¿½ï¿½È£
+	-- ÄÚ¸àÆ®¹øÈ£
 	commnum number(5) primary key,
-	-- ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½È£
+	-- ½ºÅä¸®¹øÈ£
 	storynum number(5) references story (storynum),
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5) references account (num),
-	-- ï¿½Ú¸ï¿½Æ®ï¿½ï¿½ï¿½ï¿½
+	-- ÄÚ¸àÆ®³»¿ë
 	commcontent varchar2(50) NOT NULL,
-	-- ï¿½Ú¸ï¿½Æ®ï¿½×·ï¿½ï¿½È£
+	-- ÄÚ¸àÆ®±×·ì¹øÈ£
 	commref number(5) NOT NULL,
-	-- ï¿½Ú¸ï¿½Æ®ï¿½ï¿½ï¿½ï¿½
+	-- ÄÚ¸àÆ®·¹º§
 	commlev number(5) NOT NULL,
-	-- ï¿½Ú¸ï¿½Æ®ï¿½ï¿½Â¼ï¿½ï¿½ï¿½
+	-- ÄÚ¸àÆ®Ãâ·Â¼ø¼­
 	commstep number(5) NOT NULL
 	
 );
 
 
--- ï¿½Ì¸ï¿½Æ¼ï¿½Ü¼ï¿½
+-- ÀÌ¸ðÆ¼ÄÜ¼¥
 CREATE TABLE emoshop
 (
-	-- ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½È£
+	-- ÀÌ¸ðÆ¼ÄÜ±×·ì¹øÈ£
 	emognum number(5) primary key,
-	-- ï¿½ï¿½ï¿½ï¿½
+	-- °¡°Ý
 	price number(10) NOT NULL,
-	-- ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½Ì¸ï¿½
+	-- ÀÌ¸ðÆ¼ÄÜ±×·ìÀÌ¸§
 	name varchar2(50) NOT NULL, UNIQUE,
-	-- Ä«ï¿½×°ï¿½
+	-- Ä«Å×°í¸®
 	category varchar2(20) NOT NULL, UNIQUE
 	
 );
 
 
--- ï¿½Ì¸ï¿½Æ¼ï¿½ï¿½
+-- ÀÌ¸ðÆ¼ÄÜ
 CREATE TABLE emoticon
 (
-	-- ï¿½Ì¸ï¿½Æ¼ï¿½Ü¹ï¿½È£
+	-- ÀÌ¸ðÆ¼ÄÜ¹øÈ£
 	emonum number(5) primary key,
-	-- ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½È£
+	-- ÀÌ¸ðÆ¼ÄÜ±×·ì¹øÈ£
 	emognum number(5) references emoshop (emognum),
-	-- ï¿½Ì¸ï¿½Æ¼ï¿½Ü¿ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ÀÌ¸ðÆ¼ÄÜ¿øº»ÀÌ¹ÌÁö¸í
 	emoorgimg varchar2(50),
-	-- ï¿½Ì¸ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ÀÌ¸ðÆ¼ÄÜÀúÀåÀÌ¹ÌÁö¸í
 	emosaveimg varchar2(50),
-	-- ï¿½Ì¸ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½
+	-- ÀÌ¸ðÆ¼ÄÜÆÄÀÏÅ©±â
 	emoimgsize long
 	
 );
 
 
--- ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½
+-- ÀÌ¸ðÆ¼ÄÜ±×·ì
 CREATE TABLE emoticongroup
 (
-	-- ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½È£
+	-- ÀÌ¸ðÆ¼ÄÜ±×·ì¹øÈ£
 	emognum number(5) references emoshop (emognum),
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5) references account (num),
 	CONSTRAINT emoticongroupkey PRIMARY KEY (emognum,num)
 );
 
 
--- ï¿½ï¿½ï¿½ï¿½
+-- Âò¸ñ·Ï
 CREATE TABLE favorlist
 (
-	-- ï¿½ï¿½ï¿½È£
+	-- Âò¹øÈ£
 	favornum number(5) primary key,
-	-- ï¿½ï¿½
+	-- Âò
 	favor number(5),
-	-- ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½È£
+	-- ÀÌ¸ðÆ¼ÄÜ±×·ì¹øÈ£
 	emognum number(5) references emoshop (emognum),
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5)  references account (num)
 	
 );
 
 
--- Ä£ï¿½ï¿½ï¿½ï¿½ï¿½
+-- Ä£±¸¸ñ·Ï
 CREATE TABLE friendlist
 (
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5) references account (num),
-	-- Ä£ï¿½ï¿½ï¿½ï¿½È£
+	-- Ä£±¸¹øÈ£
 	fnum number(5) NOT NULL,
-	-- ï¿½ï¿½ï¿½Ã£ï¿½ï¿½
+	-- Áñ°ÜÃ£±â
 	favo number(5),
-	-- ï¿½ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½
+	-- Â÷´Ü¿©ºÎ
 	spam number(5),
-	-- ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½
+	-- ½ÂÀÎ¿©ºÎ
 	approv number(5),
 	CONSTRAINT friendkey PRIMARY KEY (num,fnum)
 );
 
 
--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+-- ±¹°¡±â³äÀÏ
 CREATE TABLE nationalday
 (
-	-- ï¿½ï¿½ï¿½ï¿½Ï¹ï¿½È£
+	-- ±â³äÀÏ¹øÈ£
 	anivernum number(5) PRIMARY KEY,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	-- ±â³äÀÏÀÌ¸§
 	anivername varchar2(50) NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½Ï³ï¿½Â¥
+	-- ±â³äÀÏ³¯Â¥
 	aniverregdate date,
-	-- ï¿½ï¿½ï¿½ï¿½Ï³ï¿½ï¿½ï¿½
+	-- ±â³äÀÏ³»¿ë
 	anivercontent varchar2(50)
 	
 );
 
 
--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+-- °øÁö»çÇ×
 CREATE TABLE notice
 (
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¹ï¿½È£
+	-- °øÁö»çÇ×¹øÈ£
 	noticenum number(5) PRIMARY KEY,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- °øÁö»çÇ×Á¦¸ñ
 	noticetitle varchar2(50) NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½
+	-- °øÁö»çÇ×³»¿ë
 	noticecontent varchar2(100) NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- °øÁö»çÇ×ÀÛ¼ºÀÏÀÚ
 	noticeregdate date NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×»ï¿½ï¿½ï¿½
+	-- °øÁö»çÇ×»óÅÂ
 	noticestate number(5) DEFAULT 0 NOT NULL
 
 );
 
 
--- ï¿½É¼ï¿½
+-- ¿É¼Ç
 CREATE TABLE options
 (
-	-- ï¿½É¼Ç¹ï¿½È£
+	-- ¿É¼Ç¹øÈ£
 	optionnum number(5) PRIMARY KEY,
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5) references account (num),
-	-- ï¿½ï¿½Æ®Å©ï¿½ï¿½
+	-- ÆùÆ®Å©±â
 	fontsize number(5) NOT NULL,
-	-- ï¿½×¸ï¿½
+	-- Å×¸¶
 	theme varchar2(50) NOT NULL
 
 );
 
 
--- ï¿½ï¿½ï¿½ï¿½
+-- ¼±¹°
 CREATE TABLE present
 (
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	-- ¼±¹°¹øÈ£
 	presnum number(5) PRIMARY KEY,
-	-- ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½È£
+	-- ÀÌ¸ðÆ¼ÄÜ±×·ì¹øÈ£
 	emognum number(5) references emoshop (emognum),
-	-- ï¿½Ö´Â»ï¿½ï¿½
+	-- ÁÖ´Â»ç¶÷
 	gnum number(5) references account (num),
-	-- ï¿½Þ´Â»ï¿½ï¿½
+	-- ¹Þ´Â»ç¶÷
 	rnum number(5) references account (num)
 	
 );
 
 
--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+-- ÇÁ·ÎÇÊ
 CREATE TABLE profiles
 (
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5) references account (num) ,
-	-- ï¿½Ì¸ï¿½
+	-- ÀÌ¸§
 	name varchar2(20) NOT NULL,
-	-- ï¿½ï¿½È­ï¿½ï¿½È£
+	-- ÀüÈ­¹øÈ£
 	phone varchar2(20) NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½
+	-- ¸ÞÀÏÁÖ¼Ò
 	email varchar2(30) NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- »ý³â¿ùÀÏ
 	birth date NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½
+	-- ÇÁ·ÎÇÊÀÌ¹ÌÁö
 	profileimg varchar2(50),
-	-- ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½
+	-- ¹è°æÀÌ¹ÌÁö
 	backimg varchar2(50),
-	-- ï¿½ï¿½ï¿½Â¸Þ½ï¿½ï¿½ï¿½
+	-- »óÅÂ¸Þ½ÃÁö
 	msg varchar2(100),
 	PRIMARY KEY (num)
 );
 
 
--- ï¿½ï¿½ï¿½ï¿½
+-- ¹®ÀÇ
 CREATE TABLE qna
 (
-	-- ï¿½ï¿½ï¿½Ç¹ï¿½È£
+	-- ¹®ÀÇ¹øÈ£
 	qnanum number(5) PRIMARY KEY,
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5) references account (num),
-	-- ï¿½ï¿½ï¿½ï¿½Ä«ï¿½×°ï¿½
+	-- ¹®ÀÇÄ«Å×°í¸®
 	qnacategory number(5) NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ¹®ÀÇÁ¦¸ñ
 	qnatitle varchar2(50) NOT NULL,
-	-- ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½
+	-- ¹®ÀÇ³»¿ë
 	qnacontent varchar2(100) NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ¹®ÀÇÀÛ¼ºÀÏÀÚ
 	qnaregdate date NOT NULL,
-	-- ï¿½ï¿½ï¿½Ç´äº¯
+	-- ¹®ÀÇ´äº¯
 	qnaanswer varchar2(100) NOT NULL,
-	-- ï¿½ï¿½ï¿½Ç´äº¯ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ¹®ÀÇ´äº¯ÀÛ¼ºÀÏÀÚ
 	qnaqnswerregdate date NOT NULL
 	
 );
 
 
--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+-- ÀÐÀº»ç¶÷Á¤º¸
 CREATE TABLE readinfo
 (
-	-- Ã¤ï¿½Ã¹ï¿½È£
+	-- Ã¤ÆÃ¹øÈ£
 	cnum number(5) references chat (cnum),
 
 	clnum number(5) ,
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5), 
 	Constraint fk_ae Foreign Key (clnum,num) References attendinfo(clnum,num),
 	CONSTRAINT  readinfokey PRIMARY KEY (num,cnum)
 );
 
 
--- ï¿½ï¿½ï¿½ä¸®
+-- ½ºÅä¸®
 CREATE TABLE story
 (
-	-- ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½È£
+	-- ½ºÅä¸®¹øÈ£
 	storynum number(5) primary key,
-	-- È¸ï¿½ï¿½ï¿½ï¿½È£
+	-- È¸¿ø¹øÈ£
 	num number(5) references account (num),
-	-- ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½
+	-- ½ºÅä¸®Á¦¸ñ
 	stitle varchar2(50) NOT NULL,
-	-- ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½
+	-- ½ºÅä¸®³»¿ë
 	scontent varchar2(50) NOT NULL,
-	-- ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	-- ÀÛ¼ºÀÏÀÚ
 	sregdate date NOT NULL,
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	-- ¿øº»ÀÌ¹ÌÁöÀÌ¸§
 	orgimg varchar2(50),
-	-- ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	-- ÀúÀåÀÌ¹ÌÁöÀÌ¸§
 	saveimg varchar2(50),
-	-- ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½
+	-- ÆÄÀÏÅ©±â
 	imgsize long
 	
 );
@@ -632,142 +632,142 @@ ALTER TABLE comments
 
 /* Comments */
 
-COMMENT ON TABLE account IS 'ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN account.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN account.id IS 'ï¿½ï¿½ï¿½Ìµï¿½';
-COMMENT ON COLUMN account.pwd IS 'ï¿½ï¿½Ð¹ï¿½È£';
-COMMENT ON TABLE ad IS 'ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN ad.adnum IS 'ï¿½ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN ad.adname IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½';
-COMMENT ON COLUMN ad.adorgimg IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½';
-COMMENT ON COLUMN ad.adsaveimg IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½';
-COMMENT ON COLUMN ad.adimgsize IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½';
-COMMENT ON COLUMN ad.addadregdate IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN ad.deladregdate IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON TABLE attendinfo IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN attendinfo.clnum IS 'Ã¤ï¿½Ã¹ï¿½ï¿½È£';
-COMMENT ON COLUMN attendinfo.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN attendinfo.state IS 'È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : 0:ï¿½ï¿½ï¿½ï¿½
-1:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON TABLE calender IS 'ï¿½Þ·ï¿½';
-COMMENT ON COLUMN calender.anivernum IS 'ï¿½ï¿½ï¿½ï¿½Ï¹ï¿½È£';
-COMMENT ON COLUMN calender.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN calender.anivername IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½';
-COMMENT ON COLUMN calender.aniverregdate IS 'ï¿½ï¿½ï¿½ï¿½Ï³ï¿½Â¥';
-COMMENT ON COLUMN calender.anivercontent IS 'ï¿½ï¿½ï¿½ï¿½Ï³ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN calender.aniverstate IS 'ï¿½ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ : 0:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-1:Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-2:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN calender.alarm IS 'ï¿½Ë¶ï¿½';
-COMMENT ON TABLE chat IS 'Ã¤ï¿½ï¿½';
-COMMENT ON COLUMN chat.cnum IS 'Ã¤ï¿½Ã¹ï¿½È£';
-COMMENT ON COLUMN chat.state IS 'ï¿½ï¿½ï¿½ï¿½ : 0:ï¿½Ø½ï¿½Æ®
-1:ï¿½Ì¸ï¿½Æ¼ï¿½ï¿½
-2:ï¿½ï¿½ï¿½ï¿½
-3:#ï¿½Ë»ï¿½(ï¿½ï¿½Å©)';
-COMMENT ON COLUMN chat.content IS 'ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN chat.regdate IS 'ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN chat.emoticonnum IS 'ï¿½Ì¸ï¿½Æ¼ï¿½Ü¹ï¿½È£';
-COMMENT ON COLUMN chat.orgimg IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½';
-COMMENT ON COLUMN chat.saveimg IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½';
-COMMENT ON COLUMN chat.imgsize IS 'ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½';
-COMMENT ON COLUMN chat.clnum IS 'Ã¤ï¿½Ã¹ï¿½ï¿½È£';
-COMMENT ON COLUMN chat.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON TABLE chatlist IS 'Ã¤ï¿½Ã¸ï¿½ï¿½ï¿½Æ®';
-COMMENT ON COLUMN chatlist.clnum IS 'Ã¤ï¿½Ã¹ï¿½ï¿½È£';
-COMMENT ON COLUMN chatlist.name IS 'Ã¤ï¿½Ã¹ï¿½ï¿½Ì¸ï¿½';
-COMMENT ON TABLE chatnotice IS 'ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN chatnotice.noticenum IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN chatnotice.notice IS 'ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN chatnotice.clnum IS 'Ã¤ï¿½Ã¹ï¿½ï¿½È£';
-COMMENT ON COLUMN chatnotice.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON TABLE chatstate IS 'Ã¤ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN chatstate.alarm IS 'ï¿½Ë¶ï¿½';
-COMMENT ON COLUMN chatstate.favo IS 'ï¿½ï¿½ï¿½Ã£ï¿½ï¿½';
-COMMENT ON COLUMN chatstate.clnum IS 'Ã¤ï¿½Ã¹ï¿½ï¿½È£';
-COMMENT ON COLUMN chatstate.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON TABLE comments IS 'ï¿½Ú¸ï¿½Æ®';
-COMMENT ON COLUMN comments.commnum IS 'ï¿½Ú¸ï¿½Æ®ï¿½ï¿½È£';
-COMMENT ON COLUMN comments.storynum IS 'ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½È£';
-COMMENT ON COLUMN comments.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN comments.commcontent IS 'ï¿½Ú¸ï¿½Æ®ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN comments.commref IS 'ï¿½Ú¸ï¿½Æ®ï¿½×·ï¿½ï¿½È£';
-COMMENT ON COLUMN comments.commlev IS 'ï¿½Ú¸ï¿½Æ®ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN comments.commstep IS 'ï¿½Ú¸ï¿½Æ®ï¿½ï¿½Â¼ï¿½ï¿½ï¿½';
-COMMENT ON TABLE emoshop IS 'ï¿½Ì¸ï¿½Æ¼ï¿½Ü¼ï¿½';
-COMMENT ON COLUMN emoshop.emognum IS 'ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½È£';
-COMMENT ON COLUMN emoshop.price IS 'ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN emoshop.name IS 'ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½Ì¸ï¿½';
-COMMENT ON COLUMN emoshop.category IS 'Ä«ï¿½×°ï¿½';
-COMMENT ON TABLE emoticon IS 'ï¿½Ì¸ï¿½Æ¼ï¿½ï¿½';
-COMMENT ON COLUMN emoticon.emonum IS 'ï¿½Ì¸ï¿½Æ¼ï¿½Ü¹ï¿½È£';
-COMMENT ON COLUMN emoticon.emognum IS 'ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½È£';
-COMMENT ON COLUMN emoticon.emoorgimg IS 'ï¿½Ì¸ï¿½Æ¼ï¿½Ü¿ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN emoticon.emosaveimg IS 'ï¿½Ì¸ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN emoticon.emoimgsize IS 'ï¿½Ì¸ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½';
-COMMENT ON TABLE emoticongroup IS 'ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½';
-COMMENT ON COLUMN emoticongroup.emognum IS 'ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½È£';
-COMMENT ON COLUMN emoticongroup.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON TABLE favorlist IS 'ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN favorlist.favornum IS 'ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN favorlist.favor IS 'ï¿½ï¿½';
-COMMENT ON COLUMN favorlist.emognum IS 'ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½È£';
-COMMENT ON COLUMN favorlist.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON TABLE friendlist IS 'Ä£ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN friendlist.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN friendlist.fnum IS 'Ä£ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN friendlist.favo IS 'ï¿½ï¿½ï¿½Ã£ï¿½ï¿½';
-COMMENT ON COLUMN friendlist.spam IS 'ï¿½ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN friendlist.approv IS 'ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½';
-COMMENT ON TABLE nationalday IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN nationalday.anivernum IS 'ï¿½ï¿½ï¿½ï¿½Ï¹ï¿½È£';
-COMMENT ON COLUMN nationalday.anivername IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½';
-COMMENT ON COLUMN nationalday.aniverregdate IS 'ï¿½ï¿½ï¿½ï¿½Ï³ï¿½Â¥';
-COMMENT ON COLUMN nationalday.anivercontent IS 'ï¿½ï¿½ï¿½ï¿½Ï³ï¿½ï¿½ï¿½';
-COMMENT ON TABLE notice IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN notice.noticenum IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¹ï¿½È£';
-COMMENT ON COLUMN notice.noticetitle IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN notice.noticecontent IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN notice.noticeregdate IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN notice.noticestate IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×»ï¿½ï¿½ï¿½';
-COMMENT ON TABLE options IS 'ï¿½É¼ï¿½';
-COMMENT ON COLUMN options.optionnum IS 'ï¿½É¼Ç¹ï¿½È£';
-COMMENT ON COLUMN options.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN options.fontsize IS 'ï¿½ï¿½Æ®Å©ï¿½ï¿½';
-COMMENT ON COLUMN options.theme IS 'ï¿½×¸ï¿½';
-COMMENT ON TABLE present IS 'ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN present.presnum IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN present.emognum IS 'ï¿½Ì¸ï¿½Æ¼ï¿½Ü±×·ï¿½ï¿½È£';
-COMMENT ON COLUMN present.gnum IS 'ï¿½Ö´Â»ï¿½ï¿½';
-COMMENT ON COLUMN present.rnum IS 'ï¿½Þ´Â»ï¿½ï¿½';
-COMMENT ON TABLE profiles IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN profiles.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN profiles.name IS 'ï¿½Ì¸ï¿½';
-COMMENT ON COLUMN profiles.phone IS 'ï¿½ï¿½È­ï¿½ï¿½È£';
-COMMENT ON COLUMN profiles.email IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½';
-COMMENT ON COLUMN profiles.birth IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN profiles.profileimg IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN profiles.backimg IS 'ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN profiles.msg IS 'ï¿½ï¿½ï¿½Â¸Þ½ï¿½ï¿½ï¿½';
-COMMENT ON TABLE qna IS 'ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN qna.qnanum IS 'ï¿½ï¿½ï¿½Ç¹ï¿½È£';
-COMMENT ON COLUMN qna.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN qna.qnacategory IS 'ï¿½ï¿½ï¿½ï¿½Ä«ï¿½×°ï¿½';
-COMMENT ON COLUMN qna.qnatitle IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN qna.qnacontent IS 'ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN qna.qnaregdate IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN qna.qnaanswer IS 'ï¿½ï¿½ï¿½Ç´äº¯';
-COMMENT ON COLUMN qna.qnaqnswerregdate IS 'ï¿½ï¿½ï¿½Ç´äº¯ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON TABLE readinfo IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN readinfo.cnum IS 'Ã¤ï¿½Ã¹ï¿½È£';
-COMMENT ON COLUMN readinfo.clnum IS 'Ã¤ï¿½Ã¹ï¿½ï¿½È£';
-COMMENT ON COLUMN readinfo.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON TABLE story IS 'ï¿½ï¿½ï¿½ä¸®';
-COMMENT ON COLUMN story.storynum IS 'ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½È£';
-COMMENT ON COLUMN story.num IS 'È¸ï¿½ï¿½ï¿½ï¿½È£';
-COMMENT ON COLUMN story.stitle IS 'ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN story.scontent IS 'ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN story.sregdate IS 'ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½';
-COMMENT ON COLUMN story.orgimg IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½';
-COMMENT ON COLUMN story.saveimg IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½';
-COMMENT ON COLUMN story.imgsize IS 'ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½';
+COMMENT ON TABLE account IS '°èÁ¤';
+COMMENT ON COLUMN account.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON COLUMN account.id IS '¾ÆÀÌµð';
+COMMENT ON COLUMN account.pwd IS 'ºñ¹Ð¹øÈ£';
+COMMENT ON TABLE ad IS '±¤°í';
+COMMENT ON COLUMN ad.adnum IS '±¤°í¹øÈ£';
+COMMENT ON COLUMN ad.adname IS '±¤°íÀÌ¸§';
+COMMENT ON COLUMN ad.adorgimg IS '±¤°í¿øº»ÀÌ¹ÌÁöÀÌ¸§';
+COMMENT ON COLUMN ad.adsaveimg IS '±¤°íÀúÀåÀÌ¹ÌÁöÀÌ¸§';
+COMMENT ON COLUMN ad.adimgsize IS '±¤°íÆÄÀÏÅ©±â';
+COMMENT ON COLUMN ad.addadregdate IS '±¤°íµî·ÏÀÏÀÚ';
+COMMENT ON COLUMN ad.deladregdate IS '±¤°í¸¸·áÀÏÀÚ';
+COMMENT ON TABLE attendinfo IS 'Âü¿©ÀÎ¿øÁ¤º¸';
+COMMENT ON COLUMN attendinfo.clnum IS 'Ã¤ÆÃ¹æ¹øÈ£';
+COMMENT ON COLUMN attendinfo.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON COLUMN attendinfo.state IS 'È¸¿ø»óÅÂ : 0:ÅðÀå
+1:Âü°¡Áß';
+COMMENT ON TABLE calender IS '´Þ·Â';
+COMMENT ON COLUMN calender.anivernum IS '±â³äÀÏ¹øÈ£';
+COMMENT ON COLUMN calender.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON COLUMN calender.anivername IS '±â³äÀÏÀÌ¸§';
+COMMENT ON COLUMN calender.aniverregdate IS '±â³äÀÏ³¯Â¥';
+COMMENT ON COLUMN calender.anivercontent IS '±â³äÀÏ³»¿ë';
+COMMENT ON COLUMN calender.aniverstate IS '±â³äÀÏ»óÅÂ : 0:±¹°¡±â³äÀÏ
+1:Ä£±¸»ýÀÏ
+2:ÁöÁ¤±â³äÀÏ';
+COMMENT ON COLUMN calender.alarm IS '¾Ë¶÷';
+COMMENT ON TABLE chat IS 'Ã¤ÆÃ';
+COMMENT ON COLUMN chat.cnum IS 'Ã¤ÆÃ¹øÈ£';
+COMMENT ON COLUMN chat.state IS '»óÅÂ : 0:ÅØ½ºÆ®
+1:ÀÌ¸ðÆ¼ÄÜ
+2:»çÁø
+3:#°Ë»ö(¸µÅ©)';
+COMMENT ON COLUMN chat.content IS '³»¿ë';
+COMMENT ON COLUMN chat.regdate IS 'ÀÛ¼ºÀÏÀÚ';
+COMMENT ON COLUMN chat.emoticonnum IS 'ÀÌ¸ðÆ¼ÄÜ¹øÈ£';
+COMMENT ON COLUMN chat.orgimg IS '¿øº»ÀÌ¹ÌÁöÀÌ¸§';
+COMMENT ON COLUMN chat.saveimg IS 'ÀúÀåÀÌ¹ÌÁöÀÌ¸§';
+COMMENT ON COLUMN chat.imgsize IS 'ÆÄÀÏÅ©±â';
+COMMENT ON COLUMN chat.clnum IS 'Ã¤ÆÃ¹æ¹øÈ£';
+COMMENT ON COLUMN chat.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON TABLE chatlist IS 'Ã¤ÆÃ¸®½ºÆ®';
+COMMENT ON COLUMN chatlist.clnum IS 'Ã¤ÆÃ¹æ¹øÈ£';
+COMMENT ON COLUMN chatlist.name IS 'Ã¤ÆÃ¹æÀÌ¸§';
+COMMENT ON TABLE chatnotice IS '°øÁö';
+COMMENT ON COLUMN chatnotice.noticenum IS '°øÁö¹øÈ£';
+COMMENT ON COLUMN chatnotice.notice IS '°øÁö';
+COMMENT ON COLUMN chatnotice.clnum IS 'Ã¤ÆÃ¹æ¹øÈ£';
+COMMENT ON COLUMN chatnotice.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON TABLE chatstate IS 'Ã¤ÆÃ¹æ»óÅÂ';
+COMMENT ON COLUMN chatstate.alarm IS '¾Ë¶÷';
+COMMENT ON COLUMN chatstate.favo IS 'Áñ°ÜÃ£±â';
+COMMENT ON COLUMN chatstate.clnum IS 'Ã¤ÆÃ¹æ¹øÈ£';
+COMMENT ON COLUMN chatstate.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON TABLE comments IS 'ÄÚ¸àÆ®';
+COMMENT ON COLUMN comments.commnum IS 'ÄÚ¸àÆ®¹øÈ£';
+COMMENT ON COLUMN comments.storynum IS '½ºÅä¸®¹øÈ£';
+COMMENT ON COLUMN comments.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON COLUMN comments.commcontent IS 'ÄÚ¸àÆ®³»¿ë';
+COMMENT ON COLUMN comments.commref IS 'ÄÚ¸àÆ®±×·ì¹øÈ£';
+COMMENT ON COLUMN comments.commlev IS 'ÄÚ¸àÆ®·¹º§';
+COMMENT ON COLUMN comments.commstep IS 'ÄÚ¸àÆ®Ãâ·Â¼ø¼­';
+COMMENT ON TABLE emoshop IS 'ÀÌ¸ðÆ¼ÄÜ¼¥';
+COMMENT ON COLUMN emoshop.emognum IS 'ÀÌ¸ðÆ¼ÄÜ±×·ì¹øÈ£';
+COMMENT ON COLUMN emoshop.price IS '°¡°Ý';
+COMMENT ON COLUMN emoshop.name IS 'ÀÌ¸ðÆ¼ÄÜ±×·ìÀÌ¸§';
+COMMENT ON COLUMN emoshop.category IS 'Ä«Å×°í¸®';
+COMMENT ON TABLE emoticon IS 'ÀÌ¸ðÆ¼ÄÜ';
+COMMENT ON COLUMN emoticon.emonum IS 'ÀÌ¸ðÆ¼ÄÜ¹øÈ£';
+COMMENT ON COLUMN emoticon.emognum IS 'ÀÌ¸ðÆ¼ÄÜ±×·ì¹øÈ£';
+COMMENT ON COLUMN emoticon.emoorgimg IS 'ÀÌ¸ðÆ¼ÄÜ¿øº»ÀÌ¹ÌÁö¸í';
+COMMENT ON COLUMN emoticon.emosaveimg IS 'ÀÌ¸ðÆ¼ÄÜÀúÀåÀÌ¹ÌÁö¸í';
+COMMENT ON COLUMN emoticon.emoimgsize IS 'ÀÌ¸ðÆ¼ÄÜÆÄÀÏÅ©±â';
+COMMENT ON TABLE emoticongroup IS 'ÀÌ¸ðÆ¼ÄÜ±×·ì';
+COMMENT ON COLUMN emoticongroup.emognum IS 'ÀÌ¸ðÆ¼ÄÜ±×·ì¹øÈ£';
+COMMENT ON COLUMN emoticongroup.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON TABLE favorlist IS 'Âò¸ñ·Ï';
+COMMENT ON COLUMN favorlist.favornum IS 'Âò¹øÈ£';
+COMMENT ON COLUMN favorlist.favor IS 'Âò';
+COMMENT ON COLUMN favorlist.emognum IS 'ÀÌ¸ðÆ¼ÄÜ±×·ì¹øÈ£';
+COMMENT ON COLUMN favorlist.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON TABLE friendlist IS 'Ä£±¸¸ñ·Ï';
+COMMENT ON COLUMN friendlist.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON COLUMN friendlist.fnum IS 'Ä£±¸¹øÈ£';
+COMMENT ON COLUMN friendlist.favo IS 'Áñ°ÜÃ£±â';
+COMMENT ON COLUMN friendlist.spam IS 'Â÷´Ü¿©ºÎ';
+COMMENT ON COLUMN friendlist.approv IS '½ÂÀÎ¿©ºÎ';
+COMMENT ON TABLE nationalday IS '±¹°¡±â³äÀÏ';
+COMMENT ON COLUMN nationalday.anivernum IS '±â³äÀÏ¹øÈ£';
+COMMENT ON COLUMN nationalday.anivername IS '±â³äÀÏÀÌ¸§';
+COMMENT ON COLUMN nationalday.aniverregdate IS '±â³äÀÏ³¯Â¥';
+COMMENT ON COLUMN nationalday.anivercontent IS '±â³äÀÏ³»¿ë';
+COMMENT ON TABLE notice IS '°øÁö»çÇ×';
+COMMENT ON COLUMN notice.noticenum IS '°øÁö»çÇ×¹øÈ£';
+COMMENT ON COLUMN notice.noticetitle IS '°øÁö»çÇ×Á¦¸ñ';
+COMMENT ON COLUMN notice.noticecontent IS '°øÁö»çÇ×³»¿ë';
+COMMENT ON COLUMN notice.noticeregdate IS '°øÁö»çÇ×ÀÛ¼ºÀÏÀÚ';
+COMMENT ON COLUMN notice.noticestate IS '°øÁö»çÇ×»óÅÂ';
+COMMENT ON TABLE options IS '¿É¼Ç';
+COMMENT ON COLUMN options.optionnum IS '¿É¼Ç¹øÈ£';
+COMMENT ON COLUMN options.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON COLUMN options.fontsize IS 'ÆùÆ®Å©±â';
+COMMENT ON COLUMN options.theme IS 'Å×¸¶';
+COMMENT ON TABLE present IS '¼±¹°';
+COMMENT ON COLUMN present.presnum IS '¼±¹°¹øÈ£';
+COMMENT ON COLUMN present.emognum IS 'ÀÌ¸ðÆ¼ÄÜ±×·ì¹øÈ£';
+COMMENT ON COLUMN present.gnum IS 'ÁÖ´Â»ç¶÷';
+COMMENT ON COLUMN present.rnum IS '¹Þ´Â»ç¶÷';
+COMMENT ON TABLE profiles IS 'ÇÁ·ÎÇÊ';
+COMMENT ON COLUMN profiles.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON COLUMN profiles.name IS 'ÀÌ¸§';
+COMMENT ON COLUMN profiles.phone IS 'ÀüÈ­¹øÈ£';
+COMMENT ON COLUMN profiles.email IS '¸ÞÀÏÁÖ¼Ò';
+COMMENT ON COLUMN profiles.birth IS '»ý³â¿ùÀÏ';
+COMMENT ON COLUMN profiles.profileimg IS 'ÇÁ·ÎÇÊÀÌ¹ÌÁö';
+COMMENT ON COLUMN profiles.backimg IS '¹è°æÀÌ¹ÌÁö';
+COMMENT ON COLUMN profiles.msg IS '»óÅÂ¸Þ½ÃÁö';
+COMMENT ON TABLE qna IS '¹®ÀÇ';
+COMMENT ON COLUMN qna.qnanum IS '¹®ÀÇ¹øÈ£';
+COMMENT ON COLUMN qna.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON COLUMN qna.qnacategory IS '¹®ÀÇÄ«Å×°í¸®';
+COMMENT ON COLUMN qna.qnatitle IS '¹®ÀÇÁ¦¸ñ';
+COMMENT ON COLUMN qna.qnacontent IS '¹®ÀÇ³»¿ë';
+COMMENT ON COLUMN qna.qnaregdate IS '¹®ÀÇÀÛ¼ºÀÏÀÚ';
+COMMENT ON COLUMN qna.qnaanswer IS '¹®ÀÇ´äº¯';
+COMMENT ON COLUMN qna.qnaqnswerregdate IS '¹®ÀÇ´äº¯ÀÛ¼ºÀÏÀÚ';
+COMMENT ON TABLE readinfo IS 'ÀÐÀº»ç¶÷Á¤º¸';
+COMMENT ON COLUMN readinfo.cnum IS 'Ã¤ÆÃ¹øÈ£';
+COMMENT ON COLUMN readinfo.clnum IS 'Ã¤ÆÃ¹æ¹øÈ£';
+COMMENT ON COLUMN readinfo.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON TABLE story IS '½ºÅä¸®';
+COMMENT ON COLUMN story.storynum IS '½ºÅä¸®¹øÈ£';
+COMMENT ON COLUMN story.num IS 'È¸¿ø¹øÈ£';
+COMMENT ON COLUMN story.stitle IS '½ºÅä¸®Á¦¸ñ';
+COMMENT ON COLUMN story.scontent IS '½ºÅä¸®³»¿ë';
+COMMENT ON COLUMN story.sregdate IS 'ÀÛ¼ºÀÏÀÚ';
+COMMENT ON COLUMN story.orgimg IS '¿øº»ÀÌ¹ÌÁöÀÌ¸§';
+COMMENT ON COLUMN story.saveimg IS 'ÀúÀåÀÌ¹ÌÁöÀÌ¸§';
+COMMENT ON COLUMN story.imgsize IS 'ÆÄÀÏÅ©±â';

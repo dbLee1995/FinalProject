@@ -19,6 +19,9 @@
 		$("#find_pw_btn").click(function(){
 			location.href='${cp}/member/find_pw';	//히스토리를 기록해서 지정한 새로운페이지로 이동한다. 
 		});
+		(() => {
+			if("${auth}"=="lack") alert("로그인이 필요합니다.");
+		})();
 	});
 </script>
 <title>member/login.jsp</title>

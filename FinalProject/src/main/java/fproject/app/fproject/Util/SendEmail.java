@@ -35,7 +35,7 @@ public class SendEmail {
 			Message msg = new MimeMessage(session);
 			msg.setFrom(new InternetAddress(EMAIL_ADDRESS));
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
-			msg.setSubject("ìœ ì‚¬ì¹´í†¡:::::::::::::: ì¸ì¦ ë©”ì¼ì…ë‹ˆë‹¤.");
+			msg.setSubject("À¯»çÄ«Åå:::::::::::::: ÀÎÁõ ¸ŞÀÏÀÔ´Ï´Ù.");
 			msg.setText(content(certification, num));
 			msg.setHeader("content-Type", "text/html");
 			Transport.send(msg);
@@ -47,15 +47,15 @@ public class SendEmail {
 	private String content(String certification, int num) {
 		String html = "";
 		if(num == 0) {
-			
 			html = "<!DOCTYPE html> "
 				+ "<html>"
 				+ "<head>"
 				+ "<meta charset='UTF-8'/>"
 				+ "</head>"
 				+ "<body>"
-				+ "<h1 style='text-align:center'>ë³¸ì¸ ì¸ì¦ ë©”ì¼ì…ë‹ˆë‹¤</h1>"
-				+ "<h3 style='text-align:center'>ë‹¤ìŒ ì¸ì¦ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.</h3>"
+				+ "<h1 style='text-align:center'>º»ÀÎ ÀÎÁõ ¸ŞÀÏÀÔ´Ï´Ù</h1>"
+				+ "<hr><br><br>"
+				+ "<h3 style='text-align:center'>´ÙÀ½ ÀÎÁõ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.</h3>"
 				+ "<h3 style='text-align:center'>" + certification + "</h3>"
 				+ "</body>"
 				+ "</html>";
@@ -66,8 +66,9 @@ public class SendEmail {
 					+ "<meta charset='UTF-8'/>"
 					+ "</head>"
 					+ "<body>"
-					+ "<h1 style='text-align:center'>ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ ë°œì†¡ ë©”ì¼ì…ë‹ˆë‹¤</h1>"
-					+ "<h3 style='text-align:center'>ë‹¤ìŒ ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ë¡œ ë¡œê·¸ì¸í›„ ë¹„ë°€ë²ˆí˜¸ë¥¼ ë³€ê²½í•˜ì—¬ ì‚¬ìš©í•˜ì„¸ìš”.</h3>"
+					+ "<h1 style='text-align:center'>ÀÓ½Ã ºñ¹Ğ¹øÈ£ÀÔ´Ï´Ù</h1>"
+					+ "<hr><br><br>"
+					+ "<h3 style='text-align:center'>´ÙÀ½ ÀÓ½Ã ºñ¹Ğ¹øÈ£·Î ·Î±×ÀÎ ÈÄ ºñ¹Ğ¹øÈ£¸¦ º¯°æÇÏ¿© »ç¿ëÇÏ¼¼¿ä.</h3>"
 					+ "<h3 style='text-align:center'>" + certification + "</h3>"
 					+ "</body>"
 					+ "</html>";

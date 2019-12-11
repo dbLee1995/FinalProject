@@ -25,12 +25,12 @@ public class EmoticonUploadController {
 		this.service = service;
 	}
 
-	@RequestMapping(value = "/emoticonShop/uploadEmoFile", method = RequestMethod.GET)
+	@RequestMapping(value = "/emoShop/uploadEmoFile", method = RequestMethod.GET)
 	public String moveUploadPage() {
 		return "emoticonShop/upload";
 	}
 
-	@RequestMapping(value = "/emoticonShop/uploadEmoFile", method = RequestMethod.POST)
+	@RequestMapping(value = "/emoShop/uploadEmoFile", method = RequestMethod.POST)
 	public String uploadEmoticonFile(Model model, MultipartHttpServletRequest req, EmoshopVo vo) {
 		model.addAttribute("feature", "이모티콘 파일 업로드");
 		int fileNum = 1;
