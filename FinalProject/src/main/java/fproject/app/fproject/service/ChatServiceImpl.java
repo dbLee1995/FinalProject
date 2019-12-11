@@ -9,6 +9,7 @@ import fproject.app.fproject.dao.ChatDao;
 import fproject.app.fproject.vo.AttendinfoVo;
 import fproject.app.fproject.vo.ChatVo;
 import fproject.app.fproject.vo.ChatlistVo;
+import fproject.app.fproject.vo.ReadinfoVo;
 
 @Service
 public class ChatServiceImpl implements ChatService{
@@ -68,5 +69,21 @@ public class ChatServiceImpl implements ChatService{
 	@Override
 	public String getLastChat(int clnum) {
 		return dao.getLastChat(clnum);
+	}
+	@Override
+	public int updateAttendinfo(AttendinfoVo vo) {
+		return dao.updateAttendinfo(vo);
+	}
+	@Override
+	public int addReadInfo(ReadinfoVo vo) {
+		return dao.addReadInfo(vo);
+	}
+	@Override
+	public int getReadInfo(ReadinfoVo vo) {
+		return dao.getReadInfo(vo);
+	}
+	@Override
+	public int getCountReadInfo(int cnum) {
+		return dao.getCountReadInfo(cnum);
 	}
 }

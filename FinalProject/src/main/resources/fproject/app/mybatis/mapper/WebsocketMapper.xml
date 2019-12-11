@@ -8,13 +8,18 @@
 	<select id="getRoom" parameterType="int" 
 			resultType="fproject.app.fproject.vo.ChatlistVo">
 		SELECT * FROM CHATLIST 
-		WHERE CLNUM=#{CLNUM}
+		WHERE CLNUM=#{clnum}
 	</select>
 	<!-- ### 방 추가하기 ### -->
 	<insert id="createChatRoom" parameterType="fproject.app.fproject.vo.ChatlistVo">
 		INSERT INTO CHATLIST 
-		VALUES(SEQ_CLNUM.NEXTVAL, #{NAME})
+		VALUES(SEQ_CLNUM.NEXTVAL, #{name})
 	</insert>
+	<!-- ### 방 삭제(state수정) ### -->
+	<update id="updateAttendinfo" parameterType="fproject.app.fproject.vo.AttendinfoVo">
+		UPDATE ATTENDINFO SET STATE=#{state}
+		WHERE CLNUM=#{clnum} AND NUM=#{num}
+	</update>
 	<!-- ### 전체 방 정보 얻어오기 ### --> 
 	<select id="getRoomList" resultType="fproject.app.fproject.vo.ChatlistVo">
 		SELECT * FROM CHATLIST
@@ -23,18 +28,18 @@
 	<!-- ### 본인과 초대한 유저 추가하기 ### -->
 	<insert id="addAttendInfo" parameterType="fproject.app.fproject.vo.AttendinfoVo">
 		INSERT INTO ATTENDINFO 
-		VALUES(#{CLNUM},#{NUM},#{STATE})
+		VALUES(#{clnum},#{num},#{state})
 	</insert>
 	<!-- ### 현재 유저가 어떤방에 들어가있는지 ### -->
 	<select id="getAttendInfo" parameterType="int"
 			resultType="fproject.app.fproject.vo.AttendinfoVo">
 		SELECT * FROM ATTENDINFO 
-		WHERE NUM=#{NUM}
+		WHERE NUM=#{num} AND STATE=1
 	</select>
 	<select id="getAttendInfotoclnum" parameterType="int"
 			resultType="fproject.app.fproject.vo.AttendinfoVo">
 		SELECT * FROM ATTENDINFO 
-		WHERE CLNUM=#{CLNUM}
+		WHERE CLNUM=#{clnum}
 	</select>
 	<!-- ### (파라미터)같은 방에 존재하는 사람 정보 가져오기 ### -->
 	<select id="sameAttendInfo" parameterType="int"
@@ -46,7 +51,7 @@
 	<select id="getAttendCount" parameterType="int"
 			resultType="int">
 		SELECT COUNT(*) CNT FROM ATTENDINFO
-		WHERE CLNUM=#{CLNUM}
+		WHERE CLNUM=#{clnum}
 	</select>
 	<!-- ### 방 변경 ### --><!-- 
 	<update id="updateRoom" parameterType="fproject.app.fproject.AttendinfoVo">
@@ -59,35 +64,60 @@
 	<!-- ### 방 정보 제거 ### -->
 	<delete id="deleteRoom" parameterType="fproject.app.fproject.vo.AttendinfoVo">
 		DELETE FROM ATTENDINFO 
-		WHERE CLNUM=#{CLNUM} AND NUM=#{NUM}
+		WHERE CLNUM=#{clnum} AND NUM=#{num}
 	</delete>
 	<select id="searchRoomList" parameterType="String" 
 			resultType="fproject.app.fproject.vo.ChatlistVo">
 		SELECT * FROM CHATLIST
-		WHERE NAME LIKE '%'||#{NAME}||'%'
+		WHERE NAME LIKE '%'||#{name}||'%'
 	</select>
 	
-	<!-- 채팅 추가 -->
+	<!-- ### 채팅 추가 ### -->
 	<insert id="addChat" parameterType="fproject.app.fproject.vo.ChatVo"> 
 		INSERT INTO CHAT
 		VALUES(SEQ_CNUM.NEXTVAL,#{state},#{content},SYSDATE,#{emoticonnum},#{orgimg},#{saveimg},#{imgsize},#{clnum},#{num})
 	</insert>
-	<!-- 해당 방의 채팅내용 가져오기 -->
+	<!-- ### 해당 방의 채팅내용 가져오기 ### -->
 	<select id="getChat" parameterType="int"
 			resultType="fproject.app.fproject.vo.ChatVo">
 		SELECT * FROM CHAT
-		WHERE CLNUM=#{CLNUM}
+		WHERE CLNUM=#{clnum}
 	</select>
 	<select id="getChattime" parameterType="int"
 			resultType="fproject.app.fproject.vo.ChattimeVo">
 		SELECT CNUM,CLNUM,to_char(regdate,'AM HH:MI') as time FROM CHAT
-		WHERE CLNUM=#{CLNUM}
+		WHERE CLNUM=#{clnum}
 	</select>
 	<select id="getLastChat" parameterType="int" resultType="String">
 		SELECT CC.CONTENT FROM(
 			SELECT CONTENT, ROWNUM RNUM FROM CHAT
-			WHERE CLNUM=#{CLNUM}
+			WHERE CLNUM=#{clnum}
 			ORDER BY CNUM DESC
 		)CC WHERE RNUM=1
+	</select>
+	<!-- ### 읽은사람 정보 추가 ### -->
+	<insert id="addReadInfo" parameterType="fproject.app.fproject.vo.ReadinfoVo">
+		INSERT INTO READINFO 
+		VALUES(#{cnum},#{clnum},#{num})
+	</insert>
+	<!-- ### 이미 읽었는지 확인 ### -->
+	<select id="getReadInfo" parameterType="fproject.app.fproject.vo.ReadinfoVo"
+			resultType="int">
+		SELECT COUNT(*) FROM READINFO
+		WHERE CNUM=#{cnum} AND NUM=#{num}
+	</select>
+	<!-- ### 읽은사람 정보 전체조회(해당하는 방) ### -->
+	<select id="getReadInfoAll" parameterType="int"
+			resultType="int">
+		SELECT COUNT(CNUM) FROM READINFO
+		WHERE CLNUM=#{clnum}
+		GROUP BY CNUM
+		ORDER BY CNUM
+	</select>
+	<!-- ### 해당 채팅 카운트 세기 ### -->
+	<select id="getCountReadInfo" parameterType="int"
+			resultType="int">
+		SELECT COUNT(CNUM) FROM READINFO
+		WHERE CNUM=#{cnum}
 	</select>
 </mapper>

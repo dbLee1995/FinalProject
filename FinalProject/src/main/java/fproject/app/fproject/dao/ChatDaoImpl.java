@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import fproject.app.fproject.vo.AttendinfoVo;
 import fproject.app.fproject.vo.ChatVo;
 import fproject.app.fproject.vo.ChatlistVo;
+import fproject.app.fproject.vo.ReadinfoVo;
 
 @Repository
 public class ChatDaoImpl implements ChatDao{
@@ -73,5 +74,21 @@ public class ChatDaoImpl implements ChatDao{
 	@Override
 	public String getLastChat(int clnum) {
 		return sqlSessionTemplate.selectOne(NAMESPACE+".getLastChat", clnum);
+	}
+	@Override
+	public int updateAttendinfo(AttendinfoVo vo) {
+		return sqlSessionTemplate.update(NAMESPACE+".updateAttendinfo", vo);
+	}
+	@Override
+	public int addReadInfo(ReadinfoVo vo) {
+		return sqlSessionTemplate.insert(NAMESPACE+".addReadInfo", vo);
+	}
+	@Override
+	public int getReadInfo(ReadinfoVo vo) {
+		return sqlSessionTemplate.selectOne(NAMESPACE+".getReadInfo", vo);
+	}
+	@Override
+	public int getCountReadInfo(int cnum) {
+		return sqlSessionTemplate.selectOne(NAMESPACE+".getCountReadInfo", cnum);
 	}
 }
