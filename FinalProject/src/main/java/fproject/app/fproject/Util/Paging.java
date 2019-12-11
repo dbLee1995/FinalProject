@@ -9,45 +9,50 @@ package fproject.app.fproject.Util;
  *
  */
 public class Paging {
-	private int pageRow; // 페이지당 항목 수
-	private int startRow;
-	private int endRow;
 	private int totalCount; // 총 항목 수
+	private int pageRow; // 페이지당 항목 수
 	private int totalPageCount; // 전체 페이지 수
-	private int thisPage; // 현재 페이지 번호(기본값 1은 @RequestParam으로)
-	private int startPage;
+	private int thisPage; // 현재 페이지 번호(초기값 1은 @RequestParam으로)
+	private int startRow; // 페이지의 첫 항목
+	private int endRow;
+	private int startPage; // 페이지 목록의 첫 페이지
 	private int endPage;
 	
 	public Paging() {}
 	
 	/**
-	 * <p>가변형 페이지 목록. 페이지 목록 길이는 startPage와 endPage로 수정합니다.<p>
-	 * @param pageRow 한 페이지당 항목 수
-	 * @param totalCount 전체 항목 수
-	 * @param thisPage 현재 페이지
+	 * <p>가변형 페이지 목록입니다.<br>페이지 목록 길이는 startPage와 endPage로 수정합니다.<p>
+	 * @param pageRow - 한 페이지당 항목 수
+	 * @param totalCount - 전체 항목 수
+	 * @param indexLength - 페이지 목록 길이. 짝수 넣을 시 +1 홀수로 적용
+	 * @param thisPage - 현재 페이지
 	 */
-	public Paging(int pageRow, int totalCount, int thisPage) {
+	public Paging(int pageRow, int totalCount, int indexLength, int thisPage) {
 		this.pageRow = pageRow;
 		this.thisPage = thisPage;
 		this.totalPageCount = totalCount%pageRow>0 ? totalCount/pageRow+1 : totalCount/pageRow;
 		if(thisPage > totalPageCount) thisPage = totalPageCount;
-		this.startPage = thisPage==1 ? 1: thisPage-3;
-		this.endPage = thisPage+3;
+		this.startPage = thisPage==1 ? 1: thisPage-indexLength/2;
+		this.endPage = thisPage+indexLength/2;
 		if(endPage>totalPageCount) endPage=totalPageCount;
 		this.endRow = thisPage * pageRow;
 		this.startRow = endRow - (pageRow-1);
 	}
 	
 	/**
-	 * <p>불변형 페이지 목록. 페이지 목록 길이는 startPage와 endPage로 수정합니다.<p>
-	 * @param basket - 오버로딩용 구분자이므로 null 넣어주세요.
+	 * <p>불변형 페이지 목록입니다.<br>페이지 목록 길이는 startPage와 endPage로 수정합니다.<p>
+	 * @param pageRow - 한 페이지당 항목 수
+	 * @param totalCount - 전체 항목 수
+	 * @param indexLength - 페이지 목록 길이
+	 * @param thisPage - 현재 페이지
+	 * @param changing - 오버로딩용 구분자이므로 아무거나 넣어주세요.
 	 */
-	public Paging(int pageRow, int totalCount, int thisPage, String basket) {
+	public Paging(int pageRow, int totalCount, int indexLength, int thisPage, int changing) {
 		this.pageRow = pageRow;
 		this.thisPage = thisPage;
 		this.totalPageCount = totalCount%pageRow>0 ? totalCount/pageRow+1 : totalCount/pageRow;
 		if(thisPage > totalPageCount) thisPage = totalPageCount;
-		this.startPage = ((thisPage-1)%10)*10 + 1;
+		this.startPage = ((thisPage-1)%indexLength)*indexLength + 1;
 		this.endPage = startPage-9;
 		if(endPage>totalPageCount) endPage = totalPageCount;
 		this.endRow = thisPage * pageRow;

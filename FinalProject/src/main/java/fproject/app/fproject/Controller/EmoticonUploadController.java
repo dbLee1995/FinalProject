@@ -21,13 +21,9 @@ public class EmoticonUploadController {
 	@Autowired
 	private EmoShopService service;
 
-	public void setService(EmoShopService service) {
-		this.service = service;
-	}
-
 	@RequestMapping(value = "/emoShop/uploadEmoFile", method = RequestMethod.GET)
 	public String moveUploadPage() {
-		return "emoticonShop/upload";
+		return "emoShop/upload";
 	}
 
 	@RequestMapping(value = "/emoShop/uploadEmoFile", method = RequestMethod.POST)
@@ -62,9 +58,9 @@ public class EmoticonUploadController {
 		}
 		try {  // 상단 try문 내의 for문이 에러없이 끝나면 DB저장 시행
 			   // 별도의 트랜잭션 처리 없음
-			service.insertEmoticonGroup(vo);
+			service.saveEmoticon(vo);
 			for (int i=0; i<fileNum-1; i++) { // for(mf : req.getFiles)가 돌아간 수만큼 반복
-				service.insertEmoticonFile(new EmoticonVo(0, service.selectOneEmognum(vo.getName()), orgNameList.get(i), saveNameList.get(i), fileSizeList.get(i)));
+				service.saveEmoticonFile(new EmoticonVo(0, service.getEmognum(vo.getName()), orgNameList.get(i), saveNameList.get(i), fileSizeList.get(i)));
 			}
 			return "test/success";
 		} catch (Exception e) {

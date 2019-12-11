@@ -43,15 +43,15 @@ public class EmoShopService {
 		return url;
 	}
 	
-	public int insertEmoticonFile(EmoticonVo vo) {
+	public int addEmoticonFile(EmoticonVo vo) {
 		return dao.insertEmoticonFile(vo);
 	}
 	
-	public int insertEmoticonGroup(EmoshopVo vo) {
+	public int addEmoticonGroup(EmoshopVo vo) {
 		return dao.insertEmoticonGroup(vo);
 	}
 	
-	public int selectOneEmognum(String name) {
+	public int getEmognum(String name) {
 		return dao.selectOneEmognum(name);
 	}
 }

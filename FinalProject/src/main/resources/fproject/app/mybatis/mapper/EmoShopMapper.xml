@@ -23,4 +23,6 @@
 	<select id="getCount" parameterType="int" resultType="int">
 		select count(*) from favorlist where num = #{userNum}
 	</select>
+	
+	
 </mapper>

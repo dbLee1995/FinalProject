@@ -29,6 +29,7 @@
 
 	
 	<script type="text/javascript">
+		// 전역변수 미사용으로 고치기
 		var regForm = document.getElementById("regForm");
 		var okBtn = document.getElementById("okBtn");
 		var idVal = document.getElementById("id");

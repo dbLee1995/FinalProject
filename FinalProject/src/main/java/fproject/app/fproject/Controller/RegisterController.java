@@ -16,6 +16,7 @@ import fproject.app.fproject.service.MemberService;
 import fproject.app.fproject.vo.AccountVo;
 
 @Controller
+@RequestMapping("/member")
 public class RegisterController {
 	@Autowired
 	private MemberService service;
@@ -24,25 +25,24 @@ public class RegisterController {
 	}
 	private String certification;
 	
-	@RequestMapping(value="/member/register", method=RequestMethod.GET)
+	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public String pageLoad(Model model) {
 		model.addAttribute("infoCheck", false);
 		return "member/register";
 	}
 
-	// ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½
-	// Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã³ï¿½ï¿½
-	@RequestMapping(value="/member/registering", method=RequestMethod.POST)
+	
+	@RequestMapping(value="/registering", method=RequestMethod.POST)
 	public String insert(String email, String id, String pwd, String checkString, Model model) {
 		if(this.certification.equals(checkString)) {
 			AccountVo vo = new AccountVo(0, id, pwd);
-			model.addAttribute("feature", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½");
+			model.addAttribute("feature", "È¸¿ø°¡ÀÔ");
 			try {
 				service.insert(vo);
 				return "test/success";
 			} catch(Exception e) {
 				e.printStackTrace();
-				System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß»ï¿½");
+				System.out.println("È¸¿ø°¡ÀÔ °úÁ¤ Áß DBÀúÀå ¿À·ù");
 				return "test/error";
 			}
 		} else {
@@ -50,14 +50,12 @@ public class RegisterController {
 			model.addAttribute("email", email);
 			model.addAttribute("id", id);
 			model.addAttribute("pwd", pwd);
-			model.addAttribute("certificationWrongMsg", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½Õ´Ï´ï¿½. ï¿½Ù½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
+			model.addAttribute("certificationWrongMsg", "ÀÎÁõ¹®ÀÚ°¡ ºÒÀÏÄ¡ÇÕ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 			return "member/register";
 		}
 	}
 	
-	
-	// ï¿½ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½ ajaxï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È¿ï¿½ï¿½ ï¿½Ë»ç¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
-	@RequestMapping(value="/member/registering/dbCheck")
+	@RequestMapping(value="/registering/dbCheck")
 	@ResponseBody
 	public String dbCheck(Model model, HttpServletRequest req, String id) {
 		boolean result = false;
@@ -70,11 +68,10 @@ public class RegisterController {
 		return json.toString();
 	}
 	
-	// ï¿½ï¿½È¿ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ß¼ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
-	@RequestMapping(value="/member/registering/certification", method=RequestMethod.POST)
+	@RequestMapping(value="/registering/certification", method=RequestMethod.POST)
 	public String certification(Model model, HttpServletRequest req, String email, String id, String pwd) {
 		this.certification = new RandomString().create(15);
-		new SendEmail().send(email, this.certification, 0); // util ï¿½ï¿½Å°ï¿½ï¿½
+		new SendEmail().send(email, this.certification, 0);
 		
 		model.addAttribute("infoCheck", true);
 		model.addAttribute("certificationPage", "/member/certification.jsp");
@@ -84,7 +81,7 @@ public class RegisterController {
 		return "member/register";
 	}
 	
-	@RequestMapping(value="/member/registering/certification/add", method=RequestMethod.GET)
+	@RequestMapping(value="/registering/certification/add", method=RequestMethod.GET)
 	public String addCertification(Model model, HttpServletRequest req, String email, String id, String pwd) {
 		model.addAttribute("infoCheck", true);
 		model.addAttribute("certificationPage", "/member/certification.jsp");

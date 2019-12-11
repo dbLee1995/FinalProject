@@ -92,6 +92,9 @@ CREATE SEQUENCE SEQ_presnum INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_qnanum INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_storynum INCREMENT BY 1 START WITH 1;
 
+CREATE SEQUENCE SEQ_purchasenum INCREMENT BY 1 START WITH 1;
+
+
 
 
 /* Create Tables */
@@ -310,6 +313,17 @@ CREATE TABLE emoticongroup
 	CONSTRAINT emoticongroupkey PRIMARY KEY (emognum,num)
 );
 
+-- 이모티콘 구매
+CREATE TABLE purchase
+(
+    purchasenum number(10),
+    purchasedate date, CONSTRAINT NN_purchase_purchasedate NOT NULL,
+    emognum number(6),
+    num number(7),
+    CONSTRAINT PK_purchase_purchasenum PRIMARY KEY(purchasenum),
+    CONSTRAINT FK_purchase_emognum FOREIGN KEY(emognum) REFERENCES emoshop,
+    CONSTRAINT FK_purchase_usernum FOREIGN KEY(num) REFERENCES account
+);
 
 -- 찜목록
 CREATE TABLE favorlist
