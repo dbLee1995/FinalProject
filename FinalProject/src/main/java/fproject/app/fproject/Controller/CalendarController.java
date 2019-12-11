@@ -89,7 +89,7 @@ public class CalendarController {
 	public void insert(CalenderVo vo,HttpSession session) throws Exception{
 		int num=(Integer)(session.getAttribute("num"));
 		vo.setNum(num);
-		System.out.println(vo.getNum());
+	
 		if(vo.getAllday().equals("true")){
 			Cservice.insertTrue(vo);
 		}else{
