@@ -104,6 +104,16 @@ a.btn-layerClose {
   color: #fff;
   line-height: 25px;
 }
+a.btn-RoomClose {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #304a8a;
+  background-color: #32465a;
+  font-size: 13px;
+  color: #fff;
+  line-height: 25px;
+}
 a.btn-layerMake {
   display: inline-block;
   height: 25px;
@@ -847,6 +857,10 @@ a.btn-layerClose:hover {
 			<div class="contact-profile">
 				<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
 				<p>${clvo.name }</p>
+				<div class="social-media">
+					<a href="#" class="btn-RoomClose" >방 나가기</a>
+					<i class="" aria-hidden="true"></i>
+				</div>
 			</div>
 			
 			<div class="messages">

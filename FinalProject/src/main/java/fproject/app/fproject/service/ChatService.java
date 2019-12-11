@@ -5,6 +5,7 @@ import java.util.List;
 import fproject.app.fproject.vo.AttendinfoVo;
 import fproject.app.fproject.vo.ChatVo;
 import fproject.app.fproject.vo.ChatlistVo;
+import fproject.app.fproject.vo.ReadinfoVo;
 
 public interface ChatService {
 	public ChatlistVo checkRoom(int clnum);
@@ -21,4 +22,8 @@ public interface ChatService {
 	public List<ChatVo> getChat(int clnum);
 	public List<ChatVo> getChattime(int clnum);
 	public String getLastChat(int clnum);
+	public int updateAttendinfo(AttendinfoVo vo);
+	public int addReadInfo(ReadinfoVo vo);
+	public int getReadInfo(ReadinfoVo vo);
+	public int getCountReadInfo(int cnum);
 }
