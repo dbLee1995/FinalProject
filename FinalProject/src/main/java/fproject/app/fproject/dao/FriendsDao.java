@@ -18,7 +18,7 @@ public class FriendsDao {
 		this.sqlSessionTemplate=sqlSessionTemplate;
 	}
 	public List<FriendlistVo> list(int num){
-		return sqlSessionTemplate.selectList(NAMESPACE + "list",num);
+		return sqlSessionTemplate.selectList(NAMESPACE + ".list",num);
 	}
 	
 }
