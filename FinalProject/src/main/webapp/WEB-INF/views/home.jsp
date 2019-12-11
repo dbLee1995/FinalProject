@@ -44,12 +44,14 @@
 							<li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
 						</c:when>	
 				 		<c:otherwise>
-							<li><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>								
+							<li><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>
+							<li><a href="${cp }/friends/list?num=${sessionScope.num}">Friends</a></li>			
 						</c:otherwise>	 
 					</c:choose>
 					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">WebSocket</a></li>
 					<li><a href="${cp }/emoShop">이모티콘(원래 위치는 about.html)</a></li>
 					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
+					
 				</ul>
 			</nav>
 

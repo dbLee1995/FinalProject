@@ -31,7 +31,7 @@
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
-					<li><a href="index.html">Home</a></li>
+					<li><a href="${pageContext.request.contextPath}/./">Home</a></li>
 					<li><a href="fashion.html">Fashion</a></li>
 					<li class="colorlib-active"><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>
 					<li><a href="about.html">About</a></li>
@@ -99,8 +99,9 @@
 
 <!-- ///////////////////// 댓글리스트 //////////////////////////////////////// -->
 		          <div class="pt-5 mt-5">  
-		              <h3 class="mb-5 font-weight-bold">Comments</h3>		              
-					<c:forEach var="vo" items="${cvo}">
+		              <h3 class="mb-5 font-weight-bold">Comments</h3>	
+		              	              
+					<c:forEach var="vo" items="${cvo}" varStatus="status">
 		              <ul class="comment-list">			              	            		             
 		                <li class="comment">		                
 		                  <div class="vcard bio">
@@ -111,16 +112,16 @@
 		                    <div>${vo.commcontent}<br>
 		                    	<a href="${pageContext.request.contextPath}/story/commentsDel" class="icon-trash"></a>
 		                    </div>		                    		                    
-		            <!--///// reply 답글 /////--> 		                    
-		                    <input type="button" id="replyForm" class="reply" value="Reply">
-		                    <form method="post" action="${pageContext.request.contextPath}/story/commentsReply">		                		               
-		                 		<div id="commentReplyForm1" style="display:none;">
+		            <!--///// reply 답글 /////--> 	        
+		            		         
+		                    <input type="button" class="replyBtn ${status.index }" class="reply" value="Reply">
+		                    <form class="replyForm ${status.index }" method="post" action="${pageContext.request.contextPath}/story/commentsReply" style="display:none">		                		               		                 		
 		                 		<div class="img" style="background-image: ${profileimg};">${sessionScope.id}</div>
-		                 			<input type="text" name="commcontent" style="width:600px;height:80px;">
-		                 			<input type="submit" value="저장" class="reply">
-		                 			<input type="reset" value="취소" class="reply">		             	
-		                 		</div>			                 		      
-		                 	</form>           			                 					        			
+									<input type="text" name="commcontent" style="width:600px;height:80px;">
+									<input type="submit" value="저장" class="reply">
+									<input type="reset" value="취소" class="reply">	                 				                 		      
+		                 	</form>
+		                 	 		                 	      			                 					        			
 		        	<!--///// reply 답글end /////--> 	
 		                  </div>        
 		          		 </li>		          		 
@@ -139,7 +140,7 @@
 		                    <div class="ml-3 info">
 		                   	 	<label for="num" >Name *</label><br>
 		                    	<label for="id" style="font-size:1.2em;">${sessionScope.id}</label>
-		                    	
+		                    	  	
 		                  	</div>
 		                  </div>
 		                  </div>		                 
@@ -273,19 +274,18 @@
   <script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
   <script type="text/javascript" src="${cp}/resources/js/jquery-3.4.1.js"></script> 
-  <script type="text/javascript">
-  	$(function(){
-		for(var i=1;i<=$("#replyForm").length;i++){
-			var input="<div id=$('#commentReplyForm" + 1+=i + "') style='display:none;'></div>";
-			$("#commentReplyForm1").append(input);	
-		}
-		
-		$("#replyForm").click(function(){
-		  	$("#commentReplyForm1").slideToggle(100);
+<script type="text/javascript">
+  $(function(){
+	 var count=$(".replyBtn").size();	 
+	  for(var i=0;i<count;i++){
+		  $(".replyBtn."+i).click(function(){			
+				 $(this).next().slideToggle(100);
+			
+			
 		  });
-  	});	 		
-  	
-  </script>
+	  }	 
+  });	 		
+</script>
 
   <script src="${pageContext.request.contextPath }/resources/js/popper.min.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
