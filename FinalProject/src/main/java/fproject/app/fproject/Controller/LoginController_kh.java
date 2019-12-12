@@ -1,6 +1,8 @@
 package fproject.app.fproject.Controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,6 +19,7 @@ import fproject.app.fproject.Util.SendEmail;
 import fproject.app.fproject.service.MemberService;
 import fproject.app.fproject.service.UsersService;
 import fproject.app.fproject.vo.AccountVo;
+import fproject.app.fproject.vo.EmoshopVo;
 import fproject.app.fproject.vo.ProfilesVo;
 
 @Controller
@@ -49,6 +52,11 @@ public class LoginController_kh {
 		if (vo1 != null) {
 			session.setAttribute("id", id);
 			session.setAttribute("num", vo1.getNum());
+			
+			// 장바구니 생성합니다.
+			List<EmoshopVo> basketList = new ArrayList<EmoshopVo>();
+			session.setAttribute("basketList", basketList);
+			
 			return "redirect:/";
 
 		} else {

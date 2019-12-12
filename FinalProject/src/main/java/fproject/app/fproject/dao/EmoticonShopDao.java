@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import fproject.app.fproject.vo.EmoshopVo;
 import fproject.app.fproject.vo.EmoticonVo;
+import fproject.app.fproject.vo.EmoticongroupVo;
+import fproject.app.fproject.vo.PurchaseVo;
 
 @Repository
 public class EmoticonShopDao {
@@ -14,17 +16,27 @@ public class EmoticonShopDao {
 	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
-	private final String NAMESPACE = "fproject.app.mybatis.mapper.EmoticonShopMapper";
+	private final String EmoticonShopMapper = "fproject.app.mybatis.mapper.EmoticonShopMapper";
+	private final String PurchaseMapper = "fproject.app.mybatis.mapper.PurchaseMapper";
+	private final String EmoticonGroupMapper = "fproject.app.mybatis.mapper.EmoticonGroupMapper";
 	
 	public int insertEmoticonFile(EmoticonVo vo) {
-		return sqlSessionTemplate.insert(NAMESPACE + ".emoticonInsert", vo);
+		return sqlSessionTemplate.insert(EmoticonShopMapper + ".emoticonInsert", vo);
 	}
 	
-	public int insertEmoticonGroup(EmoshopVo vo) {
-		return sqlSessionTemplate.insert(NAMESPACE + ".emoticonShopInsert", vo);
+	public int insertEmoticonShop(EmoshopVo vo) {
+		return sqlSessionTemplate.insert(EmoticonShopMapper + ".emoticonShopInsert", vo);
 	}
 	
 	public int selectOneEmognum(String name) {
-		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectOneEmognum", name);
+		return sqlSessionTemplate.selectOne(EmoticonShopMapper + ".selectOneEmognum", name);
+	}
+	
+	public int insertPurchase(PurchaseVo vo) {
+		return sqlSessionTemplate.insert(PurchaseMapper + ".insert", vo);
+	}
+	
+	public int insertEmoticonGroup(EmoticongroupVo vo) {
+		return sqlSessionTemplate.insert(EmoticonGroupMapper + ".insert", vo);
 	}
 }
