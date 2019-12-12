@@ -1,6 +1,7 @@
 package fproject.app.fproject.Controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,16 +21,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import fproject.app.fproject.service.AccountService;
 import fproject.app.fproject.service.ChatService;
+import fproject.app.fproject.service.FriendsService;
+import fproject.app.fproject.service.ProfilesService;
 import fproject.app.fproject.vo.AccountVo;
 import fproject.app.fproject.vo.AttendinfoVo;
 import fproject.app.fproject.vo.ChatVo;
 import fproject.app.fproject.vo.ChatlistVo;
+import fproject.app.fproject.vo.FriendlistVo;
+import fproject.app.fproject.vo.ProfilesVo;
 import fproject.app.fproject.vo.ReadinfoVo;
 
 @Controller
 public class ChatController {
 	@Autowired ChatService chatService;
 	@Autowired AccountService accountService;
+	@Autowired FriendsService friendsService;
+	@Autowired ProfilesService profilesService;
 	@RequestMapping(value="/ChatList", method=RequestMethod.GET)
 	public String chat(Model model, HttpServletRequest req, int num, int clnum){
 		
@@ -49,6 +56,15 @@ public class ChatController {
 		
 		model.addAttribute("clnum",clnum);
 		
+		List<FriendlistVo> fvolist=friendsService.list(num);
+		List<ProfilesVo> pvolist=new ArrayList<ProfilesVo>();
+		for(int i=0;i<fvolist.size();++i){
+			int fnum=fvolist.get(i).getFnum();
+			ProfilesVo fvo=profilesService.info(fnum);
+			pvolist.add(fvo);
+		}
+		model.addAttribute("pvolist",pvolist);
+		
 		return "ChatList";
 	}
 	@RequestMapping(value="/CreateChat", 
@@ -56,18 +72,26 @@ public class ChatController {
 	public String createChat(
 			Model model, HttpServletRequest req, int num, String[] fvalue){
 		
-		/*
-		chatService.createChatRoom("방생성");
-		int roomnum=chatService.getRoomforName("방생성");
-		fnum 친구 번호를 같이 받아서 넣기 
-		if(fnum==0){
-			친구번호가 0이면 나와의채팅
-		}
-		*/
-		for(int i=0;i<fvalue.length;++i){
-			System.out.println(fvalue[i]); // fvalue 를 돌면서 
-			// 안에 있는 회원번호 꺼내기 (String)
-			// attendinfo 에 넣기 
+		if(fvalue==null){
+			chatService.createChatRoom("나와의 채팅");
+			int clnum=chatService.getRoomforName("나와의 채팅");
+			chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
+		}else if(fvalue.length==1){
+			int fnum=Integer.parseInt(fvalue[0]);
+			// 만약에 위 친구와 개설한 방이 이미 있다면
+			// 해당 방으로 이동하게 한다.
+			ProfilesVo pvo=profilesService.info(fnum);
+			chatService.createChatRoom(pvo.getName());
+			int clnum=chatService.getRoomforName(pvo.getName());
+			chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
+			chatService.addAttendInfo(new AttendinfoVo(clnum, fnum, 1));
+		}else{
+			for(int i=0;i<fvalue.length;++i){
+				//int fnum=Integer.parseInt(fvalue[i]);
+				//ProfilesVo pvo=profilesService.info(fnum);
+				// attendinfo 에 넣기 
+				// 다수일때는 다른방을 따로 만들어서 넣기!
+			}
 		}
 		
 		List<ChatlistVo> clist=chatService.getRoomList();
@@ -134,6 +158,16 @@ public class ChatController {
 		List<ChatVo> cvotimelist=chatService.getChattime(clnum); // 채팅 입력시간 정보
 		model.addAttribute("chattime",cvotimelist);
 		
+		List<FriendlistVo> fvolist=friendsService.list(num); // 해당 회원의 친구목록
+		List<ProfilesVo> pvolist=new ArrayList<ProfilesVo>();
+		int count=1;
+		for(int i=0;i<fvolist.size();++i){
+			int fnum=fvolist.get(i).getFnum();
+			ProfilesVo fvo=profilesService.info(fnum); // 친구 목록을 돌면서 정보를 리스트에 담기 
+			pvolist.add(fvo);
+		}
+		model.addAttribute("pvolist",pvolist);
+		
 		return "ChatList";
 	}
 	@RequestMapping(value="/ChatAjax", produces="application/json;charset=utf-8")
@@ -162,6 +196,22 @@ public class ChatController {
 			HttpSession session){
 		
 		chatService.updateAttendinfo(new AttendinfoVo(clnum, num, 0));
+		
+		List<ChatlistVo> clist=chatService.getRoomList();
+		model.addAttribute("ChatList",clist);
+		
+		Map<Integer, String> clnameMap=new HashMap<>();
+		for(int i=0;i<clist.size();++i){
+			String clname=chatService.getLastChat(clist.get(i).getClnum());
+			clnameMap.put(clist.get(i).getClnum(), clname);
+		}
+		model.addAttribute("clnameMap", clnameMap);
+		List<AttendinfoVo> ailist=chatService.getAttendInfo(num);
+		model.addAttribute("ChatList",clist);
+		model.addAttribute("AcList",ailist);
+		
+		AccountVo accvo=accountService.info(num);
+		model.addAttribute("id",accvo.getId());
 		
 		return "ChatList";
 	}

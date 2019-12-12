@@ -24,12 +24,16 @@ public class ChatDaoImpl implements ChatDao{
 		return sqlSessionTemplate.selectOne(NAMESPACE+".getRoom", clnum);
 	}
 	@Override
-	public int createChatRoom(ChatlistVo vo) {
-		return sqlSessionTemplate.insert(NAMESPACE+".createChatRoom", vo);
+	public int createChatRoom(String name) {
+		return sqlSessionTemplate.insert(NAMESPACE+".createChatRoom", name);
 	}
 	@Override
 	public List<ChatlistVo> getRoomList() {
 		return sqlSessionTemplate.selectList(NAMESPACE+".getRoomList");
+	}
+	@Override
+	public int getRoomforName(String name) {
+		return sqlSessionTemplate.selectOne(NAMESPACE+".getRoomforName", name);
 	}
 	@Override
 	public int addAttendInfo(AttendinfoVo vo) {

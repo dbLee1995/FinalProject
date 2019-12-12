@@ -9,8 +9,9 @@ import fproject.app.fproject.vo.ReadinfoVo;
 
 public interface ChatDao {
 	public ChatlistVo checkRoom(int clnum);
-	public int createChatRoom(ChatlistVo vo);
+	public int createChatRoom(String name);
 	public List<ChatlistVo> getRoomList();
+	public int getRoomforName(String name);
 	public int addAttendInfo(AttendinfoVo vo);
 	public List<AttendinfoVo> getAttendInfo(int num);
 	public List<AttendinfoVo> getAttendInfotoclnum(int clnum);

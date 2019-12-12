@@ -828,6 +828,7 @@ a.btn-layerClose:hover {
 			<div id="contacts">
 				<ul>
 					<c:forEach var="al" items="${AcList }">
+						<c:if test="${al.state !=0 }">
 						<li class="contact<c:if test="${sessionScope.clnum==al.clnum }"> active</c:if>"><!-- "contact active" -->
 							<div class="wrap">
 								<span class="contact-status online"></span>
@@ -842,6 +843,7 @@ a.btn-layerClose:hover {
 								</div>
 							</div>
 						</li>
+						</c:if>
 					</c:forEach>
 
 				</ul>
@@ -860,7 +862,7 @@ a.btn-layerClose:hover {
 				<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
 				<p>${clvo.name }</p>
 				<div class="social-media">
-					<a href="#" class="btn-RoomClose" >방 나가기</a>
+					<a href="${cp }/removeChatRoom?clnum=${sessionScope.clnum}&num=${sessionScope.num}" class="btn-RoomClose" >방 나가기</a>
 					<i class="" aria-hidden="true"></i>
 				</div>
 			</div>
@@ -913,19 +915,15 @@ a.btn-layerClose:hover {
 		</div>
 		</c:if>
 	</div>
-	
 	<div id="layer1" class="pop-layer">
 	    <div class="pop-container">
 	        <div class="pop-conts">
 	        	<form action="${pageContext.request.contextPath }/CreateChat" id="makefrm">
 	            	<!--content //-->
-		            <p class="ctxt mb20">Thank you.<br>
-		                Your registration was submitted successfully.<br>
-		                Selected invitees will be notified by e-mail on JANUARY 24th.<br><br>
-		                Hope to see you soon!<br><br>
-		                <input type="checkbox" value="1" name="fvalue"> 친구이름1 <br>
-		                <input type="checkbox" value="2" name="fvalue"> 친구이름2 <br>
-		                <input type="checkbox" value="3" name="fvalue"> 친구이름3 <br>
+		            <p class="ctxt mb20">친구 목록<br><br>
+		            	<c:forEach var="pvo" items="${pvolist }">
+		            		<input type="checkbox" value="${pvo.num }" name="fvalue"> ${pvo.name } <br>
+		            	</c:forEach>
 		                <input type="hidden" value="${sessionScope.num }" name="num">
 		            </p>
 		            <div class="btn-r">

@@ -11,7 +11,7 @@
 		WHERE CLNUM=#{clnum}
 	</select>
 	<!-- ### 방 추가하기 ### -->
-	<insert id="createChatRoom" parameterType="fproject.app.fproject.vo.ChatlistVo">
+	<insert id="createChatRoom" parameterType="String">
 		INSERT INTO CHATLIST 
 		VALUES(SEQ_CLNUM.NEXTVAL, #{name})
 	</insert>
@@ -23,6 +23,11 @@
 	<!-- ### 전체 방 정보 얻어오기 ### --> 
 	<select id="getRoomList" resultType="fproject.app.fproject.vo.ChatlistVo">
 		SELECT * FROM CHATLIST
+	</select>
+	<!-- ### 방 이름으로 번호 얻기 ### -->
+	<select id="getRoomforName" parameterType="String" resultType="int">
+		SELECT CLNUM FROM CHATLIST
+		WHERE NAME=#{name}
 	</select>
 	<!-- ### 어떤 방에 들어가있는지(들어갈건지) ### -->
 	<!-- ### 본인과 초대한 유저 추가하기 ### -->

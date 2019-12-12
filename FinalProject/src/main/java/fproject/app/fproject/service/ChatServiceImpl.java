@@ -19,12 +19,16 @@ public class ChatServiceImpl implements ChatService{
 		return dao.checkRoom(clnum);
 	}
 	@Override
-	public int createChatRoom(ChatlistVo vo) {
-		return dao.createChatRoom(vo);
+	public int createChatRoom(String name) {
+		return dao.createChatRoom(name);
 	}
 	@Override
 	public List<ChatlistVo> getRoomList() {
 		return dao.getRoomList();
+	}
+	@Override
+	public int getRoomforName(String name) {
+		return dao.getRoomforName(name);
 	}
 	@Override
 	public int addAttendInfo(AttendinfoVo vo) {
