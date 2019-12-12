@@ -1033,10 +1033,6 @@ a.btn-layerClose:hover {
 		$(".messages").animate({ scrollTop: 999999 }, "fast");
 		
 	}
-	$("#206").click(function(){
-    	alert("206~");
-    	$(this).html("22");
-    });
 	// JSON.parse() -- String 객체를 json 객체로 변환
 	// JSON.stringify -- json 객체를 String 객체로 변환
 	function onClose(evt) {

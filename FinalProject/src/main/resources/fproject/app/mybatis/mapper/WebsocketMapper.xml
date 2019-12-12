@@ -39,7 +39,7 @@
 	<select id="getAttendInfo" parameterType="int"
 			resultType="fproject.app.fproject.vo.AttendinfoVo">
 		SELECT * FROM ATTENDINFO 
-		WHERE NUM=#{num} AND STATE=1
+		WHERE NUM=#{num}
 	</select>
 	<select id="getAttendInfotoclnum" parameterType="int"
 			resultType="fproject.app.fproject.vo.AttendinfoVo">

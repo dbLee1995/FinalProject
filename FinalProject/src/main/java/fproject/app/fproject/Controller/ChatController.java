@@ -72,27 +72,54 @@ public class ChatController {
 	public String createChat(
 			Model model, HttpServletRequest req, int num, String[] fvalue){
 		
+		List<AttendinfoVo> ailist=chatService.getAttendInfo(num);
+		
 		if(fvalue==null){
 			chatService.createChatRoom("나와의 채팅");
 			int clnum=chatService.getRoomforName("나와의 채팅");
 			chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
 		}else if(fvalue.length==1){
 			int fnum=Integer.parseInt(fvalue[0]);
-			// 만약에 위 친구와 개설한 방이 이미 있다면
-			// 해당 방으로 이동하게 한다.
-			ProfilesVo pvo=profilesService.info(fnum);
-			chatService.createChatRoom(pvo.getName());
-			int clnum=chatService.getRoomforName(pvo.getName());
-			chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
-			chatService.addAttendInfo(new AttendinfoVo(clnum, fnum, 1));
-		}else{
-			for(int i=0;i<fvalue.length;++i){
-				//int fnum=Integer.parseInt(fvalue[i]);
-				//ProfilesVo pvo=profilesService.info(fnum);
-				// attendinfo 에 넣기 
-				// 다수일때는 다른방을 따로 만들어서 넣기!
+			List<AttendinfoVo> failist=chatService.getAttendInfo(fnum);
+			int alreadyHave=0;
+			for(int i=0;i<ailist.size();++i){
+				for(int j=0;j<failist.size();++j){
+					int aa=ailist.get(i).getClnum();
+					int ff=failist.get(j).getClnum();
+					if(aa == ff){ alreadyHave=aa; }
+				}
 			}
+			if(alreadyHave==0){
+				ProfilesVo pvo=profilesService.info(fnum);
+				chatService.createChatRoom(pvo.getName());
+				int clnum=chatService.getRoomforName(pvo.getName());
+				chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
+				chatService.addAttendInfo(new AttendinfoVo(clnum, fnum, 1));
+			}else{
+				// if(alreadyHave>0 && count==2)
+				// 중복인 방이 있으면서 해당 방의 총 인원 수가 두명일 때
+				// 그 외는 if(alreadyHave==0)
+				// 방 이동하면서 해당 방의 정보 담아서 전달하기(바로 그 방이 열릴 수 있게)
+				chatService.updateAttendinfo(new AttendinfoVo(alreadyHave, num, 1));
+				chatService.updateAttendinfo(new AttendinfoVo(alreadyHave, fnum, 1));
+			}
+		}else{
+			int clnum=0;
+			for(int i=0;i<fvalue.length;++i){
+				int fnum=Integer.parseInt(fvalue[i]);
+				ProfilesVo pvo=profilesService.info(fnum);
+				if(i==0){
+					String strChatName=pvo.getName()+"외 "+((fvalue.length)-1)+"명";
+					chatService.createChatRoom(strChatName);
+					clnum=chatService.getRoomforName(strChatName);
+				}
+				chatService.addAttendInfo(new AttendinfoVo(clnum, fnum, 1));
+			}
+			chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
 		}
+		
+		ailist=chatService.getAttendInfo(num);
+		model.addAttribute("AcList",ailist);
 		
 		List<ChatlistVo> clist=chatService.getRoomList();
 		model.addAttribute("ChatList",clist);
@@ -103,9 +130,6 @@ public class ChatController {
 			clnameMap.put(clist.get(i).getClnum(), clname);
 		}
 		model.addAttribute("clnameMap", clnameMap);
-		List<AttendinfoVo> ailist=chatService.getAttendInfo(num);
-		model.addAttribute("ChatList",clist);
-		model.addAttribute("AcList",ailist);
 		
 		AccountVo accvo=accountService.info(num);
 		model.addAttribute("id",accvo.getId());
@@ -129,7 +153,7 @@ public class ChatController {
 		List<AttendinfoVo> ailist=chatService.getAttendInfo(num); // 현재 포함되어있는 방 전체목록
 		model.addAttribute("AcList",ailist);
 		
-		model.addAttribute("clnum",clnum); // 현재 들어와있는 방 목록
+		model.addAttribute("clnum",clnum); // 현재 들어와있는 방
 		
 		if(clnum>0){
 			ChatlistVo cvo=chatService.checkRoom(clnum); // 현재 들어와있는 방 정보
@@ -212,6 +236,16 @@ public class ChatController {
 		
 		AccountVo accvo=accountService.info(num);
 		model.addAttribute("id",accvo.getId());
+		
+		List<FriendlistVo> fvolist=friendsService.list(num);
+		List<ProfilesVo> pvolist=new ArrayList<ProfilesVo>();
+		int count=1;
+		for(int i=0;i<fvolist.size();++i){
+			int fnum=fvolist.get(i).getFnum();
+			ProfilesVo fvo=profilesService.info(fnum);
+			pvolist.add(fvo);
+		}
+		model.addAttribute("pvolist",pvolist);
 		
 		return "ChatList";
 	}
