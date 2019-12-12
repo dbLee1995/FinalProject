@@ -95,6 +95,14 @@
 			ORDER BY CNUM DESC
 		)CC WHERE RNUM=1
 	</select>
+	<select id="getLastChatNum" parameterType="int"
+			resultType="int">
+		SELECT CC.CNUM FROM(
+			SELECT CNUM, ROWNUM RNUM FROM CHAT
+			WHERE CLNUM=#{clnum}
+			ORDER BY CNUM DESC
+		)CC WHERE RNUM=1
+	</select>
 	<!-- ### 읽은사람 정보 추가 ### -->
 	<insert id="addReadInfo" parameterType="fproject.app.fproject.vo.ReadinfoVo">
 		INSERT INTO READINFO 

@@ -800,6 +800,8 @@ a.btn-layerClose:hover {
 				<div class="wrap">
 					<img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
 					<p>${sessionScope.id }</p>
+					<input type="hidden" id="sessionnum" value="${sessionScope.num }">
+					<input type="hidden" id="sessionclnum" value="${sessionScope.clnum }">
 					<i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
 					<div id="status-options">
 						<ul>
@@ -870,6 +872,9 @@ a.btn-layerClose:hover {
 						<c:when test="${sessionScope.num == cvo.num }">
 							<li class="replies">
 							<div style="display:flex;flex-direction:row;align-items:center;justify-content:flex-end;">
+							<c:if test="${readinfomap[cvo.cnum] != 0 }">
+								<div id="${cvo.cnum }" >${readinfomap[cvo.cnum] }</div>
+							</c:if>
 							<c:forEach var="ct" items="${chattime }">
 								<c:if test="${ct.cnum == cvo.cnum }">(${ct.time })</c:if>
 							</c:forEach>
@@ -879,11 +884,18 @@ a.btn-layerClose:hover {
 						</c:when>
 						<c:otherwise>
 							<li class="sent">
-							<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-							<p>${cvo.content }</p>
-							<c:forEach var="ct" items="${chattime }">
-								<c:if test="${ct.cnum == cvo.cnum }">(${ct.time })</c:if>
-							</c:forEach>
+							<div style="display:inline;">
+								<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+								<p>${cvo.content }</p>
+								<c:forEach var="ct" items="${chattime }">
+									<c:if test="${ct.cnum == cvo.cnum }">
+										<span>(${ct.time })</span>
+									</c:if>
+								</c:forEach>
+								<c:if test="${readinfomap[cvo.cnum] != 0 }">
+									<span id="${cvo.cnum }" >${readinfomap[cvo.cnum] }</span>
+								</c:if>
+							</div>
 							</li>
 						</c:otherwise>
 					</c:choose>
@@ -950,10 +962,14 @@ a.btn-layerClose:hover {
 </body>
 
 <script type="text/javascript">
-
+	
+	$(function(){
+		$('#textID').focus();
+	});
+	
 	var sock = new SockJS("<c:url value="/echo"/>");
 	sock.onopen = onOpen;
-	sock.onmessage = onMessage;
+	sock.onmessage = onMessageAjax;
 	sock.onclose = onClose;
 	var num = '${sessionScope.num}';
 	var id = '${sessionScope.id}';
@@ -980,6 +996,49 @@ a.btn-layerClose:hover {
 		$('.contact.active .preview').html('<span>N </span>' + msgArr[0]);
 		$(".messages").animate({ scrollTop: 999999 }, "fast");
 	}
+	function onMessageAjax(msg){
+		var data=msg.data;
+		var msgArr=data.split("!%/");
+		// 0:content, 1:time, 2:num, 3:chatnum
+		var jnum=parseInt($("#sessionnum").val());
+		var jclnum=parseInt($("#sessionclnum").val());
+		var chatnum=parseInt(msgArr[3]);
+		if(msgArr[2]==num){
+			$('<li class="replies"><div style="display:flex;flex-direction:row;align-items:center;justify-content:flex-end;">'
+			+'<div id="'+msgArr[3]+'"></div>'
+			+ msgArr[1] +'<p>' + msgArr[0] + '</p></div></li>').appendTo($('.messages ul'));
+		}else{
+			$('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' 
+					+ msgArr[0] + '</p>'+msgArr[1]+'<span id="'+msgArr[3]+'"></span></li>').appendTo($('.messages ul'));
+		}
+		$.ajax({
+			url:"ChatAjax",
+			type:"post",
+			dataType:"json",
+			data: {
+				num:jnum,
+				clnum:jclnum
+			},success:function(data){
+				$(data).each(function(i,chat){
+					var chatnum=parseInt(chat.chatnum);
+					var count=parseInt(chat.count);
+					if(count>=1){
+						$("#"+chatnum).html(count);
+					}else{
+						$("#"+chatnum).html("");
+					}
+				});
+			}
+		});
+		$('.message-input input').val(null);
+		$('.contact.active .preview').html('<span>N </span>' + msgArr[0]);
+		$(".messages").animate({ scrollTop: 999999 }, "fast");
+		
+	}
+	$("#206").click(function(){
+    	alert("206~");
+    	$(this).html("22");
+    });
 	// JSON.parse() -- String 객체를 json 객체로 변환
 	// JSON.stringify -- json 객체를 String 객체로 변환
 	function onClose(evt) {

@@ -71,6 +71,10 @@ public class ChatServiceImpl implements ChatService{
 		return dao.getLastChat(clnum);
 	}
 	@Override
+	public int getLastChatNum(int clnum){
+		return dao.getLastChatNum(clnum);
+	}
+	@Override
 	public int updateAttendinfo(AttendinfoVo vo) {
 		return dao.updateAttendinfo(vo);
 	}

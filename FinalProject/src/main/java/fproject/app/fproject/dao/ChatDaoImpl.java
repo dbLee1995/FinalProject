@@ -76,6 +76,10 @@ public class ChatDaoImpl implements ChatDao{
 		return sqlSessionTemplate.selectOne(NAMESPACE+".getLastChat", clnum);
 	}
 	@Override
+	public int getLastChatNum(int clnum) {
+		return sqlSessionTemplate.selectOne(NAMESPACE+".getLastChatNum", clnum);
+	}
+	@Override
 	public int updateAttendinfo(AttendinfoVo vo) {
 		return sqlSessionTemplate.update(NAMESPACE+".updateAttendinfo", vo);
 	}

@@ -22,6 +22,7 @@ public interface ChatDao {
 	public List<ChatVo> getChat(int clnum);
 	public List<ChatVo> getChattime(int clnum); 
 	public String getLastChat(int clnum);
+	public int getLastChatNum(int clnum);
 	public int updateAttendinfo(AttendinfoVo vo);
 	public int addReadInfo(ReadinfoVo vo);
 	public int getReadInfo(ReadinfoVo vo);

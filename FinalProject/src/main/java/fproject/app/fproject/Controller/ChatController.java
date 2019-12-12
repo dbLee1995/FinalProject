@@ -8,11 +8,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import fproject.app.fproject.service.AccountService;
@@ -132,6 +135,27 @@ public class ChatController {
 		model.addAttribute("chattime",cvotimelist);
 		
 		return "ChatList";
+	}
+	@RequestMapping(value="/ChatAjax", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String ChatAjax(int clnum, int num){
+		List<ChatVo> cvolist=chatService.getChat(clnum);
+		JSONArray jarr=new JSONArray();
+		for(int i=0;i<cvolist.size();++i){
+			ReadinfoVo readvo=new ReadinfoVo(cvolist.get(i).getCnum(), clnum, num);
+			int is=chatService.getReadInfo(readvo);
+			if(is==0){
+				chatService.addReadInfo(readvo);
+			}
+			int readcount=chatService.getCountReadInfo(cvolist.get(i).getCnum());
+			int usercount=chatService.getAttendCount(clnum);
+			int rc=usercount-readcount;
+			JSONObject json=new JSONObject();
+			json.put("chatnum", cvolist.get(i).getCnum());
+			json.put("count", rc);
+			jarr.put(json);
+		}
+		return jarr.toString();
 	}
 	@RequestMapping(value="/removeChatRoom")
 	public String removeChatRoom(Model model, int clnum, int num, 

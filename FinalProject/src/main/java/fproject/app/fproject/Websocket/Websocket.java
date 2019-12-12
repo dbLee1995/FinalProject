@@ -58,6 +58,9 @@ public class Websocket extends TextWebSocketHandler{
 		int usernum=Integer.parseInt(msgArr[0]);
 		int clnum=Integer.parseInt(msgArr[1]);
 		AccountVo accvo=accountService.info(usernum);
+		chatService.addChat(new ChatVo(0, 1, msgArr[2], null, 0, "", "", 0, clnum, usernum));
+		int chatnum=chatService.getLastChatNum(clnum);
+		System.out.println(chatnum);
 		/*
 		for(WebSocketSession wsSession : sessionList){
 		}*/
@@ -69,9 +72,9 @@ public class Websocket extends TextWebSocketHandler{
 			int accnum=clMap.get(wsId);
 			if(accnum==clnum){
 				String msg=msgArr[2]+"!%/ ( "+format.format(time)+" )";
-				wsId.sendMessage(new TextMessage(msg+"!%/"+usernum));
+				wsId.sendMessage(new TextMessage(msg+"!%/"+usernum+"!%/"+chatnum));
 			}
 		}
-		chatService.addChat(new ChatVo(0, 1, msgArr[2], null, 0, "", "", 0, clnum, usernum));
+		
 	}
 }
