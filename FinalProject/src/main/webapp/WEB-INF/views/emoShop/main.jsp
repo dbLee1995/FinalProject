@@ -7,15 +7,15 @@
 <title>이모티콘</title>
 </head>
 <body>
-
-<a href="${cp}/emoShop/wishList">좋아요</a>
-<a href="${cp}/emoShop/buyList">바구니</a>
-
-<section title="emoList" id="emoList">
-    <div>
+	<section title="navigationBar">
+		<a href="${cp}/emoShop/wishList">좋아요</a>
+		<a href="${cp}/emoShop/buyList">바구니</a>
+	</section>
+	<section title="emoList" id="emoList">
+    	<div>
 	
-    </div>
-</section>
+	    </div>
+	</section>
 
 
 

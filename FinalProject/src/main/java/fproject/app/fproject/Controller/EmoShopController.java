@@ -40,16 +40,15 @@ public class EmoShopController {
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String mainPage(Model model, HttpServletRequest req) {
 		int userNum = (int)req.getSession().getAttribute("num");
-		List<EmoticongroupVo> emolist = emoShopService.getList();
-		model.addAttribute("list", emolist);
+		//List<EmoticongroupVo> emolist = emoShopService.getList();
+		//model.addAttribute("list", emolist);
 		return "emoShop/main";
 	}
 	
 	@RequestMapping(value="/wishList", method=RequestMethod.GET)
 	public String wishListPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
-		String userID = (String)req.getSession().getAttribute("id"); // 사용자 아이디 받아오기
-		int userNum = memberService. getUserAccountInfo(userID).getNum(); // 사용자 번호 받아오기
-		Paging pg = new Paging (10, favorListService.getCount(userNum), 7, thisPage);
+		int userNum = (int)req.getSession().getAttribute("num"); // 사용자 번호 받아오기
+		Paging pg = new Paging(4, favorListService.getCount(userNum), 7, thisPage);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pg.getStartRow());
 		map.put("endRow", pg.getEndRow());
@@ -111,9 +110,8 @@ public class EmoShopController {
 		model.addAttribute("feature", "이모티콘 구매");
 		List<PurchaseVo> list = vo.getList();
 		if(list != null) {
-			emoShopService.savePurchaseList(list);
-			emoShopService.saveUserEmoticonGroup(list); // 방법 생각할 것
-			return "emoShop/purchase";
+			emoShopService. savePurchaseList(list);
+			return "emoShop/main";
 		} else {
 			return "test/error";
 		}

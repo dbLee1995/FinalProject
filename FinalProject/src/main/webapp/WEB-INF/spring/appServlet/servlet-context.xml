@@ -37,6 +37,7 @@
 		<interceptor>
 			<mapping path="/emoShop"/>
 			<mapping path="/emoShop/**/*"/>
+			<mapping path="/emoShop/*/*"/>
 			<beans:bean class="fproject.app.fproject.interceptor.LoginInterceptorImpl"/>
 		</interceptor>
 	</interceptors>

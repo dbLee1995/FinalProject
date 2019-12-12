@@ -17,12 +17,11 @@
 				where userfavo.emognum = es.emognum
 				order by userfavo.favornum desc) j
 			where rownum <![CDATA[<=]]> #{endRow}) a
-		where a.rnum <![CDATA[>=]]> #{startRow};
+		where a.rnum <![CDATA[>=]]> #{startRow}
 	</select>
 	
 	<select id="getCount" parameterType="int" resultType="int">
-		select count(*) from favorlist where num = #{userNum}
+		select NVL(count(*),0) cnt from favorlist where num = #{userNum}
 	</select>
-	
 	
 </mapper>

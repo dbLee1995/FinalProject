@@ -9,16 +9,16 @@
 </head>
 <body>
 
-	<section title="WishList" id="WishList">
+	<section title="wishListSection" id="wishListSection">
     	<div>
-    		<form method="post" action="${cp }/emoShop/wishList/delete">
+    		<form method="post" action="">
 			<table border="1">
 				<tr>
 					<th>번호</th>
 					<th>이름</th>
 					<th>대표 이미지</th>
 					<th>카테고리</th>
-					<th><button type="button">모두 선택</button></th>
+					<th><button type="button" id="allSelectBtnTop">모두 선택</button></th>
 					<th>삭제</th>
 				</tr>
 				<c:forEach items="${list }" var="vo">
@@ -28,13 +28,13 @@
 					<td>???????????</td>
 					<td>${vo.category }</td>
 					<td><input type="checkbox" name="choose"/></td>
-					<td><button type="button">삭제</button></td>
+					<td><button type="button" name="delItemBtn">삭제</button></td>
 				</tr>
 				</c:forEach>
 			</table>
 			<div>
-				<button type="button">선택항목 구매</button>
-				<button type="button">선택항목 삭제</button>
+				<button type="button">선택항목 바구니에 넣기</button>
+				<button type="button" id="delSelectItemBtn">선택항목 삭제</button>
 			</div>
 			</form>
     	</div>
@@ -58,7 +58,63 @@
 
 
 <script type="text/javascript">
+	/*
+	var checkboxNodeList = document.querySelectorAll("input[type='checkbox']");
+	function selectAllItem(e) {
+		checkboxNodeList.forEach((value, index, listObj) => {
+			console.log("전: " + value.checked);
+			switch(value.checked) {
+				case true:
+					value.checked="false";
+					break;
+				case false:
+					value.checked="true";
+					break;
+			};
+			console.log("후: " + value.checked);
+		});
+	}
+	document.getElementById("allSelectBtnTop").addEventListener("click", selectAllItem);
+	*/
+	var checkboxNodeList = document.querySelectorAll("input[type='checkbox']");
+	var delItemBtnList = document.querySelectorAll("button[name='delItemBtn']");
+	(() => {
+		delItemBtnList.forEach((value, index, listObj) => {
+			value.addEventListener("click", e => {
+				console.log(e.target.parendElement.previousElementSibling);
+				//var a = value.parentElement.parentElment.prototype;	
+				//a.remove();
+			});
+		});
+	})(); // 안 먹힘
+	function selectAllItem(e) {
+		checkboxNodeList.forEach((value, index, listObj) => {
+			switch(value.checked) {
+				case true:
+					value.checked=false;
+					break;
+				case false:
+					value.checked=true;
+					break;
+			};
+		});
+	}
+	
+	function deleteItem(e) {
+		checkboxNodeList.forEach((value, index, listObj) => {
+			switch(value.checked) {
+			case true:
+				value.parentElement.parentElement.remove();
+				break;
+			};
+		});
+	}
 
+	
+	document.getElementById("allSelectBtnTop").addEventListener("click", selectAllItem);
+	document.getElementById("delSelectItemBtn").addEventListener("click", deleteItem);
+	
+	
 </script>
 
 </body>

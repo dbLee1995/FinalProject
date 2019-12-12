@@ -78,8 +78,12 @@ public class EmoShopService {
 		return dao.selectOneEmognum(name);
 	}
 	
-	@Transactional(rollbackFor=Exception.class)  // 분리 방법 생각할 것
-	public void savePurchaseList(List<PurchaseVo> list) throws Exception {  // 이러면 뜨는지?
+	/**
+	 * <p>이모티콘 구매 처리를 합니다. DB Purchase에 구매 정보를 저장하고 Emoticongroup에도 구매한 이모티콘을 추가합니다.<p>
+	 * @param list - List(Purchase)
+	 */
+	@Transactional(rollbackFor=Exception.class)
+	public void savePurchaseList(List<PurchaseVo> list) {
 		for(PurchaseVo i : list) {
 			dao.insertPurchase(i);
 		}
