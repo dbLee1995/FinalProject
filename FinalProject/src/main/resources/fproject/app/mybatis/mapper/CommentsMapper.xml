@@ -8,27 +8,50 @@
        			select SEQ_commnum.nextval from dual
        		</selectKey>
        		
---><!-- <![CDATA[>]]> -->
-	
-	<select id="list" resultType="fproject.app.fproject.vo.CommentsVo">
-		select * from comments
+    <select id="getRef" resultType="int">
+		select SEQ_commnum.currval from dual
 	</select>
+       		
+--><!-- <![CDATA[>]]> -->
 
-	<insert id="insert" parameterType="fproject.app.fproject.vo.CommentsVo">
-			insert into comments
-			values(SEQ_commnum.nextval,#{storynum},#{num},#{commcontent},#{commstep},#{commref},#{commlev})
+<sql id="sel">
+	select commlev from comments
+</sql>
+<!-- 조회 ////////////////////// -->		
+	<select id="list" resultType="fproject.app.fproject.vo.CommentsVo">
+		select * from comments order by regdate desc
+	</select>
+	<select id="infoCommNum" resultType="fproject.app.fproject.vo.CommentsVo" parameterType="int">
+		select * from comments where commnum=#{commnum}
+	</select>
+	<select id="selectReplyA" resultType="fproject.app.fproject.vo.CommentsVo">
+		select * from comments where commlev<![CDATA[<]]>=all(<include refid="sel"/>)
+		order by regdate desc
+	</select>	
+	<select id="selectReplyB" resultType="fproject.app.fproject.vo.CommentsVo" parameterType="int">
+		select * from comments where commref=#{commref} and commlev<![CDATA[>]]>all
+		(select min(commlev) from comments)
+		order by regdate desc
+	</select>
+	<select id="selectRef" resultType="int">
+		select commref from comments group by commref
+	</select>
+<!-- 추가 //////////////////////// -->
+	<insert id="insert" parameterType="fproject.app.fproject.vo.CommentsVo">		
+		insert into comments
+		values(SEQ_commnum.nextval,#{storynum},#{num},#{commcontent},SEQ_commnum.currval,#{commlev},#{commstep},sysdate)
 	</insert>
-		
+	<insert id="insertReply" parameterType="fproject.app.fproject.vo.CommentsVo">		
+		insert into comments
+		values(SEQ_commnum.nextval,#{storynum},#{num},#{commcontent},#{commref},#{commlev},#{commstep},sysdate)
+	</insert>
+
+<!-- 업데이트 ///////////////////// -->	
 	<update id="update" parameterType="fproject.app.fproject.vo.CommentsVo">
 		update comments set commcontent=#{commcontent} where commnum=#{commnum}
 	</update>
 	
-	<update id="insertReply" parameterType="fproject.app.fproject.vo.CommentsVo">
-		update comments set commstep=commstep+1 
-		where commref=#{commref} and commstep=#{commstep}	
-	</update>
-
-	
+<!-- 삭제 //////////////////////// -->	
 	<delete id="delete" parameterType="int">
 		delete from comments where commnum=#{commnum}
 	</delete>

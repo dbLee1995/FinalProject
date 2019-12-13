@@ -17,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -165,46 +164,54 @@ public class StoryController {
 		}
 	}
 	
+	// 댓글페이지이동
 	@RequestMapping(value="story/comments",method=RequestMethod.GET)
 	public ModelAndView commentsForm(int storynum,int num){
+		int commref=0;
 		StoryVo vo=service.info(storynum);
 		List<CommentsVo> cvo=cservice.list();
 		AccountVo avo=aservice.info(num);
 		ProfilesVo pvo=pservice.info(num);
+		List<CommentsVo> cvoa=cservice.getReplyA();
+		List<CommentsVo> cvob=cservice.getReplyB(commref);
+//		CommentsVo ref=cservice.selectRef(commref);
 		ModelAndView mv=new ModelAndView("story/comments");
 		mv.addObject("vo",vo);
 		mv.addObject("id",avo.getId());
 		mv.addObject("profileimg",pvo.getProfileimg());
 		mv.addObject("storynum",storynum);
-		mv.addObject("num",num);
+		mv.addObject("ref",commref);
 		mv.addObject("cvo",cvo);
+		mv.addObject("cvoa",cvoa);
+//		if(cvoa.get(ref.getCommref())==cvob.get(ref.getCommref())){
+			mv.addObject("cvob",cvob);
+//		}
+		
 		return mv;
 	}
 	
+	// 부모글입력
 	@RequestMapping(value="story/comments",method=RequestMethod.POST)
-	public String comments(CommentsVo vo,int storynum,int num,Model model,HttpServletRequest req){
+	public String comments(CommentsVo vo,int storynum,int num,Model model,HttpServletRequest req){		
 		int n=cservice.insert(vo); // db에 추가
-
-		if(n>0){
+		if(n>0){		
 			StoryVo svo=service.info(storynum);
 			ProfilesVo pvo=pservice.info(num);
-			AccountVo avo=aservice.info(num);
+			AccountVo avo=aservice.info(num);		
 			model.addAttribute("profileimg",pvo.getProfileimg());
 			return "redirect:/story/comments?num=" + num + "&storynum=" + storynum;
 		}else{
 			return "test/error";
-		}		
+		}
 	}
-	@RequestMapping(value="story/commentsReply",method=RequestMethod.GET)
-	public String commentsReplyForm(CommentsVo vo,int num,int storynum){
-		
-		
-		return "redirect:/story/comments?num=" + num + "&storynum=" + storynum;
-	}
+	
+	// 답글입력
 	@RequestMapping(value="story/commentsReply",method=RequestMethod.POST)
-	public String commentsReply(CommentsVo vo,int num,int storynum){
-		
-		
+	public String commentsReply(CommentsVo vo,int commnum,int num,int storynum){		
+		CommentsVo cvo=cservice.infoCommNum(commnum);	
+		CommentsVo rvo=new CommentsVo(0, storynum, num, vo.getCommcontent(), 
+										cvo.getCommref(), cvo.getCommlev()+1, cvo.getCommstep(),null);		
+		int n=cservice.insertReply(rvo);		// 새글		
 		return "redirect:/story/comments?num=" + num + "&storynum=" + storynum;
 	}
 }

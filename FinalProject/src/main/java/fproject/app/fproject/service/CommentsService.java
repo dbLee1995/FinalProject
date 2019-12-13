@@ -20,11 +20,26 @@ public class CommentsService {
 	 public List<CommentsVo> list(){
 		 return commentsDao.list();
 	 }
+	 public List<CommentsVo> getNum(){
+		 return commentsDao.getNum();
+	 }
+	 public List<CommentsVo> getReplyA(){
+		 return commentsDao.getReplyA();
+	 }
+	 public List<CommentsVo> getReplyB(int commref){
+		 return commentsDao.getReplyB(commref);
+	 }
+	 public CommentsVo selectRef(int commref){
+			return commentsDao.selectRef(commref);
+		}
 	 public int insert(CommentsVo vo){
 		 return commentsDao.insert(vo);
 	 }
 	 public int update(CommentsVo vo){
 		 return commentsDao.update(vo);
+	 }
+	 public CommentsVo infoCommNum(int commnum){
+		 return commentsDao.infoCommNum(commnum);
 	 }
 	 public int insertReply(CommentsVo vo){
 		 return commentsDao.insertReply(vo);

@@ -101,28 +101,43 @@
 		          <div class="pt-5 mt-5">  
 		              <h3 class="mb-5 font-weight-bold">Comments</h3>	
 		              	              
-					<c:forEach var="vo" items="${cvo}" varStatus="status">
+					<c:forEach var="voa" items="${cvoa}" var="vob" items="${cvob}" var Status="status">
 		              <ul class="comment-list">			              	            		             
-		                <li class="comment">		                
+		                <li class="comment">		             
 		                  <div class="vcard bio">
 		                    <img src="${pageContext.request.contextPath}/resources/upload/${profileimg}">
 		                  	${id}
 		                  </div>
 		                  <div class="comment-body">
-		                    <div>${vo.commcontent}<br>
+		                    <div>${voa.commcontent}<br>
+		                    	${voa.regdate}<br>
 		                    	<a href="${pageContext.request.contextPath}/story/commentsDel" class="icon-trash"></a>
-		                    </div>		                    		                    
-		            <!--///// reply 답글 /////--> 	        
-		            		         
-		                    <input type="button" class="replyBtn ${status.index }" class="reply" value="Reply">
-		                    <form class="replyForm ${status.index }" method="post" action="${pageContext.request.contextPath}/story/commentsReply" style="display:none">		                		               		                 		
-		                 		<div class="img" style="background-image: ${profileimg};">${sessionScope.id}</div>
+		                    	<a href="${pageContext.request.contextPath}/story/commentsUpdate?storynum=${voa.storynum}&num=${sessionScope.num}" class="icon-update"></a>
+		                    </div>	
+		                    	                    		                    
+		            <!--///// reply 답글 /////--> 	             		         
+		                    <input type="button" class="replyBtn ${status.index}" class="reply" value="Reply">
+		                    <div class="vcard bio">
+		                    	<img src="${pageContext.request.contextPath}/resources/upload/${profileimg}">
+		                  		${id}
+		                  	</div>
+		                  	
+		                    <div>${vob.commcontent}<br>
+		                    	 ${vob.regdate}<br>
+		                    	<a href="${pageContext.request.contextPath}/story/commentsDel" class="icon-trash"></a>
+		                    	<a href="${pageContext.request.contextPath}/story/commentsUpdate?storynum=${vob.storynum}&num=${sessionScope.num}" class="icon-update"></a>
+		                    </div>
+		          
+		                    <form class="replyForm ${status.index}" method="post" action="${pageContext.request.contextPath}/story/commentsReply?storynum=${voa.storynum}&num=${sessionScope.num}&commnum=${voa.commnum}" style="display:none">		                		               		                 		
+		                 		<div class="img" name="profileimg" style="background-image: ${profileimg};">${sessionScope.id}</div>
+		                 			<input type="hidden" name="storynum">
+		                 			<input type="hidden" name="num">
 									<input type="text" name="commcontent" style="width:600px;height:80px;">
 									<input type="submit" value="저장" class="reply">
 									<input type="reset" value="취소" class="reply">	                 				                 		      
-		                 	</form>
-		                 	 		                 	      			                 					        			
+		                 	</form>		                 	 		                 	      			                 					        			
 		        	<!--///// reply 답글end /////--> 	
+		        			
 		                  </div>        
 		          		 </li>		          		 
 		              </ul>	

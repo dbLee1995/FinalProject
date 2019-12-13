@@ -1,5 +1,7 @@
 package fproject.app.fproject.vo;
 
+import java.sql.Date;
+
 public class CommentsVo{
 	private int commnum;
 	private int storynum;
@@ -8,8 +10,9 @@ public class CommentsVo{
 	private int commref;
 	private int commlev;
 	private int commstep;
+	private Date regdate;
 	public CommentsVo() {}
-	public CommentsVo(int commnum, int storynum, int num, String commcontent, int commref, int commlev, int commstep) {
+	public CommentsVo(int commnum, int storynum, int num, String commcontent, int commref, int commlev, int commstep,Date regdate) {
 		super();
 		this.commnum = commnum;
 		this.storynum = storynum;
@@ -18,6 +21,7 @@ public class CommentsVo{
 		this.commref = commref;
 		this.commlev = commlev;
 		this.commstep = commstep;
+		this.regdate = regdate;
 	}
 	public int getCommnum() {
 		return commnum;
@@ -61,5 +65,10 @@ public class CommentsVo{
 	public void setCommstep(int commstep) {
 		this.commstep = commstep;
 	}
-	
+	public Date getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}	
 }
