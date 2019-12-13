@@ -1,6 +1,7 @@
 package fproject.app.fproject.Controller;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +65,9 @@ public class ChatController {
 		
 		List<ProfilesVo> pvolist=new ArrayList<ProfilesVo>();
 		for(HashMap<String,Object> aa:fvolist){
-			int fnum=(Integer)(aa.get("FNUM"));
+		
+			int fnum=((BigDecimal)aa.get("FNUM")).intValue();
+			
 			ProfilesVo fvo=profilesService.info(fnum);
 			pvolist.add(fvo);
 		}
@@ -203,7 +206,7 @@ public class ChatController {
 		
 		List<ProfilesVo> pvolist=new ArrayList<ProfilesVo>();
 		for(HashMap<String,Object> aa:fvolist){
-			int fnum=(Integer)(aa.get("FNUM"));
+			int fnum=((BigDecimal)aa.get("FNUM")).intValue();
 			ProfilesVo fvo=profilesService.info(fnum); // 친구 목록을 돌면서 정보를 리스트에 담기 
 			pvolist.add(fvo);
 		}
@@ -270,7 +273,7 @@ public class ChatController {
 		
 		List<ProfilesVo> pvolist=new ArrayList<ProfilesVo>();
 		for(HashMap<String,Object> aa:fvolist){
-			int fnum=(Integer)(aa.get("FNUM"));
+			int fnum=((BigDecimal)aa.get("FNUM")).intValue();
 			ProfilesVo fvo=profilesService.info(fnum);  
 			pvolist.add(fvo);
 		}
