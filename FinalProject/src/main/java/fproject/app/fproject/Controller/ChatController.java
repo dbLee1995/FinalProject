@@ -56,10 +56,15 @@ public class ChatController {
 		
 		model.addAttribute("clnum",clnum);
 		
-		List<FriendlistVo> fvolist=friendsService.list(num);
+		String friname="";
+		HashMap<String, Object> map=new HashMap<>();
+		map.put("friname",friname);
+		map.put("num", num);
+		List<HashMap<String, Object>> fvolist=friendsService.list(map);
+		
 		List<ProfilesVo> pvolist=new ArrayList<ProfilesVo>();
-		for(int i=0;i<fvolist.size();++i){
-			int fnum=fvolist.get(i).getFnum();
+		for(HashMap<String,Object> aa:fvolist){
+			int fnum=(Integer)(aa.get("FNUM"));
 			ProfilesVo fvo=profilesService.info(fnum);
 			pvolist.add(fvo);
 		}
@@ -74,6 +79,7 @@ public class ChatController {
 			HttpSession session){
 		
 		List<AttendinfoVo> ailist=chatService.getAttendInfo(num);
+		int Fclnum=0;
 		
 		if(fvalue==null){
 			chatService.createChatRoom("나와의 채팅");
@@ -97,6 +103,7 @@ public class ChatController {
 				ProfilesVo pvo=profilesService.info(fnum);
 				chatService.createChatRoom(pvo.getName());
 				int clnum=chatService.getRoomforName(pvo.getName());
+				Fclnum=clnum;
 				chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
 				chatService.addAttendInfo(new AttendinfoVo(clnum, fnum, 1));
 			}else{
@@ -104,7 +111,7 @@ public class ChatController {
 				System.out.println("내정보 수정! alreadyHave:"+alreadyHave+",num:"+num);
 				chatService.updateAttendinfo(new AttendinfoVo(alreadyHave, fnum, 1));
 				System.out.println("친구정보 수정! alreadyHave:"+alreadyHave+",num:"+fnum);
-				session.setAttribute("clnum", alreadyHave);
+				Fclnum=alreadyHave;
 			}
 		}else{
 			int clnum=0;
@@ -119,6 +126,7 @@ public class ChatController {
 				chatService.addAttendInfo(new AttendinfoVo(clnum, fnum, 1));
 			}
 			chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
+			Fclnum=clnum;
 		}
 		
 		ailist=chatService.getAttendInfo(num);
@@ -136,6 +144,8 @@ public class ChatController {
 		
 		AccountVo accvo=accountService.info(num);
 		model.addAttribute("id",accvo.getId());
+		
+		session.setAttribute("clnum", Fclnum);
 		
 		return "ChatList";
 	}
@@ -185,11 +195,15 @@ public class ChatController {
 		List<ChatVo> cvotimelist=chatService.getChattime(clnum); // 채팅 입력시간 정보
 		model.addAttribute("chattime",cvotimelist);
 		
-		List<FriendlistVo> fvolist=friendsService.list(num); // 해당 회원의 친구목록
+		String friname="";
+		HashMap<String, Object> map=new HashMap<>();
+		map.put("friname",friname); // 조회할 이름
+		map.put("num", num);
+		List<HashMap<String, Object>> fvolist=friendsService.list(map); // 해당 회원의 친구목록
+		
 		List<ProfilesVo> pvolist=new ArrayList<ProfilesVo>();
-		int count=1;
-		for(int i=0;i<fvolist.size();++i){
-			int fnum=fvolist.get(i).getFnum();
+		for(HashMap<String,Object> aa:fvolist){
+			int fnum=(Integer)(aa.get("FNUM"));
 			ProfilesVo fvo=profilesService.info(fnum); // 친구 목록을 돌면서 정보를 리스트에 담기 
 			pvolist.add(fvo);
 		}
@@ -248,12 +262,16 @@ public class ChatController {
 		AccountVo accvo=accountService.info(num);
 		model.addAttribute("id",accvo.getId());
 		
-		List<FriendlistVo> fvolist=friendsService.list(num);
+		String friname="";
+		HashMap<String, Object> map=new HashMap<>();
+		map.put("friname",friname); 
+		map.put("num", num);
+		List<HashMap<String, Object>> fvolist=friendsService.list(map); 
+		
 		List<ProfilesVo> pvolist=new ArrayList<ProfilesVo>();
-		int count=1;
-		for(int i=0;i<fvolist.size();++i){
-			int fnum=fvolist.get(i).getFnum();
-			ProfilesVo fvo=profilesService.info(fnum);
+		for(HashMap<String,Object> aa:fvolist){
+			int fnum=(Integer)(aa.get("FNUM"));
+			ProfilesVo fvo=profilesService.info(fnum);  
 			pvolist.add(fvo);
 		}
 		model.addAttribute("pvolist",pvolist);
