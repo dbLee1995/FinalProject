@@ -6,6 +6,8 @@
 	<select id="list" resultType="hashmap" parameterType="hashmap">
 		select * from friendlist f,profiles p where p.name like '%'||#{friname}||'%' and f.num=#{num} and f.fnum=p.num
 	</select>
-	
+	<select id="friprofile" resultType="hashmap" parameterType="hashmap">
+		select * from friendlist f,profiles p where  f.num=#{num} and f.fnum=#{fnum} and p.num=#{fnum}
+	</select>
 	
 </mapper>

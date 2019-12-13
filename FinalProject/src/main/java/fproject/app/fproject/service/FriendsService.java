@@ -20,4 +20,7 @@ public class FriendsService {
 	public List<HashMap<String, Object>> list(HashMap<String, Object> map){
 		return dao.list(map);
 	}
+	public List<HashMap<String, Object>> friprofile(HashMap<String, Object> map){
+		return dao.friprofile(map);
+	}
 }	

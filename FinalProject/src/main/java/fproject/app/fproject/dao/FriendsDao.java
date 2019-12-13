@@ -19,5 +19,7 @@ public class FriendsDao {
 	public List<HashMap<String, Object>> list(HashMap<String, Object> map){
 		return sqlSessionTemplate.selectList(NAMESPACE + ".list",map);
 	}
-	
+	public List<HashMap<String, Object>> friprofile(HashMap<String, Object> map){
+		return sqlSessionTemplate.selectList(NAMESPACE + ".friprofile",map);
+	}
 }

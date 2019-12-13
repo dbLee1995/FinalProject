@@ -61,4 +61,31 @@ public class FriendsController {
 		}
 		return arr.toString();
 	}
+	@RequestMapping(value="/friends/friprofile",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String friprofile(int num,int fnum){
+		
+		HashMap<String, Object> map=new HashMap<>();
+		map.put("fnum",fnum);
+		map.put("num", num);
+		List<HashMap<String, Object>> list=service.friprofile(map);
+		JSONArray arr=new JSONArray();
+		for (HashMap<String, Object> fri:list){
+			JSONObject json=new JSONObject();			
+			json.put("fnum", fri.get("FNUM"));
+			json.put("favo", fri.get("FAVO"));
+			json.put("name", fri.get("NAME"));
+			json.put("spam", fri.get("SPAM"));
+			json.put("approv", fri.get("APPROV"));
+			json.put("phone", fri.get("PHONE"));
+			json.put("email", fri.get("EMAIL"));
+			json.put("birth", fri.get("BIRTH"));
+			json.put("profileimg", fri.get("PROFILEIMG"));
+			json.put("backimg", fri.get("BACKIMG"));
+			json.put("msg", fri.get("MSG"));
+
+			arr.put(json);
+		}
+		return arr.toString();
+	}
 }

@@ -84,12 +84,14 @@
 								<c:forEach var="friends" items="${list }">
 									<div class="col-md-12" >
 										<div class="blog-entry ftco-animate d-md-flex">
-											<a href="${pageContext.request.contextPath}/story/list?num=${friends.FNUM}" class="img img-2"
+											<a href="javascript:void(0);" onclick="showprofile(${sessionScope.num },${friends.FNUM})" class="img img-2"
 												style="background-image:url(${cp}/resources/profile/person_1.jpg)"></a>
 											<div class="text text-2 pl-md-4">
 												<h3 class="mb-2">
 													<a href="single.html">${friends.NAME}</a>
 												</h3>
+												<a href="${pageContext.request.contextPath}/story/list?num=${friends.FNUM}">Story</a>
+												
 												<div class="meta-wrap">
 													<p class="meta"></p>
 												</div>
@@ -110,15 +112,8 @@
 	                </div>
 	              </form>
 	            </div>
-	            <div class="sidebar-box ftco-animate">
-	            	<h3 class="sidebar-heading">Categories</h3>
-	              <ul class="categories">
-	                <li><a href="#">Fashion <span>(6)</span></a></li>
-	                <li><a href="#">Technology <span>(8)</span></a></li>
-	                <li><a href="#">Travel <span>(2)</span></a></li>
-	                <li><a href="#">Food <span>(2)</span></a></li>
-	                <li><a href="#">Photography <span>(7)</span></a></li>
-	              </ul>
+	            <div class="sidebar-box ftco-animate" id="friprofile">
+	            	
 	            </div>
 
 	          </div><!-- END COL -->
@@ -177,6 +172,38 @@
             	});
             }
         });
+    }
+    function showprofile(num,fnum){
+    	$.ajax({
+            type: "post",
+            url: "${cp}/friends/friprofile",
+            data: {
+            	num:num,
+            	fnum:fnum
+            },
+            success: function (response) {
+            	$("#friprofile").empty();
+            	$(response).each(function(){
+            		var str="<div class='col-md-12'><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>"
+        				+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+        				+"<div class='text text-2 pl-md-4'>"
+        					+"<h3 class='mb-2'>"
+        						+"<a href='single.html'>"+this.name+"</a>"
+        					+"</h3>"
+        					+"<p>"+this.phone+"</p>"
+        					
+        					+"<div class='meta-wrap'>"
+        						+"<p class='meta'>"+this.email+"</p>"
+        					+"</div>"
+        				+"</div>"
+        			+"</div>"
+        		+"</div>";
+            		$("#friprofile").append(str);
+            		
+            	});
+            }
+        });
+        
     }
   	function showCalendar(){
   		window.open("calendar", "[캘린더]", "width=900, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no" );    
