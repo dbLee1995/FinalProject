@@ -26,12 +26,6 @@ public class CommentsService {
 	 public List<CommentsVo> getReplyA(){
 		 return commentsDao.getReplyA();
 	 }
-	 public List<CommentsVo> getReplyB(int commref){
-		 return commentsDao.getReplyB(commref);
-	 }
-	 public CommentsVo selectRef(int commref){
-			return commentsDao.selectRef(commref);
-		}
 	 public int insert(CommentsVo vo){
 		 return commentsDao.insert(vo);
 	 }

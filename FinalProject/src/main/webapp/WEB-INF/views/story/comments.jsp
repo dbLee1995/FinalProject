@@ -101,7 +101,7 @@
 		          <div class="pt-5 mt-5">  
 		              <h3 class="mb-5 font-weight-bold">Comments</h3>	
 		              	              
-					<c:forEach var="voa" items="${cvoa}" var="vob" items="${cvob}" var Status="status">
+					<c:forEach var="voa" items="${cvoa}" varStatus="status">						
 		              <ul class="comment-list">			              	            		             
 		                <li class="comment">		             
 		                  <div class="vcard bio">
@@ -114,28 +114,30 @@
 		                    	<a href="${pageContext.request.contextPath}/story/commentsDel" class="icon-trash"></a>
 		                    	<a href="${pageContext.request.contextPath}/story/commentsUpdate?storynum=${voa.storynum}&num=${sessionScope.num}" class="icon-update"></a>
 		                    </div>	
-		                    	                    		                    
-		            <!--///// reply 답글 /////--> 	             		         
-		                    <input type="button" class="replyBtn ${status.index}" class="reply" value="Reply">
-		                    <div class="vcard bio">
-		                    	<img src="${pageContext.request.contextPath}/resources/upload/${profileimg}">
-		                  		${id}
-		                  	</div>
-		                  	
-		                    <div>${vob.commcontent}<br>
-		                    	 ${vob.regdate}<br>
-		                    	<a href="${pageContext.request.contextPath}/story/commentsDel" class="icon-trash"></a>
-		                    	<a href="${pageContext.request.contextPath}/story/commentsUpdate?storynum=${vob.storynum}&num=${sessionScope.num}" class="icon-update"></a>
-		                    </div>
-		          
-		                    <form class="replyForm ${status.index}" method="post" action="${pageContext.request.contextPath}/story/commentsReply?storynum=${voa.storynum}&num=${sessionScope.num}&commnum=${voa.commnum}" style="display:none">		                		               		                 		
+		                    	                   		                    
+		            <!--///// reply 답글 /////--> 		            		             		         
+		                    <input type="button" class="replyBtn ${status.index}" class="reply" value="Reply">	                    
+		                    <form class="replyForm ${status.index}" method="post" action="${pageContext.request.contextPath}/story/commentsReply?storynum=${voa.storynum}&num=${sessionScope.num}" style="display:none">		                		               		                 		
 		                 		<div class="img" name="profileimg" style="background-image: ${profileimg};">${sessionScope.id}</div>
-		                 			<input type="hidden" name="storynum">
-		                 			<input type="hidden" name="num">
+		                 		<div>
+		                    		<c:forEach var="ccvo" items="${cvo }">
+			                    		<c:if test="${ccvo.commref == voa.commnum }"> <!-- 자식댓글 -->
+			                    			<div>id:${usernameMap[ccvo.num]}</div>
+			                    			<div>${ccvo.commcontent}<br>
+						                    	 ${ccvo.regdate}<br>
+						                    	<a href="${pageContext.request.contextPath}/story/commentsDel" class="icon-trash"></a>
+						                    	<a href="${pageContext.request.contextPath}/story/commentsUpdate?storynum=${voa.storynum}&num=${sessionScope.num}" class="icon-update"></a>
+						                    </div>
+			                    		</c:if>
+		                    		</c:forEach>
+		                    		
+		                    	</div> 
+		                 			
+		                 			<input type="hidden" name="commnum" value="${voa.commnum }">
 									<input type="text" name="commcontent" style="width:600px;height:80px;">
 									<input type="submit" value="저장" class="reply">
 									<input type="reset" value="취소" class="reply">	                 				                 		      
-		                 	</form>		                 	 		                 	      			                 					        			
+		                 	</form>		                	 		                 	      			                 					        			
 		        	<!--///// reply 답글end /////--> 	
 		        			
 		                  </div>        

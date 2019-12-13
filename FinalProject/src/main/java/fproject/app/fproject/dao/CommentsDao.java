@@ -26,12 +26,6 @@ public class CommentsDao {
 	public List<CommentsVo> getReplyA(){
 		return sqlSessionTemplate.selectList(NAMESPACE + ".selectReplyA");
 	}
-	public List<CommentsVo> getReplyB(int commref){
-		return sqlSessionTemplate.selectList(NAMESPACE + ".selectReplyB",commref);
-	}
-	public CommentsVo selectRef(int commref){
-		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectRef",commref);
-	}
 	public int insert(CommentsVo vo){
 		return sqlSessionTemplate.insert(NAMESPACE + ".insert",vo);
 	}

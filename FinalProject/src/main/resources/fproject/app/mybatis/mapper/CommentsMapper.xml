@@ -28,14 +28,6 @@
 		select * from comments where commlev<![CDATA[<]]>=all(<include refid="sel"/>)
 		order by regdate desc
 	</select>	
-	<select id="selectReplyB" resultType="fproject.app.fproject.vo.CommentsVo" parameterType="int">
-		select * from comments where commref=#{commref} and commlev<![CDATA[>]]>all
-		(select min(commlev) from comments)
-		order by regdate desc
-	</select>
-	<select id="selectRef" resultType="int">
-		select commref from comments group by commref
-	</select>
 <!-- 추가 //////////////////////// -->
 	<insert id="insert" parameterType="fproject.app.fproject.vo.CommentsVo">		
 		insert into comments

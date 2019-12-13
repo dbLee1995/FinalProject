@@ -5,7 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -167,26 +169,24 @@ public class StoryController {
 	// 댓글페이지이동
 	@RequestMapping(value="story/comments",method=RequestMethod.GET)
 	public ModelAndView commentsForm(int storynum,int num){
-		int commref=0;
 		StoryVo vo=service.info(storynum);
 		List<CommentsVo> cvo=cservice.list();
+		Map<Integer, String> usernameMap=new HashMap<Integer, String>();
+		for(int i=0;i<cvo.size();++i){
+			AccountVo aavo=aservice.info(cvo.get(i).getNum());
+			usernameMap.put(aavo.getNum(), aavo.getId());
+		}
 		AccountVo avo=aservice.info(num);
 		ProfilesVo pvo=pservice.info(num);
 		List<CommentsVo> cvoa=cservice.getReplyA();
-		List<CommentsVo> cvob=cservice.getReplyB(commref);
-//		CommentsVo ref=cservice.selectRef(commref);
 		ModelAndView mv=new ModelAndView("story/comments");
 		mv.addObject("vo",vo);
 		mv.addObject("id",avo.getId());
 		mv.addObject("profileimg",pvo.getProfileimg());
 		mv.addObject("storynum",storynum);
-		mv.addObject("ref",commref);
 		mv.addObject("cvo",cvo);
 		mv.addObject("cvoa",cvoa);
-//		if(cvoa.get(ref.getCommref())==cvob.get(ref.getCommref())){
-			mv.addObject("cvob",cvob);
-//		}
-		
+		mv.addObject("usernameMap",usernameMap);
 		return mv;
 	}
 	
@@ -197,7 +197,7 @@ public class StoryController {
 		if(n>0){		
 			StoryVo svo=service.info(storynum);
 			ProfilesVo pvo=pservice.info(num);
-			AccountVo avo=aservice.info(num);		
+			AccountVo avo=aservice.info(num);	
 			model.addAttribute("profileimg",pvo.getProfileimg());
 			return "redirect:/story/comments?num=" + num + "&storynum=" + storynum;
 		}else{
