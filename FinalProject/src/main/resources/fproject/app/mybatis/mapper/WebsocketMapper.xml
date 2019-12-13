@@ -50,7 +50,7 @@
 	<select id="sameAttendInfo" parameterType="int"
 			resultType="fproject.app.fproject.vo.AttendinfoVo">
 		SELECT * FROM ATTENDINFO 
-		WHERE CLNUM=#{CLNUM}
+		WHERE CLNUM=#{clnum}
 	</select>
 	<!-- ### (파라미터)방에 있는 인원 수 얻어오기 ### -->
 	<select id="getAttendCount" parameterType="int"

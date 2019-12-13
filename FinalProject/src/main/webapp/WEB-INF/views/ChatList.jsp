@@ -862,6 +862,8 @@ a.btn-layerClose:hover {
 				<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
 				<p>${clvo.name }</p>
 				<div class="social-media">
+					<a href="#" class="btn-RoomClose" >수정</a>
+					<i class="" aria-hidden="true"></i>
 					<a href="${cp }/removeChatRoom?clnum=${sessionScope.clnum}&num=${sessionScope.num}" class="btn-RoomClose" >방 나가기</a>
 					<i class="" aria-hidden="true"></i>
 				</div>
@@ -887,6 +889,7 @@ a.btn-layerClose:hover {
 						<c:otherwise>
 							<li class="sent">
 							<div style="display:inline;">
+								<div style="margin-left: 35px; margin-bottom: 2px;">${attname[cvo.num] }</div>
 								<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
 								<p>${cvo.content }</p>
 								<c:forEach var="ct" items="${chattime }">

@@ -70,7 +70,8 @@ public class ChatController {
 	@RequestMapping(value="/CreateChat", 
 			method={RequestMethod.POST,RequestMethod.GET})
 	public String createChat(
-			Model model, HttpServletRequest req, int num, String[] fvalue){
+			Model model, HttpServletRequest req, int num, String[] fvalue,
+			HttpSession session){
 		
 		List<AttendinfoVo> ailist=chatService.getAttendInfo(num);
 		
@@ -86,7 +87,10 @@ public class ChatController {
 				for(int j=0;j<failist.size();++j){
 					int aa=ailist.get(i).getClnum();
 					int ff=failist.get(j).getClnum();
-					if(aa == ff){ alreadyHave=aa; }
+					if(aa == ff){
+						int attendcount=chatService.getAttendCount(aa);
+						if(attendcount==2)alreadyHave=aa; 
+					}
 				}
 			}
 			if(alreadyHave==0){
@@ -96,12 +100,11 @@ public class ChatController {
 				chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
 				chatService.addAttendInfo(new AttendinfoVo(clnum, fnum, 1));
 			}else{
-				// if(alreadyHave>0 && count==2)
-				// 중복인 방이 있으면서 해당 방의 총 인원 수가 두명일 때
-				// 그 외는 if(alreadyHave==0)
-				// 방 이동하면서 해당 방의 정보 담아서 전달하기(바로 그 방이 열릴 수 있게)
 				chatService.updateAttendinfo(new AttendinfoVo(alreadyHave, num, 1));
+				System.out.println("내정보 수정! alreadyHave:"+alreadyHave+",num:"+num);
 				chatService.updateAttendinfo(new AttendinfoVo(alreadyHave, fnum, 1));
+				System.out.println("친구정보 수정! alreadyHave:"+alreadyHave+",num:"+fnum);
+				session.setAttribute("clnum", alreadyHave);
 			}
 		}else{
 			int clnum=0;
@@ -192,6 +195,14 @@ public class ChatController {
 		}
 		model.addAttribute("pvolist",pvolist);
 		
+		List<AttendinfoVo> savolist=chatService.sameAttendInfo(clnum); // 같은방에 존재하는 사람 정보
+		Map<Integer, String> attname=new HashMap<>();
+		for(int i=0;i<savolist.size();++i){
+			ProfilesVo p=profilesService.info(savolist.get(i).getNum());
+			attname.put(p.getNum(), p.getName()); // key:해당사람의 번호, value:이름
+		}
+		model.addAttribute("attname",attname); // 채팅 위에 이름을 띄우기 위함
+		
 		return "ChatList";
 	}
 	@RequestMapping(value="/ChatAjax", produces="application/json;charset=utf-8")
@@ -246,6 +257,8 @@ public class ChatController {
 			pvolist.add(fvo);
 		}
 		model.addAttribute("pvolist",pvolist);
+		
+		session.setAttribute("clnum", 0);
 		
 		return "ChatList";
 	}
