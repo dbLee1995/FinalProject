@@ -16,6 +16,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import fproject.app.fproject.service.AccountService;
 import fproject.app.fproject.service.ChatService;
+import fproject.app.fproject.service.ProfilesService;
 import fproject.app.fproject.vo.AccountVo;
 import fproject.app.fproject.vo.ChatVo;
 
@@ -23,6 +24,7 @@ public class Websocket extends TextWebSocketHandler{
 	
 	@Autowired ChatService chatService;
 	@Autowired AccountService accountService;
+	@Autowired ProfilesService profilesService;
 	
 	private int accountNum;
 	
@@ -60,6 +62,7 @@ public class Websocket extends TextWebSocketHandler{
 		AccountVo accvo=accountService.info(usernum);
 		chatService.addChat(new ChatVo(0, 1, msgArr[2], null, 0, "", "", 0, clnum, usernum));
 		int chatnum=chatService.getLastChatNum(clnum);
+		String name=profilesService.info(usernum).getName();
 		System.out.println(chatnum);
 		/*
 		for(WebSocketSession wsSession : sessionList){
@@ -71,8 +74,9 @@ public class Websocket extends TextWebSocketHandler{
 			WebSocketSession wsId=sessionIds.next();
 			int accnum=clMap.get(wsId);
 			if(accnum==clnum){
-				String msg=msgArr[2]+"!%/ ( "+format.format(time)+" )";
-				wsId.sendMessage(new TextMessage(msg+"!%/"+usernum+"!%/"+chatnum));
+				// 내용 + 시간 + 번호 + 채팅번호 + 이름 
+				String msg=msgArr[2]+"!%/ ("+format.format(time)+")";
+				wsId.sendMessage(new TextMessage(msg+"!%/"+usernum+"!%/"+chatnum+"!%/"+name));
 			}
 		}
 		

@@ -1000,7 +1000,7 @@ a.btn-layerClose:hover {
 	function onMessageAjax(msg){
 		var data=msg.data;
 		var msgArr=data.split("!%/");
-		// 0:content, 1:time, 2:num, 3:chatnum
+		// 0:content, 1:time, 2:num, 3:chatnum, 4:name
 		var jnum=parseInt($("#sessionnum").val());
 		var jclnum=parseInt($("#sessionclnum").val());
 		var chatnum=parseInt(msgArr[3]);
@@ -1009,7 +1009,8 @@ a.btn-layerClose:hover {
 			+'<div id="'+msgArr[3]+'"></div>'
 			+ msgArr[1] +'<p>' + msgArr[0] + '</p></div></li>').appendTo($('.messages ul'));
 		}else{
-			$('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' 
+			$('<li class="sent"><div style="margin-left: 35px; margin-bottom: 2px;">'+ msgArr[4]
+					+ '</div><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' 
 					+ msgArr[0] + '</p>'+msgArr[1]+'<span id="'+msgArr[3]+'"></span></li>').appendTo($('.messages ul'));
 		}
 		$.ajax({
