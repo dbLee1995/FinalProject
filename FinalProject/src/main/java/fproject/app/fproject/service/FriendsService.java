@@ -1,5 +1,6 @@
 package fproject.app.fproject.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import fproject.app.fproject.vo.FriendlistVo;
 public class FriendsService {
 	@Autowired private FriendsDao dao;
 	
-	public List<FriendlistVo> list(int num){
-		return dao.list(num);
+	public List<HashMap<String, Object>> list(HashMap<String, Object> map){
+		return dao.list(map);
 	}
 }	
