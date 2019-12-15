@@ -26,7 +26,7 @@ public class SendEmail {
 
 			Session session = Session.getDefaultInstance(p, new javax.mail.Authenticator() {
 				private final String Un = "ui.01hwc@gmail.com";
-				private final String Pw = "#Inanis10.";
+				private final String Pw = "#Inanis18.";
 
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(Un, Pw);

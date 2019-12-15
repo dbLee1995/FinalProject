@@ -6,25 +6,90 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원가입</title>
+<!-- Mobile Specific Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- Main Style Css -->
+<link rel="stylesheet" href="${cp }/resources/css/colorlib/style.css"/>
+<style type="text/css">
+button:HOVER {
+	cursor: pointer;
+}
+</style>
 </head>
-<body>
-	<form method="post" action="${pageContext.request.contextPath }/member/registering/certification" id="regForm">
-		<label for="email">이메일</label> <input type="email" value="${email }" name="email" id="eamil"> <br>
-		<label for="id">아이디</label> <input type="text" name="id" value="${id }" id="id"> <br> <span id="idNotice"></span> <br>
-		<label for="pwd">비밀번호</label> <input type="password" value="${pwd }" name="pwd" id="pwd"> <br> <span id="pwdNotice"></span> <br>
-		<label for="rePwd">비밀번호 확인</label> <input type="password" value="${pwd }" name="rePwd" id="rePwd"> <br> <span id="rePwdNotice"> </span> <br>
-		<button type="button" id="okBtn">확인</button>
-	</form>
-		<br>
-		<c:if test="${infoCheck}">
-			<jsp:include page="/WEB-INF/views/member/certification.jsp"/>
-		</c:if>
-		<br>
-		<br>
-		<br>
-		<button type="button" id="loginBtn">로그인 창으로</button>
-	
-		
+<body class="form-v5">
+	<div class="page-content">
+		<div class="form-v5-content">
+			<form method="post" action="${cp }/member/registering/certification" id="regForm" class="form-detail">
+				<h2>회원가입</h2>
+				<div class="form-row">
+					<label for="email">이메일</label>
+					<div style="display:flex; align-items: center; justify-content: flex-end">
+					<input type="email" value="${email }" name="email" id="eamil" placeholder="이메일을 입력해주세요." required>
+					<img src="${cp }/resources/css/colorlib/email.png" style="position:absolute; width: 25px; margin-right:10px;">
+					</div>
+				</div>
+				<br>
+				<div class="form-row">
+					<label for="id">아이디</label>
+					<div style="display:flex; align-items: center; justify-content: flex-end">
+					<input type="text" name="id" value="${id }" id="id" placeholder="아이디를 입력해주세요." required>
+					<img src="${cp }/resources/css/colorlib/id.png" style="position:absolute; width: 25px; margin-right:10px;">
+					</div>
+				</div>
+				<span id="idNotice"></span>
+				<br>
+				<br>
+				<div class="form-row">
+					<label for="pwd">비밀번호</label>
+					<div style="display:flex; align-items: center; justify-content: flex-end">
+					<input type="password" value="${pwd }" name="pwd" id="pwd" placeholder="비밀번호를 입력해주세요." required>
+					<img src="${cp }/resources/css/colorlib/password.png" style="position:absolute; width: 25px; margin-right:10px;">
+					</div>
+				</div>
+				<span id="pwdNotice"></span>
+				<br>
+				<br>
+				<div class="form-row">
+					<label for="rePwd">비밀번호 확인</label>
+					<div style="display:flex; align-items: center; justify-content: flex-end">
+					<input type="password" value="${pwd }" name="rePwd" id="rePwd" placeholder="입력한 비밀번호와 일치해야 합니다." required>
+					<img src="${cp }/resources/css/colorlib/password.png" style="position:absolute; width: 25px; margin-right:10px;">
+					</div>
+				</div>
+				<span id="rePwdNotice"></span>
+				<br>
+				<br>
+				<div class="form-row">
+					<label for="name">이름</label>
+					<input type="text" name="name" value="${name }" id="name" placeholder="이름을 입력해주세요." required>
+				</div>
+				<br>
+				<div class="form-row">
+					<label for="phone">전화번호</label>
+					<input type="text" name="phone" value="${phone }" id="phone" placeholder="전화번호를 입력해주세요." required>
+				</div>
+				<br>
+				<div class="form-row">
+					<label for="birth">생년월일</label>
+					<input type="date" name="birthDate" value="${birth }" id="birthDate" min="1900-01-01" max="2019-01-01" required>
+				</div>
+				<br>
+				<div class="form-row-last">
+					<button type="button" id="okBtn" class="register">확인</button>				
+				</div>
+			</form>
+			<br>
+			<c:if test="${infoCheck}">
+				<jsp:include page="/WEB-INF/views/member/certification.jsp"/>
+			</c:if>
+			<div>
+			</div>
+			<div style="display:flex; align-items: center; justify-content: flex-end; padding: 15px;">
+				<button type="button" id="loginBtn" class="register" style="text-align: center; background-color: #2f73a3; font-size: 14px; color: white; border-radius:5px; width:120px; box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2); border: none; height: 30px;">로그인 창으로</button>
+			</div>
+		</div>
+	</div>
+
 
 
 	
@@ -137,7 +202,7 @@
 		document.getElementById("resend").addEventListener("click", () => {
 			regForm.submit();
 		});
-	   
+
 	</script>
 </body>
 </html>

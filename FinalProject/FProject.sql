@@ -128,7 +128,6 @@ CREATE TABLE ad
 	addadregdate date NOT NULL,
 	-- 광고만료일자
 	deladregdate date NOT NULL
-	
 );
 
 
@@ -203,7 +202,6 @@ CREATE TABLE chat
 	-- 회원번호
 	num number(5), 
 	Constraint fk_e Foreign Key (clnum,num) References attendinfo(clnum,num)
-	
 );
 
 
@@ -214,7 +212,6 @@ CREATE TABLE chatlist
 	clnum number(5) primary key,
 	-- 채팅방이름
 	name varchar2(50)
-	
 );
 
 
@@ -230,7 +227,6 @@ CREATE TABLE chatnotice
 	-- 회원번호
 	num number(5), 
 	Constraint fk_ade Foreign Key (clnum,num) References attendinfo(clnum,num)
-	
 );
 
 
@@ -267,7 +263,6 @@ CREATE TABLE comments
 	commlev number(5) NOT NULL,
 	-- 코멘트출력순서
 	commstep number(5) NOT NULL
-	
 );
 
 
@@ -279,10 +274,9 @@ CREATE TABLE emoshop
 	-- 가격
 	price number(10) NOT NULL,
 	-- 이모티콘그룹이름
-	name varchar2(50) NOT NULL, UNIQUE,
+	name varchar2(50) NOT NULL UNIQUE,
 	-- 카테고리
-	category varchar2(20) NOT NULL, UNIQUE
-	
+	category varchar2(20) NOT NULL UNIQUE
 );
 
 
@@ -299,7 +293,6 @@ CREATE TABLE emoticon
 	emosaveimg varchar2(50),
 	-- 이모티콘파일크기
 	emoimgsize long
-	
 );
 
 
@@ -317,7 +310,7 @@ CREATE TABLE emoticongroup
 CREATE TABLE purchase
 (
     purchasenum number(10),
-    purchasedate date, CONSTRAINT NN_purchase_purchasedate NOT NULL,
+    purchasedate date CONSTRAINT NN_purchase_purchasedate NOT NULL,
     emognum number(6),
     num number(7),
     CONSTRAINT PK_purchase_purchasenum PRIMARY KEY(purchasenum),
@@ -336,7 +329,6 @@ CREATE TABLE favorlist
 	emognum number(5) references emoshop (emognum),
 	-- 회원번호
 	num number(5)  references account (num)
-	
 );
 
 
@@ -368,7 +360,6 @@ CREATE TABLE nationalday
 	aniverregdate date,
 	-- 기념일내용
 	anivercontent varchar2(50)
-	
 );
 
 
@@ -385,7 +376,6 @@ CREATE TABLE notice
 	noticeregdate date NOT NULL,
 	-- 공지사항상태
 	noticestate number(5) DEFAULT 0 NOT NULL
-
 );
 
 
@@ -400,7 +390,6 @@ CREATE TABLE options
 	fontsize number(5) NOT NULL,
 	-- 테마
 	theme varchar2(50) NOT NULL
-
 );
 
 
@@ -415,7 +404,6 @@ CREATE TABLE present
 	gnum number(5) references account (num),
 	-- 받는사람
 	rnum number(5) references account (num)
-	
 );
 
 
@@ -461,7 +449,6 @@ CREATE TABLE qna
 	qnaanswer varchar2(100) NOT NULL,
 	-- 문의답변작성일자
 	qnaqnswerregdate date NOT NULL
-	
 );
 
 
@@ -470,8 +457,7 @@ CREATE TABLE readinfo
 (
 	-- 채팅번호
 	cnum number(5) references chat (cnum),
-
-	clnum number(5) ,
+	clnum number(5),
 	-- 회원번호
 	num number(5), 
 	Constraint fk_ae Foreign Key (clnum,num) References attendinfo(clnum,num),
@@ -498,7 +484,6 @@ CREATE TABLE story
 	saveimg varchar2(50),
 	-- 파일크기
 	imgsize long
-	
 );
 
 

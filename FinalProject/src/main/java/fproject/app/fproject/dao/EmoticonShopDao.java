@@ -16,7 +16,7 @@ public class EmoticonShopDao {
 	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
-	private final String EmoticonShopMapper = "fproject.app.mybatis.mapper.EmoticonShopMapper";
+	private final String EmoticonShopMapper = "fproject.app.mybatis.mapper.EmoShopMapper";
 	private final String PurchaseMapper = "fproject.app.mybatis.mapper.PurchaseMapper";
 	private final String EmoticonGroupMapper = "fproject.app.mybatis.mapper.EmoticonGroupMapper";
 	
@@ -30,6 +30,10 @@ public class EmoticonShopDao {
 	
 	public int selectOneEmognum(String name) {
 		return sqlSessionTemplate.selectOne(EmoticonShopMapper + ".selectOneEmognum", name);
+	}
+	
+	public EmoshopVo selectOneEmogInfo(int emognum) {
+		return sqlSessionTemplate.selectOne(EmoticonShopMapper + ".selectOneEmogInfo", emognum);
 	}
 	
 	public int insertPurchase(PurchaseVo vo) {

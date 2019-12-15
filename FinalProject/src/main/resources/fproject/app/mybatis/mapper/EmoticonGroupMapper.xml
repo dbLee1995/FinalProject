@@ -7,5 +7,4 @@
 	<insert id="inserst" parameterType="fproject.app.fproject.vo.EmoticongroupVo">
 		insert into values(#{emognum}, #{num})
 	</insert>
-
 </mapper>

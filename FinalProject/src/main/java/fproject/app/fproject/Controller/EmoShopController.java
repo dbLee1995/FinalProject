@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
@@ -46,8 +47,14 @@ public class EmoShopController {
 	}
 	
 	@RequestMapping(value="/wishList", method=RequestMethod.GET)
-	public String wishListPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
+	public String wishListPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage, HttpServletResponse res) {
 		int userNum = (int)req.getSession().getAttribute("num"); // 사용자 번호 받아오기
+		
+		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList");
+		basketList.add(emoShopService.getEmogInfo(42));
+		req.getSession().setAttribute("basketList", basketList);
+		basketList = (List)req.getSession().getAttribute("basketList");
+		
 		Paging pg = new Paging(4, favorListService.getCount(userNum), 7, thisPage);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pg.getStartRow());
@@ -87,6 +94,22 @@ public class EmoShopController {
 		session.setAttribute("basketList", basketList);
 		JSONObject json = new JSONObject("'result':'장바구니에 담았습니다.'");
 		return json.toString();
+	}
+	
+	@RequestMapping(value="/moveBasket", method=RequestMethod.POST)
+	@ResponseBody
+	public String moveBasket(Model model, int[] moveList, HttpSession session) {
+		int userNum = (int)session.getAttribute("num");
+		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
+		for(int i : moveList) {
+			boolean count = true;
+			for(EmoshopVo vo : basketList) {
+				if(vo.getEmognum() != i) continue;
+				count = false;
+			}
+			if(count) basketList.add(emoShopService.getEmogInfo(i));	
+		}
+		return "보관함으로 옮겼습니다.";
 	}
 	
 	@RequestMapping(value="/purchase")

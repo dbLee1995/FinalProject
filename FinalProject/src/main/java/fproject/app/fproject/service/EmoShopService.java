@@ -13,18 +13,6 @@ import fproject.app.fproject.vo.EmoticonVo;
 import fproject.app.fproject.vo.EmoticongroupVo;
 import fproject.app.fproject.vo.PurchaseVo;
 
-/**
- * @author JHTA
- *
- */
-/**
- * @author JHTA
- *
- */
-/**
- * @author JHTA
- *
- */
 @Service
 public class EmoShopService {
 	@Autowired 
@@ -74,10 +62,6 @@ public class EmoShopService {
 		return dao.insertEmoticonShop(vo);
 	}
 	
-	public int getEmognum(String name) {
-		return dao.selectOneEmognum(name);
-	}
-	
 	/**
 	 * <p>이모티콘 구매 처리를 합니다. DB Purchase에 구매 정보를 저장하고 Emoticongroup에도 구매한 이모티콘을 추가합니다.<p>
 	 * @param list - List(Purchase)
@@ -90,5 +74,13 @@ public class EmoShopService {
 		for(PurchaseVo i : list) {
 			dao.insertEmoticonGroup(new EmoticongroupVo(i.getEmognum(), i.getNum()));
 		}
+	}
+	
+	public int getEmognum(String name) {
+		return dao.selectOneEmognum(name);
+	}
+	
+	public EmoshopVo getEmogInfo(int emognum) {
+		return dao.selectOneEmogInfo(emognum);
 	}
 }

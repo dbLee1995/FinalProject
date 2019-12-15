@@ -6,5 +6,7 @@
 	<select id="info" resultType="fproject.app.fproject.vo.ProfilesVo" parameterType="int">
 		select * from profiles where num=#{num}
 	</select>
-	
+	<insert id="insert" parameterType="fproject.app.fproject.vo.ProfilesVo">
+		insert into profiles values(#{num}, #{name}, #{phone}, #{email}, #{birth}, '', '', '')
+	</insert>
 </mapper>

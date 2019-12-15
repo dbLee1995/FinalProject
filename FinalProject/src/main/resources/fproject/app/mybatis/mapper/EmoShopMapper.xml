@@ -21,7 +21,14 @@
 	</select>
 	
 	<select id="getCount" parameterType="int" resultType="int">
-		select NVL(count(*),0) cnt from favorlist where num = #{userNum}
+		select NVL(count(*),0) cnt from favorlist where num=#{userNum}
 	</select>
 	
+	<select id="selectOneEmognum" parameterType="String" resultType="int">
+		select emognum from emoshop where name=#{name}
+	</select>
+	
+	<select id="selectOneEmogInfo" parameterType="int" resultType="fproject.app.fproject.vo.EmoshopVo">
+		select * from emoshop where emognum=#{emognum}
+	</select>
 </mapper>

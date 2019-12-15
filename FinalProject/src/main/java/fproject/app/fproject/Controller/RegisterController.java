@@ -33,12 +33,12 @@ public class RegisterController {
 
 	
 	@RequestMapping(value="/registering", method=RequestMethod.POST)
-	public String insert(String email, String id, String pwd, String checkString, Model model) {
+	public String insert(String email, String id, String pwd, String checkString, String name, String birthDate, String phone, Model model) {
 		if(this.certification.equals(checkString)) {
 			AccountVo vo = new AccountVo(0, id, pwd);
 			model.addAttribute("feature", "회원가입");
 			try {
-				service.insert(vo);
+				service.resistering(email, id, pwd, name, birthDate, phone);
 				return "test/success";
 			} catch(Exception e) {
 				e.printStackTrace();
@@ -50,11 +50,14 @@ public class RegisterController {
 			model.addAttribute("email", email);
 			model.addAttribute("id", id);
 			model.addAttribute("pwd", pwd);
+			model.addAttribute("name", name);
+			model.addAttribute("phone", phone);
+			model.addAttribute("birth", birthDate);
 			model.addAttribute("certificationWrongMsg", "인증문자가 불일치합니다. 다시 입력해주세요.");
 			return "member/register";
 		}
 	}
-	
+
 	@RequestMapping(value="/registering/dbCheck")
 	@ResponseBody
 	public String dbCheck(Model model, HttpServletRequest req, String id) {
@@ -69,7 +72,7 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value="/registering/certification", method=RequestMethod.POST)
-	public String certification(Model model, HttpServletRequest req, String email, String id, String pwd) {
+	public String certification(String email, String id, String pwd, String checkString, String name, String birthDate, String phone, Model model, HttpServletRequest req) {
 		this.certification = new RandomString().create(15);
 		new SendEmail().send(email, this.certification, 0);
 		
@@ -78,16 +81,22 @@ public class RegisterController {
 		model.addAttribute("email", email);
 		model.addAttribute("id", id);
 		model.addAttribute("pwd", pwd);
+		model.addAttribute("name", name);
+		model.addAttribute("phone", phone);
+		model.addAttribute("birth", birthDate);
 		return "member/register";
 	}
 	
 	@RequestMapping(value="/registering/certification/add", method=RequestMethod.GET)
-	public String addCertification(Model model, HttpServletRequest req, String email, String id, String pwd) {
+	public String addCertification(String email, String id, String pwd, String checkString, String name, String birthDate, String phone, Model model, HttpServletRequest req) {
 		model.addAttribute("infoCheck", true);
 		model.addAttribute("certificationPage", "/member/certification.jsp");
 		model.addAttribute("email", email);
 		model.addAttribute("id", id);
 		model.addAttribute("pwd", pwd);
+		model.addAttribute("name", name);
+		model.addAttribute("phone", phone);
+		model.addAttribute("birth", birthDate);
 		return "member/certification";
 	}
 }

@@ -11,10 +11,14 @@ import fproject.app.fproject.vo.ProfilesVo;
 public class ProfilesDao {
 	@Autowired private SqlSessionTemplate sqlSessionTemplate;
 	private final String NAMESPACE="fproject.app.mybatis.mapper.ProfilesMapper";
-	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate){
-		this.sqlSessionTemplate=sqlSessionTemplate;
+	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
+		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
-	public ProfilesVo info(int num){
+	public ProfilesVo info(int num) {
 		return sqlSessionTemplate.selectOne(NAMESPACE + ".info",num);
+	}
+	
+	public int insert(ProfilesVo vo) {
+		return sqlSessionTemplate.insert(NAMESPACE + ".insert", vo);
 	}
 }
