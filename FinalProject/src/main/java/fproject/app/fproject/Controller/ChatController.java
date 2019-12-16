@@ -148,7 +148,27 @@ public class ChatController {
 		AccountVo accvo=accountService.info(num);
 		model.addAttribute("id",accvo.getId());
 		
-		session.setAttribute("clnum", Fclnum);
+		// 생성한 방으로 바로 세팅하기 위한 정보 전달
+		model.addAttribute("clnum",Fclnum);
+		if(Fclnum>0){
+			ChatlistVo cvo=chatService.checkRoom(Fclnum);
+			model.addAttribute("clvo",cvo);
+		}
+		List<ChatVo> cvolist=chatService.getChat(Fclnum);
+		model.addAttribute("chat",cvolist);
+		List<ChatVo> cvotimelist=chatService.getChattime(Fclnum);
+		model.addAttribute("chattime",cvotimelist);
+		Map<Integer, Integer> readinfomap=new HashMap<>(); 
+		for(int i=0;i<cvolist.size();++i){
+			ReadinfoVo readvo=new ReadinfoVo(cvolist.get(i).getCnum(), Fclnum, num);
+			int is=chatService.getReadInfo(readvo);
+			if(is==0){chatService.addReadInfo(readvo);}
+			int readcount=chatService.getCountReadInfo(cvolist.get(i).getCnum());
+			int usercount=chatService.getAttendCount(Fclnum);
+			int rc=usercount-readcount;
+			readinfomap.put(cvolist.get(i).getCnum(), rc);
+		}
+		model.addAttribute("readinfomap",readinfomap);
 		
 		return "ChatList";
 	}
@@ -222,9 +242,9 @@ public class ChatController {
 		
 		return "ChatList";
 	}
-	@RequestMapping(value="/ChatAjax", produces="application/json;charset=utf-8")
+	@RequestMapping(value="/chatAjax", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String ChatAjax(int clnum, int num){
+	public String chatAjax(int clnum, int num){
 		List<ChatVo> cvolist=chatService.getChat(clnum);
 		JSONArray jarr=new JSONArray();
 		for(int i=0;i<cvolist.size();++i){
@@ -242,6 +262,13 @@ public class ChatController {
 			jarr.put(json);
 		}
 		return jarr.toString();
+	}
+	@RequestMapping(value="/modiChatNameAjax", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String modifyChatNameAjax(int num, int clnum, String name){
+		
+		chatService.updateChatName(new ChatlistVo(clnum, name));
+		return "";
 	}
 	@RequestMapping(value="/removeChatRoom")
 	public String removeChatRoom(Model model, int clnum, int num, 

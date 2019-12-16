@@ -10,15 +10,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<link href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' 
+			href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+	<link rel="stylesheet" type="text/css" href='${cp }/resources/css/jquery-ui.css'>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/sockjs.js"></script>
 	<script type="text/javascript" src="http://jsgetip.appspot.com"></script>
-	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' 
-			href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/animateScroll/animatescroll.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/animateScroll/tagging.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
 	<script>try{Typekit.load({ async: true });}catch(e){}</script>
 	<style class="cp-pen-styles">body {
   display: flex;
@@ -33,12 +36,15 @@
   text-rendering: optimizeLegibility;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
   -webkit-font-smoothing: antialiased;
+  position: relative;
 }
 *{
 	margin:0px;
 	padding: 0px;
 }
-
+.messages{
+	position: relative;
+}
 .pop-layer .pop-container {
   padding: 20px 25px;
 }
@@ -791,6 +797,19 @@ a.btn-layerClose:hover {
   outline: none;
 }
 </style>
+	<script type="text/javascript">
+	$(function(){
+		$("#test30").click(function(e){
+			e.preventDefault();
+			$("#30").animatescroll();
+			
+		});	
+		$("#test230").click(function(e){
+			e.preventDefault();
+			$("#230").animatescroll();
+		});
+	});
+	</script>
 </head>
 <body>
 	
@@ -862,12 +881,27 @@ a.btn-layerClose:hover {
 				<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
 				<p>${clvo.name }</p>
 				<div class="social-media">
+				
+
+				  
+					<span class="accordion" id="accordionExample">
+							<i class="fa fa-search fa-fw btn-link collapsed" 
+							data-toggle="collapse" data-target="#collapseThree" 
+				        	aria-expanded="false" aria-controls="collapseThree" aria-hidden="true"></i>
+
+					</span>
+					<i class="" aria-hidden="true"></i>
 					<a href="#" class="btn-RoomClose" >수정</a>
 					<i class="" aria-hidden="true"></i>
 					<a href="${cp }/removeChatRoom?clnum=${sessionScope.clnum}&num=${sessionScope.num}" class="btn-RoomClose" >방 나가기</a>
 					<i class="" aria-hidden="true"></i>
 				</div>
 			</div>
+			<div id="collapseThree" class="collapse" aria-labelledby="headingThree" 
+		    	data-parent="#accordionExample">
+		      <div class="card-body">
+		        Anim pariatur </div>
+		    </div>
 			
 			<div class="messages">
 				<ul>
@@ -876,9 +910,12 @@ a.btn-layerClose:hover {
 						<c:when test="${sessionScope.num == cvo.num }">
 							<li class="replies">
 							<div style="display:flex;flex-direction:row;align-items:center;justify-content:flex-end;">
-							<c:if test="${readinfomap[cvo.cnum] != 0 }">
-								<div id="${cvo.cnum }" >${readinfomap[cvo.cnum] }</div>
-							</c:if>
+							
+								<div id="${cvo.cnum }" >
+								<c:if test="${readinfomap[cvo.cnum] != 0 }">${readinfomap[cvo.cnum] }
+								</c:if>
+								</div>
+							
 							<c:forEach var="ct" items="${chattime }">
 								<c:if test="${ct.cnum == cvo.cnum }">(${ct.time })</c:if>
 							</c:forEach>
@@ -897,9 +934,11 @@ a.btn-layerClose:hover {
 										<span>(${ct.time })</span>
 									</c:if>
 								</c:forEach>
-								<c:if test="${readinfomap[cvo.cnum] != 0 }">
-									<span id="${cvo.cnum }" >${readinfomap[cvo.cnum] }</span>
-								</c:if>
+								
+									<span id="${cvo.cnum }" >
+									<c:if test="${readinfomap[cvo.cnum] != 0 }">${readinfomap[cvo.cnum] }
+									</c:if></span>
+								
 							</div>
 							</li>
 						</c:otherwise>
@@ -915,6 +954,7 @@ a.btn-layerClose:hover {
 				<button class="submit" id="buttonMessage"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
 				</div>
 			</div>
+			
 		</div>
 		</c:if>
 	</div>
@@ -938,6 +978,10 @@ a.btn-layerClose:hover {
 	        </div>
 	    </div>
 	</div>
+	
+	<a href="#" id="test30">30</a><br>
+	<a href="#" id="test230">230</a><br>
+
 			<!-- 
 			<a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a>
 			<div class="dim-layer">
@@ -963,6 +1007,13 @@ a.btn-layerClose:hover {
 </body>
 
 <script type="text/javascript">
+	
+
+
+// 	$(".testaabb").click(function(event){
+// 		alert(event.target.id); // 해당 클래스 내에 클릭한 요소의 아이디 받아오기
+		// nodeName 이라고 쓰면 요소 속성을 받아올 수 있음! 
+// 	});
 	
 	$(function(){
 		$('#textID').focus();
@@ -1014,7 +1065,7 @@ a.btn-layerClose:hover {
 					+ msgArr[0] + '</p>'+msgArr[1]+'<span id="'+msgArr[3]+'"></span></li>').appendTo($('.messages ul'));
 		}
 		$.ajax({
-			url:"ChatAjax",
+			url:"chatAjax",
 			type:"post",
 			dataType:"json",
 			data: {

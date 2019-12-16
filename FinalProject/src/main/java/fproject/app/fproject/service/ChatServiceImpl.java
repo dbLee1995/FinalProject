@@ -94,4 +94,8 @@ public class ChatServiceImpl implements ChatService{
 	public int getCountReadInfo(int cnum) {
 		return dao.getCountReadInfo(cnum);
 	}
+	@Override
+	public int updateChatName(ChatlistVo clvo) {
+		return dao.updateChatName(clvo);
+	}
 }

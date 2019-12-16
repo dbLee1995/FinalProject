@@ -28,4 +28,5 @@ public interface ChatDao {
 	public int addReadInfo(ReadinfoVo vo);
 	public int getReadInfo(ReadinfoVo vo);
 	public int getCountReadInfo(int cnum);
+	public int updateChatName(ChatlistVo clvo);
 }

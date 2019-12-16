@@ -133,4 +133,8 @@
 		SELECT COUNT(CNUM) FROM READINFO
 		WHERE CNUM=#{cnum}
 	</select>
+	<update id="updateChatName" parameterType="fproject.app.fproject.vo.ChatlistVo">
+		UPDATE CHATLIST SET NAME=#{name}
+		WHERE CLNUM=#{clnum}
+	</update>
 </mapper>

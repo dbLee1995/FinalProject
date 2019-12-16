@@ -99,4 +99,8 @@ public class ChatDaoImpl implements ChatDao{
 	public int getCountReadInfo(int cnum) {
 		return sqlSessionTemplate.selectOne(NAMESPACE+".getCountReadInfo", cnum);
 	}
+	@Override
+	public int updateChatName(ChatlistVo clvo) {
+		return sqlSessionTemplate.update(NAMESPACE+".updateChatName", clvo);
+	}
 }
