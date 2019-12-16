@@ -120,8 +120,8 @@ body {
 	font-weight: 400;
 	font-size: 18px;
 }
-.form-detail button:focus {
-	border: 1px solid #b3b3b3;
+button:hover {
+	background: #2f73a3;
 }
 .form-detail .register {
 	font-size: 18px;

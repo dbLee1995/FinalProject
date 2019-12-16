@@ -31,4 +31,16 @@
 	<select id="selectOneEmogInfo" parameterType="int" resultType="fproject.app.fproject.vo.EmoshopVo">
 		select * from emoshop where emognum=#{emognum}
 	</select>
+	
+	<insert id="emoticonInsert" parameterType="fproject.app.fproject.vo.EmoticonVo">
+		insert into emoticon values(SEQ_emonum.nextval, #{emognum}, #{emoorgimg}, #{emosaveimg}, #{emoimgsize})
+	</insert>
+	
+	<insert id="emoticonShopInsert" parameterType="fproject.app.fproject.vo.EmoshopVo">
+		insert into emoshop values(SEQ_emognum.nextval, #{price}, #{name}, #{category})
+	</insert>
+	
+	<delete id="delUserWishItem" parameterType="map">
+		delete from favorlist where emognum=#{emogNum} and num=#{userNum}
+	</delete>
 </mapper>

@@ -3,6 +3,7 @@ package fproject.app.fproject.Controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,9 +52,9 @@ public class EmoShopController {
 		int userNum = (int)req.getSession().getAttribute("num"); // 사용자 번호 받아오기
 		
 		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList");
-		basketList.add(emoShopService.getEmogInfo(42));
-		req.getSession().setAttribute("basketList", basketList);
-		basketList = (List)req.getSession().getAttribute("basketList");
+		//basketList.add(emoShopService.getEmogInfo(42));
+		//req.getSession().setAttribute("basketList", basketList);
+		//basketList = (List)req.getSession().getAttribute("basketList");
 		
 		Paging pg = new Paging(4, favorListService.getCount(userNum), 7, thisPage);
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -96,9 +97,10 @@ public class EmoShopController {
 		return json.toString();
 	}
 	
-	@RequestMapping(value="/moveBasket", method=RequestMethod.POST)
-	@ResponseBody
-	public String moveBasket(Model model, int[] moveList, HttpSession session) {
+	@RequestMapping(value="/moveWishtoBasket", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
+	@ResponseBody()
+	public String moveBasket(Model model, HttpSession session, @RequestBody List<Integer> moveList) {
+		System.out.println(moveList);
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
 		for(int i : moveList) {
@@ -107,9 +109,32 @@ public class EmoShopController {
 				if(vo.getEmognum() != i) continue;
 				count = false;
 			}
-			if(count) basketList.add(emoShopService.getEmogInfo(i));	
+			if(count) {
+				EmoshopVo vo = emoShopService.getEmogInfo(i);
+				Map<String, Integer> map = new HashMap<String, Integer>();
+				basketList.add(vo);
+				map.put("emogNum", vo.getEmognum());
+				map.put("userNum", userNum);
+				favorListService.delUserWishItem(map);
+			}
 		}
-		return "보관함으로 옮겼습니다.";
+		System.out.println(basketList);
+		return "선택한 항목을 바구니로 옮겼습니다.";
+	}
+	
+	@RequestMapping(value="/delWishItem", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
+	@ResponseBody()
+	public String delWishItem(Model model, HttpSession session, @RequestBody List<Integer> delList) {
+		System.out.println(delList);
+		int userNum = (int)session.getAttribute("num");
+		for(int i : delList) {
+			EmoshopVo vo = emoShopService.getEmogInfo(i);
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("emogNum", vo.getEmognum());
+			map.put("userNum", userNum);
+			favorListService.delUserWishItem(map);
+		}
+		return "선택한 항목을 삭제했습니다.";
 	}
 	
 	@RequestMapping(value="/purchase")

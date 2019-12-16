@@ -7,7 +7,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Insert title here</title>
-	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
@@ -36,7 +35,7 @@
 					</c:forEach>
 				</table>
 				<div>
-					<button type="button" id="selectMoveBasketBtn">선택항목 바구니에 넣기</button>
+					<button type="button" id="selectMoveBasketBtn">선택항목 바구니로 옮기기</button>
 					<button type="button" id="delSelectItemBtn">선택항목 삭제</button>
 				</div>
 			</form>
@@ -61,44 +60,25 @@
 
 
 	<script type="text/javascript">
-		/*
-		var checkboxNodeList = document.querySelectorAll("input[type='checkbox']");
-		function selectAllItem(e) {
-			checkboxNodeList.forEach((value, index, listObj) => {
-				console.log("전: " + value.checked);
-				switch(value.checked) {
-					case true:
-						value.checked="false";
-						break;
-					case false:
-						value.checked="true";
-						break;
-				};
-				console.log("후: " + value.checked);
-			});
-		}
-		document.getElementById("allSelectBtnTop").addEventListener("click", selectAllItem);
-		*/
+	
 		var checkboxNodeList = document.querySelectorAll("input[type='checkbox']");
 		var delItemBtnList = document.querySelectorAll("button[name='delItemBtn']");
-
+		var selectBtnSwitch = false;
+		
 		(() => {
 			delItemBtnList.forEach((value, index, listObj) => {
-				value.addEventListener("click", e => {
-					value.parentElement.parentElement.remove();
-				});
+				value.addEventListener("click", delThisItem);
 			});
-		})();
-
+		})()
 		document.getElementById("allSelectBtnTop").addEventListener("click", selectAllItem);
-		document.getElementById("delSelectItemBtn").addEventListener("click", deleteItem);
-		document.getElementById("selectMoveBasketBtn").addEventListener("click", toBasket);
+		document.getElementById("delSelectItemBtn").addEventListener("click", ajax);
+		document.getElementById("selectMoveBasketBtn").addEventListener("click", ajax);
 
 
 
 		function selectAllItem(e) {
 			checkboxNodeList.forEach((value, index, listObj) => {
-				switch (value.checked) {
+				switch (selectBtnSwitch) {
 					case true:
 						value.checked = false;
 						break;
@@ -107,22 +87,25 @@
 						break;
 				};
 			});
+			selectBtnSwitch = !selectBtnSwitch;
+		}
+		
+		function delThisItem(e) {
+			var xhr = new XMLHttpRequest();
+			var checkedItemList = [];
+			checkedItemList.push(e.target.parentElement.previousElementSibling.firstElementChild.value);
+			xhr.open('post', '${cp}/emoShop/delWishItem');
+			xhr.onreadystatechange = function() {
+				if(xhr.status === 200 && xhr.readyState === 4) {
+					e.target.parentElement.parentElement.remove();
+				}
+			};
+			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			xhr.send(JSON.stringify(checkedItemList));
 		}
 
-		function deleteItem(e) {
-			checkboxNodeList.forEach((value, index, listObj) => {
-				switch (value.checked) {
-					case true:
-						// ajax 삽입
-						value.parentElement.parentElement.remove();
-						break;
-				};
-			});
-		}
-
-		function toBasket() {
-			//var xhr = null;
-			console.log("각각");
+		function ajax(e) {
+			var xhr = null;
 
 			function itemCheckedList() {
 				var checkedItemList = [];
@@ -136,50 +119,32 @@
 				return checkedItemList;
 			}
 			
-			/*
-			function moveBasket() {
-				$.ajax({
-					url:"${cp}/emoShop/moveBasket",
-					type: "post",
-					dataType:"text",
-					data: {
-						moveList : itemCheckedList()
-					},
-					success: function(data) {
-						alret("꺅꺅꺅");
-					}
-				});
-			}
-			*/
-			
-			
-			function moveBasket() {
-				var xhr = new XMLHttpRequest();
-				xhr.open('post', '${cp}/emoShop/moveBasket');
+			function call(e) {
+				xhr = new XMLHttpRequest();
+				var json = JSON.stringify(itemCheckedList());
+				switch(e.target.id) {
+					case 'selectMoveBasketBtn':
+						xhr.open('post', '${cp}/emoShop/moveWishtoBasket'); break;
+					case 'delSelectItemBtn':
+						xhr.open('post', '${cp}/emoShop/delWishItem'); break;
+				}
 				xhr.onreadystatechange = function() {
 					if(xhr.status === 200 && xhr.readyState === 4) {
-						console.log("??");
-						moveBasketCb();
-					} else {
-						alert("오류: 바구니로 옮길 수 없습니다.");
-						return;
+						checkboxNodeList.forEach((value, index, listObj) => {
+							switch(value.checked) {
+								case true:
+									value.parentElement.parentElement.remove(); break;
+							}
+						});
+						alert(xhr.responseText);
 					}
 				};
-				
-				xhr.send('moveList=' + itemCheckedList());
+				xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+				xhr.send(json);
 			}
-			
-
-			function moveBasketCb() {
-				console.log("꺅꺅꺅");
-				alert(xhr.responseText);
-			}
-
-			return moveBasket();
+			return call(e);
 		}
 
 	</script>
-
 </body>
-
 </html>

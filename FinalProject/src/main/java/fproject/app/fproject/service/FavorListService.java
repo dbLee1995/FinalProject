@@ -2,6 +2,7 @@ package fproject.app.fproject.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,5 +30,9 @@ public class FavorListService {
 	 */
 	public List<EmoWishListVo> getUserWishList(HashMap<String, Object> map) {
 		return dao.getUserWishList(map);
+	}
+	
+	public int delUserWishItem(Map<String, Integer> map) {
+		return dao.delUserWishItem(map);
 	}
 }

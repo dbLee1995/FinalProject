@@ -71,11 +71,11 @@ button:HOVER {
 				<br>
 				<div class="form-row">
 					<label for="birth">생년월일</label>
-					<input type="date" name="birthDate" value="${birth }" id="birthDate" min="1900-01-01" max="2019-01-01" required>
+					<input type="date" name="birthDate" value="${birth }" id="birthDate" min="1900-01-01" max="2019-12-20" required>
 				</div>
 				<br>
 				<div class="form-row-last">
-					<button type="button" id="okBtn" class="register">확인</button>				
+					<button type="button" id="okBtn" class="register">확인</button>
 				</div>
 			</form>
 			<br>
@@ -85,7 +85,7 @@ button:HOVER {
 			<div>
 			</div>
 			<div style="display:flex; align-items: center; justify-content: flex-end; padding: 15px;">
-				<button type="button" id="loginBtn" class="register" style="text-align: center; background-color: #2f73a3; font-size: 14px; color: white; border-radius:5px; width:120px; box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2); border: none; height: 30px;">로그인 창으로</button>
+				<button type="button" id="moveLoginBtn" class="register" style="text-align: center; background-color: #2f73a3; font-size: 14px; color: white; border-radius:5px; width:120px; box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2); border: none; height: 30px;">로그인 창으로</button>
 			</div>
 		</div>
 	</div>
@@ -97,6 +97,7 @@ button:HOVER {
 		// 전역변수 미사용으로 고치기
 		var regForm = document.getElementById("regForm");
 		var okBtn = document.getElementById("okBtn");
+		var moveLoginBtn = document.getElementById("moveLoginBtn");
 		var idVal = document.getElementById("id");
 		var pwdVal = document.getElementById("pwd");
 		var rePwdVal = document.getElementById("rePwd");
@@ -109,6 +110,10 @@ button:HOVER {
 		var rePwdCheckR = false;
 		var idxhr = null;
 
+		moveLoginBtn.addEventListener("click", () => {
+			location.href="login";
+		});
+		
 	   /// 아이디 검사(DB확인을 위해 컨트롤러 ajax로 호출)
 	   	window.addEventListener("load", () => {
 	   		idCheck();
