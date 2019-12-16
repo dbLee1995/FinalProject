@@ -188,8 +188,15 @@ public class StoryController {
 		mv.addObject("cvoa",cvoa);
 		mv.addObject("usernameMap",usernameMap);
 		return mv;
+		
+		
 	}
-	
+	// 답글입력
+	@RequestMapping(value="story/commentsReply",method=RequestMethod.GET)
+	public String commentsForm(CommentsVo vo,int num,int storynum){				
+		return "redirect:/story/commentsReply?num=" + num + "&storynum=" + storynum;
+	}
+			
 	// 부모글입력
 	@RequestMapping(value="story/comments",method=RequestMethod.POST)
 	public String comments(CommentsVo vo,int storynum,int num,Model model,HttpServletRequest req){		
@@ -204,7 +211,7 @@ public class StoryController {
 			return "test/error";
 		}
 	}
-	
+		
 	// 답글입력
 	@RequestMapping(value="story/commentsReply",method=RequestMethod.POST)
 	public String commentsReply(CommentsVo vo,int commnum,int num,int storynum){		
@@ -212,6 +219,6 @@ public class StoryController {
 		CommentsVo rvo=new CommentsVo(0, storynum, num, vo.getCommcontent(), 
 										cvo.getCommref(), cvo.getCommlev()+1, cvo.getCommstep(),null);		
 		int n=cservice.insertReply(rvo);		// 새글		
-		return "redirect:/story/comments?num=" + num + "&storynum=" + storynum;
+		return "redirect:/story/commentsReply?num=" + num + "&storynum=" + storynum;
 	}
 }

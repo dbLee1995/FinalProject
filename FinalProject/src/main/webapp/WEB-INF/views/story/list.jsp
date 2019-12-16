@@ -11,28 +11,20 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animate.css">
-    
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animate.css">    
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/magnific-popup.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/aos.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/ionicons.min.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery.timepicker.css">
-
-    
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/flaticon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/icomoon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
   </head>
   <body>
-
 	<div id="colorlib-page">
 		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
@@ -69,11 +61,8 @@
 	  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
 			</div>
 		</aside> <!-- END COLORLIB-ASIDE -->
-		
-		
-		<!-- start list //////////////////////////////////////////////////////// -->
-	
-			
+				
+		<!-- start list //////////////////////////////////////////////////////// -->		
 		<div id="colorlib-main">
 			<section class="ftco-section ftco-no-pt ftco-no-pb">
 	    	<div class="container">
@@ -97,10 +86,10 @@
 				              <h3 class="mb-4"><a href="#">${list.stitle}</a></h3>
 				              <p class="mb-4">${list.scontent}</p>
 				              <div class="author mb-4 d-flex align-items-center">
-				            		<a href="#" class="img" style="background-image: url(${profileimg});"></a>
+				            		<a href="${pageContext.request.contextPath}/profiles/info?num=${sessionScope.num}" class="img" style="background-image: url(${profileimg});"></a>
 				            		<div class="ml-3 info">
 				            			<span>Written by</span>
-				            			<h3><a href="#">${id}</a>, <span>${list.sregdate}</span></h3>
+				            			<h3><a href="${cp}/profiles/info?num=${sessionScope.num}">${id}</a>, <span>${list.sregdate}</span></h3>
 				            		</div>
 				            	</div>
 				              <div class="meta-wrap d-md-flex align-items-center">
@@ -129,12 +118,10 @@
 			    		</c:otherwise>
 			    		</c:choose>	
 			    		</c:forEach>
-			    		
-			    			    
+			    				    			    
 			    		<!--///// END //////////////////////////////////////////////////////-->
 			    		<!--  -->
-			    		
-			    		
+			    			
 			    		<div class="row">
 			          <div class="col">
 			            <div class="block-27">
