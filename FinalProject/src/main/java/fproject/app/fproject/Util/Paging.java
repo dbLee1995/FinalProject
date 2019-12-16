@@ -52,11 +52,12 @@ public class Paging {
 		this.thisPage = thisPage;
 		this.totalPageCount = totalCount%pageRow>0 ? totalCount/pageRow+1 : totalCount/pageRow;
 		if(thisPage > totalPageCount) thisPage = totalPageCount;
-		this.startPage = ((thisPage-1)%indexLength)*indexLength + 1;
-		this.endPage = startPage-9;
+		this.startPage = ((thisPage-1)/indexLength)*indexLength + 1;
+		this.endPage = startPage+indexLength-1;
 		if(endPage>totalPageCount) endPage = totalPageCount;
 		this.endRow = thisPage * pageRow;
 		this.startRow = endRow - (pageRow-1);
+		if(endRow>totalCount) endRow = totalCount;
 	}
 
 	public int getPageRow() {

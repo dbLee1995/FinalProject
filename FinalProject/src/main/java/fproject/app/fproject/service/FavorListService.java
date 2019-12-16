@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import fproject.app.fproject.dao.FavorListDao;
 import fproject.app.fproject.vo.EmoWishListVo;
+import fproject.app.fproject.vo.EmoshopVo;
+import fproject.app.fproject.vo.FavorlistVo;
 
 @Repository
 public class FavorListService {
@@ -26,13 +28,21 @@ public class FavorListService {
 	/**
 	 * <p>해당 회원이 보관한 항목을 반환합니다.<p>
 	 * @param map - HashMap이어야 함
-	 * @return list - <EmoWishListVo>
+	 * @return List<code>(EmoWishListVo)<code> - 보관목록
 	 */
-	public List<EmoWishListVo> getUserWishList(HashMap<String, Object> map) {
-		return dao.getUserWishList(map);
+	public List<EmoWishListVo> getUserWishListPaging(HashMap<String, Object> map) {
+		return dao.getUserWishListPaging(map);
 	}
 	
 	public int delUserWishItem(Map<String, Integer> map) {
 		return dao.delUserWishItem(map);
+	}
+	
+	public List<EmoshopVo> getUserWishList(int userNum) {
+		return dao.getUserWishList(userNum);
+	}
+	
+	public int addUserWishList(FavorlistVo vo) {
+		return dao.insertUserWishList(vo);
 	}
 }

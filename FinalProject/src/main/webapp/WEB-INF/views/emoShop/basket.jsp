@@ -21,52 +21,123 @@
 						<th><button type="button" id="allSelectBtnTop">모두 선택</button></th>
 						<th>삭제</th>
 					</tr>
-					<c:forEach items="${list }" var="vo">
-						<tr>
-							<td>${vo.num }</td>
+					<c:forEach items="${list }" var="vo" varStatus="s">
+					<tr>
+							<td>${s.count }</td>
 							<td>${vo.name}</td>
 							<td>???????????</td>
 							<td>${vo.category }</td>
-							<td><input type="checkbox" name="choose" /></td>
-							<td><button type="button">삭제</button></td>
-						</tr>
+							<td><input type="checkbox" value="${vo.emognum }" id="${s.index }"/></td>
+							<td><button type="button" name="delItemBtn">삭제</button></td>
+					</tr>
 					</c:forEach>
 				</table>
 				<div>
-					<button type="button">선택항목 보관함으로 옮기기</button>
-					<button type="button">선택항목 삭제</button>
+					<button type="button" id="selectMoveBasketBtn">선택항목 보관함으로 옮기기</button>
+					<button type="button" id="delSelectItemBtn">선택항목 삭제</button>
 				</div>
 			</form>
-		</div>
-
-		<div>
-			<c:forEach var="i" begin="${map.startPage }" end="${map.endPage }">
-				<c:choose>
-					<c:when test="${i==map.thisPage }">
-						<b>${i }</b>
-					</c:when>
-					<c:otherwise>
-						<a href="${cp }/emoShop/wishList?thisPage=${i }"><span
-							style="color: gray">${i }</span></a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
 		</div>
 	</section>
 
 
 
 <script type="text/javascript">
-	function selectAllItem(e) {
-    	//var checkboxList = [];
-    	console.log("여기까진 잘 실행 중");
-		var checkboxNodeList = document.querySelectorAll("input[type='checkbox']");
-    	checkboxList.forEach((value, index, listObj) => {
-			console.log("확인: " + value);
-			value.checked="true";
-    	});
-	}
+	var checkboxNodeList = document.querySelectorAll("input[type='checkbox']");
+	var delItemBtnList = document.querySelectorAll("button[name='delItemBtn']");
+	var selectBtnSwitch = false;
+	
+	(() => {
+		delItemBtnList.forEach((value, index, listObj) => {
+			value.addEventListener("click", delThisItem);
+		});
+	})()
 	document.getElementById("allSelectBtnTop").addEventListener("click", selectAllItem);
+	document.getElementById("delSelectItemBtn").addEventListener("click", ajax);
+	document.getElementById("selectMoveBasketBtn").addEventListener("click", ajax);
+
+
+
+	function selectAllItem(e) {
+		checkboxNodeList.forEach((value, index, listObj) => {
+			switch (selectBtnSwitch) {
+				case true:
+					value.checked = false;
+					break;
+				case false:
+					value.checked = true;
+					break;
+			};
+		});
+		selectBtnSwitch = !selectBtnSwitch;
+	}
+	
+	function delThisItem(e) {
+		var xhr = new XMLHttpRequest();
+		var checkedItemList = [];
+		var itemIndexList = [];
+		checkedItemList.push(e.target.parentElement.previousElementSibling.firstElementChild.value);
+		itemIndexList.push(e.target.parentElement.previousElementSibling.firstElementChild.id);
+		var json = JSON.stringify(itemIndexList);
+		xhr.open('post', '${cp}/emoShop/delBasketItem');
+		xhr.onreadystatechange = function() {
+			if(xhr.status === 200 && xhr.readyState === 4) {
+				e.target.parentElement.parentElement.remove();
+			}
+		};
+		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		xhr.send(json);
+	}
+
+	function ajax(e) {
+		var xhr = null;
+
+		function itemCheckedList() {
+			var checkedItemList = [];
+			var itemIndexList = [];
+			checkboxNodeList.forEach((value, index, listObj) => {
+				switch (value.checked) {
+					case true:
+						checkedItemList.push(value.value);
+						itemIndexList.push(value.id);
+				}
+			});
+			if (checkedItemList == null) return alert("선택한 항목이 없습니다.");
+			var json = JSON.stringify(itemIndexList);
+			/*
+			var json = JSON.stringify({'itemList':{
+				"checkedItemList":{checkedItemList},
+				"itemIndexList":{itemIndexList}
+				}
+			});
+			*/
+			return json;
+		}
+		
+		function call(e) {
+			xhr = new XMLHttpRequest();
+			switch(e.target.id) {
+				case 'selectMoveBasketBtn':
+					xhr.open('post', '${cp}/emoShop/moveBaskettoWish'); break;
+				case 'delSelectItemBtn':
+					xhr.open('post', '${cp}/emoShop/delBasketItem'); break;
+			}
+			xhr.onreadystatechange = function() {
+				if(xhr.status === 200 && xhr.readyState === 4) {
+					checkboxNodeList.forEach((value, index, listObj) => {
+						switch(value.checked) {
+							case true:
+								value.parentElement.parentElement.remove(); break;
+						}
+					});
+					alert(xhr.responseText);
+				}
+			};
+			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			xhr.send(itemCheckedList());
+		}
+		return call(e);
+	}
 </script>
 
 </body>

@@ -17,7 +17,7 @@
 <body>
 	<section title="navigationBar">
 		<a href="${cp}/emoShop/wishList">좋아요</a>
-		<a href="${cp}/emoShop/buyList">바구니</a>
+		<a href="${cp}/emoShop/basket">바구니</a>
 	</section>
 	
 	<section title="emoList" id="emoList">

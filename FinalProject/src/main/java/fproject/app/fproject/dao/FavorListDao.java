@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fproject.app.fproject.vo.EmoWishListVo;
+import fproject.app.fproject.vo.EmoshopVo;
+import fproject.app.fproject.vo.FavorlistVo;
 
 
 @Repository
@@ -22,11 +24,19 @@ public class FavorListDao {
 		return sqlSessionTemplate.selectOne(EmoShopMapper + ".getCount", userNum);
 	}
 	
-	public List<EmoWishListVo> getUserWishList(HashMap<String, Object> map) {
-		return sqlSessionTemplate.selectList(EmoShopMapper + ".getUserWishList", map);
+	public List<EmoWishListVo> getUserWishListPaging(HashMap<String, Object> map) {
+		return sqlSessionTemplate.selectList(EmoShopMapper + ".getUserWishListPaging", map);
 	}
 	
 	public int delUserWishItem(Map<String, Integer> map) {
 		return sqlSessionTemplate.delete(EmoShopMapper + ".delUserWishItem", map);
+	}
+	
+	public List<EmoshopVo> getUserWishList(int userNum) {
+		return sqlSessionTemplate.selectList(EmoShopMapper + ".getUserWishList", userNum);
+	}
+	
+	public int insertUserWishList(FavorlistVo vo) {
+		return sqlSessionTemplate.insert(EmoShopMapper + ".insertUserWishList", vo);
 	}
 }

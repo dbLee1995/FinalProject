@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="fproject.app.mybatis.mapper.EmoShopMapper">
-	<select id="getUserWishList" parameterType="hashmap" resultType="fproject.app.fproject.vo.EmoWishListVo">
+	<select id="getUserWishListPaging" parameterType="hashmap" resultType="fproject.app.fproject.vo.EmoWishListVo">
 		select a.rnum, a.num, a.emognum, a.category, a.name, a.price
 		from(
 			select rownum rnum, j.num, j.emognum, j.category, j.name, j.price
@@ -18,6 +18,10 @@
 				order by userfavo.favornum desc) j
 			where rownum <![CDATA[<=]]> #{endRow}) a
 		where a.rnum <![CDATA[>=]]> #{startRow}
+	</select>
+	
+	<select id="getUserWishList" parameterType="int" resultType="fproject.app.fproject.vo.EmoshopVo">
+		select * from favorlist where num=#{userNum}
 	</select>
 	
 	<select id="getCount" parameterType="int" resultType="int">
@@ -41,6 +45,10 @@
 	</insert>
 	
 	<delete id="delUserWishItem" parameterType="map">
-		delete from favorlist where emognum=#{emogNum} and num=#{userNum}
+		delete from favorlist where emognum=#{emognum} and num=#{userNum}
 	</delete>
+	
+	<insert id="insertUserWishList" parameterType="fproject.app.fproject.vo.FavorlistVo">
+		insert into favorlist values(SEQ_favornum.nextval, #{favor}, #{emognum}, #{num})
+	</insert>
 </mapper>
