@@ -30,6 +30,20 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/flaticon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/icomoon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
+    <style type="text/css">
+  
+    #friendsprofile {text-align: center;color:white;height:670px;width: 120%;margin-left: -30px; position:relative; }
+    #friendsprofile a{color:white;}
+    #friendsprofile .img{margin-left: 130px;margin-top:280px;height: 120px;width: 120px;}
+	#friendsprofile .backimg{height:100%;width: 100%; position:absolute;background-repeat: no-repeat;background-size: cover; filter:brightness(50%);}
+	#friendsprofile .text{position: relative;}
+    .col-md-12 .blog-entry.ftco-animate.d-md-flex a{height: 70px;width: 70px;}
+    #friendsprofile hr{height: 0.5px;background-color: white; position: relative;}
+    #friendsprofile .frimenus{height: 150px;width: 150px;display: inline;padding: 30px; text-align: center;}
+    
+    #friendsprofile .frimenus .menuimg{height: 30px;width: 30px;position: absolute;}
+    #friendsprofile .meta-wrap{position:relative;}
+    </style>
   </head>
   <body>
 
@@ -87,10 +101,20 @@
 											<a href="javascript:void(0);" onclick="showprofile(${sessionScope.num },${friends.FNUM})" class="img img-2"
 												style="background-image:url(${cp}/resources/profile/person_1.jpg)"></a>
 											<div class="text text-2 pl-md-4">
-												<h3 class="mb-2">
-													<a href="single.html">${friends.NAME}</a>
-												</h3>
-												<a href="${pageContext.request.contextPath}/story/list?num=${friends.FNUM}">Story</a>
+												<c:choose>
+														<c:when test="${empty friends.MSG}">
+														<h3 class="mb-2" style="margin-top: 15px;">
+															<a href="single.html"  >${friends.NAME}</a>
+														</h3>
+														</c:when>
+														<c:otherwise>
+															<h3 class="mb-2">
+															<a href="single.html" >${friends.NAME}</a>
+															</h3>
+															<p>${friends.MSG }</p>
+														</c:otherwise>
+													</c:choose>							
+												
 												
 												<div class="meta-wrap">
 													<p class="meta"></p>
@@ -112,7 +136,7 @@
 	                </div>
 	              </form>
 	            </div>
-	            <div class="sidebar-box ftco-animate" id="friprofile">
+	            <div class="sidebar-box ftco-animate" id="friprofile" >
 	            	
 	            </div>
 
@@ -184,19 +208,29 @@
             success: function (response) {
             	$("#friprofile").empty();
             	$(response).each(function(){
-            		var str="<div class='col-md-12'><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>"
+            		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/images/image_1.jpg)';></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>"
         				+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+        				+"</div>"
         				+"<div class='text text-2 pl-md-4'>"
         					+"<h3 class='mb-2'>"
         						+"<a href='single.html'>"+this.name+"</a>"
         					+"</h3>"
-        					+"<p>"+this.phone+"</p>"
-        					
-        					+"<div class='meta-wrap'>"
-        						+"<p class='meta'>"+this.email+"</p>"
+        					+"<p>"+this.msg+"</p>"					
         					+"</div>"
+        					+"<hr>"
+        					+"<div class='meta-wrap'>"
+        					+"<div class='frimenus' >"
+        					+"<a href='#' class='menuimg' style='background-image:url(${cp}/resources/images/image_2.jpg)'></a>"
+        					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>Story</a>"
+        					+"</div>"		
+        					+"<div class='frimenus'>"
+        					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>Story</a>"
+        					+"</div>"	
+        					+"<div class='frimenus'>"
+        					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>Story</a>"
+        					+"</div>"	
         				+"</div>"
-        			+"</div>"
+        			
         		+"</div>";
             		$("#friprofile").append(str);
             		
