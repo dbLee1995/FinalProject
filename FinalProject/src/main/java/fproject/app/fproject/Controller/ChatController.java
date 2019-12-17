@@ -277,13 +277,25 @@ public class ChatController {
 		List<ChatVo> cvolist=
 				chatService.searchChatContent(new ChatVo(0, 0, content, null, 0, "", "", 0, clnum, 0));
 		session.setAttribute("searchcvolist", cvolist);
-		session.setAttribute("searchcvolistindex", 1);
 		JSONObject json=new JSONObject();
 		if(cvolist.size()>0){
 			json.put("chatnum", cvolist.get(0).getCnum());
 			json.put("chatcount", cvolist.size());
 		}else{
 			json.put("chatnum", 0);
+		}
+		return json.toString();
+	}
+	@RequestMapping(value="/searchChatUpAjax", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String searchChatUpAjax(int index, HttpSession session){
+		
+		List<ChatVo> cvolist=(ArrayList)session.getAttribute("searchcvolist");
+		JSONObject json=new JSONObject();
+		for(int i=1;i<=cvolist.size();++i){
+			if(i==index){
+				json.put("chatnum", cvolist.get(i-1).getCnum());
+			}
 		}
 		return json.toString();
 	}

@@ -40,7 +40,7 @@
   position: relative;
 }
 #searchChat{
-	margin-left: 10px;
+	margin-left: 50px;
 }
 .btn-countUp{
 	display: inline-block;
@@ -76,7 +76,7 @@
   margin-left: 10px;
 }
 .searchcount{
-	margin-left: 5px;
+	margin-left: 10px;
 }
 
 *{
@@ -925,7 +925,7 @@ a.btn-layerClose:hover {
 			<div id="collapseThree" class="collapse" aria-labelledby="headingThree" 
 		    	data-parent="#accordionExample">
 		      <div class="card-body">
-		      		<input type="text" id="searchChat" size="50">
+		      		<input type="text" id="searchChat" size="40">
 		      		<a href="#" class="btn-Search" id="searchBtn">검색</a>
 		      		<span id="searchcount" class="searchcount">0/0</span>
 		      		<a href="#" class="btn-countUp" id="countUp">▲</a>
@@ -1034,7 +1034,8 @@ a.btn-layerClose:hover {
 </body>
 
 <script type="text/javascript">
-	
+	var index=0;
+	var count=0;
 	$(function(){
 		$("#searchBtn").click(function(e){
 			e.preventDefault();
@@ -1050,14 +1051,61 @@ a.btn-layerClose:hover {
 					var chatnum=parseInt(data.chatnum);
 					if(chatnum!=0){
 						$("#searchcount").html("1/"+data.chatcount);
+						index=1;
+						count=parseInt(data.chatcount);
 						var a=$(".messages").scrollTop();
 						var offset = $("#"+chatnum).offset();
 						var aaa=a+offset.top-220;
 						$(".messages").scrollTop(aaa);
+					}else{
+						index=0;
+						count=0;
+						$("#searchcount").html("0/0");
 					}
 				}
 			});
-			
+		});
+		$("#countUp").click(function(e){
+			e.preventDefault();
+			if(index >1){
+				--index;
+				$.ajax({
+					url:"searchChatUpAjax",
+					type:"post",
+					dataType:"json",
+					data: {
+						index:index
+					},success:function(data){
+						var chatnum=parseInt(data.chatnum);
+						var a=$(".messages").scrollTop();
+						var offset = $("#"+chatnum).offset();
+						var aaa=a+offset.top-220;
+						$(".messages").scrollTop(aaa);
+						$("#searchcount").html(index+"/"+count);
+					}
+				});
+			}
+		});
+		$("#countDown").click(function(e){
+			e.preventDefault();
+			if(count > index){
+				++index;
+				$.ajax({
+					url:"searchChatUpAjax",
+					type:"post",
+					dataType:"json",
+					data: {
+						index:index
+					},success:function(data){
+						var chatnum=parseInt(data.chatnum);
+						var a=$(".messages").scrollTop();
+						var offset = $("#"+chatnum).offset();
+						var aaa=a+offset.top-220;
+						$(".messages").scrollTop(aaa);
+						$("#searchcount").html(index+"/"+count);
+					}
+				});
+			}
 		});
 	});
 
