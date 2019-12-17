@@ -34,6 +34,10 @@ public class FavorListService {
 		return dao.getUserWishListPaging(map);
 	}
 	
+	/**
+	 * <p>보관한 항목 하나를 DB에서 삭제합니다.
+	 * @param map - "userNum":회원번호, "emogNum":이모티콘번호 
+	 */
 	public int delUserWishItem(Map<String, Integer> map) {
 		return dao.delUserWishItem(map);
 	}

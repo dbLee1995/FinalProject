@@ -11,8 +11,9 @@
 <!-- Main Style Css -->
 <link rel="stylesheet" href="${cp }/resources/css/colorlib/style.css"/>
 <style type="text/css">
-button:HOVER {
+#moveLoginBtn:hover {
 	cursor: pointer;
+	background-color: 66ccff;
 }
 </style>
 </head>
@@ -85,7 +86,7 @@ button:HOVER {
 			<div>
 			</div>
 			<div style="display:flex; align-items: center; justify-content: flex-end; padding: 15px;">
-				<button type="button" id="moveLoginBtn" class="register" style="text-align: center; background-color: #2f73a3; font-size: 14px; color: white; border-radius:5px; width:120px; box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2); border: none; height: 30px;">로그인 창으로</button>
+				<button type="button" id="moveLoginBtn" class="register" style="text-align: center; background-color: #333333; font-size: 14px; color: white; border-radius:5px; width:120px; box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2); border: none; height: 30px;">로그인 창으로</button>
 			</div>
 		</div>
 	</div>

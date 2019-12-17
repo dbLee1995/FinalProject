@@ -4,7 +4,7 @@ body {
 .page-content {
 	width: 100%;
 	margin:  0 auto;
-	background: #5eb2b3;
+	background: #ebebeb;
 	display: flex;
 	display: -webkit-flex;
 	justify-content: center;
@@ -121,12 +121,12 @@ body {
 	font-size: 18px;
 }
 button:hover {
-	background: #2f73a3;
+	background: #66CCFF;
 }
 .form-detail .register {
 	font-size: 18px;
 	color: #fff;
-	background: #3786bd;
+	background: #333333;
 	border-radius: 5px;
 	-o-border-radius: 5px;
 	-ms-border-radius: 5px;
@@ -143,7 +143,7 @@ button:hover {
 	cursor: pointer;
 }
 .form-detail .register:hover {
-	background: #2f73a3;
+	background: #66CCFF;
 }
 .form-detail .form-row-last button {
 	padding: 14px;

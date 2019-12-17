@@ -47,7 +47,6 @@ public class EmoShopController {
 		//model.addAttribute("list", emolist);
 		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList");
 		for(int i=63; i<=77; i++) {
-			System.out.println(emoShopService.getEmogInfo(i));
 			basketList.add(emoShopService.getEmogInfo(i));
 		}
 		req.getSession().setAttribute("basketList", basketList);
@@ -94,10 +93,8 @@ public class EmoShopController {
 	@RequestMapping(value="/moveBaskettoWish", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
 	@ResponseBody()
 	public String moveBaskettoWish(Model model, HttpSession session, @RequestBody List<Integer> moveList) {
-		System.out.println(moveList);
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
-		System.out.println("바구니(전): " + basketList);
 		List<EmoshopVo> wishList = favorListService.getUserWishList(userNum);
 		for(int i : moveList) {
 			boolean count = true;
@@ -111,22 +108,19 @@ public class EmoShopController {
 			}
 		}
 		session.setAttribute("basketList", basketList);
-		System.out.println("바구니(후): " + basketList);
 		return "선택한 항목을 보관함으로 옮겼습니다.";
 	}
 	
 	@RequestMapping(value="/delBasketItem", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
 	@ResponseBody()
 	public String delBasketItem(Model model, HttpSession session, @RequestBody List<Integer> delList) {
-		System.out.println(delList);
+		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
 		int userNum = (int)session.getAttribute("num");
-		for(int i : delList) {
-			EmoshopVo vo = emoShopService.getEmogInfo(i);
-			Map<String, Integer> map = new HashMap<String, Integer>();
-			map.put("emogNum", vo.getEmognum());
-			map.put("userNum", userNum);
-			favorListService.delUserWishItem(map);
+		int len=delList.size();
+		for(int i=len-1; i>=0; i--) {
+			basketList.remove(i);
 		}
+		session.setAttribute("basketList", basketList);
 		return "선택한 항목을 삭제했습니다.";
 	}
 	

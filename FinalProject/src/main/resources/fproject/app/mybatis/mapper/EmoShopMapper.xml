@@ -45,7 +45,7 @@
 	</insert>
 	
 	<delete id="delUserWishItem" parameterType="map">
-		delete from favorlist where emognum=#{emognum} and num=#{userNum}
+		delete from favorlist where emognum=#{emogNum} and num=#{userNum}
 	</delete>
 	
 	<insert id="insertUserWishList" parameterType="fproject.app.fproject.vo.FavorlistVo">

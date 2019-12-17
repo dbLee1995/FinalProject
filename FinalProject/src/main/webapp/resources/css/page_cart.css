@@ -1,0 +1,177 @@
+#page_cart {
+ position:relative;
+ width:900px;
+ margin:30px auto 100px auto
+}
+#page_cart .article_title {
+ font-size:24px;
+ font-weight:700;
+ color:#000;
+ line-height:1em;
+ margin-bottom:14px
+}
+#page_cart .cart_wrapper {
+ position:relative
+}
+#page_cart .cart_tab_wrapper {
+ width:590px;
+ display:table;
+ table-layout:fixed;
+ box-sizing:border-box;
+ border:1px solid #d1d5d9;
+ border-bottom:none
+}
+#page_cart .cart_tab_wrapper .cart_tab {
+ display:table-cell;
+ background:#f2f4f5;
+ border-bottom:1px solid #e6e8eb;
+ box-sizing:border-box;
+ border-left:1px solid #e6e8eb
+}
+#page_cart .cart_tab_wrapper .cart_tab:first-child {
+ border-left:none
+}
+#page_cart .cart_tab_wrapper .cart_tab.selected {
+ background:#fff;
+ border-bottom:none
+}
+#page_cart .cart_tab_wrapper .cart_tab a {
+ display:block;
+ text-align:center;
+ padding:15px 0;
+ font-size:14px;
+ font-weight:700;
+ color:#303538
+}
+#page_cart .cart_tab_wrapper .cart_tab a .book_count {
+ font-weight:400;
+ color:#808991
+}
+#page_cart .cart_summary_wrapper {
+ position:absolute;
+ width:290px;
+ top:0;
+ right:0;
+ cursor:default
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper.scroll_fix {
+ width:290px;
+ position:fixed;
+ cursor:default;
+ top:10px
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper.scroll_fix .summary_box {
+ margin-top:0
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper.position_absolute {
+ position:absolute;
+ bottom:0;
+ top:auto
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box {
+ border:1px solid #87b4e9
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .count_wrapper {
+ padding:20px 20px 0 20px;
+ color:#5382b9;
+ font-size:12px;
+ font-weight:700
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .count_wrapper .icon-check_2 {
+ display:inline-block;
+ vertical-align:-10%;
+ color:#87b4e9;
+ font-size:16px
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .info_title,
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .total_text {
+ font-weight:700;
+ font-size:13px;
+ color:#738096
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .discount_price_info {
+ margin-bottom:20px
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .discount_price_info li {
+ padding:15px 20px 0 20px
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .discount_price_info li .table_wrapper {
+ display:table;
+ width:100%
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .discount_price_info li .table_wrapper .info_title {
+ display:table-cell;
+ vertical-align:middle;
+ text-align:left
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .discount_price_info li .table_wrapper .info_value {
+ display:table-cell;
+ vertical-align:middle;
+ text-align:right;
+ font-weight:700;
+ font-size:13px;
+ color:#40474d
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .total_price_wrapper {
+ padding:20px;
+ background:#ebf6ff
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .total_price_wrapper .table_wrapper {
+ display:table;
+ width:100%
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .total_price_wrapper .table_wrapper .total_text {
+ display:table-cell;
+ vertical-align:middle;
+ text-align:left
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .total_price_wrapper .table_wrapper .total_price {
+ display:table-cell;
+ vertical-align:middle;
+ text-align:right;
+ font-size:20px;
+ font-weight:700;
+ color:#1f8ce6
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .summary_box .total_price_wrapper .table_wrapper .total_price .price_free {
+ display:none
+}
+#page_cart .cart_summary_wrapper .summary_box_wrapper .buy_button {
+ width:100%;
+ margin-top:10px;
+ font-size:16px
+}
+#page_cart .checkout_form {
+ width:590px
+}
+#page_cart .checkout_form .cart_list_wrapper .cart_list_box {
+ position:relative;
+ border:1px solid #d1d5d9;
+ border-top:none
+}
+#page_cart .checkout_form .cart_list_wrapper .module_list_handler {
+ padding:15px 20px
+}
+#page_cart .checkout_form .cart_list_wrapper .bookmacro_wrapper {
+ padding:0 20px 0 20px
+}
+#page_cart .checkout_form .cart_list_wrapper .bookmacro_wrapper .book_macro_landscape:first-child {
+ border-top:1px solid #e6e8eb
+}
+#page_cart .checkout_form .cart_list_wrapper .bookmacro_wrapper .book_metadata_wrapper .meta_title .title_link .title_text {
+ font-size:16px
+}
+#page_cart .checkout_form .cart_list_wrapper .rui_empty_1 {
+ padding:160px 0
+}
+#page_cart .checkout_form .spinner_wrapper {
+ width:100%;
+ height:100%;
+ position:absolute;
+ left:0;
+ top:0;
+ background:#fff;
+ opacity:.7;
+ z-index:1000;
+ display:none
+}
