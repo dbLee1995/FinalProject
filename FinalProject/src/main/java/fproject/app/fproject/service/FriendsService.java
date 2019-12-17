@@ -23,4 +23,10 @@ public class FriendsService {
 	public List<HashMap<String, Object>> friprofile(HashMap<String, Object> map){
 		return dao.friprofile(map);
 	}
+	public int favo(HashMap<String, Object> map){
+		return dao.favo(map);
+	}
+	public int unfavo(HashMap<String, Object> map){
+		return dao.unfavo(map);
+	}
 }	

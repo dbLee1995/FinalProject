@@ -22,4 +22,10 @@ public class FriendsDao {
 	public List<HashMap<String, Object>> friprofile(HashMap<String, Object> map){
 		return sqlSessionTemplate.selectList(NAMESPACE + ".friprofile",map);
 	}
+	public int favo(HashMap<String, Object> map){
+		return sqlSessionTemplate.update(NAMESPACE + ".favo",map);
+	}
+	public int unfavo(HashMap<String, Object> map){
+		return sqlSessionTemplate.update(NAMESPACE + ".unfavo",map);
+	}
 }

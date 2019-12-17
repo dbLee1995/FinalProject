@@ -34,14 +34,17 @@
   
     #friendsprofile {text-align: center;color:white;height:670px;width: 120%;margin-left: -30px; position:relative; }
     #friendsprofile a{color:white;}
-    #friendsprofile .img{margin-left: 130px;margin-top:280px;height: 120px;width: 120px;}
+    #friendsprofile .img{margin-left: 80px;margin-top:280px;height: 120px;width: 120px;}
 	#friendsprofile .backimg{height:100%;width: 100%; position:absolute;background-repeat: no-repeat;background-size: cover; filter:brightness(50%);}
 	#friendsprofile .text{position: relative;}
     .col-md-12 .blog-entry.ftco-animate.d-md-flex a{height: 70px;width: 70px;}
     #friendsprofile hr{height: 0.5px;background-color: white; position: relative;}
-    #friendsprofile .frimenus{height: 150px;width: 150px;display: inline;padding: 30px; text-align: center;}
-    
-    #friendsprofile .frimenus .menuimg{height: 30px;width: 30px;position: absolute;}
+    #friendsprofile .frimenus{height: 100%;width: 30%;display: inline-block; text-align: center;position: relative;    margin-top: 25px;}
+    #friendsprofile .frimenus .icon-message{font-size: 30px;}
+	#friendsprofile .frimenus .icon-phone{font-size: 30px;}
+	#friendsprofile .frimenus .icon-comments{font-size: 30px;}
+	#friendsprofile .icon-star-o{font-size: 20px; margin-left: 30px;margin-top: 30px;}
+	#friendsprofile .icon-star{font-size: 20px;margin-left: 30px;margin-top: 30px;}
     #friendsprofile .meta-wrap{position:relative;}
     </style>
   </head>
@@ -180,7 +183,7 @@
 			$(".col-md-12").remove();
             	$(response).each(function(){
             		var str="<div class='col-md-12'><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>"
-        				+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+        				+"<a href='javascript:void(0);' onclick='showprofile(${sessionScope.num },"+this.fnum+")' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
         				+"<div class='text text-2 pl-md-4'>"
         					+"<h3 class='mb-2'>"
         						+"<a href='single.html'>"+this.name+"</a>"
@@ -208,36 +211,148 @@
             success: function (response) {
             	$("#friprofile").empty();
             	$(response).each(function(){
-            		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/images/image_1.jpg)';></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>"
-        				+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+            		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/images/image_1.jpg)';></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
+            		if(this.favo==0){
+            			str=str+"<a href='javascript:void(0);' onclick='favo(${sessionScope.num },"+this.fnum+")' class='icon-star-o'></a><br>";
+            		}else{
+            			str=str+"<a href='javascript:void(0);' onclick='unfavo(${sessionScope.num },"+this.fnum+")' class='icon-star'></a><br>";
+            		}
+        			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
         				+"</div>"
         				+"<div class='text text-2 pl-md-4'>"
         					+"<h3 class='mb-2'>"
         						+"<a href='single.html'>"+this.name+"</a>"
-        					+"</h3>"
-        					+"<p>"+this.msg+"</p>"					
-        					+"</div>"
+        					+"</h3>";
+        			if(this.msg!=null){
+        				str=str+"<p>"+this.msg+"</p>";
+        			}else{
+        				str=str+"<p style='margin-top:15%'></p>";
+        			}
+        			str=str+"</div>"
         					+"<hr>"
         					+"<div class='meta-wrap'>"
         					+"<div class='frimenus' >"
-        					+"<a href='#' class='menuimg' style='background-image:url(${cp}/resources/images/image_2.jpg)'></a>"
-        					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>Story</a>"
+        					+"<a href='#' class='icon-message'></a><br>"
+        					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>1:1 대화</a>"
         					+"</div>"		
         					+"<div class='frimenus'>"
-        					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>Story</a>"
+        					+"<a href='#' class='icon-phone'></a><br>"
+        					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>무료통화</a>"
         					+"</div>"	
         					+"<div class='frimenus'>"
-        					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>Story</a>"
+        					+"<a href='#' class='icon-comments'></a><br>"
+        					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>코코아 스토리</a>"
         					+"</div>"	
         				+"</div>"
-        			
         		+"</div>";
             		$("#friprofile").append(str);
             		
             	});
             }
         });
-        
+    }    
+    	function favo(num,fnum){
+        	$.ajax({
+                type: "post",
+                url: "${cp}/friends/favo",
+                data: {
+                	num:num,
+                	fnum:fnum
+                },
+                success: function (response) {
+                	$("#friprofile").empty();
+                	$(response).each(function(){
+                		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/images/image_1.jpg)';></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
+                		if(this.favo==0){
+                			str=str+"<a href='javascript:void(0);' onclick='favo(${sessionScope.num },"+this.fnum+")' class='icon-star-o'></a><br>";
+                		}else{
+                			str=str+"<a href='javascript:void(0);' onclick='unfavo(${sessionScope.num },"+this.fnum+")' class='icon-star'></a><br>";
+                		}
+            			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+            				+"</div>"
+            				+"<div class='text text-2 pl-md-4'>"
+            					+"<h3 class='mb-2'>"
+            						+"<a href='single.html'>"+this.name+"</a>"
+            					+"</h3>"
+            					if(this.msg!=null){
+                    				str=str+"<p>"+this.msg+"</p>";
+            					}else{
+            						str=str+"<p style='margin-top:15%'></p>";
+                    			}
+                    			str=str+"</div>"
+            					+"<hr>"
+            					+"<div class='meta-wrap'>"
+            					+"<div class='frimenus' >"
+            					+"<a href='#' class='icon-message'></a><br>"
+            					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>1:1 대화</a>"
+            					+"</div>"		
+            					+"<div class='frimenus'>"
+            					+"<a href='#' class='icon-phone'></a><br>"
+            					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>무료통화</a>"
+            					+"</div>"	
+            					+"<div class='frimenus'>"
+            					+"<a href='#' class='icon-comments'></a><br>"
+            					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>코코아 스토리</a>"
+            					+"</div>"	
+            				+"</div>"
+            		+"</div>";
+                		$("#friprofile").append(str);
+                		
+                	});
+                }
+            });
+    	}
+        	function unfavo(num,fnum){
+            	$.ajax({
+                    type: "post",
+                    url: "${cp}/friends/unfavo",
+                    data: {
+                    	num:num,
+                    	fnum:fnum
+                    },
+                    success: function (response) {
+                    	$("#friprofile").empty();
+                    	$(response).each(function(){
+                    		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/images/image_1.jpg)';></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
+                    		if(this.favo==0){
+                    			str=str+"<a href='javascript:void(0);' onclick='favo(${sessionScope.num },"+this.fnum+")' class='icon-star-o'></a><br>";
+                    		}else{
+                    			str=str+"<a href='javascript:void(0);' onclick='unfavo(${sessionScope.num },"+this.fnum+")' class='icon-star'></a><br>";
+                    		}
+                			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+                				+"</div>"
+                				+"<div class='text text-2 pl-md-4'>"
+                					+"<h3 class='mb-2'>"
+                						+"<a href='single.html'>"+this.name+"</a>"
+                					+"</h3>"
+                					if(this.msg!=null){
+                        				str=str+"<p>"+this.msg+"</p>";
+                					}else{
+                						str=str+"<p style='margin-top:15%'></p>";
+                        			}
+                        			str=str+"</div>"
+                					+"<hr>"
+                					+"<div class='meta-wrap'>"
+                					+"<div class='frimenus' >"
+                					+"<a href='#' class='icon-message'></a><br>"
+                					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>1:1 대화</a>"
+                					+"</div>"		
+                					+"<div class='frimenus'>"
+                					+"<a href='#' class='icon-phone'></a><br>"
+                					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>무료통화</a>"
+                					+"</div>"	
+                					+"<div class='frimenus'>"
+                					+"<a href='#' class='icon-comments'></a><br>"
+                					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>코코아 스토리</a>"
+                					+"</div>"	
+                				+"</div>"
+                		+"</div>";
+                    		$("#friprofile").append(str);
+                    		
+                    	});
+                    }
+                });
+            
     }
   	function showCalendar(){
   		window.open("calendar", "[캘린더]", "width=900, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no" );    
