@@ -16,6 +16,7 @@
 	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' 
 			href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 <%-- 	<link rel="stylesheet" type="text/css" href='${cp }/resources/css/jquery-ui.css'> --%>
+	
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/sockjs.js"></script>
@@ -41,6 +42,12 @@
 }
 #searchChat{
 	margin-left: 50px;
+}
+.colorlib-page{
+
+}
+.frame{
+
 }
 .btn-countUp{
 	display: inline-block;
@@ -309,7 +316,6 @@ a.btn-layerClose:hover {
   }
 }
 #frame #sidepanel #profile .wrap #status-options {
-  position: absolute;
   opacity: 0;
   visibility: hidden;
   width: 150px;
@@ -841,7 +847,7 @@ a.btn-layerClose:hover {
 	
 </head>
 <body>
-	
+
 	<div id="frame">
 		<div id="sidepanel">
 			<div id="profile">
@@ -1055,7 +1061,7 @@ a.btn-layerClose:hover {
 						count=parseInt(data.chatcount);
 						var a=$(".messages").scrollTop();
 						var offset = $("#"+chatnum).offset();
-						var aaa=a+offset.top-220;
+						var aaa=a+offset.top-190;
 						$(".messages").scrollTop(aaa);
 					}else{
 						index=0;
@@ -1079,7 +1085,7 @@ a.btn-layerClose:hover {
 						var chatnum=parseInt(data.chatnum);
 						var a=$(".messages").scrollTop();
 						var offset = $("#"+chatnum).offset();
-						var aaa=a+offset.top-220;
+						var aaa=a+offset.top-190;
 						$(".messages").scrollTop(aaa);
 						$("#searchcount").html(index+"/"+count);
 					}
@@ -1100,7 +1106,7 @@ a.btn-layerClose:hover {
 						var chatnum=parseInt(data.chatnum);
 						var a=$(".messages").scrollTop();
 						var offset = $("#"+chatnum).offset();
-						var aaa=a+offset.top-220;
+						var aaa=a+offset.top-190;
 						$(".messages").scrollTop(aaa);
 						$("#searchcount").html(index+"/"+count);
 					}

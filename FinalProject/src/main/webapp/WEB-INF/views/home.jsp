@@ -48,7 +48,7 @@
 							<li><a href="${cp }/friends/list?num=${sessionScope.num}">Friends</a></li>			
 						</c:otherwise>	 
 					</c:choose>
-					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">WebSocket</a></li>
+					<li><a href="javascript:void(0);" onclick="showChat();">Chat</a></li>
 					<li><a href="${cp }/emoShop/main">이모티콘(원래 위치는 about.html)</a></li>
 					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
 					
@@ -453,6 +453,9 @@
     <script type="text/javascript">
   	function showCalendar(){
   		window.open("calendar", "[캘린더]", "width=900, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no" );    
+  	};
+  	function showChat(){
+  		window.open("ChatList?num=${sessionScope.num}&clnum=-1", "[]", "width=1200, height=850, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no" )
   	};
   </script>
   </body>

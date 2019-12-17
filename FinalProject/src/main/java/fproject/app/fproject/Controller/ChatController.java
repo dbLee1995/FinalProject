@@ -38,7 +38,8 @@ public class ChatController {
 	@Autowired AccountService accountService;
 	@Autowired FriendsService friendsService;
 	@Autowired ProfilesService profilesService;
-	@RequestMapping(value="/ChatList", method=RequestMethod.GET)
+	
+	@RequestMapping(value="/ChatList")
 	public String chat(Model model, HttpServletRequest req, int num, int clnum){
 		
 		List<ChatlistVo> clist=chatService.getRoomList();
