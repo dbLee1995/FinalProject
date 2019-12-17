@@ -270,6 +270,23 @@ public class ChatController {
 		chatService.updateChatName(new ChatlistVo(clnum, name));
 		return "";
 	}
+	@RequestMapping(value="/searchChatContentAjax", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String searchChatContentAjax(int clnum, String content, HttpSession session){
+		
+		List<ChatVo> cvolist=
+				chatService.searchChatContent(new ChatVo(0, 0, content, null, 0, "", "", 0, clnum, 0));
+		session.setAttribute("searchcvolist", cvolist);
+		session.setAttribute("searchcvolistindex", 1);
+		JSONObject json=new JSONObject();
+		if(cvolist.size()>0){
+			json.put("chatnum", cvolist.get(0).getCnum());
+			json.put("chatcount", cvolist.size());
+		}else{
+			json.put("chatnum", 0);
+		}
+		return json.toString();
+	}
 	@RequestMapping(value="/removeChatRoom")
 	public String removeChatRoom(Model model, int clnum, int num, 
 			HttpSession session){

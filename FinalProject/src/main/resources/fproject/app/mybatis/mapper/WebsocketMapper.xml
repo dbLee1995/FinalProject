@@ -137,4 +137,9 @@
 		UPDATE CHATLIST SET NAME=#{name}
 		WHERE CLNUM=#{clnum}
 	</update>
+	<select id="searchChatContent" parameterType="fproject.app.fproject.vo.ChatVo"
+			resultType="fproject.app.fproject.vo.ChatVo">
+		SELECT * FROM CHAT
+		WHERE CONTENT LIKE '%'||#{content}||'%' AND CLNUM=#{clnum}
+	</select>
 </mapper>

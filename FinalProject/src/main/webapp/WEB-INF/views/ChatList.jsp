@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,13 +15,13 @@
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
 	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' 
 			href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
-	<link rel="stylesheet" type="text/css" href='${cp }/resources/css/jquery-ui.css'>
+<%-- 	<link rel="stylesheet" type="text/css" href='${cp }/resources/css/jquery-ui.css'> --%>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/sockjs.js"></script>
 	<script type="text/javascript" src="http://jsgetip.appspot.com"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/animateScroll/animatescroll.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/animateScroll/tagging.min.js"></script>
+<%-- 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/animateScroll/animatescroll.js"></script> --%>
+<%-- 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/animateScroll/tagging.min.js"></script> --%>
 	<script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
 	<script>try{Typekit.load({ async: true });}catch(e){}</script>
 	<style class="cp-pen-styles">body {
@@ -38,6 +39,46 @@
   -webkit-font-smoothing: antialiased;
   position: relative;
 }
+#searchChat{
+	margin-left: 10px;
+}
+.btn-countUp{
+	display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #304a8a;
+  background-color: #2c3e50;
+  font-size: 13px;
+  color: #fff;
+  line-height: 25px;
+  margin-left: 10px;
+}
+.btn-countDown{
+	display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #304a8a;
+  background-color: #2c3e50;
+  font-size: 13px;
+  color: #fff;
+  line-height: 25px;
+  margin-left: 5px;
+}
+.btn-Search{
+	display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #304a8a;
+  background-color: #2c3e50;
+  font-size: 13px;
+  color: #fff;
+  line-height: 25px;
+  margin-left: 10px;
+}
+.searchcount{
+	margin-left: 5px;
+}
+
 *{
 	margin:0px;
 	padding: 0px;
@@ -797,19 +838,7 @@ a.btn-layerClose:hover {
   outline: none;
 }
 </style>
-	<script type="text/javascript">
-	$(function(){
-		$("#test30").click(function(e){
-			e.preventDefault();
-			$("#30").animatescroll();
-			
-		});	
-		$("#test230").click(function(e){
-			e.preventDefault();
-			$("#230").animatescroll();
-		});
-	});
-	</script>
+	
 </head>
 <body>
 	
@@ -873,7 +902,6 @@ a.btn-layerClose:hover {
 				<button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
 			</div>
 			
-			
 		</div>
 		<c:if test="${clnum > 0 }">
 		<div class="content">
@@ -881,16 +909,13 @@ a.btn-layerClose:hover {
 				<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
 				<p>${clvo.name }</p>
 				<div class="social-media">
-				
 
-				  
 					<span class="accordion" id="accordionExample">
 							<i class="fa fa-search fa-fw btn-link collapsed" 
 							data-toggle="collapse" data-target="#collapseThree" 
 				        	aria-expanded="false" aria-controls="collapseThree" aria-hidden="true"></i>
 
 					</span>
-					<i class="" aria-hidden="true"></i>
 					<a href="#" class="btn-RoomClose" >수정</a>
 					<i class="" aria-hidden="true"></i>
 					<a href="${cp }/removeChatRoom?clnum=${sessionScope.clnum}&num=${sessionScope.num}" class="btn-RoomClose" >방 나가기</a>
@@ -900,7 +925,12 @@ a.btn-layerClose:hover {
 			<div id="collapseThree" class="collapse" aria-labelledby="headingThree" 
 		    	data-parent="#accordionExample">
 		      <div class="card-body">
-		        Anim pariatur </div>
+		      		<input type="text" id="searchChat" size="50">
+		      		<a href="#" class="btn-Search" id="searchBtn">검색</a>
+		      		<span id="searchcount" class="searchcount">0/0</span>
+		      		<a href="#" class="btn-countUp" id="countUp">▲</a>
+		      		<a href="#" class="btn-countDown" id="countDown">▼</a>
+		      </div>
 		    </div>
 			
 			<div class="messages">
@@ -978,9 +1008,6 @@ a.btn-layerClose:hover {
 	        </div>
 	    </div>
 	</div>
-	
-	<a href="#" id="test30">30</a><br>
-	<a href="#" id="test230">230</a><br>
 
 			<!-- 
 			<a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a>
@@ -1008,17 +1035,38 @@ a.btn-layerClose:hover {
 
 <script type="text/javascript">
 	
-
+	$(function(){
+		$("#searchBtn").click(function(e){
+			e.preventDefault();
+			var jclnum=parseInt($("#sessionclnum").val());
+			$.ajax({
+				url:"searchChatContentAjax",
+				type:"post",
+				dataType:"json",
+				data: {
+					clnum:jclnum,
+					content:$("#searchChat").val()
+				},success:function(data){
+					var chatnum=parseInt(data.chatnum);
+					if(chatnum!=0){
+						$("#searchcount").html("1/"+data.chatcount);
+						var a=$(".messages").scrollTop();
+						var offset = $("#"+chatnum).offset();
+						var aaa=a+offset.top-220;
+						$(".messages").scrollTop(aaa);
+					}
+				}
+			});
+			
+		});
+	});
 
 // 	$(".testaabb").click(function(event){
 // 		alert(event.target.id); // 해당 클래스 내에 클릭한 요소의 아이디 받아오기
 		// nodeName 이라고 쓰면 요소 속성을 받아올 수 있음! 
 // 	});
 	
-	$(function(){
-		$('#textID').focus();
-	});
-	
+	$(function(){$('#textID').focus();});
 	var sock = new SockJS("<c:url value="/echo"/>");
 	sock.onopen = onOpen;
 	sock.onmessage = onMessageAjax;
@@ -1027,27 +1075,8 @@ a.btn-layerClose:hover {
 	var id = '${sessionScope.id}';
 	var clnum = '${clnum}';
 	var ws = null;
-
-	function onOpen(){
-		
-	}
-	function sendMessage() {
-		sock.send(num+"!%/"+clnum+"!%/"+$("#textID").val());
-	}
-	function onMessage(msg) {
-		var data = msg.data;
-		var msgArr=data.split("!%/");
-		if(msgArr[2]==num){
-			$('<li class="replies"><div style="display:flex;flex-direction:row;align-items:center;justify-content:flex-end;">'
-			+msgArr[1]+'<p>' + msgArr[0] + '</p></li>').appendTo($('.messages ul'));
-		}else{
-			$('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + msgArr[0] + '</p>'+msgArr[1]+'</li>').appendTo($('.messages ul'));
-		}
-		
-		$('.message-input input').val(null);
-		$('.contact.active .preview').html('<span>N </span>' + msgArr[0]);
-		$(".messages").animate({ scrollTop: 999999 }, "fast");
-	}
+	function onOpen(){}
+	function sendMessage() { sock.send(num+"!%/"+clnum+"!%/"+$("#textID").val()); }
 	function onMessageAjax(msg){
 		var data=msg.data;
 		var msgArr=data.split("!%/");
@@ -1086,19 +1115,16 @@ a.btn-layerClose:hover {
 		$('.message-input input').val(null);
 		$('.contact.active .preview').html('<span>N </span>' + msgArr[0]);
 		$(".messages").animate({ scrollTop: 999999 }, "fast");
-		
 	}
 	// JSON.parse() -- String 객체를 json 객체로 변환
 	// JSON.stringify -- json 객체를 String 객체로 변환
 	function onClose(evt) {
 		$("#output").append("연결 끊김");
 	}
-	
 	$('.submit').click(function() {
 		sendMessage();
 		$('#textID').val('');
 	});
-
 	$(window).on('keyup', function(e) {
 	  if (e.which == 13) {
 			sendMessage();
@@ -1106,17 +1132,12 @@ a.btn-layerClose:hover {
 	    return false;
 	  }
 	});
-	
 	$(".messages").animate({ scrollTop: 999999 }, "fast");
-	$("#profile-img").click(function() {
-		$("#status-options").toggleClass("active");
-	});
-
+	$("#profile-img").click(function() {$("#status-options").toggleClass("active");});
 	$(".expand-button").click(function() {
 	  $("#profile").toggleClass("expanded");
 		$("#contacts").toggleClass("expanded");
 	});
-
 	$("#status-options ul li").click(function() {
 		$("#profile-img").removeClass();
 		$("#status-online").removeClass("active");
@@ -1125,61 +1146,37 @@ a.btn-layerClose:hover {
 		$("#status-offline").removeClass("active");
 		$(this).addClass("active");
 		
-		if($("#status-online").hasClass("active")) {
-			$("#profile-img").addClass("online");
-		} else if ($("#status-away").hasClass("active")) {
-			$("#profile-img").addClass("away");
-		} else if ($("#status-busy").hasClass("active")) {
-			$("#profile-img").addClass("busy");
-		} else if ($("#status-offline").hasClass("active")) {
-			$("#profile-img").addClass("offline");
-		} else {
-			$("#profile-img").removeClass();
-		};
-		
+		if($("#status-online").hasClass("active")) { $("#profile-img").addClass("online");
+		} else if ($("#status-away").hasClass("active")) { $("#profile-img").addClass("away");
+		} else if ($("#status-busy").hasClass("active")) { $("#profile-img").addClass("busy");
+		} else if ($("#status-offline").hasClass("active")) { $("#profile-img").addClass("offline");
+		} else { $("#profile-img").removeClass(); };
 		$("#status-options").removeClass("active");
 	});
-
 	$('.btn-example').click(function(){
-	        var $href = $(this).attr('href');
-	        layer_popup($href);
+	        var $href = $(this).attr('href'); layer_popup($href);
 	    });
-	    function layer_popup(el){
-
-	        var $el = $(el);        //레이어의 id를 $el 변수에 저장
-	        var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
-
-	        isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
-
-	        var $elWidth = ~~($el.outerWidth()),
-	            $elHeight = ~~($el.outerHeight()),
-	            docWidth = $(document).width(),
-	            docHeight = $(document).height();
-
-	        // 화면의 중앙에 레이어를 띄운다.
-	        if ($elHeight < docHeight || $elWidth < docWidth) {
-	            $el.css({
-	                marginTop: -$elHeight /2,
-	                marginLeft: -$elWidth/2
-	            })
-	        } else {
-	            $el.css({top: 0, left: 0});
-	        }
-
-	        $el.find('a.btn-layerClose').click(function(){
-	            isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
-	            return false;
-	        });
-
-	        $('.layer .dimBg').click(function(){
-	            $('.dim-layer').fadeOut();
-	            return false;
-	        });
-
-	    }
-	    function onMakeRoom(){
-	    	$("#makefrm").submit();
-	    }
+    function layer_popup(el){
+        var $el = $(el);        //레이어의 id를 $el 변수에 저장
+        var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+        isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+        var $elWidth = ~~($el.outerWidth()),
+            $elHeight = ~~($el.outerHeight()),
+            docWidth = $(document).width(),
+            docHeight = $(document).height();
+        // 화면의 중앙에 레이어를 띄운다.
+        if ($elHeight < docHeight || $elWidth < docWidth) {
+            $el.css({ marginTop: -$elHeight /2, marginLeft: -$elWidth/2 })
+        } else { $el.css({top: 0, left: 0}); }
+        $el.find('a.btn-layerClose').click(function(){
+            isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+            return false;
+        });
+        $('.layer .dimBg').click(function(){
+            $('.dim-layer').fadeOut(); return false;
+        });
+    }
+    function onMakeRoom(){ $("#makefrm").submit(); }
 	
 </script>
 </html>

@@ -98,4 +98,8 @@ public class ChatServiceImpl implements ChatService{
 	public int updateChatName(ChatlistVo clvo) {
 		return dao.updateChatName(clvo);
 	}
+	@Override
+	public List<ChatVo> searchChatContent(ChatVo cvo) {
+		return dao.searchChatContent(cvo);
+	}
 }

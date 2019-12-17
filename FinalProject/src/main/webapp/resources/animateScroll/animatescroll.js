@@ -150,10 +150,10 @@
             opts.onScrollStart.call(this);
         }
                 
-        if(opts.element == "html,.messages") {
+        if(opts.element == "html,body,.messages") {
             // Get the distance of particular id or class from top
         	
-            var offset = (this.offset().top)+9500;
+            var offset = (this.offset().top)+9000;
             
             
             // Scroll the page to the desired position
@@ -175,11 +175,11 @@
     };
     
     // default options
-    $.fn.animatescroll.defaults = {        
+    $.fn.animatescroll.defaults = {
         easing:"swing",
         scrollSpeed:800,
         padding:0,
-        element:"html,.messages"
+        element:"html,body,.messages"
     };   
     
 }(jQuery));

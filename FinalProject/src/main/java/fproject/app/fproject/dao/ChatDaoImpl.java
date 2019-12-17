@@ -103,4 +103,8 @@ public class ChatDaoImpl implements ChatDao{
 	public int updateChatName(ChatlistVo clvo) {
 		return sqlSessionTemplate.update(NAMESPACE+".updateChatName", clvo);
 	}
+	@Override
+	public List<ChatVo> searchChatContent(ChatVo cvo) {
+		return sqlSessionTemplate.selectList(NAMESPACE+".searchChatContent", cvo);
+	}
 }
