@@ -10,6 +10,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animate.css">
+    
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/aos.css">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/flaticon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/icomoon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
+    
+
 	<link href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
@@ -17,6 +41,20 @@
 			href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 <%-- 	<link rel="stylesheet" type="text/css" href='${cp }/resources/css/jquery-ui.css'> --%>
 	
+	<script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
+  	<script src="${pageContext.request.contextPath }/resources/js/popper.min.js"></script>
+  	<script src="${pageContext.request.contextPath }/resources/js/jquery.easing.1.3.js"></script>
+  	<script src="${pageContext.request.contextPath }/resources/js/jquery.waypoints.min.js"></script>
+	  <script src="${pageContext.request.contextPath }/resources/js/jquery.stellar.min.js"></script>
+	  <script src="${pageContext.request.contextPath }/resources/js/owl.carousel.min.js"></script>
+	  <script src="${pageContext.request.contextPath }/resources/js/jquery.magnific-popup.min.js"></script>
+	  <script src="${pageContext.request.contextPath }/resources/js/aos.js"></script>
+	  <script src="${pageContext.request.contextPath }/resources/js/jquery.animateNumber.min.js"></script>
+	  <script src="${pageContext.request.contextPath }/resources/js/scrollax.min.js"></script>
+	  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	  <script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
+	  <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
+
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/sockjs.js"></script>
@@ -844,10 +882,37 @@ a.btn-layerClose:hover {
   outline: none;
 }
 </style>
-	
+	<style type="text/css">
+	#colorlib-aside #colorlib-main-menu ul li{padding: 6px;}
+	</style>
 </head>
 <body>
+	<div id="colorlib-page" style="display:flex; flex-flow:row nowrap;">
+		<aside id="colorlib-aside" role="complementary" class="js-fullheight"
+			style="position: relative;">
+			<nav id="colorlib-main-menu" role="navigation">
+				<ul>
+					<li class="colorlib-active"><a href="${cp}/./">Home</a></li>
+					<c:choose>
+						<c:when test="${empty sessionScope.id}">					
+							<li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
+						</c:when>	
+				 		<c:otherwise>
+							<li><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>
+							<li><a href="${cp }/friends/list?num=${sessionScope.num}">Friends</a></li>			
+						</c:otherwise>	 
+					</c:choose>
+					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">WebSocket</a></li>
+					<li><a href="${cp }/emoShop/main">이모티콘(원래 위치는 about.html)</a></li>
+					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
+					
+				</ul>
+			</nav>
 
+		</aside> <!-- END COLORLIB-ASIDE -->
+	<div id="colorlib-main">
+			<section class="ftco-section ftco-no-pt ftco-no-pb">
+	    	<div class="container">
 	<div id="frame">
 		<div id="sidepanel">
 			<div id="profile">
@@ -1014,6 +1079,11 @@ a.btn-layerClose:hover {
 	        </div>
 	    </div>
 	</div>
+	</div>
+	</section>
+	</div>
+	
+	</div><!-- END COLORLIB-PAGE -->
 
 			<!-- 
 			<a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a>
@@ -1061,7 +1131,7 @@ a.btn-layerClose:hover {
 						count=parseInt(data.chatcount);
 						var a=$(".messages").scrollTop();
 						var offset = $("#"+chatnum).offset();
-						var aaa=a+offset.top-190;
+						var aaa=a+offset.top-220;
 						$(".messages").scrollTop(aaa);
 					}else{
 						index=0;
@@ -1085,7 +1155,7 @@ a.btn-layerClose:hover {
 						var chatnum=parseInt(data.chatnum);
 						var a=$(".messages").scrollTop();
 						var offset = $("#"+chatnum).offset();
-						var aaa=a+offset.top-190;
+						var aaa=a+offset.top-220;
 						$(".messages").scrollTop(aaa);
 						$("#searchcount").html(index+"/"+count);
 					}
@@ -1106,7 +1176,7 @@ a.btn-layerClose:hover {
 						var chatnum=parseInt(data.chatnum);
 						var a=$(".messages").scrollTop();
 						var offset = $("#"+chatnum).offset();
-						var aaa=a+offset.top-190;
+						var aaa=a+offset.top-220;
 						$(".messages").scrollTop(aaa);
 						$("#searchcount").html(index+"/"+count);
 					}
