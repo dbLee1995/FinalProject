@@ -22,4 +22,7 @@ public class AccountDao {
 	public List<AccountVo> list(){
 		return sqlSessionTemplate.selectList(NAMESPACE + ".list");
 	}
+	public AccountVo ismem(String id){
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".ismem",id);
+	}
 }

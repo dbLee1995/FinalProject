@@ -39,6 +39,7 @@
 	#friendsprofile .text{position: relative;}
     .col-md-12 .blog-entry.ftco-animate.d-md-flex a{height: 70px;width: 70px;}
     #friendsprofile hr{height: 0.5px;background-color: white; position: relative;}
+    
     #friendsprofile .frimenus{height: 100%;width: 30%;display: inline-block; text-align: center;position: relative;    margin-top: 25px;}
     #friendsprofile .frimenus .icon-message{font-size: 30px;}
 	#friendsprofile .frimenus .icon-phone{font-size: 30px;}
@@ -46,6 +47,8 @@
 	#friendsprofile .icon-star-o{font-size: 20px; margin-left: 30px;margin-top: 30px;}
 	#friendsprofile .icon-star{font-size: 20px;margin-left: 30px;margin-top: 30px;}
     #friendsprofile .meta-wrap{position:relative;}
+    .col-xl-4.sidebar .icon-people{font-size: 40px;color:#666666;margin-left: 270px;}
+    .col-xl-4.sidebar .icon-plus{color:#666666; margin-bottom: 30px; position: absolute;}
     </style>
   </head>
   <body>
@@ -130,9 +133,12 @@
 							</div>
 							<!-- END-->
 						</div>
-	    			<div class="col-xl-4 sidebar ftco-animate bg-light pt-5">
+	    			<div class="col-xl-4 sidebar ftco-animate bg-light pt-5" style="height: 850px;padding: 20px;">
+	    			
+	    			<a href='javascript:void(0);' onclick='showAddfriends();' class="icon-people" ></a>
+	    			<a href='javascript:void(0);' onclick='showAddfriends();' class="icon-plus"></a>
 	            <div class="sidebar-box pt-md-4">
-	              <form action="#" class="search-form">
+	              <form action="javascript:void(0);" class="search-form">
 	                <div class="form-group">
 	                  <span class="icon icon-search"></span>
 	                  <input type="text" class="form-control" placeholder="이름 검색" onkeyup="searchFri(this,${sessionScope.num})">
@@ -170,6 +176,7 @@
   <script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
     <script type="text/javascript">
+    
     function searchFri(e,num){
     	$.ajax({
             type: "post",
@@ -188,6 +195,7 @@
         					+"<h3 class='mb-2'>"
         						+"<a href='single.html'>"+this.name+"</a>"
         					+"</h3>"
+        					+"<p>"+this.msg+"</p>"
         					+"<div class='meta-wrap'>"
         						+"<p class='meta'></p>"
         					+"</div>"
@@ -356,6 +364,9 @@
     }
   	function showCalendar(){
   		window.open("calendar", "[캘린더]", "width=900, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no" );    
+  	};
+  	function showAddfriends(){
+  		window.open("addfriends", '[친구추가]', 'width=280, height=300, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no' );    
   	};
   </script>
   </body>

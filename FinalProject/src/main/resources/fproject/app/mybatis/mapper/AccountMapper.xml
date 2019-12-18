@@ -6,7 +6,9 @@
 	<select id="info" resultType="fproject.app.fproject.vo.AccountVo" parameterType="int">
 		select * from account where num=#{num}
 	</select>
-	
+	<select id="ismem" resultType="fproject.app.fproject.vo.AccountVo" parameterType="String">
+		select * from account where id=#{id}
+	</select>
 	<select id="list" resultType="fproject.app.fproject.vo.AccountVo">
 		select * from account
 	</select>

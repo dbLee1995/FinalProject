@@ -9,10 +9,17 @@
 	<select id="friprofile" resultType="hashmap" parameterType="hashmap">
 		select * from friendlist f,profiles p where  f.num=#{num} and f.fnum=#{fnum} and p.num=#{fnum}
 	</select>
+	<select id="mempro" resultType="hashmap" parameterType="int">
+		select * from account a,profiles p where a.num=#{num} and p.num=#{num}
+	</select>
 	<update id="favo" parameterType="hashmap" >
 		update friendlist set favo=1 where num=#{num} and fnum=#{fnum}
 	</update>
 	<update id="unfavo" parameterType="hashmap" >
 		update friendlist set favo=0 where num=#{num} and fnum=#{fnum}
 	</update>
+	<select id="searchId" resultType="hashmap" parameterType="hashmap">
+		select * from friendlist f,profiles p ,(select num from account where id=#{id}) a where f.num=#{num} and f.fnum=a.num and p.num=a.num
+	</select>
+	
 </mapper>

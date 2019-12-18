@@ -29,4 +29,10 @@ public class FriendsService {
 	public int unfavo(HashMap<String, Object> map){
 		return dao.unfavo(map);
 	}
+	public List<HashMap<String, Object>> searchId(HashMap<String, Object> map){
+		return dao.searchId(map);
+	}
+	public List<HashMap<String, Object>> mempro(int num){
+		return dao.mempro(num);
+	}
 }	

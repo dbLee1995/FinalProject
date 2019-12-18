@@ -22,4 +22,7 @@ public class AccountService {
 	 public List<AccountVo> list(){
 		 return accountDao.list();
 	 }
+	 public AccountVo ismem(String id){
+		 return accountDao.ismem(id);
+	 }
 }	

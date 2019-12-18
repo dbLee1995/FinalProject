@@ -28,4 +28,10 @@ public class FriendsDao {
 	public int unfavo(HashMap<String, Object> map){
 		return sqlSessionTemplate.update(NAMESPACE + ".unfavo",map);
 	}
+	public List<HashMap<String, Object>> searchId(HashMap<String, Object> map){
+		return sqlSessionTemplate.selectList(NAMESPACE + ".searchId",map);
+	}
+	public List<HashMap<String , Object>> mempro(int num){
+		return sqlSessionTemplate.selectList(NAMESPACE+".mempro",num);
+	}
 }

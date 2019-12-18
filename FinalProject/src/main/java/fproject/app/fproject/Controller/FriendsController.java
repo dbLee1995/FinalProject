@@ -13,13 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import fproject.app.fproject.service.AccountService;
 import fproject.app.fproject.service.FriendsService;
+import fproject.app.fproject.vo.AccountVo;
 import fproject.app.fproject.vo.CalenderVo;
 import fproject.app.fproject.vo.FriendlistVo;
 
 @Controller
 public class FriendsController {
 	@Autowired private FriendsService service;
+	@Autowired private AccountService Aservice;
+	
+	@RequestMapping("/friends/addfriends")
+	public String addfriends(){
+		return "friends/addfriends";
+	};
 	@RequestMapping(value="/friends/list",method = RequestMethod.GET)
 	public String list(Model model,int num,String friname){
 		if(friname==null){
@@ -56,7 +64,7 @@ public class FriendsController {
 			json.put("profileimg", fri.get("PROFILEIMG"));
 			json.put("backimg", fri.get("BACKIMG"));
 			json.put("msg", fri.get("MSG"));
-
+			
 			arr.put(json);
 		}
 		return arr.toString();
@@ -141,5 +149,84 @@ public class FriendsController {
 			arr.put(json);
 		}
 		return arr.toString();
+	}
+	@RequestMapping(value="/friends/searchId",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String searchId(String id,int num){
+		HashMap<String, Object> map=new HashMap<>();
+		map.put("id",id);
+		map.put("num", num);
+		List<HashMap<String, Object>> list=service.searchId(map);
+		if(list.isEmpty()){
+			AccountVo vo=Aservice.ismem(id);
+			if(vo==null){
+				JSONObject json=new JSONObject();
+				json.put("nomem", true);
+				return json.toString();
+			}else if(vo.getNum()==num){
+				JSONArray arr=new JSONArray();
+				List<HashMap<String, Object>> list1=service.mempro(vo.getNum());
+				for (HashMap<String, Object> fri:list1){
+					JSONObject json=new JSONObject();
+					json.put("isme", true);
+					json.put("fnum", fri.get("FNUM"));
+					json.put("favo", fri.get("FAVO"));
+					json.put("name", fri.get("NAME"));
+					json.put("spam", fri.get("SPAM"));
+					json.put("approv", fri.get("APPROV"));
+					json.put("phone", fri.get("PHONE"));
+					json.put("email", fri.get("EMAIL"));
+					json.put("birth", fri.get("BIRTH"));
+					json.put("profileimg", fri.get("PROFILEIMG"));
+					json.put("backimg", fri.get("BACKIMG"));
+					json.put("msg", fri.get("MSG"));
+					arr.put(json);		
+			}
+				return arr.toString();
+			
+			}else{
+				JSONArray arr=new JSONArray();
+				List<HashMap<String, Object>> list1=service.mempro(vo.getNum());
+				for (HashMap<String, Object> fri:list1){
+					JSONObject json=new JSONObject();
+					json.put("ismem", true);
+					json.put("fnum", fri.get("FNUM"));
+					json.put("favo", fri.get("FAVO"));
+					json.put("name", fri.get("NAME"));
+					json.put("spam", fri.get("SPAM"));
+					json.put("approv", fri.get("APPROV"));
+					json.put("phone", fri.get("PHONE"));
+					json.put("email", fri.get("EMAIL"));
+					json.put("birth", fri.get("BIRTH"));
+					json.put("profileimg", fri.get("PROFILEIMG"));
+					json.put("backimg", fri.get("BACKIMG"));
+					json.put("msg", fri.get("MSG"));
+					arr.put(json);		
+			}
+				return arr.toString();
+			}
+			
+		}else{
+			JSONArray arr=new JSONArray();
+			for (HashMap<String, Object> fri:list){
+				JSONObject json=new JSONObject();
+				json.put("isfri", true);
+				json.put("fnum", fri.get("FNUM"));
+				json.put("favo", fri.get("FAVO"));
+				json.put("name", fri.get("NAME"));
+				json.put("spam", fri.get("SPAM"));
+				json.put("approv", fri.get("APPROV"));
+				json.put("phone", fri.get("PHONE"));
+				json.put("email", fri.get("EMAIL"));
+				json.put("birth", fri.get("BIRTH"));
+				json.put("profileimg", fri.get("PROFILEIMG"));
+				json.put("backimg", fri.get("BACKIMG"));
+				json.put("msg", fri.get("MSG"));
+				arr.put(json);
+				
+		}
+			return arr.toString();
+		}
+		
 	}
 }
