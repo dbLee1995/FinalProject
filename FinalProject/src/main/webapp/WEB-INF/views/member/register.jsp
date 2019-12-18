@@ -209,10 +209,10 @@
 					var ch = phoneVal.value.charAt(i);
 					if(!(ch>='0' && ch<='9')) {
 						phoneCheckR = false;
-						phoneNotice.innterText = "전화번호는 숫자로만 입력해주세요(붙임표 제외).";
+						phoneNotice.innerText = "전화번호는 숫자로만 입력해주세요(붙임표 제외).";
 					} else {
 						phoneCheckR = true;
-						phoneNotice.innterText = "";
+						phoneNotice.innerText = "";
 					}
 				}
 			}
@@ -231,11 +231,6 @@
 				console.log(phoneCheckR);
 				alert("시키는대로 쓰세요.");
 			}
-		});
-	   
-	   /// 이메일 재전송
-		document.getElementById("resend").addEventListener("click", () => {
-			regForm.submit();
 		});
 
 	</script>

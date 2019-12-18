@@ -12,7 +12,7 @@
 			<input style="display: none;" type="password" value="${birth }" name="birthDate" readonly>
 			<br>
 			<label for="checkString" style="display: none; font-size: 14px;">인증문자 입력</label>
-			<input type="text" name="checkString" placeholder="인증문자를 입력해주세요." id="checkString" style="paddaing: 10.5px 15px; outline: none; border: 1px solid #e5e5e5; border-radius: 4px; border-color: black; padding: 8px 13px; font-size: 12px;">
+			<input type="text" name="checkString" placeholder="인증문자를 입력해주세요." id="checkString" style="paddaing: 10.5px 15px; outline: none; border: 1px solid #e5e5e5; border-radius: 4px; border-color: black; padding: 8px 13px; font-size: 12px; text-align:center; width:250px;">
 		</div>
 		<br>
 		<div>
@@ -31,4 +31,12 @@
 	</form>
 	<br>
 </section>
+
+<script typle="text/javascript">
+/// 이메일 재전송
+document.getElementById("resend").addEventListener("click", () => {
+	var regForm = document.getElementById("regForm");
+	regForm.submit();
+});
+</script>
 

@@ -1,8 +1,5 @@
 package fproject.app.fproject.service;
 
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,12 +25,11 @@ public class MemberService {
 		AccountVo accountVo = new AccountVo(0, id, pwd);
 		memDao.insert(accountVo);
 		int userNum = memDao.getUserAccountInfo(accountVo.getId()).getNum();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String phoneOne = phone.substring(0, 3);
         String phoneTwo = phone.substring(3, 7);
         String phoneThr = phone.substring(7);
         String convPhone = phoneOne + "-" + phoneTwo + "-" + phoneThr;
-		ProfilesVo profilesVo = new ProfilesVo(userNum, name, convPhone, email, format.format(birthDate), null, null, null);
+		ProfilesVo profilesVo = new ProfilesVo(userNum, name, convPhone, email, birthDate, null, null, null);
 		profDao.insert(profilesVo);
 	}
 
