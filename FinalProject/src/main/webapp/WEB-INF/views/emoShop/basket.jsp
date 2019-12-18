@@ -15,7 +15,7 @@
   <section id="page_cart">
 	<h2 class="article_title">바구니</h2>
 	  <div class="cart_wrapper js_cart_wrapper">
-		<form action="/emoShop/purchase" method="post" id="form" class="checkout_form js_checkout_form">
+		<form action="${cp }/emoShop/purchase" method="post" id="form" class="checkout_form js_checkout_form">
 		  <article class="cart_summary_wrapper">
 			<div class="summary_box_wrapper js_summary_box_wrapper">
 			  <div class="summary_box">
@@ -62,7 +62,7 @@
 					<div class="book_thumbnail_wrapper has_checkbox" style="display:inline-block; padding: 20px 20px 15px 18px;">
 					  <div class="book_thumbnail" style="display:inline-block;">
 						<div class="thumbnail_checkbox">
-						  <input type="checkbox" id="${vo.emognum}" class="rui_checkbox_input" title="${vo.name } 선택" name="emognum[]" value="${vo.price }" data-book-index="${s.index}">
+						  <input type="checkbox" id="${vo.emognum}" class="rui_checkbox_input" title="${vo.name } 선택" name="emognum" value="${vo.emognum }" data-book-index="${s.index}" data-book-price="${vo.price }">
 						</div>
 					    <div class="thumbnail_image">
 						  <img class="thumbnail ls-is-cached lazyloaded border" src="이모티콘 경로" alt="${vo.name }">
@@ -101,7 +101,7 @@
                       </div>
                         
                     </div>
-					<input type="hidden" name="prices[]" value="${vo.price }" readonly>
+					<input type="hidden" name="prices" class="r_price" value="${vo.price }" readonly>
                   </div>
                   <hr>
 				</div>
@@ -164,7 +164,8 @@
 		});
 		document.querySelector(".blue_button").addEventListener("click", e => {
 			alert("선택한 이모티콘을 구매하였습니다.");
-			document.getElementById("form").submit();
+			ajax(e);
+			//document.getElementById("form").submit();
 		});
 	})();
 
@@ -252,6 +253,7 @@
 		xhr.send(json);
 	}
 
+	
 	function ajax(e) {
 		var xhr = null;
 
@@ -276,6 +278,8 @@
 					xhr.open('post', '${cp}/emoShop/moveBaskettoWish'); break;
 				case 'delSelectItemBtn':
 					xhr.open('post', '${cp}/emoShop/delBasketItem'); break;
+				default:
+					xhr.open('post', '${cp}/emoShop/delBasketItem');
 			}
 			xhr.onreadystatechange = function() {
 				if(xhr.status === 200 && xhr.readyState === 4) {
@@ -300,6 +304,7 @@
 									value.dataset.bookIndex = index;
 								});
 								var list = document.getElementsByClassName('bookmacro_wrapper');
+								console.log(list[value.dataset.bookIndex]);
 								list[value.dataset.bookIndex].remove();
 								document.querySelector('.js_price_wrapper .price_num').innerText = totalPrice();
 						}
@@ -310,6 +315,7 @@
 			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 			xhr.send(itemCheckedList());
 		}
+		
 		return call(e);
 	}
 	
@@ -317,10 +323,9 @@
 		var checkboxList = document.querySelectorAll(".bookmacro_wrapper input[type='checkbox']");
 		var price = 0;
 		checkboxList.forEach((value, index, listObj) => {
-			if(value.checked) price += Number.parseInt(value.value);
+			if(value.checked) price += Number.parseInt(value.dataset.bookPrice);
 		});
-		var result = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-		return result;
+		return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 </script>
 

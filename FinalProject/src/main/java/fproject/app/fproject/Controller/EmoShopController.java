@@ -6,10 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,6 @@ import fproject.app.fproject.service.FavorListService;
 import fproject.app.fproject.service.MemberService;
 import fproject.app.fproject.vo.EmoWishListVo;
 import fproject.app.fproject.vo.EmoshopVo;
-import fproject.app.fproject.vo.EmoticongroupVo;
 import fproject.app.fproject.vo.FavorlistVo;
 import fproject.app.fproject.vo.PurchaseVo;
 
@@ -69,24 +66,7 @@ public class EmoShopController {
 		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList"); // basketList의 컬렉션(?)이 <EmoshopVo>여야 함
 		req.getSession().setAttribute("basketList", basketList);
 		//basketList = (List)req.getSession().getAttribute("basketList");
-		
-		// 버그있음(첫 항목 짤림)
-		Paging pg = new Paging(2, basketList.size(), 4, thisPage, 0);
-		System.out.println("thisPage: "+ pg.getThisPage());
-		System.out.println("startPage: " + pg.getStartPage());
-		System.out.println("endPage: " + pg.getEndPage());
-		System.out.println("totalCount: " + basketList.size());
-		System.out.println("startRow: " + pg.getStartRow());
-		System.out.println("endRow: " + pg.getEndRow());
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("startRow", pg.getStartRow());
-		map.put("endRow", pg.getEndRow());
-		map.put("userNum", pg.getEndRow());
-		map.put("startPage", pg.getStartPage());
-		map.put("endPage", pg.getEndPage());
-		map.put("thisPage", pg.getThisPage());
 		model.addAttribute("list", basketList);
-		model.addAttribute("map", map);
 		return "emoShop/basket";
 	}
 	
@@ -115,12 +95,32 @@ public class EmoShopController {
 	@ResponseBody()
 	public String delBasketItem(Model model, HttpSession session, @RequestBody List<Integer> delList) {
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
+		for(int i : delList) {
+			System.out.print(i + " ");
+		}
+		System.out.println();
+		for(EmoshopVo i : basketList) {
+			System.out.print(i.getEmognum() + " ");
+		}
+		System.out.println();
+		System.out.println("listsize: " + delList.size());
+		System.out.println();
 		int userNum = (int)session.getAttribute("num");
 		int len=delList.size();
-		for(int i=len-1; i>=0; i--) {
+		for(int i=delList.size(); i>=0; i--) {
 			basketList.remove(i);
 		}
+		delList
+		for(int i : delList) {
+			basketList.remove(i);
+			for(int j=delList.size(); j<i; j--) {
+				basketList.   basketList.get(j);
+			}  
+		}
 		session.setAttribute("basketList", basketList);
+		for(EmoshopVo i : basketList) {
+			System.out.println(i.getEmognum());
+		}
 		return "선택한 항목을 삭제했습니다.";
 	}
 	
@@ -179,14 +179,17 @@ public class EmoShopController {
 		return "선택한 항목을 삭제했습니다.";
 	}
 	
-	@RequestMapping(value="/purchase")
-	public String purchasePageMove(Model model, HttpServletRequest req, String emognum, String prices) {
+	@RequestMapping(value="/purchase", method=RequestMethod.POST)
+	public String purchasePageMove(Model model, HttpServletRequest req, int[] emognum, int[] prices) {
 		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList");
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		req.getSession().getAttribute("num");
-		model.addAttribute("basketList", basketList);
-		model.addAttribute("map", map);
-		return "emoShop/purchase";
+		int userNum = (int)req.getSession().getAttribute("num");
+		List<PurchaseVo> list = new ArrayList<PurchaseVo>();
+		for(int i : emognum) {
+			PurchaseVo vo = new PurchaseVo(0, null, i, userNum);
+			list.add(vo);
+		}
+		//emoShopService.savePurchaseList(list);
+		return "emoShop/main";
 	}
 	
 	@RequestMapping(value="/purchase/buy", method=RequestMethod.POST)
