@@ -180,16 +180,10 @@ public class EmoShopController {
 	}
 	
 	@RequestMapping(value="/purchase")
-	public String purchasePageMove(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
+	public String purchasePageMove(Model model, HttpServletRequest req, String emognum, String prices) {
 		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList");
-		Paging pg = new Paging(10, basketList.size(), 10, thisPage, 0);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("startRow", pg.getStartRow());
-		map.put("endRow", pg.getEndRow());
-		map.put("userNum", pg.getEndRow());
-		map.put("startPage", pg.getStartPage());
-		map.put("endPage", pg.getEndPage());
-		map.put("thisPage", pg.getThisPage());
+		req.getSession().getAttribute("num");
 		model.addAttribute("basketList", basketList);
 		model.addAttribute("map", map);
 		return "emoShop/purchase";

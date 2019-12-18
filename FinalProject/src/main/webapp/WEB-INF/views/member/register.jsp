@@ -67,8 +67,9 @@
 				<br>
 				<div class="form-row">
 					<label for="phone">전화번호</label>
-					<input type="text" name="phone" value="${phone }" id="phone" placeholder="전화번호를 입력해주세요." required>
+					<input type="text" name="phone" value="${phone }" id="phone" placeholder="숫자로만 입력해주세요." required>
 				</div>
+				<span id="phoneNotice"></span>
 				<br>
 				<div class="form-row">
 					<label for="birth">생년월일</label>
@@ -102,13 +103,16 @@
 		var idVal = document.getElementById("id");
 		var pwdVal = document.getElementById("pwd");
 		var rePwdVal = document.getElementById("rePwd");
+		var phoneVal = document.getElementById("phone");
 		var idNotice = document.getElementById("idNotice");
 		var pwdNotice = document.getElementById("pwdNotice");
 		var rePwdNotice = document.getElementById("rePwdNotice");
+		var phoneNotice = document.getElementById("phoneNotice");
 		var idCheckR = false;
 		var idDBCheckR = false;
 		var pwdCheckR = false;
 		var rePwdCheckR = false;
+		var phoneCheckR = false;
 		var idxhr = null;
 
 		moveLoginBtn.addEventListener("click", () => {
@@ -191,16 +195,41 @@
 		}
 		
 		
+	   /// 전화번호 검사
+		phoneVal.addEventListener("change", () => {
+			phoneCheck();
+		});
+		
+		function phoneCheck() {
+			if(phoneVal.value.length != 11) {
+				phoneCheckR = false;
+				phoneNotice.innerText="잘못된 전화번호입니다."
+			} else {
+				for(var i=0; i<phoneVal.value.length; i++) {
+					var ch = phoneVal.value.charAt(i);
+					if(!(ch>='0' && ch<='9')) {
+						phoneCheckR = false;
+						phoneNotice.innterText = "전화번호는 숫자로만 입력해주세요(붙임표 제외).";
+					} else {
+						phoneCheckR = true;
+						phoneNotice.innterText = "";
+					}
+				}
+			}
+		}
+		
+		
 	   /// 최종 검사 후 이메일 전송 컨트롤러로 submit
 		okBtn.addEventListener("click", (e) => {
-			if(idCheckR && idDBCheckR && pwdCheckR && rePwdCheckR) {
+			if(idCheckR && idDBCheckR && pwdCheckR && rePwdCheckR && phoneCheckR) {
 				regForm.submit();
 			} else {
 				console.log(idCheckR);
 				console.log(idDBCheckR);
 				console.log(pwdCheckR);
 				console.log(rePwdCheckR);
-				alert("아이디와 비밀번호 문법검사 확인이벤트 오류");
+				console.log(phoneCheckR);
+				alert("시키는대로 쓰세요.");
 			}
 		});
 	   

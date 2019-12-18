@@ -1,6 +1,6 @@
 package fproject.app.fproject.service;
 
-import java.sql.Date;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,11 @@ public class MemberService {
 		memDao.insert(accountVo);
 		int userNum = memDao.getUserAccountInfo(accountVo.getId()).getNum();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		ProfilesVo profilesVo = new ProfilesVo(userNum, name, phone, email, format.format(birthDate), null, null, null);
+        String phoneOne = phone.substring(0, 3);
+        String phoneTwo = phone.substring(3, 7);
+        String phoneThr = phone.substring(7);
+        String convPhone = phoneOne + "-" + phoneTwo + "-" + phoneThr;
+		ProfilesVo profilesVo = new ProfilesVo(userNum, name, convPhone, email, format.format(birthDate), null, null, null);
 		profDao.insert(profilesVo);
 	}
 

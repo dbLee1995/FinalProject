@@ -162,6 +162,10 @@
 		delItemBtn.forEach((value, index, listObj) => {
 			value.addEventListener("click", delThisItem);
 		});
+		document.querySelector(".blue_button").addEventListener("click", e => {
+			alert("선택한 이모티콘을 구매하였습니다.");
+			document.getElementById("form").submit();
+		});
 	})();
 
 	function selectAllItem() {
