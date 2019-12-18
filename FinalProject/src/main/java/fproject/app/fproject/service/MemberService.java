@@ -28,10 +28,8 @@ public class MemberService {
 		AccountVo accountVo = new AccountVo(0, id, pwd);
 		memDao.insert(accountVo);
 		int userNum = memDao.getUserAccountInfo(accountVo.getId()).getNum();
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-        java.util.Date parsed = format.parse(birthDate);
-        java.sql.Date convBirthDate = new java.sql.Date(parsed.getTime());
-		ProfilesVo profilesVo = new ProfilesVo(userNum, name, phone, email, convBirthDate, null, null, null);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		ProfilesVo profilesVo = new ProfilesVo(userNum, name, phone, email, format.format(birthDate), null, null, null);
 		profDao.insert(profilesVo);
 	}
 

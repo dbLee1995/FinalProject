@@ -7,12 +7,12 @@ public class ProfilesVo{
 	private String name;
 	private String phone;
 	private String email;
-	private Date birth;
+	private String birth;
 	private String profileimg;
 	private String backimg;
 	private String msg;
 	public ProfilesVo() {}
-	public ProfilesVo(int num, String name, String phone, String email, Date birth, String profileimg, String backimg,
+	public ProfilesVo(int num, String name, String phone, String email, String birth, String profileimg, String backimg,
 			String msg) {
 		super();
 		this.num = num;
@@ -48,10 +48,10 @@ public class ProfilesVo{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 	public String getProfileimg() {
