@@ -86,10 +86,10 @@
 				              <h3 class="mb-4"><a href="#">${list.stitle}</a></h3>
 				              <p class="mb-4">${list.scontent}</p>
 				              <div class="author mb-4 d-flex align-items-center">
-				            		<a href="${pageContext.request.contextPath}/profiles/info?num=${sessionScope.num}" class="img" style="background-image: url(${profileimg});"></a>
+				            		<a href="${pageContext.request.contextPath}/profiles/info?num=${num}" class="img" style="background-image: url(${profileimg});"></a>
 				            		<div class="ml-3 info">
 				            			<span>Written by</span>
-				            			<h3><a href="${cp}/profiles/info?num=${sessionScope.num}">${id}</a>, <span>${list.sregdate}</span></h3>
+				            			<h3><a href="${cp}/profiles/info?num=${num}">${id}</a>, <span>${list.sregdate}</span></h3>
 				            		</div>
 				            	</div>
 				              <div class="meta-wrap d-md-flex align-items-center">

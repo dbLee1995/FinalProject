@@ -11,8 +11,13 @@
 			height:250px;
 			border-radius:50%;
 		}
-		.p1{
-			float:left;	
+		.tb, tr, th{
+			text-align:right;
+			padding-left: 30px;
+		}
+		td{
+    		text-align: left;
+    		padding-left: 15px;
 		}
     </style>
     <meta charset="utf-8">
@@ -59,28 +64,72 @@
 			<section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
 	    	<div class="container-fluid px-0">
 	    		<div class="row d-flex">
+	    		<c:choose>	
+	    			<c:when test="${sessionScope.num eq pvo.num}">
 	    			<div class="col-md-6 d-flex">
-	    				<div style="width:100%;height:100%;margin-left:50px;">
- <!-- background이미지 --><div class="img d-flex align-self-stretch align-items-center js-fullheight" style="background-image:url(images/about.jpg);">	    					
-	    					<div style="background-color:lightgray;width:90%;height:880px;margin:auto;padding-top:250px;padding-bottom:30px;">	    						
+	    				<div style="width:100%;height:100%;margin-left:50px;">	    				
+ <!-- background이미지 --><div class="img d-flex align-self-stretch align-items-center js-fullheight" style="background-image:url(${pvo.backimg});">					    					
+	    					<div style="width:90%;height:880px;margin:auto;padding-top:250px;padding-bottom:30px;">	    						
 	    	  <!-- 이미지 -->		<div style="width:280px;height:300px;margin:auto;">
 	    	  					<a href="#">
 	    	   						<img src="${cp}/resources/upload/image_4.jpg" class="img prof">
 	    	   					</a>
-	    	     	   	    	</div>							    						
+	    	     	   	    	</div> 								    						
 	    					<div style="text-align:center;width:100%;height:50%;padding-bottom:500px;font-size:large;"><!-- 전화번호/이메일 -->
 	    			<!-- 이름 --><label>${id}</label> <a href="#" class="icon-pencil"></a>
 	    						<hr style="border: 1px solid white;width:95%;margin-top: -3px;">
-	    						<div style="width:300px;margin:auto;">
-	    							<label class="p1">생일 : </label>&nbsp;<label>${pvo.birth}</label><br>
-		    						<label class="p1">전화번호 : </label>&nbsp;<label>${pvo.phone}</label><br>
-		    						<label class="p1">이메일 : </label>&nbsp;<label>${pvo.email}</label><br>
-	    						</div>
+	    						<table class="tb" style="width:400px;margin:auto;">
+	    							<tr><th>Birth : </th><td>${pvo.birth}<a href="" class="icon-pencil"  onclick="iconClick" style="padding-left:5px;display:inline;"></a></td></tr>
+	    							<tr><th>Phone : </th><td>${pvo.phone}<a href="" class="icon-pencil" style="padding-left:5px;"></a></td></tr>
+	    							<tr><th>Email : </th><td>${pvo.email}<a href="" class="icon-pencil" style="padding-left:5px;"></a></td></tr>
+	    						</table>			
+	    						<table class="tb" style="width:500px;margin-top:10px;">
+	    							<tr><th><hr style="color:white;border:1px"></th></tr>
+	    							<tr>
+	    								<th>
+	    									<form method="post" id="form">
+	    									<input type="file" id="changeFile1" onChange="changeFile();" style="display:none;"/>
+	    									<a href="#" class="file1" name="file1" onClick="uploadFile(); return false">배경편집</a>
+	    									</form>
+	    								</th>	    							
+	    							<th><a href="${pageContext.request.contextPath}/story/list?num=${pvo.num}">MyStory</a></th>
+	    							<th><a href="${pageContext.request.contextPath}/friends/list?num=${pvo.num}">Friends</a></th></tr>    							
+	    						</table>	    						
 	    					</div>	    						
 	    					</div>
 	    				</div>
 	    				</div>
 	    			</div>
+	    			</c:when>
+	    				<c:otherwise>
+	    					<div class="col-md-6 d-flex">
+	    				<div style="width:100%;height:100%;margin-left:50px;">	    				
+ <!-- background이미지 --><div class="img d-flex align-self-stretch align-items-center js-fullheight" style="background-image:(${pvo.backimg});">					    					
+	    					<div style="width:90%;height:880px;margin:auto;padding-top:250px;padding-bottom:30px;">	    						
+					<!-- 이미지 --><div style="width:280px;height:300px;margin:auto;">
+	    	   						<img src="${cp}/resources/upload/image_4.jpg" class="img prof">				
+								 </div> 								    						
+	    					<div style="text-align:center;width:100%;height:50%;padding-bottom:500px;font-size:large;"><!-- 전화번호/이메일 -->
+	    			<!-- 이름 --><label>${id}</label> <a href="#" class="icon-pencil"></a>
+	    						<hr style="border: 1px solid white;width:95%;margin-top: -3px;">
+	    						<table class="tb" style="width:400px;margin:auto;">
+	    							<tr><th>Birth : </th><td>${pvo.birth}</td></tr>
+	    							<tr><th>Phone : </th><td>${pvo.phone}</td></tr>
+	    							<tr><th>Email : </th><td>${pvo.email}</td></tr>
+	    						</table>			
+	    						<table class="tb" style="width:300px;margin-top:10px;margin-left: 100px;">
+	    							<tr><th><hr style="color:white;border:1px"></th></tr>
+	    							<tr>    							
+	    							<th><a href="${pageContext.request.contextPath}/story/list?num=${pvo.num}">MyStory</a></th>
+	    							<th><a href="${pageContext.request.contextPath}/friends/list?num=${pvo.num}">Friends</a></th></tr>    							
+	    						</table>	    						
+	    					</div>	    						
+	    					</div>
+	    				</div>
+	    				</div>
+	    			</div>
+	    				</c:otherwise>
+	    			</c:choose>
 	    			<div class="col-md-6 d-flex align-items-center">
 	    				<div class="text px-4 pt-5 pt-md-0 px-md-4 pr-md-5 ftco-animate">
 		            <h2 class="mb-4">I'm <span>Andrea Moore</span> a Scotish Blogger &amp; Explorer</h2>
@@ -95,8 +144,7 @@
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
+	
   <script src="${cp}/resources/js/jquery.min.js"></script>
   <script src="${cp}/resources/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="${cp}/resources/js/popper.min.js"></script>
@@ -112,5 +160,33 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="${cp}/resources/js/google-map.js"></script>
   <script src="${cp}/resources/js/main.js"></script>   
+  <script type="text/javascript">
+		function uploadFile(){
+			jQuery("#changeFile1").click();
+		}
+		function changeFile(){		
+			setFile();
+		}
+		function setFile(){
+			var form2=jQuery("form");
+			var formData=new FormData(document.getElementById("form"));
+			formData.append("file",jQuery("#changFile1").file);
+										// display:none으로 만든 input창 id입력
+			alert(form2 + "," + formData);
+			jQuery.ajax({
+				url:"${cp}/profile/updateBackImg?num=${pvo.num}",
+				type:"POST",
+				processData:false,
+				contentType:false,
+				data:formData,
+				success:function(){
+					alert("업로드완료!!!");
+				}
+			});
+		}
+		
+		
+
+	</script>
   </body>
 </html>

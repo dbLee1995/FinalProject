@@ -15,4 +15,7 @@ public class ProfilesService {
 	 public ProfilesVo info(int num){
 		 return profilesDao.info(num);
 	 }
+	 public int update(ProfilesVo vo){
+		 return profilesDao.update(vo);
+	 }
 }
