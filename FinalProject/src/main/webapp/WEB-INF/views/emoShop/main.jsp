@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>이모티콘</title>
+<title>코코아톡:: 이모티콘</title>
 <style type="text/css">
 	footer {
 		position: absolute;

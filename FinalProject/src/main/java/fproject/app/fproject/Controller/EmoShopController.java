@@ -189,19 +189,7 @@ public class EmoShopController {
 			PurchaseVo vo = new PurchaseVo(0, null, i, userNum);
 			list.add(vo);
 		}
-		//emoShopService.savePurchaseList(list);
+		emoShopService.savePurchaseList(list);
 		return "emoShop/main";
-	}
-	
-	@RequestMapping(value="/purchase/buy", method=RequestMethod.POST)
-	public String purchase(Model model, @RequestBody PurchaseVo vo) {
-		model.addAttribute("feature", "이모티콘 구매");
-		List<PurchaseVo> list = vo.getList();
-		if(list != null) {
-			emoShopService.savePurchaseList(list);
-			return "emoShop/main";
-		} else {
-			return "test/error";
-		}
 	}
 }

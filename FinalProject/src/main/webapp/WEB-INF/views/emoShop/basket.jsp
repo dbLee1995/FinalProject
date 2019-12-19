@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>유사카톡:: 이모티콘 바구니</title>
+<title>코코아톡:: 이모티콘 바구니</title>
 <link rel="stylesheet" href="${cp }/resources/css/page_cart.css"/>
 <link rel="stylesheet" href="${cp }/resources/css/page_base.css"/>
 <link rel="stylesheet" href="${cp }/resources/css/page_btn.css"/>

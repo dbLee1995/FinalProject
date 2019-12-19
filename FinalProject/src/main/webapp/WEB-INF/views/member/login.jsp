@@ -68,7 +68,7 @@
 						</div>
 						
 						<span class="txt1 p-b-11">
-							Password
+								Password
 						</span>
 						<div class="wrap-input100 validate-input m-b-12" data-validate = "Password is required">
 							<span class="btn-show-pass">
@@ -86,12 +86,13 @@
 									Remember me
 								</label>
 							</div>
-	
+							
 							<div>
-								<a href="#" class="txt3">
-									Forgot Password?
-								</a>
+								<a href="${cp }/member/find_id" class="txt3" style="padding-right:10px;">Forgot Id?</a> 		
+								<a href="${cp }/member/find_pw" class="txt3">Forgot Password?</a> 
 							</div>
+					
+							
 						</div>
 	
 						<div class="container-login100-form-btn">

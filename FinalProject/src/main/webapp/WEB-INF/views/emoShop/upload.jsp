@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>파일 업로드</title>
+<title>코코아톡 - 이모티콘 파일 업로드</title>
 <style type="text/css">
 	.imgPreview {
 		display: inline-block;
