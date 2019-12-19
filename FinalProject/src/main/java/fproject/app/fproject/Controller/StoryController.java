@@ -215,11 +215,11 @@ public class StoryController {
 		
 	// 답글입력
 	@RequestMapping(value="story/commentsReply",method=RequestMethod.POST)
-	public String commentsReply(CommentsVo vo,int commnum,int num,int storynum){		
+	public String commentsReply(CommentsVo vo,int commnum,int num,int storynum,Model model){		
 		CommentsVo cvo=cservice.infoCommNum(commnum);	
 		CommentsVo rvo=new CommentsVo(0, storynum, num, vo.getCommcontent(), 
 										cvo.getCommref(), cvo.getCommlev()+1, cvo.getCommstep(),null);		
-		int n=cservice.insertReply(rvo);		// 새글		
+		int n=cservice.insertReply(rvo);		// 새글	
 		return "redirect:/story/commentsReply?num=" + num + "&storynum=" + storynum;
 	}
 }

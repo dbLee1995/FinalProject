@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,41 +51,44 @@ public class ProfilesController {
 		return mv;
 	}
 	@RequestMapping(value="profile/updateBackImg",method=RequestMethod.POST,produces="text/plain")
+	@ResponseBody
 	public String setBackImg(int num,MultipartFile file1,HttpSession session,Model model){
 		try{			
 			if(!file1.isEmpty()){ // 첨부된파일이 있는 경우
           // 1. 기존파일 삭제
             String path=session.getServletContext()
                                .getRealPath("/resources/upload");
+            System.out.println("경로::::"+path+",,,,,,,file1:"+file1);
             ProfilesVo pvo1=pservice.info(num);
-            String backimg=pvo1.getBackimg();
-            File f=new File(path + "\\" + backimg);
+            String backimg2=pvo1.getBackimg();
+            File f=new File(path + "\\" + backimg2);
             if(!f.delete()){
                new Exception("파일삭제실패!");
             }
             // 2. 첨부된 파일 저장
-            backimg=file1.getOriginalFilename();
-            String backimg2 = UUID.randomUUID() +"_" + backimg;
+            backimg2=file1.getOriginalFilename();
+            String backimg = UUID.randomUUID() +"_" + backimg2;
             InputStream is=file1.getInputStream();
             FileOutputStream fos=
-                    new FileOutputStream(path +"\\" + backimg2);
+                    new FileOutputStream(path +"\\" + backimg);
             FileCopyUtils.copy(is,fos);
             is.close();
             fos.close();
             //3. db수정            
             ProfilesVo pvo=new ProfilesVo(num,null,null,null,null,null,backimg2,null);
-            pservice.update(pvo);
+            pservice.updateBackimg(pvo);
                       
           }else {//첨부된 파일이 없는 경우
             //db수정하기       	  
         	  ProfilesVo pvo=new ProfilesVo(num,null,null,null,null,null,null,null);  
-        	  pservice.update(pvo);        	  
+        	  pservice.updateBackimg(pvo);        	  
           }        
 			String backImg=pservice.info(num).getBackimg();
             return "redirect:/profiles/info?num="+num;
           }catch(Exception e){
             e.printStackTrace();
             return "test/error";
+            
           }
 	}
 }

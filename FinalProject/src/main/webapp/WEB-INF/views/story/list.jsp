@@ -97,7 +97,7 @@
 					              	<p class="meta">
 					              		<span><i class="icon-heart"></i>3</span>
 					              		<span><i class="icon-eye"></i>100</span>
-					              		<span><a href="${pageContext.request.contextPath}/story/comments?storynum=${list.storynum}&num=${sessionScope.num}"><i class="icon-comment"></i>5</a></span>
+					              		<span><a href="${pageContext.request.contextPath}/story/comments?storynum=${list.storynum}&num=${list.num}&num=${sessionScope.num}"><i class="icon-comment"></i>5</a></span>
 					              		<c:if test="${sessionScope.id == id}">
 					              			<span><a href="${pageContext.request.contextPath}/story/update?storynum=${list.storynum}&num=${sessionScope.num}"><i class="icon-person"></i>수정</a></span>
 					              		</c:if>

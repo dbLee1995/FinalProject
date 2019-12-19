@@ -87,9 +87,9 @@
 	    							<tr><th><hr style="color:white;border:1px"></th></tr>
 	    							<tr>
 	    								<th>
-	    									<form method="post" id="form">
-	    									<input type="file" id="changeFile1" onChange="changeFile();" style="display:none;"/>
-	    									<a href="#" class="file1" name="file1" onClick="uploadFile(); return false">배경편집</a>
+	    									<form method="post" id="setform" enctype="multipart/form-data">
+	    									<input type="file" name="changeFile1" id="changeFile1" onChange="changeFile(this);" style="display:none;"/>
+	    									<a href="javascript:void(0);" class="file1" name="file1" onClick="uploadFile(); ">배경편집</a>
 	    									</form>
 	    								</th>	    							
 	    							<th><a href="${pageContext.request.contextPath}/story/list?num=${pvo.num}">MyStory</a></th>
@@ -104,8 +104,9 @@
 	    				<c:otherwise>
 	    					<div class="col-md-6 d-flex">
 	    				<div style="width:100%;height:100%;margin-left:50px;">	    				
- <!-- background이미지 --><div class="img d-flex align-self-stretch align-items-center js-fullheight" style="background-image:(${pvo.backimg});">					    					
-	    					<div style="width:90%;height:880px;margin:auto;padding-top:250px;padding-bottom:30px;">	    						
+ <!-- background이미지 --><div class="img d-flex align-self-stretch align-items-center js-fullheight" style="margin:auto;padding-top:250px;padding-bottom:30px;">					    					
+	    					<img src="${pvo.backImg}">
+	    					<div style="background-image:url(${pvo.backImg})">	    						
 					<!-- 이미지 --><div style="width:280px;height:300px;margin:auto;">
 	    	   						<img src="${cp}/resources/upload/image_4.jpg" class="img prof">				
 								 </div> 								    						
@@ -117,11 +118,10 @@
 	    							<tr><th>Phone : </th><td>${pvo.phone}</td></tr>
 	    							<tr><th>Email : </th><td>${pvo.email}</td></tr>
 	    						</table>			
-	    						<table class="tb" style="width:300px;margin-top:10px;margin-left: 100px;">
+	    						<table class="tb" style="margin-top:10px;margin-left:210px;">
 	    							<tr><th><hr style="color:white;border:1px"></th></tr>
 	    							<tr>    							
-	    							<th><a href="${pageContext.request.contextPath}/story/list?num=${pvo.num}">MyStory</a></th>
-	    							<th><a href="${pageContext.request.contextPath}/friends/list?num=${pvo.num}">Friends</a></th></tr>    							
+	    							<th><a href="${pageContext.request.contextPath}/story/list?num=${pvo.num}">CocoaStory</a></th> 							
 	    						</table>	    						
 	    					</div>	    						
 	    					</div>
@@ -161,19 +161,19 @@
   <script src="${cp}/resources/js/google-map.js"></script>
   <script src="${cp}/resources/js/main.js"></script>   
   <script type="text/javascript">
-		function uploadFile(){
-			jQuery("#changeFile1").click();
+		function uploadFile(){			
+			$("#changeFile1").click();
+			
 		}
-		function changeFile(){		
-			setFile();
+		function changeFile(e){				
+			setFile(e);
 		}
-		function setFile(){
-			var form2=jQuery("form");
-			var formData=new FormData(document.getElementById("form"));
-			formData.append("file",jQuery("#changFile1").file);
-										// display:none으로 만든 input창 id입력
-			alert(form2 + "," + formData);
-			jQuery.ajax({
+		function setFile(e){
+			//var form=jQuery("#setform");			
+			var formData=new FormData();							
+  			formData.append("file1",$("#changeFile1")[0].files[0]);
+  							// display:none으로 만든 input창 id입력
+			$.ajax({
 				url:"${cp}/profile/updateBackImg?num=${pvo.num}",
 				type:"POST",
 				processData:false,
