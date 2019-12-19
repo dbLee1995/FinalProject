@@ -47,7 +47,7 @@
 						  <input type="checkbox" id="${vo.emognum}" class="rui_checkbox_input" title="${vo.name } 선택" name="emognum" value="${vo.emognum }" data-book-index="${s.index}" data-book-price="${vo.price }">
 						</div>
 					    <div class="thumbnail_image">
-						  <img class="thumbnail ls-is-cached lazyloaded border" src="이모티콘 경로" alt="${vo.name }">
+						  <img class="thumbnail ls-is-cached lazyloaded border" src="${cp }/resources/uploadImage/admin/emoticon/${vo.category }/${vo.name }/${vo.repreImg }" alt="${vo.name }">
 					    </div>
 					    <a class="thumbnail_btn" href="여기이모티콘들어가야함ㅅㅂ" style="display:inline-block;">
 						  <span style="display:none;">상세페이지 바로가기</span>

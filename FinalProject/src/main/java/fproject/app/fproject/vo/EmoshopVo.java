@@ -5,6 +5,7 @@ public class EmoshopVo{
 	private int price;
 	private String name;
 	private String category;
+	private String repreImg;
 	public EmoshopVo() {}
 	public EmoshopVo(int emognum, int price, String name, String category) {
 		super();
@@ -37,5 +38,10 @@ public class EmoshopVo{
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+	public String getRepreImg() {
+		return repreImg;
+	}
+	public void setRepreImg(String repreImg) {
+		this.repreImg = repreImg;
+	}
 }

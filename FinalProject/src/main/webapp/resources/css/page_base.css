@@ -83,16 +83,11 @@
  opacity:1
 }
 .book_thumbnail_wrapper .book_thumbnail .border {
- box-sizing:border-box;
- opacity:.1;
  display:block;
- width:100%;
- height:100%;
  position:absolute;
  left:0;
  top:0;
  z-index:3;
- border:1px solid #000
 }
 .book_thumbnail_wrapper .book_thumbnail .thumbnail_image {
  display:block;

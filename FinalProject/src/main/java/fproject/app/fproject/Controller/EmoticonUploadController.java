@@ -34,6 +34,7 @@ public class EmoticonUploadController {
 		List<String> orgNameList = new ArrayList<String>();
 		List<Long> fileSizeList = new ArrayList<Long>();
 		String savePath = req.getSession().getServletContext().getRealPath("/resources/uploadImage/admin/emoticon");
+		String saveName = "";
 		System.out.println("이모티콘 저장 경로: " + savePath);
 		try {
 			String path = savePath + "\\" + vo.getCategory() + "\\" + vo.getName();
@@ -41,8 +42,7 @@ public class EmoticonUploadController {
 				for (MultipartFile mf : req.getFiles("file")) {
 					String originalFileName = mf.getOriginalFilename();
 					String extName = originalFileName.substring(originalFileName.lastIndexOf("."), originalFileName.length());
-					String saveName = fileNum + extName;
-					System.out.println(saveName);
+					saveName = fileNum + extName;
 					String fullPath = savePath + "\\" + vo.getCategory() + "\\" + vo.getName() + "\\" + saveName;  // admin/emoticon 폴더 내에 카테고리명→그룹명→1.png, 2.jpg.. 순으로 생성
 					saveNameList.add(saveName);
 					orgNameList.add(originalFileName);
@@ -50,6 +50,7 @@ public class EmoticonUploadController {
 					mf.transferTo(new File(fullPath));  // 이 행에서 파일 저장
 					fileNum++;
 				}
+				vo.setRepreImg(saveName);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

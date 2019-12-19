@@ -21,7 +21,8 @@
 	</section>
 	
 	<section title="emoList" id="emoList">
-    	<div class="article-list" id="article-list"></div>
+		<div style="height: 600px;">a</div>
+		<div style="height: 600px;">a</div>
 	</section>
     
     <!--
@@ -35,83 +36,103 @@
 
 <script type="text/javascript">
 
-function getPageId(n) {
-	return 'article-page-' +n;
-}
 
-function getDocumentHeight() {
-    const body = document.body;
-    const html = document.documentElement;
-    return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-}
-
-function getScrollTop() {
-    return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-}
-
-function getArticleImage() {
-    const hash = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-    const image = new Image;
-    image.className = 'article-list__item__image article-list__item__image--loading';
-    image.src = 'http://api.adorable.io/avatars/250/' + hash;
-    image.onload = function() {
-        image.classList.remove('article-list__item__image--loading');
-    };
-    return image;
-}
-
-function getArticle() {
-    const articleImage = getArticleImage();
-    const article = document.createElement('article');
-    article.className = 'article-list__item';
-    article.appendChild(articleImage);
-    return article;
-}
-
-function getArticlePage(page, articlesPerPage = 16) {
-    const pageElement = document.createElement('div');
-    pageElement.id = getPageId(page);
-    pageElement.className = 'article-list__page';
-    while(articlesPerPage--) {
-        pageElement.appendChild(getArticle());
+/**
+ * Implement infinite scrolling
+ * - Inspired by: http://ravikiranj.net/drupal/201106/code/javascript/how-implement-infinite-scrolling-using-native-javascript-and-yui3
+ */
+ 
+ var count = 1;
+ 
+ var options = {
+		  distance: 50,
+		  callback: function(done) {
+		    // 1. fetch data from the server
+		    // 2. insert it into the document
+		    // 3. call done when we are done
+			var xhr = new XMLHttpRequest();
+			xhr.open('post', '${cp}/emoShop/main');
+			xhr.onreadystatechange = function() {
+				if(xhr.status === 200 && xhr.readyState === 4) {
+					var data = JSON.parse(xhr.responseText);
+					console.log(data);
+					count += 5;
+				}
+			}
+			xhr.send(count);
+		    done();
+		  }
+		};
+ 
+ 
+(function() {
+  var isIE = /msie/gi.test(navigator.userAgent); // http://pipwerks.com/2011/05/18/sniffing-internet-explorer-via-javascript/
+  
+  this.infiniteScroll = function(options) {
+    var defaults = {
+      callback: function() {},
+      distance: 50
     }
-    return pageElement;
-}
-
-function addPaginationPage(page) {
-    const pageLink = document.createElement('a');
-    pageLink.href = '#' + getPageId(page);
-    pageLink.innerHTML = page;
-    const listItem = document.createElement('li');
-    listItem.className = 'article-list__pagination__item';
-    listItem.appendChild(pageLink);
-
-    articleListPagination.appendChild(listItem);
-
-    if(page === 2) {
-        articleListPagination.classList.remove('article-list__pagination--inactive');
+    // Populate defaults
+    for (var key in defaults) {
+      if(typeof options[key] == 'undefined') options[key] = defaults[key];
     }
-}
+    
+    var scroller = {
+      options: options,
+      updateInitiated: false
+    }
+    
+    window.onscroll = function(event) {
+      handleScroll(scroller, event);  
+    }
+    // For touch devices, try to detect scrolling by touching
+    document.ontouchmove = function(event) {
+      handleScroll(scroller, event);
+    }
+  }
+  
+  function getScrollPos() {
+    // Handle scroll position in case of IE differently
+    if (isIE) {
+      return document.documentElement.scrollTop;
+    } else {
+      return window.pageYOffset;
+    }
+  }
+  
+  var prevScrollPos = getScrollPos();
+  
+  // Respond to scroll events
+  function handleScroll(scroller, event) {
+    if (scroller.updateInitiated) {
+      return;
+    }   
+    var scrollPos = getScrollPos();
+    if (scrollPos == prevScrollPos) {
+      return; // nothing to do
+    }
+    
+    // Find the pageHeight and clientHeight(the no. of pixels to scroll to make the scrollbar reach max pos)
+    var pageHeight = document.documentElement.scrollHeight;
+    var clientHeight = document.documentElement.clientHeight;
+    
+    // Check if scroll bar position is just 50px above the max, if yes, initiate an update
+    if (pageHeight - (scrollPos + clientHeight) < scroller.options.distance) {
+      scroller.updateInitiated = true;
+  
+      scroller.options.callback(function() {
+        scroller.updateInitiated = false;
+      });
+    }
+    
+    prevScrollPos = scrollPos;  
+  }
+})();
 
-function fetchPage(page) {
-    articleList.appendChild(getArticlePage(page));
-}
-
-function addPage(page) {
-    fetchPage(page);
-    addPaginationPage(page);
-}
-
-const articleList = document.getElementById('article-list');
-const articleListPagination = document.getElementById('article-list-pagination');
-let page = 0;
-
-addPage(++page);
-
-window.onscroll = function() {
-	if (getScrollTop() < getDocumentHeight() - window.innerHeight) return;
-    addPage(++page);
-};
+		
+// setup infinite scroll
+infiniteScroll(options);
 
 </script>
 

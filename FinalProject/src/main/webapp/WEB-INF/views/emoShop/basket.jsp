@@ -39,7 +39,7 @@
 			  <div class="module_list_handler js_list_handler_wrapper" style="border-top: 1px solid #d1d5d9; padding: 25px 15px 30px 15px;">
                 <div class="total_checkbox">
                   <input type="checkbox" id="checkbox_all_top" class="rui_checkbox_input js_checkbox_all" title="카트에 있는 책 전체 선택">
-                  <label for="checkbox_all_top" class="rui_checkbox_label">전체 선택</label>
+                  <label for="checkbox_all_top" class="rui_checkbox_label">${vo.name }전체 선택</label>
                 </div>
                 <div class="buttons_wrapper">
                   <ul class="rui_button_group_5" style="display: inline-table; white-space: nowrap; list-style: none; margin: 0; padding: 0;">
@@ -65,7 +65,7 @@
 						  <input type="checkbox" id="${vo.emognum}" class="rui_checkbox_input" title="${vo.name } 선택" name="emognum" value="${vo.emognum }" data-book-index="${s.index}" data-book-price="${vo.price }">
 						</div>
 					    <div class="thumbnail_image">
-						  <img class="thumbnail ls-is-cached lazyloaded border" src="이모티콘 경로" alt="${vo.name }">
+						  <img class="thumbnail ls-is-cached lazyloaded border" src="${cp }/resources/uploadImage/admin/emoticon/${vo.category }/${vo.name }/${vo.repreImg }" alt="${vo.name }">
 					    </div>
 					    <a class="thumbnail_btn" href="여기이모티콘들어가야함ㅅㅂ" style="display:inline-block;">
 						  <span style="display:none;">상세페이지 바로가기</span>

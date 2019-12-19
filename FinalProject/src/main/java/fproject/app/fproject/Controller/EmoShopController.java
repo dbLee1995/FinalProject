@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,8 +33,6 @@ import fproject.app.fproject.vo.PurchaseVo;
 @RequestMapping("emoShop")
 public class EmoShopController {
 	@Autowired
-	private MemberService memberService;
-	@Autowired
 	private FavorListService favorListService;
 	@Autowired
 	private EmoShopService emoShopService;
@@ -42,6 +41,26 @@ public class EmoShopController {
 	public String mainPage(Model model, HttpServletRequest req) {
 		int userNum = (int)req.getSession().getAttribute("num");
 		return "emoShop/main";
+	}
+	
+
+	@RequestMapping(value="/main", produces={"application/json;charset=UTF-8"}, method=RequestMethod.POST)
+	@ResponseBody
+	public JSONArray addEmoticonList(Model model, HttpServletRequest req, int num) {
+		EmoshopVo vo = null;
+		JSONArray jsonArr = new JSONArray();
+		for(int i=num; i<=num+4; i++) {
+			vo = emoShopService.getEmogInfo(i);
+			JSONObject json = new JSONObject();
+			json.put("emogNum", vo.getEmognum());
+			json.put("emogName", vo.getName());
+			json.put("emogCategory", vo.getCategory());
+			json.put("emogPrice", vo.getPrice());
+			json.put("emogRepreImg", vo.getRepreImg());
+			jsonArr.put(json);
+		}
+		System.out.println(jsonArr.toString());
+		return jsonArr;
 	}
 	
 	@RequestMapping(value="/putBasket")
@@ -59,7 +78,6 @@ public class EmoShopController {
 	public String basketPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
 		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList"); // basketList의 컬렉션(?)이 <EmoshopVo>여야 함
 		req.getSession().setAttribute("basketList", basketList);
-		//basketList = (List)req.getSession().getAttribute("basketList");
 		model.addAttribute("list", basketList);
 		return "emoShop/basket";
 	}
@@ -70,11 +88,7 @@ public class EmoShopController {
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
 		List<EmoshopVo> wishList = favorListService.getUserWishList(userNum);
-		//System.out.println("정렬 전 move: " + moveList);
 		Collections.reverse(moveList);
-		//System.out.println("정렬 후 move: " + moveList);
-		//System.out.println("wishList: " + wishList.size());
-		//System.out.println("basketList: " + basketList);
 		for(int i : moveList) {
 			boolean count = true;
 			for(EmoshopVo vo : wishList) {
@@ -86,7 +100,6 @@ public class EmoShopController {
 			}
 			basketList.remove(i);
 		}
-		//System.out.println("basketList: " + basketList.size());
 		session.setAttribute("basketList", basketList);
 		return "선택한 항목을 보관함으로 옮겼습니다.";
 	}
@@ -96,32 +109,11 @@ public class EmoShopController {
 	public String delBasketItem(Model model, HttpSession session, @RequestBody List<Integer> delList) {
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
-		/*
-		for(int i : delList) {
-			System.out.print(i + " ");
-		}
-		System.out.println();
-		for(EmoshopVo i : basketList) {
-			System.out.print(i.getEmognum() + " ");
-		}
-		System.out.println();
-		System.out.println("listsize: " + delList.size());
-		System.out.println();
-		/*
-		for(int i=delList.size(); i>=0; i--) {
-			basketList.remove(i);
-		}
-		*/
 		Collections.reverse(delList);
 		for(int i : delList) {
 			basketList.remove(i);  
 		}
 		session.setAttribute("basketList", basketList);
-		/*
-		for(EmoshopVo i : basketList) {
-			System.out.println(i.getEmognum());
-		}
-		*/
 		return "선택한 항목을 삭제했습니다.";
 	}
 	
