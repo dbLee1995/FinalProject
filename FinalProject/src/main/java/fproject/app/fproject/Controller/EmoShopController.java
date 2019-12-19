@@ -1,6 +1,7 @@
 package fproject.app.fproject.Controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,13 +41,6 @@ public class EmoShopController {
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String mainPage(Model model, HttpServletRequest req) {
 		int userNum = (int)req.getSession().getAttribute("num");
-		//List<EmoticongroupVo> emolist = emoShopService.getList();
-		//model.addAttribute("list", emolist);
-		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList");
-		for(int i=63; i<=77; i++) {
-			basketList.add(emoShopService.getEmogInfo(i));
-		}
-		req.getSession().setAttribute("basketList", basketList);
 		return "emoShop/main";
 	}
 	
@@ -76,6 +70,11 @@ public class EmoShopController {
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
 		List<EmoshopVo> wishList = favorListService.getUserWishList(userNum);
+		//System.out.println("정렬 전 move: " + moveList);
+		Collections.reverse(moveList);
+		//System.out.println("정렬 후 move: " + moveList);
+		//System.out.println("wishList: " + wishList.size());
+		//System.out.println("basketList: " + basketList);
 		for(int i : moveList) {
 			boolean count = true;
 			for(EmoshopVo vo : wishList) {
@@ -84,9 +83,10 @@ public class EmoShopController {
 			}
 			if(count) {
 				favorListService.addUserWishList(new FavorlistVo(0, 0, basketList.get(i).getEmognum(), userNum));
-				basketList.remove(i);
 			}
+			basketList.remove(i);
 		}
+		//System.out.println("basketList: " + basketList.size());
 		session.setAttribute("basketList", basketList);
 		return "선택한 항목을 보관함으로 옮겼습니다.";
 	}
@@ -94,7 +94,9 @@ public class EmoShopController {
 	@RequestMapping(value="/delBasketItem", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
 	@ResponseBody()
 	public String delBasketItem(Model model, HttpSession session, @RequestBody List<Integer> delList) {
+		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
+		/*
 		for(int i : delList) {
 			System.out.print(i + " ");
 		}
@@ -105,22 +107,21 @@ public class EmoShopController {
 		System.out.println();
 		System.out.println("listsize: " + delList.size());
 		System.out.println();
-		int userNum = (int)session.getAttribute("num");
-		int len=delList.size();
+		/*
 		for(int i=delList.size(); i>=0; i--) {
 			basketList.remove(i);
 		}
-		delList
+		*/
+		Collections.reverse(delList);
 		for(int i : delList) {
-			basketList.remove(i);
-			for(int j=delList.size(); j<i; j--) {
-				basketList.   basketList.get(j);
-			}  
+			basketList.remove(i);  
 		}
 		session.setAttribute("basketList", basketList);
+		/*
 		for(EmoshopVo i : basketList) {
 			System.out.println(i.getEmognum());
 		}
+		*/
 		return "선택한 항목을 삭제했습니다.";
 	}
 	

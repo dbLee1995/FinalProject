@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import fproject.app.fproject.Util.RandomString;
 import fproject.app.fproject.Util.SendEmail;
+import fproject.app.fproject.service.EmoShopService;
 import fproject.app.fproject.service.MemberService;
 import fproject.app.fproject.service.UsersService;
 import fproject.app.fproject.vo.AccountVo;
@@ -26,17 +27,11 @@ import fproject.app.fproject.vo.ProfilesVo;
 public class LoginController_kh {
 	@Autowired
 	private UsersService service;
-
-	public void setService(UsersService service) {
-		this.service = service;
-	}
-
+	@Autowired
+	private EmoShopService emoShopService;
 	@Autowired
 	private MemberService service2;
 
-	public void setService(MemberService service2) {
-		this.service2 = service2;
-	}
 
 	@RequestMapping(value = "member/login", method = RequestMethod.GET)
 	public String loginForm(@RequestParam(defaultValue="false") String auth, Model model) {
@@ -55,6 +50,10 @@ public class LoginController_kh {
 			
 			// 장바구니 생성합니다.
 			List<EmoshopVo> basketList = new ArrayList<EmoshopVo>();
+			session.setAttribute("basketList", basketList);
+			for(int i=63; i<=77; i++) {
+				basketList.add(emoShopService.getEmogInfo(i));
+			}
 			session.setAttribute("basketList", basketList);
 			
 			return "redirect:/";

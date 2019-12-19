@@ -44,11 +44,11 @@
                 <div class="buttons_wrapper">
                   <ul class="rui_button_group_5" style="display: inline-table; white-space: nowrap; list-style: none; margin: 0; padding: 0;">
                     <li class="rui_button_item">
-                      <button type="button" class="handling_button rui_button_white_30 js_btn_selected_move_to_wishlist">선택 보관함으로 이동</button>
+                      <button type="button" class="handling_button rui_button_white_30 js_btn_selected_move_to_wishlist" data-name="moveSelectItemBtn">선택 보관함으로 이동</button>
                     </li>
                     <li><span>&nbsp;&nbsp;</span></li>
                     <li class="rui_button_item">
-                      <button type="button" class="handling_button rui_button_white_30 js_btn_selected_del_cart">선택 삭제</button>
+                      <button type="button" class="handling_button rui_button_white_30 js_btn_selected_del_cart" data-name="delSelectItemBtn">선택 삭제</button>
                     </li>
                   </ul>
                 </div>
@@ -117,12 +117,12 @@
                 <div class="buttons_wrapper" style="display:flex; flex-flow: row-reverse nowrap;">
                   <ul class="rui_button_group_5">
                     <li class="rui_button_item">
-                      <button type="button" class="handling_button rui_button_white_30 js_btn_selected_move_to_wishlist">선택 보관함으로 이동</button>
+                      <button type="button" class="handling_button rui_button_white_30 js_btn_selected_move_to_wishlist" data-name="moveSelectItemBtn">선택 보관함으로 이동</button>
                     </li>
                     <li>
                     <li><span>&nbsp;&nbsp;</span></li>
                     <li class="rui_button_item">
-                      <button type="button" class="handling_button rui_button_white_30 js_btn_selected_del_cart">선택 삭제</button>
+                      <button type="button" class="handling_button rui_button_white_30 js_btn_selected_del_cart" data-name="delSelectItemBtn">선택 삭제</button>
                     </li>
                   </ul>
                 </div>
@@ -165,7 +165,7 @@
 		document.querySelector(".blue_button").addEventListener("click", e => {
 			alert("선택한 이모티콘을 구매하였습니다.");
 			ajax(e);
-			//document.getElementById("form").submit();
+			document.getElementById("form").submit();
 		});
 	})();
 
@@ -195,7 +195,6 @@
 		xhr.open('post', '${cp}/emoShop/delBasketItem');
 		xhr.onreadystatechange = function() {
 			if(xhr.status === 200 && xhr.readyState === 4) {
-				//document.querySelector('.bookmacro_wrapper div[data-book-index=' + e.target.dataset.bookIndex + ']').remove();
 				var list = document.getElementsByClassName('bookmacro_wrapper');
 				list[e.target.dataset.bookIndex].remove();
 				var delItemBtnList = document.querySelectorAll('.bookmacro_wrapper .js_btn_delete');
@@ -273,7 +272,9 @@
 		
 		function call(e) {
 			xhr = new XMLHttpRequest();
-			switch(e.target.name) {
+			console.log(e.target);
+			console.log(e.target.dataset.name);
+			switch(e.target.dataset.name) {
 				case 'moveSelectItemBtn':
 					xhr.open('post', '${cp}/emoShop/moveBaskettoWish'); break;
 				case 'delSelectItemBtn':
@@ -304,7 +305,6 @@
 									value.dataset.bookIndex = index;
 								});
 								var list = document.getElementsByClassName('bookmacro_wrapper');
-								console.log(list[value.dataset.bookIndex]);
 								list[value.dataset.bookIndex].remove();
 								document.querySelector('.js_price_wrapper .price_num').innerText = totalPrice();
 						}
