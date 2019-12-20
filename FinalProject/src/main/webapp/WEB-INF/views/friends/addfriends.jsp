@@ -83,7 +83,7 @@
             	if(this.isme){
             		var str="<a href='/fproject/story/list?num="+this.num+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
 					+"<p>"+this.name+"</p>"
-					+"<input type='button' value='나와의 대화'  id='messageBtn' class='btns'>";
+					+"<input type='button' value='나와의 대화'  id='messageBtn' class='btns' onclick='gomymessage("+this.fnum+")'>";
 		$("#tabs-2 .content").append(str);
             	}else if(this.isfri){
             		var str="<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
@@ -91,7 +91,7 @@
             					if(this.msg!=null){
             						str=str	+"<span>"+this.msg+"</span><br>";
             					}
-            					str=str+"<input type='button' value='1:1대화'  id='messageBtn' class='btns'>";
+            					str=str+"<input type='button' value='1:1대화'  id='messageBtn' class='btns' onclick='gomessage("+this.fnum+")'>";
             		$("#tabs-2 .content").append(str);
             	}else if(this.nomem){
             		var str="<p>'"+id+"'를 찾을수 없습니다 </p>"
@@ -126,7 +126,7 @@
             	if(this.isme){
             		var str="<a href='/fproject/story/list?num="+this.num+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
 					+"<p>"+this.name+"</p>"
-					+"<input type='button' value='나와의 대화'  id='messageBtn' class='btns'>";
+					+"<input type='button' value='나와의 대화'  id='messageBtn' class='btns' onclick='gomymessage("+this.fnum+")'>";
 		$("#tabs-1 .content").append(str);
             	}else if(this.isfri){
             		var str="<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
@@ -134,7 +134,7 @@
             					if(this.msg!=null){
             						str=str	+"<span>"+this.msg+"</span><br>";
             					}
-            					str=str+"<input type='button' value='1:1대화'  id='messageBtn' class='btns'>";
+            					str=str+"<input type='button' value='1:1대화'  id='messageBtn' class='btns' onclick='gomessage("+this.fnum+")'>";
             		$("#tabs-1 .content").append(str);
             	}else if(this.nomem){
             		var str="<p>'"+phone+"'를 찾을수 없습니다 </p>"
@@ -204,6 +204,15 @@ function addfri(num,fnum){
         	window.close();
     }
 });
+}
+
+function gomessage(fnum){
+	window.opener.location.href="../CreateChat?num=${sessionScope.num}&fvalue="+fnum;
+	window.close();
+}
+function gomymessage(){
+	window.opener.location.href="../CreateChat?num=${sessionScope.num}";
+	window.close();
 }
 </script>
 </body>
