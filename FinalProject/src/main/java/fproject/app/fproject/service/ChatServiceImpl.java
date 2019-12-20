@@ -102,4 +102,12 @@ public class ChatServiceImpl implements ChatService{
 	public List<ChatVo> searchChatContent(ChatVo cvo) {
 		return dao.searchChatContent(cvo);
 	}
+	@Override
+	public int getChatReadCount(ReadinfoVo rvo) {
+		return dao.getChatReadCount(rvo);
+	}
+	@Override
+	public int getChatCount(int clnum) {
+		return dao.getChatCount(clnum);
+	}
 }

@@ -30,4 +30,6 @@ public interface ChatDao {
 	public int getCountReadInfo(int cnum);
 	public int updateChatName(ChatlistVo clvo);
 	public List<ChatVo> searchChatContent(ChatVo cvo);
+	public int getChatReadCount(ReadinfoVo rvo);
+	public int getChatCount(int clnum);
 }

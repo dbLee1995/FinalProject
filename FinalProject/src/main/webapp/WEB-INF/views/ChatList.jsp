@@ -28,12 +28,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery.timepicker.css">
 
-    
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/flaticon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/icomoon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
     
-
 	<link href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
@@ -45,15 +43,15 @@
   	<script src="${pageContext.request.contextPath }/resources/js/popper.min.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/jquery.easing.1.3.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/jquery.waypoints.min.js"></script>
-	  <script src="${pageContext.request.contextPath }/resources/js/jquery.stellar.min.js"></script>
-	  <script src="${pageContext.request.contextPath }/resources/js/owl.carousel.min.js"></script>
-	  <script src="${pageContext.request.contextPath }/resources/js/jquery.magnific-popup.min.js"></script>
-	  <script src="${pageContext.request.contextPath }/resources/js/aos.js"></script>
-	  <script src="${pageContext.request.contextPath }/resources/js/jquery.animateNumber.min.js"></script>
-	  <script src="${pageContext.request.contextPath }/resources/js/scrollax.min.js"></script>
-	  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	  <script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
-	  <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery.stellar.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery.magnific-popup.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/aos.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery.animateNumber.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/scrollax.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
 
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
@@ -87,6 +85,12 @@
 .frame{
 
 }
+.badge-notify{
+   background:#4CD964;
+   position:relative;
+   top: -12px;
+   left: -16px;
+  }
 .btn-countUp{
 	display: inline-block;
   height: 25px;
@@ -958,7 +962,9 @@ a.btn-layerClose:hover {
 											<c:if test="${cl.clnum == al.clnum }"><p class="name">${cl.name }</p></c:if>
 										</c:forEach>
 									</a>
-									<p class="preview">${clnameMap[al.clnum] }</p>
+									<p class="preview">${clnameMap[al.clnum] } 
+										<span class="badge badge-notify" style="font-size:10px;" id="cc${al.clnum }"></span>
+									</p>
 								</div>
 							</div>
 						</li>
@@ -1107,6 +1113,7 @@ a.btn-layerClose:hover {
 			        </div>
 			    </div>
 			</div>	 -->
+			
 </body>
 
 <script type="text/javascript">
@@ -1191,6 +1198,7 @@ a.btn-layerClose:hover {
 // 	});
 	
 	$(function(){$('#textID').focus();});
+	
 	var sock = new SockJS("<c:url value="/echo"/>");
 	sock.onopen = onOpen;
 	sock.onmessage = onMessageAjax;
@@ -1204,41 +1212,63 @@ a.btn-layerClose:hover {
 	function onMessageAjax(msg){
 		var data=msg.data;
 		var msgArr=data.split("!%/");
-		// 0:content, 1:time, 2:num, 3:chatnum, 4:name
-		var jnum=parseInt($("#sessionnum").val());
-		var jclnum=parseInt($("#sessionclnum").val());
-		var chatnum=parseInt(msgArr[3]);
-		if(msgArr[2]==num){
-			$('<li class="replies"><div style="display:flex;flex-direction:row;align-items:center;justify-content:flex-end;">'
-			+'<div id="'+msgArr[3]+'"></div>'
-			+ msgArr[1] +'<p>' + msgArr[0] + '</p></div></li>').appendTo($('.messages ul'));
+		if(msgArr[0]=="otherroom"){
+			var jnum=parseInt($("#sessionnum").val());
+			$.ajax({
+				url:"getChatCount",
+				type:"post",
+				dataType:"json",
+				data:{
+					num:jnum
+				},success:function(data){
+					$(data).each(function(i,info){
+						var jclnum=parseInt(info.clnum);
+						var chatCount=parseInt(info.chatCount);
+						if(chatCount>0){
+							$("#cc"+jclnum).html(chatCount);
+						}else{
+							$("#cc"+jclnum).html("");
+						}
+					});
+				}
+			});
 		}else{
-			$('<li class="sent"><div style="margin-left: 35px; margin-bottom: 2px;">'+ msgArr[4]
-					+ '</div><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' 
-					+ msgArr[0] + '</p>'+msgArr[1]+'<span id="'+msgArr[3]+'"></span></li>').appendTo($('.messages ul'));
-		}
-		$.ajax({
-			url:"chatAjax",
-			type:"post",
-			dataType:"json",
-			data: {
-				num:jnum,
-				clnum:jclnum
-			},success:function(data){
-				$(data).each(function(i,chat){
-					var chatnum=parseInt(chat.chatnum);
-					var count=parseInt(chat.count);
-					if(count>=1){
-						$("#"+chatnum).html(count);
-					}else{
-						$("#"+chatnum).html("");
-					}
-				});
+			// 0:content, 1:time, 2:num, 3:chatnum, 4:name
+			var jnum=parseInt($("#sessionnum").val());
+			var jclnum=parseInt($("#sessionclnum").val());
+			var chatnum=parseInt(msgArr[3]);
+			if(msgArr[2]==num){
+				$('<li class="replies"><div style="display:flex;flex-direction:row;align-items:center;justify-content:flex-end;">'
+				+'<div id="'+msgArr[3]+'"></div>'
+				+ msgArr[1] +'<p>' + msgArr[0] + '</p></div></li>').appendTo($('.messages ul'));
+			}else{
+				$('<li class="sent"><div style="margin-left: 35px; margin-bottom: 2px;">'+ msgArr[4]
+						+ '</div><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' 
+						+ msgArr[0] + '</p>'+msgArr[1]+'<span id="'+msgArr[3]+'"></span></li>').appendTo($('.messages ul'));
 			}
-		});
-		$('.message-input input').val(null);
-		$('.contact.active .preview').html('<span>N </span>' + msgArr[0]);
-		$(".messages").animate({ scrollTop: 999999 }, "fast");
+			$.ajax({
+				url:"chatAjax",
+				type:"post",
+				dataType:"json",
+				data: {
+					num:jnum,
+					clnum:jclnum
+				},success:function(data){
+					$(data).each(function(i,chat){
+						var chatnum=parseInt(chat.chatnum);
+						var count=parseInt(chat.count);
+						if(count>=1){
+							$("#"+chatnum).html(count);
+						}else{
+							$("#"+chatnum).html("");
+						}
+					});
+				}
+			});
+			$('.message-input input').val(null);
+			$('.contact.active .preview').html('<span>N </span>' + msgArr[0]);
+			$(".messages").animate({ scrollTop: 999999 }, "fast");
+		}
 	}
 	// JSON.parse() -- String 객체를 json 객체로 변환
 	// JSON.stringify -- json 객체를 String 객체로 변환

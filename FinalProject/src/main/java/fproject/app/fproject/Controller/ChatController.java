@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import fproject.app.fproject.service.AccountService;
 import fproject.app.fproject.service.ChatService;
@@ -28,7 +27,6 @@ import fproject.app.fproject.vo.AccountVo;
 import fproject.app.fproject.vo.AttendinfoVo;
 import fproject.app.fproject.vo.ChatVo;
 import fproject.app.fproject.vo.ChatlistVo;
-import fproject.app.fproject.vo.FriendlistVo;
 import fproject.app.fproject.vo.ProfilesVo;
 import fproject.app.fproject.vo.ReadinfoVo;
 
@@ -299,6 +297,23 @@ public class ChatController {
 			}
 		}
 		return json.toString();
+	}
+	@RequestMapping(value="/getChatCount", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String getChatCount(int num, HttpSession session){
+		
+		List<AttendinfoVo> attvolist=chatService.getAttendInfo(num);
+		JSONArray jarr=new JSONArray();
+		for(int i=0;i<attvolist.size();++i){
+			int clnum=attvolist.get(i).getClnum();
+			int readChatCount=chatService.getChatReadCount(new ReadinfoVo(0, clnum, num));
+			int chatCount=chatService.getChatCount(clnum);
+			JSONObject json=new JSONObject();
+			json.put("clnum", clnum);
+			json.put("chatCount", chatCount-readChatCount);
+			jarr.put(json);
+		}
+		return jarr.toString();
 	}
 	@RequestMapping(value="/removeChatRoom")
 	public String removeChatRoom(Model model, int clnum, int num, 

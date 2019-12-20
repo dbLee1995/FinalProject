@@ -107,4 +107,12 @@ public class ChatDaoImpl implements ChatDao{
 	public List<ChatVo> searchChatContent(ChatVo cvo) {
 		return sqlSessionTemplate.selectList(NAMESPACE+".searchChatContent", cvo);
 	}
+	@Override
+	public int getChatReadCount(ReadinfoVo rvo) {
+		return sqlSessionTemplate.selectOne(NAMESPACE+".getChatReadCount", rvo);
+	}
+	@Override
+	public int getChatCount(int clnum) {
+		return sqlSessionTemplate.selectOne(NAMESPACE+".getChatCount", clnum);
+	}
 }

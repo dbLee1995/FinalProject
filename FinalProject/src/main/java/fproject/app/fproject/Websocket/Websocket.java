@@ -77,8 +77,10 @@ public class Websocket extends TextWebSocketHandler{
 				// 내용 + 시간 + 번호 + 채팅번호 + 이름 
 				String msg=msgArr[2]+"!%/ ("+format.format(time)+")";
 				wsId.sendMessage(new TextMessage(msg+"!%/"+usernum+"!%/"+chatnum+"!%/"+name));
+			}else{ // 
+				String msg="otherroom!%/"+clnum+"!%/"+msgArr[2];
+				wsId.sendMessage(new TextMessage(msg));
 			}
 		}
-		
 	}
 }

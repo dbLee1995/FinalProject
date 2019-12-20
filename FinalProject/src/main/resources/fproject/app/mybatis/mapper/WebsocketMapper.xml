@@ -87,6 +87,7 @@
 			resultType="fproject.app.fproject.vo.ChatVo">
 		SELECT * FROM CHAT
 		WHERE CLNUM=#{clnum}
+		ORDER BY CNUM
 	</select>
 	<select id="getChattime" parameterType="int"
 			resultType="fproject.app.fproject.vo.ChattimeVo">
@@ -141,5 +142,16 @@
 			resultType="fproject.app.fproject.vo.ChatVo">
 		SELECT * FROM CHAT
 		WHERE CONTENT LIKE '%'||#{content}||'%' AND CLNUM=#{clnum}
+	</select>
+	<!-- ### 해당 채팅방에서 내가 읽은 채팅 갯수 세기 ### -->
+	<select id="getChatReadCount" parameterType="fproject.app.fproject.vo.ReadinfoVo"
+			resultType="int">
+		SELECT COUNT(CNUM) FROM READINFO
+		WHERE NUM=#{num} AND CLNUM=#{clnum}
+	</select>
+	<!-- ### 해당 방의 총 채팅 갯수 ### -->
+	<select id="getChatCount" parameterType="int" resultType="int">
+		SELECT COUNT(CNUM) FROM CHAT
+		WHERE CLNUM=#{clnum}
 	</select>
 </mapper>
