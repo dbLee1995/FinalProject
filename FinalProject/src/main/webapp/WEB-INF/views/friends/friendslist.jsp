@@ -34,12 +34,12 @@
   
     #friendsprofile {text-align: center;color:white;height:670px;width: 120%;margin-left: -30px; position:relative; }
     #friendsprofile a{color:white;}
-    #friendsprofile .img{margin-left: 80px;margin-top:280px;height: 120px;width: 120px;}
+    #friendsprofile .img{margin-left: 75px;margin-top:280px;height: 120px;width: 120px;}
 	#friendsprofile .backimg{height:100%;width: 100%; position:absolute;background-repeat: no-repeat;background-size: cover; filter:brightness(50%);}
 	#friendsprofile .text{position: relative;}
     .col-md-12 .blog-entry.ftco-animate.d-md-flex a{height: 70px;width: 70px;}
     #friendsprofile hr{height: 0.5px;background-color: white; position: relative;}
-    
+     .col-md-12 {height: 90px;}
     #friendsprofile .frimenus{height: 100%;width: 30%;display: inline-block; text-align: center;position: relative;    margin-top: 25px;}
     #friendsprofile .frimenus .icon-message{font-size: 30px;}
 	#friendsprofile .frimenus .icon-phone{font-size: 30px;}
@@ -49,6 +49,8 @@
     #friendsprofile .meta-wrap{position:relative;}
     .col-xl-4.sidebar .icon-people{font-size: 40px;color:#666666;margin-left: 270px;}
     .col-xl-4.sidebar .icon-plus{color:#666666; margin-bottom: 30px; position: absolute;}
+    .container h2{font-family: "Poppins", Arial, sans-serif;color: rgba(180, 177, 177, 0.8);}
+    .container h3{font-family: "Poppins", Arial, sans-serif;}
     </style>
   </head>
   <body>
@@ -93,13 +95,66 @@
 		</aside> <!-- END COLORLIB-ASIDE -->
 		<div id="colorlib-main">
 			<section class="ftco-section ftco-no-pt ftco-no-pb">
-	    	<div class="container">
-	    		
-	    	<h2 >친구</h2>
+	    	<div class="container">	    	
 	    		<div class="row d-flex">
 	    			<div class="col-xl-8 py-5 px-md-5">
+	    			<c:set var="newfriends" value="false" />
+	    			<c:forEach var="newfri" items="${list }">
+					    		<c:if test="${not newfriends }">
+				        <c:if test="${newfri.APPROV==4 }">
+				        <div class="row pt-md-4" id="newfri">
+							<h2>새로운친구</h2>
+				            <c:set var="newfriends" value="true" />
+				        </c:if>
+				    </c:if>
+						</c:forEach>
+								<!-- 친구 div  -->
+								<c:forEach var="newfri" items="${list }">
+								<c:if test="${newfri.APPROV==4 }">
+									<div class="col-md-12" >
+										<div class="blog-entry ftco-animate d-md-flex">
+											<a href="javascript:void(0);" onclick="showprofile(${sessionScope.num },${newfri.FNUM})" class="img img-2"
+												style="background-image:url(${cp}/resources/profile/person_1.jpg)"></a>
+											<div class="text text-2 pl-md-4">
+												<c:choose>
+														<c:when test="${empty newfri.MSG}">
+														<h3 class="mb-2" style="margin-top: 15px;">
+															<a href="single.html"  >${newfri.NAME}</a>
+														</h3>
+														</c:when>
+														<c:otherwise>
+															<h3 class="mb-2">
+															<a href="single.html" >${newfri.NAME}</a>
+															</h3>
+															<p>${newfri.MSG }</p>
+														</c:otherwise>
+													</c:choose>							
+												
+												
+												<div class="meta-wrap">
+													<p class="meta"></p>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									</c:if>	
+								</c:forEach>
+					<c:set var="newfriendss" value="false" />
+	    			<c:forEach var="newfri" items="${list }">
+					    		<c:if test="${not newfriendss }">
+				       			 <c:if test="${newfri.APPROV==4 }">
+						        </div>
+						        <hr>
+						            <c:set var="newfriendss" value="true" />
+						        </c:if>
+				   				 </c:if>
+						</c:forEach>
+								
+								
+	    					
 							<div class="row pt-md-4" id="frilist">
-							
+							<h2 >친구</h2>
 								<!-- 친구 div  -->
 								<c:forEach var="friends" items="${list }">
 									<div class="col-md-12" >
@@ -178,6 +233,9 @@
     <script type="text/javascript">
     
     function searchFri(e,num){
+    	if(e.value==""){
+    		location.reload();
+    	}
     	$.ajax({
             type: "post",
             url: "${cp}/friends/searchlist",
@@ -186,7 +244,7 @@
             	num:num
             },
             success: function (response) {
-            	
+           	$("#newfri").remove();
 			$(".col-md-12").remove();
             	$(response).each(function(){
             		var str="<div class='col-md-12'><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>"
@@ -194,9 +252,13 @@
         				+"<div class='text text-2 pl-md-4'>"
         					+"<h3 class='mb-2'>"
         						+"<a href='single.html'>"+this.name+"</a>"
-        					+"</h3>"
-        					+"<p>"+this.msg+"</p>"
-        					+"<div class='meta-wrap'>"
+        					+"</h3>";
+            		if(this.msg!=null){
+        				str=str+"<p>"+this.msg+"</p>";
+        			}else{
+        				str=str+"<p style='margin-top:15%'></p>";
+        			}
+        			str=str   +"<div class='meta-wrap'>"
         						+"<p class='meta'></p>"
         					+"</div>"
         				+"</div>"
@@ -366,7 +428,7 @@
   		window.open("calendar", "[캘린더]", "width=900, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no" );    
   	};
   	function showAddfriends(){
-  		window.open("addfriends", '[친구추가]', 'width=280, height=300, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no' );    
+  		window.open("addfriends", '[친구추가]', 'width=300, height=320, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no' );    
   	};
   </script>
   </body>

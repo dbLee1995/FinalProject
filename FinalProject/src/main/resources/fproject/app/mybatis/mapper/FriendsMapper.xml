@@ -21,5 +21,10 @@
 	<select id="searchId" resultType="hashmap" parameterType="hashmap">
 		select * from friendlist f,profiles p ,(select num from account where id=#{id}) a where f.num=#{num} and f.fnum=a.num and p.num=a.num
 	</select>
-	
+	<insert id="addfri" parameterType="fproject.app.fproject.vo.FriendlistVo">
+		insert into friendlist values(#{num},#{fnum},#{favo},#{spam},#{approv})
+	</insert>
+	<select id="searchphone" resultType="hashmap" parameterType="hashmap">
+		
+	</select>
 </mapper>

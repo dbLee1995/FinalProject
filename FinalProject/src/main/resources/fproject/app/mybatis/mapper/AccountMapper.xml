@@ -12,4 +12,7 @@
 	<select id="list" resultType="fproject.app.fproject.vo.AccountVo">
 		select * from account
 	</select>
+	<select id="ismemphone" resultType="hashmap" parameterType="String">
+		select * from account a,profiles p where phone=#{phone} and a.num=p.num 
+	</select>
 </mapper>

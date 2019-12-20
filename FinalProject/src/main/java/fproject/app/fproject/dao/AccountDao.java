@@ -1,5 +1,6 @@
 package fproject.app.fproject.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -24,5 +25,8 @@ public class AccountDao {
 	}
 	public AccountVo ismem(String id){
 		return sqlSessionTemplate.selectOne(NAMESPACE + ".ismem",id);
+	}
+	public List<HashMap<String, Object>> ismemphone(String phone){
+		return sqlSessionTemplate.selectList(NAMESPACE+".ismemphone",phone);
 	}
 }

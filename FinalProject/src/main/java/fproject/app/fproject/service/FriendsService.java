@@ -35,4 +35,7 @@ public class FriendsService {
 	public List<HashMap<String, Object>> mempro(int num){
 		return dao.mempro(num);
 	}
+	public int addfri(FriendlistVo vo){
+		return dao.addfri(vo);
+	}
 }	

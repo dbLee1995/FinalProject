@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import fproject.app.fproject.vo.FriendlistVo;
+
 
 
 @Repository
@@ -33,5 +35,8 @@ public class FriendsDao {
 	}
 	public List<HashMap<String , Object>> mempro(int num){
 		return sqlSessionTemplate.selectList(NAMESPACE+".mempro",num);
+	}
+	public int addfri(FriendlistVo vo){
+		return sqlSessionTemplate.insert(NAMESPACE+".addfri",vo);
 	}
 }

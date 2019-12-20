@@ -1,5 +1,6 @@
 package fproject.app.fproject.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,8 @@ public class AccountService {
 	 }
 	 public AccountVo ismem(String id){
 		 return accountDao.ismem(id);
+	 }
+	 public List<HashMap<String,Object>> ismemphone(String phone){
+		 return accountDao.ismemphone(phone);
 	 }
 }	
