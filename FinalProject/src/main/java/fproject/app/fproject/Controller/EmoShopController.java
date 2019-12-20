@@ -46,21 +46,23 @@ public class EmoShopController {
 
 	@RequestMapping(value="/main", produces={"application/json;charset=UTF-8"}, method=RequestMethod.POST)
 	@ResponseBody
-	public JSONArray addEmoticonList(Model model, HttpServletRequest req, int num) {
+	public String addEmoticonList(Model model, HttpServletRequest req, int count) {
+		System.out.println("count: " + count);
 		EmoshopVo vo = null;
 		JSONArray jsonArr = new JSONArray();
-		for(int i=num; i<=num+4; i++) {
+		for(int i=147; i<=147+4; i++) {
 			vo = emoShopService.getEmogInfo(i);
 			JSONObject json = new JSONObject();
 			json.put("emogNum", vo.getEmognum());
 			json.put("emogName", vo.getName());
 			json.put("emogCategory", vo.getCategory());
 			json.put("emogPrice", vo.getPrice());
+			System.out.println("¾Æ¾¾" + vo.getRepreImg());
 			json.put("emogRepreImg", vo.getRepreImg());
 			jsonArr.put(json);
 		}
 		System.out.println(jsonArr.toString());
-		return jsonArr;
+		return jsonArr.toString();
 	}
 	
 	@RequestMapping(value="/putBasket")

@@ -41,25 +41,31 @@
  * Implement infinite scrolling
  * - Inspired by: http://ravikiranj.net/drupal/201106/code/javascript/how-implement-infinite-scrolling-using-native-javascript-and-yui3
  */
- 
  var count = 1;
- 
+ var div = document.createElement("div");
  var options = {
 		  distance: 50,
 		  callback: function(done) {
 		    // 1. fetch data from the server
-		    // 2. insert it into the document
 		    // 3. call done when we are done
 			var xhr = new XMLHttpRequest();
 			xhr.open('post', '${cp}/emoShop/main');
 			xhr.onreadystatechange = function() {
 				if(xhr.status === 200 && xhr.readyState === 4) {
-					var data = JSON.parse(xhr.responseText);
-					console.log(data);
+					var dataList = JSON.parse(xhr.responseText);
+					console.log(dataList);
 					count += 5;
+					for(var i=0; i<dataList.length; i++) {
+						console.log(dataList[i].emogName);
+						var list = document.getElementById("emoList");
+            //div.innerHTML = '<img src="${cp}/resources/uploadImage/admin/emoticon/' + dataList[i].emogCategory + '/' + dataList[i].emogName + /${vo.repreImg }"';
+						list.append(div);
+					}
 				}
 			}
-			xhr.send(count);
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xhr.send('count=' + count);
+		    // 2. insert it into the document
 		    done();
 		  }
 		};
@@ -73,8 +79,10 @@
       callback: function() {},
       distance: 50
     }
+    
     // Populate defaults
     for (var key in defaults) {
+      console.log("key: " + key);
       if(typeof options[key] == 'undefined') options[key] = defaults[key];
     }
     

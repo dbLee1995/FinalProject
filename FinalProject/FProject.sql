@@ -276,7 +276,9 @@ CREATE TABLE emoshop
 	-- 이모티콘그룹이름
 	name varchar2(50) NOT NULL UNIQUE,
 	-- 카테고리
-	category varchar2(20) NOT NULL UNIQUE
+	category varchar2(20) NOT NULL UNIQUE,
+	-- 대표이미지
+	repreImg varhcar2(50) NOT NULL
 );
 
 
