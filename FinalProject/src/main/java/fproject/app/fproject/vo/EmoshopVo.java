@@ -7,12 +7,13 @@ public class EmoshopVo{
 	private String category;
 	private String repreImg;
 	public EmoshopVo() {}
-	public EmoshopVo(int emognum, int price, String name, String category) {
+	public EmoshopVo(int emognum, int price, String name, String category, String repreImg) {
 		super();
 		this.emognum = emognum;
 		this.price = price;
 		this.name = name;
 		this.category = category;
+		this.repreImg = repreImg;
 	}
 	public int getEmognum() {
 		return emognum;

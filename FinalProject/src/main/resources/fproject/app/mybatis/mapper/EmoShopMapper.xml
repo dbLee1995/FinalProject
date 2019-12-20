@@ -41,7 +41,7 @@
 	</insert>
 	
 	<insert id="emoticonShopInsert" parameterType="fproject.app.fproject.vo.EmoshopVo">
-		insert into emoshop values(SEQ_emognum.nextval, #{price}, #{name}, #{category})
+		insert into emoshop values(SEQ_emognum.nextval, #{price}, #{name}, #{category}, #{repreImg})
 	</insert>
 	
 	<delete id="delUserWishItem" parameterType="map">

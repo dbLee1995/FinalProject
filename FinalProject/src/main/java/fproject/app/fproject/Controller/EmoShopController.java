@@ -50,14 +50,14 @@ public class EmoShopController {
 		System.out.println("count: " + count);
 		EmoshopVo vo = null;
 		JSONArray jsonArr = new JSONArray();
-		for(int i=147; i<=147+4; i++) {
+		for(int i=182; i<=182+4; i++) {
 			vo = emoShopService.getEmogInfo(i);
+			System.out.println("¾Æ¾¾: " + vo.getRepreImg());
 			JSONObject json = new JSONObject();
 			json.put("emogNum", vo.getEmognum());
 			json.put("emogName", vo.getName());
 			json.put("emogCategory", vo.getCategory());
 			json.put("emogPrice", vo.getPrice());
-			System.out.println("¾Æ¾¾" + vo.getRepreImg());
 			json.put("emogRepreImg", vo.getRepreImg());
 			jsonArr.put(json);
 		}
