@@ -142,6 +142,7 @@
 			resultType="fproject.app.fproject.vo.ChatVo">
 		SELECT * FROM CHAT
 		WHERE CONTENT LIKE '%'||#{content}||'%' AND CLNUM=#{clnum}
+		ORDER BY CNUM 
 	</select>
 	<!-- ### 해당 채팅방에서 내가 읽은 채팅 갯수 세기 ### -->
 	<select id="getChatReadCount" parameterType="fproject.app.fproject.vo.ReadinfoVo"
@@ -154,4 +155,8 @@
 		SELECT COUNT(CNUM) FROM CHAT
 		WHERE CLNUM=#{clnum}
 	</select>
+	<delete id="deleteChat" parameterType="int">
+		DELETE FROM CHAT 
+		WHERE CLNUM=#{clnum}
+	</delete>
 </mapper>

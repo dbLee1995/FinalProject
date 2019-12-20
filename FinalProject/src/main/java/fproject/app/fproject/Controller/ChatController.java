@@ -72,6 +72,16 @@ public class ChatController {
 		}
 		model.addAttribute("pvolist",pvolist);
 		
+		Map<Integer, Integer> chatCountMap= new HashMap<>();
+		for(int i=0;i<ailist.size();++i){ 
+			int aclnum=ailist.get(i).getClnum();
+			int readChatCount=chatService.getChatReadCount(new ReadinfoVo(0, aclnum, num));
+			int chatCount=chatService.getChatCount(aclnum);
+			int fChatCount=chatCount-readChatCount;
+			chatCountMap.put(aclnum, fChatCount);
+		}
+		model.addAttribute("chatCountMap",chatCountMap);
+		
 		return "ChatList";
 	}
 	@RequestMapping(value="/CreateChat", 
@@ -84,9 +94,16 @@ public class ChatController {
 		int Fclnum=0;
 		
 		if(fvalue==null){
-			chatService.createChatRoom("나와의 채팅");
 			int clnum=chatService.getRoomforName("나와의 채팅");
-			chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
+			if(clnum>0){
+				chatService.updateAttendinfo(new AttendinfoVo(clnum, num, 1));
+			}else{
+				chatService.createChatRoom("나와의 채팅");
+				clnum=chatService.getRoomforName("나와의 채팅");
+				chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
+			}
+			
+			
 		}else if(fvalue.length==1){
 			int fnum=Integer.parseInt(fvalue[0]);
 			List<AttendinfoVo> failist=chatService.getAttendInfo(fnum);
@@ -238,6 +255,17 @@ public class ChatController {
 			attname.put(p.getNum(), p.getName()); // key:해당사람의 번호, value:이름
 		}
 		model.addAttribute("attname",attname); // 채팅 위에 이름을 띄우기 위함
+		
+		Map<Integer, Integer> chatCountMap= new HashMap<>();
+		for(int i=0;i<ailist.size();++i){ // 현재 포함되어있는 방들을 돌면서
+			int aclnum=ailist.get(i).getClnum(); // 방들의 번호 얻기 
+			int readChatCount=chatService.getChatReadCount(new ReadinfoVo(0, aclnum, num));
+			// 해당 방에서 내가 읽은 글의 갯수 얻기
+			int chatCount=chatService.getChatCount(aclnum); // 해당 방의 총 채팅 갯수 얻기
+			int fChatCount=chatCount-readChatCount;
+			chatCountMap.put(aclnum, fChatCount);
+		}
+		model.addAttribute("chatCountMap",chatCountMap);
 		
 		return "ChatList";
 	}

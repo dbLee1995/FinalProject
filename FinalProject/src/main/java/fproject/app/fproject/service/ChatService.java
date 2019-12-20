@@ -17,7 +17,7 @@ public interface ChatService {
 	public List<AttendinfoVo> getAttendInfotoclnum(int clnum);
 	public List<AttendinfoVo> sameAttendInfo(int clnum);
 	public int getAttendCount(int clnum);
-	public int deleteChat(AttendinfoVo vo);
+	public int deleteRoom(AttendinfoVo vo);
 	public List<ChatlistVo> searchRoomList(String name);
 	public int addChat(ChatVo cvo);
 	public List<ChatVo> getChat(int clnum);
@@ -32,4 +32,5 @@ public interface ChatService {
 	public List<ChatVo> searchChatContent(ChatVo cvo);
 	public int getChatReadCount(ReadinfoVo rvo);
 	public int getChatCount(int clnum);
+	public int deleteChat(int clnum);
 }

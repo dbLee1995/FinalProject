@@ -959,11 +959,12 @@ a.btn-layerClose:hover {
 								<div class="meta">
 									<a href="${pageContext.request.contextPath }/moveChatRoom?clnum=${al.clnum}&num=${sessionScope.num}">
 										<c:forEach var="cl" items="${ChatList }">
-											<c:if test="${cl.clnum == al.clnum }"><p class="name">${cl.name }</p></c:if>
+											<c:if test="${cl.clnum == al.clnum }"><p class="name">${cl.name }</p>
+											</c:if>
 										</c:forEach>
 									</a>
-									<p class="preview">${clnameMap[al.clnum] } 
-										<span class="badge badge-notify" style="font-size:10px;" id="cc${al.clnum }"></span>
+									<p class="preview" id="pp${al.clnum }">${clnameMap[al.clnum] }<span> <c:if test="${chatCountMap[al.clnum] !=0}">${chatCountMap[al.clnum] }</c:if> </span>
+<%-- 										<span class="badge badge-notify" style="font-size:10px;" id="cc${al.clnum }"></span> --%>
 									</p>
 								</div>
 							</div>
@@ -991,7 +992,7 @@ a.btn-layerClose:hover {
 							<i class="fa fa-search fa-fw btn-link collapsed" 
 							data-toggle="collapse" data-target="#collapseThree" 
 				        	aria-expanded="false" aria-controls="collapseThree" aria-hidden="true"></i>
-
+					
 					</span>
 					<a href="#" class="btn-RoomClose" >수정</a>
 					<i class="" aria-hidden="true"></i>
@@ -1065,6 +1066,8 @@ a.btn-layerClose:hover {
 		</div>
 		</c:if>
 	</div>
+	<div class="dim-layer">
+			    <div class="dimBg"></div>
 	<div id="layer1" class="pop-layer">
 	    <div class="pop-container">
 	        <div class="pop-conts">
@@ -1085,6 +1088,8 @@ a.btn-layerClose:hover {
 	        </div>
 	    </div>
 	</div>
+	</div>
+	
 	</div>
 	</section>
 	</div>
@@ -1214,6 +1219,7 @@ a.btn-layerClose:hover {
 		var msgArr=data.split("!%/");
 		if(msgArr[0]=="otherroom"){
 			var jnum=parseInt($("#sessionnum").val());
+			var msgclnum=parseInt(msgArr[1]);
 			$.ajax({
 				url:"getChatCount",
 				type:"post",
@@ -1224,10 +1230,10 @@ a.btn-layerClose:hover {
 					$(data).each(function(i,info){
 						var jclnum=parseInt(info.clnum);
 						var chatCount=parseInt(info.chatCount);
-						if(chatCount>0){
-							$("#cc"+jclnum).html(chatCount);
-						}else{
-							$("#cc"+jclnum).html("");
+						if(msgclnum==jclnum){
+							$("#pp"+jclnum).html('<span>N </span>'+msgArr[2]+'<span> '+chatCount+' </span>');
+							//$("#cc"+jclnum).html(chatCount);
+							//alert(chatCount);
 						}
 					});
 				}

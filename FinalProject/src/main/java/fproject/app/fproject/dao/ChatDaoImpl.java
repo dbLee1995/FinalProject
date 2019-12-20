@@ -56,7 +56,7 @@ public class ChatDaoImpl implements ChatDao{
 		return sqlSessionTemplate.selectOne(NAMESPACE+".getAttendCount", clnum);
 	}
 	@Override
-	public int deleteChat(AttendinfoVo vo) {
+	public int deleteRoom(AttendinfoVo vo) {
 		return sqlSessionTemplate.delete(NAMESPACE+".deleteRoom", vo);
 	}
 	@Override
@@ -114,5 +114,9 @@ public class ChatDaoImpl implements ChatDao{
 	@Override
 	public int getChatCount(int clnum) {
 		return sqlSessionTemplate.selectOne(NAMESPACE+".getChatCount", clnum);
+	}
+	@Override
+	public int deleteChat(int clnum) {
+		return sqlSessionTemplate.delete(NAMESPACE+".deleteChat", clnum);
 	}
 }

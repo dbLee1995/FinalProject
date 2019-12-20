@@ -51,8 +51,8 @@ public class ChatServiceImpl implements ChatService{
 		return dao.getAttendCount(clnum);
 	}
 	@Override
-	public int deleteChat(AttendinfoVo vo) {
-		return dao.deleteChat(vo);
+	public int deleteRoom(AttendinfoVo vo) {
+		return dao.deleteRoom(vo);
 	}
 	@Override
 	public List<ChatlistVo> searchRoomList(String name) {
@@ -109,5 +109,9 @@ public class ChatServiceImpl implements ChatService{
 	@Override
 	public int getChatCount(int clnum) {
 		return dao.getChatCount(clnum);
+	}
+	@Override
+	public int deleteChat(int clnum) {
+		return dao.deleteChat(clnum);
 	}
 }

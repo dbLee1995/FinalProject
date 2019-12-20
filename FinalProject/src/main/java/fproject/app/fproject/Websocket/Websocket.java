@@ -64,6 +64,7 @@ public class Websocket extends TextWebSocketHandler{
 		int chatnum=chatService.getLastChatNum(clnum);
 		String name=profilesService.info(usernum).getName();
 		System.out.println(chatnum);
+		System.out.println(clnum);
 		/*
 		for(WebSocketSession wsSession : sessionList){
 		}*/
@@ -77,7 +78,7 @@ public class Websocket extends TextWebSocketHandler{
 				// 내용 + 시간 + 번호 + 채팅번호 + 이름 
 				String msg=msgArr[2]+"!%/ ("+format.format(time)+")";
 				wsId.sendMessage(new TextMessage(msg+"!%/"+usernum+"!%/"+chatnum+"!%/"+name));
-			}else{ // 
+			}else{ // 다른방키워드 + 방번호 + 내용
 				String msg="otherroom!%/"+clnum+"!%/"+msgArr[2];
 				wsId.sendMessage(new TextMessage(msg));
 			}
