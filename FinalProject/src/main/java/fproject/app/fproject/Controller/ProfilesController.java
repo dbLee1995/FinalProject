@@ -75,7 +75,7 @@ public class ProfilesController {
             is.close();
             fos.close();
             //3. db수정            
-            ProfilesVo pvo=new ProfilesVo(num,null,null,null,null,null,backimg2,null);
+            ProfilesVo pvo=new ProfilesVo(num,null,null,null,null,null,backimg,null);
             pservice.updateBackimg(pvo);
                       
           }else {//첨부된 파일이 없는 경우
@@ -83,7 +83,7 @@ public class ProfilesController {
         	  ProfilesVo pvo=new ProfilesVo(num,null,null,null,null,null,null,null);  
         	  pservice.updateBackimg(pvo);        	  
           }        
-			String backImg=pservice.info(num).getBackimg();
+			String backimg=pservice.info(num).getBackimg();
             return "redirect:/profiles/info?num="+num;
           }catch(Exception e){
             e.printStackTrace();

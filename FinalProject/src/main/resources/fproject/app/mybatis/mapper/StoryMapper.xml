@@ -14,7 +14,6 @@
 		select s.* from story s, account a
 		where s.num=#{num} and s.num=a.num order by sregdate desc
 	</select>
-	
 	<select id="info" resultType="fproject.app.fproject.vo.StoryVo" parameterType="int">
 		select s.* from story s, account a
 		where s.storynum=#{storynum} and s.num=a.num

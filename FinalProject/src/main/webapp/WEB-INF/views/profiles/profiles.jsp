@@ -14,6 +14,7 @@
 		.tb, tr, th{
 			text-align:right;
 			padding-left: 30px;
+			color:white;
 		}
 		td{
     		text-align: left;
@@ -68,7 +69,7 @@
 	    			<c:when test="${sessionScope.num eq pvo.num}">
 	    			<div class="col-md-6 d-flex">
 	    				<div style="width:100%;height:100%;margin-left:50px;">	    				
- <!-- background이미지 --><div class="img d-flex align-self-stretch align-items-center js-fullheight" style="background-image:url(${pvo.backimg});">					    					
+ <!-- background이미지 --><div class="img d-flex align-items-center full-img" style="background-image:url(${cp}/resources/upload/${pvo.backimg});">					    					
 	    					<div style="width:90%;height:880px;margin:auto;padding-top:250px;padding-bottom:30px;">	    						
 	    	  <!-- 이미지 -->		<div style="width:280px;height:300px;margin:auto;">
 	    	  					<a href="#">
@@ -79,21 +80,22 @@
 	    			<!-- 이름 --><label>${id}</label> <a href="#" class="icon-pencil"></a>
 	    						<hr style="border: 1px solid white;width:95%;margin-top: -3px;">
 	    						<table class="tb" style="width:400px;margin:auto;">
-	    							<tr><th>Birth : </th><td>${pvo.birth}<a href="" class="icon-pencil"  onclick="iconClick" style="padding-left:5px;display:inline;"></a></td></tr>
-	    							<tr><th>Phone : </th><td>${pvo.phone}<a href="" class="icon-pencil" style="padding-left:5px;"></a></td></tr>
-	    							<tr><th>Email : </th><td>${pvo.email}<a href="" class="icon-pencil" style="padding-left:5px;"></a></td></tr>
+	    								<tr><th>Birth : </th><td><b id="birth">${pvo.birth}</b><a href="#" id="birthClick" class="icon-pencil" style="padding-left:5px;"></a></td></tr>
+	    								<tr><th>Phone : </th><td>${pvo.phone}<a href="#" id="birth" class="icon-pencil" style="padding-left:5px;"></a></td></tr>
+	    								<tr><th>Email : </th><td>${pvo.email}<a href="#" class="icon-pencil" style="padding-left:5px;"></a></td></tr>
 	    						</table>			
-	    						<table class="tb" style="width:500px;margin-top:10px;">
+	    						<table class="tb" style="width:500px;margin-top:10px; text-color:white;">
 	    							<tr><th><hr style="color:white;border:1px"></th></tr>
 	    							<tr>
 	    								<th>
 	    									<form method="post" id="setform" enctype="multipart/form-data">
 	    									<input type="file" name="changeFile1" id="changeFile1" onChange="changeFile(this);" style="display:none;"/>
-	    									<a href="javascript:void(0);" class="file1" name="file1" onClick="uploadFile(); ">배경편집</a>
+	    									<a href="javascript:void(0);" class="file1" name="file1" onClick="uploadFile();" style="color:white;font-size:20px;"><b class="icon-magic"></b><br>배경편집</a>
 	    									</form>
-	    								</th>	    							
-	    							<th><a href="${pageContext.request.contextPath}/story/list?num=${pvo.num}">MyStory</a></th>
-	    							<th><a href="${pageContext.request.contextPath}/friends/list?num=${pvo.num}">Friends</a></th></tr>    							
+	    								</th>		
+	    							<tr>	
+	    							<th><a href="${pageContext.request.contextPath}/story/list?num=${pvo.num}" style="color:white;font-size:20px;"><b class="icon-comments"></b><br>MyStory</a></th>
+	    							<th><a href="${pageContext.request.contextPath}/friends/list?num=${pvo.num}" style="color:white;"><b class="icon-person"></b><br>Friends</a></th></tr>    							
 	    						</table>	    						
 	    					</div>	    						
 	    					</div>
@@ -179,14 +181,21 @@
 				processData:false,
 				contentType:false,
 				data:formData,
-				success:function(){
+				success:function(){					
 					alert("업로드완료!!!");
+					location.reload();
 				}
 			});
 		}
 		
-		
-
+		$(function(){
+			$("#birthClick").click(function(){
+				$("#birth").html("<form method='post' id='birthform' enctype='multipart/form-data' style='display:inline-flex;'>" +
+								 "<input type='text' value='${pvo.birth}' style='width:110px;height:30px;text-align:center;'>" +
+								 "<a href='#' id='abirth'></a></form>");
+	
+			});
+		});
 	</script>
   </body>
 </html>

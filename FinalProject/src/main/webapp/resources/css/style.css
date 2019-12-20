@@ -8894,6 +8894,12 @@ textarea.form-control {
   background-repeat: no-repeat;
   background-position: center center; }
 
+.author-img{
+  background-repeat: no-repeat;
+  background-position: center center; }
+.full-img{
+	margin-top: 30px; width: 600px; height: 830px;
+}  
 .bg-light {
   background: #f8f9fa !important; }
 

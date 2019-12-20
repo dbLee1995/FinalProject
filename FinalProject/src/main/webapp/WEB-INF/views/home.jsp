@@ -98,8 +98,7 @@
 				              <p class="mb-4"> 6개월동안 열심히 해요!</p>
 				              <!-- 테스트 기능 주소들 -->
 				              <p><a href="${pageContext.request.contextPath }/member/register" class="btn-custom">
-				              		회원가입<span class="ion-ios-arrow-forward"></span></a></p>
-				            
+				              		회원가입<span class="ion-ios-arrow-forward"></span></a></p>				            
 				            <ul>
 				              <c:choose>
 								<c:when test="${empty sessionScope.id }">

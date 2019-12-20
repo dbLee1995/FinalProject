@@ -59,9 +59,8 @@ public class StoryController {
 		mv.addObject("list",list);
 		mv.addObject("id",vo.getId());
 		mv.addObject("profileimg",pvo.getProfileimg());
-		mv.addObject("num",pvo.getNum());
-		return mv;
-		
+		mv.addObject("num",pvo.getNum());		
+		return mv;		
 	}
 	
 	@RequestMapping(value="/story/insert",method=RequestMethod.GET)

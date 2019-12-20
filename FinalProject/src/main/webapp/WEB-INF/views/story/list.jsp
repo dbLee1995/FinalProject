@@ -68,9 +68,14 @@
 	    	<div class="container">
 	    		<div class="row d-flex">
 	    			<div class="col-xl-8 px-md-5 py-5">
-	    
-	    					<h3><a href="${pageContext.request.contextPath}/story/insert?num=${sessionScope.num}">COCOA Story</a></h3>	    					
-	    			
+	    				<c:choose>
+	    					<c:when test="${sessionScope.num eq num }">
+	    						<h3><a href="${pageContext.request.contextPath}/story/insert?num=${sessionScope.num}">COCOA Story</a></h3>
+	    					</c:when>
+	    					<c:otherwise>
+	    						<h3>COCOA Story</h3>
+	    					</c:otherwise>
+	    				</c:choose>
 	    				<c:forEach var="list" items="${list}">	
 	    				<c:choose>
 							<c:when test="${empty list.storynum}">
@@ -86,7 +91,8 @@
 				              <h3 class="mb-4"><a href="#">${list.stitle}</a></h3>
 				              <p class="mb-4">${list.scontent}</p>
 				              <div class="author mb-4 d-flex align-items-center">
-				            		<a href="${pageContext.request.contextPath}/profiles/info?num=${num}" class="img" style="background-image: url(${profileimg});"></a>
+				              		<c:if test="${profileimg eq null && profileimg ne null }"/>
+				            		<a href="${pageContext.request.contextPath}/profiles/info?num=${num}" class="img" style="background-image: url(${pageContext.request.contextPath}/resources/upload/${profileimg});"></a>
 				            		<div class="ml-3 info">
 				            			<span>Written by</span>
 				            			<h3><a href="${cp}/profiles/info?num=${num}">${id}</a>, <span>${list.sregdate}</span></h3>
