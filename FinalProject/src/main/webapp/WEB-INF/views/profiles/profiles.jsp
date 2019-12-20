@@ -163,11 +163,11 @@
   <script src="${cp}/resources/js/google-map.js"></script>
   <script src="${cp}/resources/js/main.js"></script>   
   <script type="text/javascript">
-		function uploadFile(){			
-			$("#changeFile1").click();
+		function uploadFile(){		// a태그	onClick=함수
+			$("#changeFile1").click(); // input type="file" id입력 click메소드
 			
 		}
-		function changeFile(e){				
+		function changeFile(e){		// input type="file" onchange함수		 
 			setFile(e);
 		}
 		function setFile(e){
@@ -190,12 +190,66 @@
 		
 		$(function(){
 			$("#birthClick").click(function(){
-				$("#birth").html("<form method='post' id='birthform' enctype='multipart/form-data' style='display:inline-flex;'>" +
-								 "<input type='text' value='${pvo.birth}' style='width:110px;height:30px;text-align:center;'>" +
-								 "<a href='#' id='abirth'></a></form>");
-	
+				$(this).hide();
+				$("#birth").html("<form method='post' id='birthform' style='display:inline-flex;'>" +
+								 "<input type='text' name='birthcheck' id='birthcheck' value='${pvo.birth}' style='width:110px;height:30px;text-align:center;background-color:lightgray;'>" +
+								 "<a href='javascript:void(0);' name='savebirth' id='savebirth' onClick='saveBirth(this);' style='padding-left:5px;'>수정</a>" +
+								 "<a href='javascript:void(0);' id='re' style='padding-left:5px;' onclick='reset();'>취소</a>" +
+								 "</form>");
+				$("#birthcheck").focus();
 			});
 		});
+								
+		function saveBirth(e){
+//			var formData=new FormData(document.getElementById("#birthform"));
+			var birthcheck=$("#birthcheck").val();
+//			var birthform=document.getElementById("#birthform");
+			formdata=birthcheck.getFormData();
+			formdata.append("birthcheck",$("#birthcheck").val());
+ 			alert(birthcheck + ",,,,," + formData);
+			$.ajax({
+				url:"${cp}/profiles/updateBirth?num=" + num,
+				type:"POST",
+				processData:false,
+				contentType:false,
+				data:formData,
+				success:function(){					
+					alert("업로드완료!!!");
+					location.reload();
+				}
+			});
+		}
+	
+/*
+		function birthCheck(){
+			 var number = obj.value.replace(/[^0-9]/g, "");
+			 var birthcheck = "";
+			    if(number.length < 4) {
+			        return number;
+			    } else if(number.length < 7) {
+			    	birthcheck += number.substr(0, 4);
+			    	birthcheck += "-";
+			    	birthcheck += number.substr(4);
+			    } else if(number.length < 11) {
+			    	birthcheck += number.substr(0, 2);
+			    	birthcheck += "-";
+			    	birthcheck += number.substr(4, 2);
+			    	birthcheck += "-";
+			    	birthcheck += number.substr(2);
+			    } else {
+			    	birthcheck += number.substr(0, 2);
+			    	birthcheck += "-";
+			    	birthcheck += number.substr(4, 2);
+			    	birthcheck += "-";
+			    	birthcheck += number.substr(2);
+			    }
+			    obj.value = birthcheck;
+			}
+		}
+*/
+	function reset(){
+		location.reload();
+	}
 	</script>
   </body>
 </html>

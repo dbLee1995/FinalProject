@@ -21,6 +21,9 @@ public class ProfilesDao {
 	public int insert(ProfilesVo vo) {
 		return sqlSessionTemplate.insert(NAMESPACE + ".insert", vo);
 	}
+	public int updateBirth(ProfilesVo vo){
+		return sqlSessionTemplate.update(NAMESPACE + ".updateBirth",vo);
+	}
 	public int updateBackimg(ProfilesVo vo){
 		return sqlSessionTemplate.update(NAMESPACE + ".updateBackimg",vo);
 	}

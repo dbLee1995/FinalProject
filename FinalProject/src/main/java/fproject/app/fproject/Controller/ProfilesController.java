@@ -50,6 +50,18 @@ public class ProfilesController {
 		mv.addObject("id",avo.getId());
 		return mv;
 	}
+	@RequestMapping(value="profiles/updateBirth",method=RequestMethod.POST)
+	@ResponseBody
+	public String updateBirth(ProfilesVo vo,int num){
+		int n=pservice.updateBirth(vo);
+		System.out.println(">>>>>>>>>>>>>>>" + n);
+		if(n>0){
+			return "redirect:/profiles/profiles?num=" + num;
+		}else{
+			return "test/error";
+		}
+		
+	}	
 	@RequestMapping(value="profile/updateBackImg",method=RequestMethod.POST,produces="text/plain")
 	@ResponseBody
 	public String setBackImg(int num,MultipartFile file1,HttpSession session,Model model){
