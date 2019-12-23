@@ -5,7 +5,7 @@ package fproject.app.fproject.Controller;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import fproject.app.fproject.service.CalendarService;
+import fproject.app.fproject.service.FriendsService;
 import fproject.app.fproject.service.NationalDayService;
 import fproject.app.fproject.vo.CalenderVo;
 import fproject.app.fproject.vo.NationaldayVo;
@@ -36,6 +37,9 @@ public class CalendarController {
 	private NationalDayService Nservice;
 	@Autowired
 	private CalendarService Cservice;
+	@Autowired
+	private FriendsService Fservice;
+	private int frinum=0;
 	@RequestMapping("/calendar")
 	public String calendar(){
 		return "calendar";
@@ -48,7 +52,11 @@ public class CalendarController {
 		if(session.getAttribute("num")!=null){
 			num=(Integer)(session.getAttribute("num"));
 		}
-		List<CalenderVo> list1=Cservice.list(num);
+		HashMap<String, Object> map=new HashMap<>();
+		map.put("friname","");
+		map.put("num", num);
+		List <HashMap<String, Object>> flist=Fservice.list(map);
+ 		List<CalenderVo> list1=Cservice.list(num);
 		List<NationaldayVo> list2=Nservice.list();
 		for(NationaldayVo vo:list2){
 			JSONObject json=new JSONObject();			
@@ -63,6 +71,23 @@ public class CalendarController {
 			json.put("end",vo.getAniverenddate());	
 			json.put("allDay", true);
 			arr.put(json);
+		}
+		for(HashMap<String, Object> fri:flist){			
+			String[] array =((String)fri.get("BIRTH")).split("-");
+			for(int j=2018;j<2025;j++){
+				JSONObject json=new JSONObject();	
+				json.put("_id",--frinum );	
+				json.put("title", fri.get("NAME")+" 积老");
+				json.put("description","模备 积老");	
+				json.put("type","焊烹");
+				json.put("username","惫啊傍绒老");
+				json.put("backgroundColor", "#5ea4df");
+				json.put("textColor", "#ffffff");
+				json.put("start",j+"-"+array[1]+"-"+array[2]);	
+				json.put("end",j+"-"+array[1]+"-"+array[2]);
+				json.put("allDay", true);		
+				arr.put(json);
+			}		
 		}
 		for (CalenderVo vo:list1){
 			JSONObject json=new JSONObject();			

@@ -5,17 +5,23 @@ var editEvent = function (event, element, view) {
 	
     $('.popover.fade.top').remove();
     $(element).popover("hide");
-   
+    
    if(Number(event._id)<=90){
     	$("#updateEvent").css("display","none");
     	$("#deleteEvent").css("display","none");
-    	//alert(event._id);
+    	$(".col-xs-12 input").prop("readonly",true);
+
     	
     }else{
     	$("#updateEvent").css("display","inline");
     	$("#deleteEvent").css("display","inline");
     }
-    
+    if(event.username=='친구 생일'){
+    	$("#updateEvent").css("display","none");
+    	$("#deleteEvent").css("display","none");
+    	$(".col-xs-12 input").prop("readonly",true);
+
+    }
     //alert(typeof Number(event._id));
     if (event.allDay === true) {
         editAllDay.prop('checked', true);

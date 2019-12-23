@@ -187,7 +187,7 @@
     <script src="${cp }/resources/FC/vendor/js/bootstrap-datetimepicker.min.js"></script>
     <script src="${cp }/resources/FC/js/main.js"></script>
     <script src="${cp }/resources/FC/js/addEvent.js"></script>
-    <script src="${cp }/resources/FC/js/editEvent.js"></script>
+    <script src="${cp }/resources/FC/js/editEvents.js"></script>
     <script src="${cp }/resources/FC/js/etcSetting.js"></script>
 </body>
 

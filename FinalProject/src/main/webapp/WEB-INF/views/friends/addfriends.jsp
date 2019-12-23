@@ -211,7 +211,7 @@ function gomessage(fnum){
 	window.close();
 }
 function gomymessage(){
-	window.opener.location.href="../CreateChat?num=${sessionScope.num}";
+	window.opener.location.href="../CreateChat?num=${sessionScope.num}&fvalue=${sessionScope.num}";
 	window.close();
 }
 </script>
