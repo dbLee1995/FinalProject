@@ -994,7 +994,9 @@ a.btn-layerClose:hover {
 				        	aria-expanded="false" aria-controls="collapseThree" aria-hidden="true"></i>
 					
 					</span>
-					<a href="#" class="btn-RoomClose" >수정</a>
+					<a href="#" class="btn-RoomClose" 
+						data-toggle="modal" data-target="#updateroomname">수정</a>
+					
 					<i class="" aria-hidden="true"></i>
 					<a href="#" class="btn-RoomClose" 
 						data-toggle="modal" data-target="#exampleModalCenter">방 나가기</a>
@@ -1139,6 +1141,30 @@ a.btn-layerClose:hover {
 			        	class="btn-layerMake">대화내용 삭제하기</a>
 			        <a href="${cp }/removeChatRoom?clnum=${sessionScope.clnum}&num=${sessionScope.num}&check=1" 
 			        	class="btn-layerMake">대화내용 유지하기</a>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			
+			<div class="modal fade" id="updateroomname" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">방이름 수정</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        변경할 방이름을 입력해 주세요<br>
+			        <input type="text" id="newroomname">
+			      </div>
+			      <div class="modal-footer">
+			        <a href="${cp }/updateRoomName?clnum=${sessionScope.clnum}&name=$('#newroomname').value"
+			        	class="btn-layerMake">방이름 저장</a>
+			        <a href="${cp }/moveChatRoom?clnum=${sessionScope.clnum}&num=${sessionScope.num}" 
+			        	class="btn-layerMake">취소</a>
 			      </div>
 			    </div>
 			  </div>
