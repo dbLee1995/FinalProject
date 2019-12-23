@@ -36,6 +36,14 @@
     		justify-content:space-between;
     		padding:100px 200px 10px 200px;
     	}
+    	.emobox {
+    		padding: 0px 100px 40px 170px;
+    		max-width: 1700px;
+    	}
+    	.allView {
+    		padding: 0px 110px 5px 0px;
+    		align-self: last baseline;
+    	}
     </style>
 </head>
 <body>
@@ -74,14 +82,14 @@
 		<article>
 		  <div id="newEmo" class="emoHeadline">
 			<h3>신규 이모티콘</h3>
-			<a href="">전체보기<span class="ion-ios-arrow-forward"></span></a>
+			<a href="" class="allView">전체보기<span class="ion-ios-arrow-forward"></span></a>
 		  </div>
-		  <div class="emobox">
-		  	<c:forEach items="${newList }" var="vo">
+		  <div class="emobox" style="display: flex;">
+		  	<c:forEach items="${newEmoList }" var="vo">
 		  	<div style="display:inline-block;">
-		  	  <a href="" style="display: block;">
+		  	  <a href="" style="display: flex; flex-flow: column nowrap; padding: 30px 60px 30px 60px;">
 		  	    <img src="${cp }/resources/uploadImage/admin/emoticon/${vo.category }/${vo.name }/${vo.repreImg }">
-		  	    <span style="font-size:9px; color:royalblue;">new</span>
+		  	    <span style="font-size:9px; color:royalblue;">신규</span>
 		  	    <h5>${vo.name }</h5>
 		  	    <span style="font-size:10px; color:gray;">${vo.category }</span>
 		  	  </a>
@@ -94,7 +102,20 @@
 			<h3>인기 이모티콘</h3>
 			<a href="">전체보기<span class="ion-ios-arrow-forward"></span></a>
 		  </div>
-		  인기 이모티콘
+		  <div class="emobox">
+		  	<div style="display:flex; flex-flow: column nowrap">
+		  	  <c:forEach items="${populEmoList }" var="populVo" end="4">
+		  	  <div>
+		  	    <a href="" style="display: flex; flex-flow: column nowrap; padding: 30px 60px 30px 60px;">
+		  	      <img src="${cp }/resources/uploadImage/admin/emoticon/${populVo.category }/${populVo.name }/${populVo.repreImg }">
+		  	      <span style="font-size:9px; color:#dc3545;">인기!</span>
+		  	      <h5>${populVo.name }</h5>
+		  	      <span style="font-size:10px; color:gray;">${populVo.category }</span>
+		  	    </a>
+		  	  </div>
+		  	  </c:forEach>
+		  	</div>
+		  </div>
 		</article>
 		<article>
 		<article id="cotegory" class="emoHeadline">
@@ -103,6 +124,9 @@
 		</article>
 		  카테고리
 		</article>
+		
+	  <a href="${cp}/emoShop/wishList">좋아요</a>
+								<a href="${cp}/emoShop/basket">바구니</a>
 	  </section>
 	  
 	<!--
@@ -265,7 +289,7 @@
 						
 						ele2.append(ele3);
 						ele1.append(ele2);
-						ele0.append(ele1)
+						ele0.append(ele1);
 					}
 				}
 			}

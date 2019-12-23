@@ -71,7 +71,7 @@
 		function checkExt(fileName) {
 			var ext = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length); 
 			console.log(ext);
-			if(ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'gif' || ext === 'webp') { // ===aivf, ===heif
+			if(ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'gif' || ext === 'webp' || ext === 'PNG') { // ===aivf, ===heif
 				return true;
 			} else {
 				return false;

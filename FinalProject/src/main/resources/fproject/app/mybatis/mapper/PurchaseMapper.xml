@@ -7,5 +7,7 @@
 	<insert id="insert" parameterType="fproject.app.fproject.vo.PurchaseVo">
 		insert into values(SEQ_Purchasenum.nextval, sysdate, #{emognum}, #{num})
 	</insert>
-
+	<select id="selectPopulEmoList" resultType="fproject.app.fproject.vo.EmoticongroupVo">
+		select * from (select emognum, count(*) num from purchase group by emognum order by num desc) where rownum <![CDATA[<=]]> 10
+	</select>
 </mapper>

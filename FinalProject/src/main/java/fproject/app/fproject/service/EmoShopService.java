@@ -83,4 +83,15 @@ public class EmoShopService {
 	public EmoshopVo getEmogInfo(int emognum) {
 		return dao.selectOneEmogInfo(emognum);
 	}
+	
+	public List<EmoshopVo> getNewEmoList() {
+		return dao.selectNewEmoList();
+	}
+	
+	/**
+	 * <p>주의: 반환된 emoticongroupVo에 담겨있는 num은 회원번호가 아니라 해당 이모티콘의 판매횟수입니다.<p>
+	 */
+	public List<EmoticongroupVo> getPopulEmoList() {
+		return dao.selectPopulEmoList();
+	}
 }

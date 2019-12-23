@@ -1,5 +1,7 @@
 package fproject.app.fproject.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,5 +44,13 @@ public class EmoticonShopDao {
 	
 	public int insertEmoticonGroup(EmoticongroupVo vo) {
 		return sqlSessionTemplate.insert(EmoticonGroupMapper + ".insert", vo);
+	}
+	
+	public List<EmoshopVo> selectNewEmoList() {
+		return sqlSessionTemplate.selectList(EmoticonShopMapper + ".selectNewEmoList");
+	}
+	
+	public List<EmoticongroupVo> selectPopulEmoList() {
+		return sqlSessionTemplate.selectList(PurchaseMapper + ".selectPopulEmoList");
 	}
 }

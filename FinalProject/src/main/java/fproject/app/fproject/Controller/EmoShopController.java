@@ -26,6 +26,7 @@ import fproject.app.fproject.service.FavorListService;
 import fproject.app.fproject.service.MemberService;
 import fproject.app.fproject.vo.EmoWishListVo;
 import fproject.app.fproject.vo.EmoshopVo;
+import fproject.app.fproject.vo.EmoticongroupVo;
 import fproject.app.fproject.vo.FavorlistVo;
 import fproject.app.fproject.vo.PurchaseVo;
 
@@ -40,10 +41,16 @@ public class EmoShopController {
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String mainPage(Model model, HttpServletRequest req) {
 		int userNum = (int)req.getSession().getAttribute("num");
+		List<EmoticongroupVo> emogroupList = emoShopService.getPopulEmoList();
+		List<EmoshopVo> populEmoList = new ArrayList<EmoshopVo>();
+		for(EmoticongroupVo vo : emogroupList) {
+			populEmoList.add(emoShopService.getEmogInfo(vo.getEmognum())); 
+		}
+		model.addAttribute("newEmoList", emoShopService.getNewEmoList());
+		model.addAttribute("populEmoList", populEmoList);
 		return "emoShop/main";
 	}
 	
-
 	@RequestMapping(value="/main", produces={"application/json;charset=UTF-8"}, method=RequestMethod.POST)
 	@ResponseBody
 	public String addEmoticonList(Model model, HttpServletRequest req, int count) {

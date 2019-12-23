@@ -7,7 +7,7 @@
 		select * from profiles where num=#{num}
 	</select>
 	<insert id="insert" parameterType="fproject.app.fproject.vo.ProfilesVo">
-		insert into profiles values(#{num}, #{name}, #{phone}, #{email}, #{birth}, '', '', '')
+		insert into profiles values(#{num}, #{name}, #{phone}, #{email}, #{birth}, 'baf0bdfe-420e-47d4-8122-0cc0662c524c_기본프로필.jpeg', 'c3716c97-0f26-400b-a3e8-c089ac64c169_기본배경.jpg', '')
 	</insert>
 	<update id="updateProfImg" parameterType="fproject.app.fproject.vo.ProfilesVo">
 		update profiles 

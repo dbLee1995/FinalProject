@@ -41,7 +41,7 @@
 	</insert>
 	
 	<insert id="emoticonShopInsert" parameterType="fproject.app.fproject.vo.EmoshopVo">
-		insert into emoshop values(SEQ_emognum.nextval, #{price}, #{name}, #{category}, #{repreImg})
+		insert into emoshop values(SEQ_emognum.nextval, #{price}, #{name}, #{category}, #{repreImg}, sysdate)
 	</insert>
 	
 	<delete id="delUserWishItem" parameterType="map">
@@ -51,4 +51,12 @@
 	<insert id="insertUserWishList" parameterType="fproject.app.fproject.vo.FavorlistVo">
 		insert into favorlist values(SEQ_favornum.nextval, #{favor}, #{emognum}, #{num})
 	</insert>
+	
+	<select id="selectNewEmoList" resultType="fproject.app.fproject.vo.EmoshopVo">
+		select * from (select * from emoshop order by regdate desc) where rownum <![CDATA[<=]]> 10
+	</select>
+	 
+	<select id="selectPopulEmoList" resultType="fproject.app.fproject.vo.EmoshopVo">
+		select * from purchase
+	</select>
 </mapper>
