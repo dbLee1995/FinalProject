@@ -92,8 +92,12 @@ public class ChatController {
 		
 		List<AttendinfoVo> ailist=chatService.getAttendInfo(num);
 		int Fclnum=0;
+		int fintvalue=0;
+		if(fvalue !=null){
+			fintvalue= Integer.parseInt(fvalue[0]);
+		}
 		
-		if(fvalue==null){
+		if(fvalue==null || fintvalue==num){
 			int clnum=chatService.getRoomforName("나와의 채팅");
 			if(clnum>0){
 				chatService.updateAttendinfo(new AttendinfoVo(clnum, num, 1));
@@ -344,10 +348,15 @@ public class ChatController {
 		return jarr.toString();
 	}
 	@RequestMapping(value="/removeChatRoom")
-	public String removeChatRoom(Model model, int clnum, int num, 
+	public String removeChatRoom(Model model, int clnum, int num, int check,
 			HttpSession session){
 		
 		chatService.updateAttendinfo(new AttendinfoVo(clnum, num, 0));
+		
+		if(check==0){
+			chatService.deleteReadInfo(clnum);
+			chatService.deleteChat(clnum);
+		}
 		
 		List<ChatlistVo> clist=chatService.getRoomList();
 		model.addAttribute("ChatList",clist);

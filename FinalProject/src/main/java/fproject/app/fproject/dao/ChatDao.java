@@ -33,4 +33,5 @@ public interface ChatDao {
 	public int getChatReadCount(ReadinfoVo rvo);
 	public int getChatCount(int clnum);
 	public int deleteChat(int clnum);
+	public int deleteReadInfo(int clnum);
 }

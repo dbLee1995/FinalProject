@@ -159,4 +159,8 @@
 		DELETE FROM CHAT 
 		WHERE CLNUM=#{clnum}
 	</delete>
+	<delete id="deleteReadInfo" parameterType="int">
+		DELETE FROM READINFO
+		WHERE CLNUM=#{clnum}
+	</delete>
 </mapper>

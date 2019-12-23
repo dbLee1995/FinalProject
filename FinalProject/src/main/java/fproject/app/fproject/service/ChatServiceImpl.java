@@ -114,4 +114,8 @@ public class ChatServiceImpl implements ChatService{
 	public int deleteChat(int clnum) {
 		return dao.deleteChat(clnum);
 	}
+	@Override
+	public int deleteReadInfo(int clnum) {
+		return dao.deleteReadInfo(clnum);
+	}
 }

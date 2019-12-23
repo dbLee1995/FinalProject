@@ -1135,9 +1135,10 @@ a.btn-layerClose:hover {
 			        대화 내용을 삭제하시겠습니까?
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-primary" id="deleteY">대화내용 삭제하기</button>
-			        <button type="button" class="btn btn-primary" id="deleteN">대화내용 유지하기</button>
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+			        <a href="${cp }/removeChatRoom?clnum=${sessionScope.clnum}&num=${sessionScope.num}&check=0" 
+			        	class="btn-layerMake">대화내용 삭제하기</a>
+			        <a href="${cp }/removeChatRoom?clnum=${sessionScope.clnum}&num=${sessionScope.num}&check=1" 
+			        	class="btn-layerMake">대화내용 유지하기</a>
 			      </div>
 			    </div>
 			  </div>

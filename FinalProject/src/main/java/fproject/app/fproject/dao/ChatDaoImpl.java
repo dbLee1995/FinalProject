@@ -119,4 +119,8 @@ public class ChatDaoImpl implements ChatDao{
 	public int deleteChat(int clnum) {
 		return sqlSessionTemplate.delete(NAMESPACE+".deleteChat", clnum);
 	}
+	@Override
+	public int deleteReadInfo(int clnum) {
+		return sqlSessionTemplate.delete(NAMESPACE+".deleteReadInfo",clnum);
+	}
 }
