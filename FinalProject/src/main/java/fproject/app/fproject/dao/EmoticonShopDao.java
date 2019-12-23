@@ -53,4 +53,8 @@ public class EmoticonShopDao {
 	public List<EmoticongroupVo> selectPopulEmoList() {
 		return sqlSessionTemplate.selectList(PurchaseMapper + ".selectPopulEmoList");
 	}
+	
+	public List<EmoshopVo> selectCatogoryEmoList(String emoCategory) {
+		return sqlSessionTemplate.selectList(EmoticonShopMapper + ".selectCatogoryEmoList", emoCategory);
+	}
 }

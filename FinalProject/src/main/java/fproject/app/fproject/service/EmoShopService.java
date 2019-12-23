@@ -94,4 +94,8 @@ public class EmoShopService {
 	public List<EmoticongroupVo> getPopulEmoList() {
 		return dao.selectPopulEmoList();
 	}
+	
+	public List<EmoshopVo> getCategoryEmoList(String emoCategory) {
+		return dao.selectCatogoryEmoList(emoCategory);
+	}
 }

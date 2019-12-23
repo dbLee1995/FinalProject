@@ -48,6 +48,7 @@ public class EmoShopController {
 		}
 		model.addAttribute("newEmoList", emoShopService.getNewEmoList());
 		model.addAttribute("populEmoList", populEmoList);
+		model.addAttribute("category1", emoShopService.getCategoryEmoList("카테고리1"));
 		return "emoShop/main";
 	}
 	
