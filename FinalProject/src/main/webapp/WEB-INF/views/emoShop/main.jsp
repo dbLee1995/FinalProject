@@ -23,12 +23,25 @@
     	.linkIcon {
     		font-size: 40px;
     	}
+    	.emoContainer {
+    		display:flex;
+    		flex-flow:column nowrap;
+    		max-width:5000px;
+    		margin-left:15%;
+    		padding:15px;
+    	}
+    	.emoHeadline {
+    		display:flex;
+    		flex-flow:row nowrap;
+    		justify-content:space-between;
+    		padding:100px 200px 10px 200px;
+    	}
     </style>
 </head>
 <body>
   <div id="colorlib-page">
 	<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
-	  <aside id="colorlib-aside" role="complementary" class="js-fullheight">
+	  <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="max-width: 250px;">
 		<nav id="colorlib-main-menu" role="navigation">
 		  <ul>
 			<li><a href="${cp}/./">Home</a></li>
@@ -53,12 +66,53 @@
 	  	  </p>
 	  	</div>
 	  </aside> <!-- END COLORLIB-ASIDE -->
-		<div id="colorlib-main">
+	  
+	  <section id="emoContainer" class="emoContainer">
+	  	<div id="event" style="display:flex; flex-flow:row nowrap; text-align:center; justify-content:center;">
+	  		<img src="${cp }/resources/images/emoShop/blue.png">
+	  	</div>
+		<article>
+		  <div id="newEmo" class="emoHeadline">
+			<h3>신규 이모티콘</h3>
+			<a href="">전체보기<span class="ion-ios-arrow-forward"></span></a>
+		  </div>
+		  <div class="emobox">
+		  	<c:forEach items="${newList }" var="vo">
+		  	<div style="display:inline-block;">
+		  	  <a href="" style="display: block;">
+		  	    <img src="${cp }/resources/uploadImage/admin/emoticon/${vo.category }/${vo.name }/${vo.repreImg }">
+		  	    <span style="font-size:9px; color:royalblue;">new</span>
+		  	    <h5>${vo.name }</h5>
+		  	    <span style="font-size:10px; color:gray;">${vo.category }</span>
+		  	  </a>
+		  	</div>
+		  	</c:forEach>
+		  </div>
+		</article>
+		<article>
+		  <div id="populEmo" class="emoHeadline">
+			<h3>인기 이모티콘</h3>
+			<a href="">전체보기<span class="ion-ios-arrow-forward"></span></a>
+		  </div>
+		  인기 이모티콘
+		</article>
+		<article>
+		<article id="cotegory" class="emoHeadline">
+			<h3>스타일</h3>
+			<a href="">전체보기<span class="ion-ios-arrow-forward"></span></a>
+		</article>
+		  카테고리
+		</article>
+	  </section>
+	  
+	<!--
+		<div id="colorlib-main" style="width:100%;">
 		  <section class="ftco-section ftco-no-pt ftco-no-pb">
-	    	<div class="container">
+	    	<div class="container" style="max-width:1400px; margin-right:0px;">
 	    	  <div class="row d-flex">
 	    		 <div class="col-xl-8 py-5 px-md-5" id="emoListContainer">
 	<!--  /////////////     START     /////////////  -->
+	<!--
 	    		    <div class="row pt-md-4">
 			          <div class="col-md-12">
 				        <div class="blog-entry d-md-flex">
@@ -70,7 +124,6 @@
 				              <p class="mb-4">3. 실행하기 - C:\java>java Test01</p>
 				              <p class="mb-4">반갑습니다.</p>
 				              <p class="mb-4"> 6개월동안 열심히 해요!</p>
-				              <!-- 테스트 기능 주소들 -->
 				              <p><a href="${pageContext.request.contextPath }/member/register" class="btn-custom">회원가입<span class="ion-ios-arrow-forward"></span></a></p>
 				              <section title="navigationBar">
 								<a href="${cp}/emoShop/wishList">좋아요</a>
@@ -80,48 +133,15 @@
 				  		  </div>
 					    </div>
 			  		  </div>
-			  		  
-			  		  <div class="row pt-md-4">
-			          <div class="col-md-12">
-				        <div class="blog-entry d-md-flex">
-				          <a href="single.html" class="img img-2" style="background-image: url(images/image_1.jpg);"></a>
-							<div class="text text-2 pl-md-4">
-				              <h3 class="mb-2"><a href="single.html">A Loving Heart is the Truest Wisdom</a></h3>
-				              <p class="mb-4">1. 파일명을 클래스명.java로 저장하기
-				              <p class="mb-4">2. 컴파일하기 - C:\java>javac Test01.java</p>
-				              <p class="mb-4">3. 실행하기 - C:\java>java Test01</p>
-				              <p class="mb-4">반갑습니다.</p>
-				              <p class="mb-4"> 6개월동안 열심히 해요!</p>
-				              <!-- 테스트 기능 주소들 -->
-				              <p><a href="${pageContext.request.contextPath }/member/register" class="btn-custom">회원가입<span class="ion-ios-arrow-forward"></span></a></p>
-				              <section title="navigationBar">
-							  </section>
-							</div>
-				  		  </div>
-					    </div>
-			  		  </div> 
-			  		  
-			  		  <div class="row pt-md-4">
-			          <div class="col-md-12">
-				        <div class="blog-entry d-md-flex">
-				          <a href="single.html" class="img img-2" style="background-image: url(images/image_1.jpg);"></a>
-							<div class="text text-2 pl-md-4">
-				              <h3 class="mb-2"><a href="single.html">A Loving Heart is the Truest Wisdom</a></h3>
-				              <p class="mb-4">1. 파일명을 클래스명.java로 저장하기
-				              <p class="mb-4">2. 컴파일하기 - C:\java>javac Test01.java</p>
-				              <p class="mb-4">3. 실행하기 - C:\java>java Test01</p>
-				              <p class="mb-4">반갑습니다.</p>
-				              <p class="mb-4"> 6개월동안 열심히 해요!</p>
-				              <!-- 테스트 기능 주소들 -->
-				              <p><a href="${pageContext.request.contextPath }/member/register" class="btn-custom">회원가입<span class="ion-ios-arrow-forward"></span></a></p>
-				              <section title="navigationBar">
-							  </section>
-							</div>
-				  		  </div>
-					    </div>
-			  		  </div> 
+			  		</div>
+			  		</div>
+			  		  </div>
+			  		  </section>
+			  		  </div>
+	-->
 					
 	<!--  /////////////     END     /////////////  -->
+	<!-- 
 			  </div>
 			  <div class="col-xl-4 sidebar bg-light pt-5">
 			  	<div class="sidebar-box">
@@ -167,20 +187,20 @@
 	              <h3 class="sidebar-heading">Paragraph</h3>
 	              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut.</p>
 	            </div>
-	          </div><!-- END COL -->
+	          </div>
+	          <!-- END COL -->
+	          <!-- 
 	        </div>
 	      </div>
 	    </section>
-	  </div><!-- END COLORLIB-MAIN -->
-	</div><!-- END COLORLIB-PAGE -->
-	<!-- 
+	  </div>
+	  -->
+	  <!-- END COLORLIB-MAIN -->
+	 <!-- 
+	</div>
+	<!-- END COLORLIB-PAGE -->
 	
 	
-	<section title="emoList" id="emoList">
-		<div style="height: 600px;">a</div>
-		<div style="height: 600px;">a</div>
-	</section>
-     -->
     <!--
 	<footer>
 		<ul class="article-list__pagination article-list__pagination--inactive" id="article-list-pagination"></ul>
@@ -256,84 +276,6 @@
 		};
  
  
-(function() {
-  var isIE = /msie/gi.test(navigator.userAgent); // http://pipwerks.com/2011/05/18/sniffing-internet-explorer-via-javascript/
-  
-  this.infiniteScroll = function(options) {
-    var defaults = {
-      callback: function() {},
-      distance: 50
-    }
-    
-    // Populate defaults
-    for (var key in defaults) {
-      console.log("key: " + key);
-      if(typeof options[key] == 'undefined') options[key] = defaults[key];
-    }
-    
-    var scroller = {
-      options: options,
-      updateInitiated: false
-    }
-    
-    window.onscroll = function(event) {
-      handleScroll(scroller, event);  
-    }
-    // For touch devices, try to detect scrolling by touching
-    document.ontouchmove = function(event) {
-      handleScroll(scroller, event);
-    }
-  }
-  
-  function getScrollPos() {
-    // Handle scroll position in case of IE differently
-    if (isIE) {
-      return document.documentElement.scrollTop;
-    } else {
-      return window.pageYOffset;
-    }
-  }
-  
-  console.log('문서 높이 /////////////////////' + getScrollPos());
-  
-  var prevScrollPos = getScrollPos();
-  console.log('////////////pr//////prevScrollPos' + prevScrollPos);
-  
-  // Respond to scroll events
-  function handleScroll(scroller, event) {
-    if (scroller.updateInitiated) {
-      return;
-    }   
-    var scrollPos = getScrollPos();
-    console.log('///////////////////pre////scrollPos' + scrollPos);
-    if (scrollPos == prevScrollPos) {
-      return; // nothing to do
-    }
-    
-    // Find the pageHeight and clientHeight(the no. of pixels to scroll to make the scrollbar reach max pos)
-    var pageHeight = document.documentElement.scrollHeight;
-    var clientHeight = document.documentElement.clientHeight;
-    
-    console.log('////////////////////////페이지 높이' + pageHeight);
-    console.log('////////////////////////사용자 위치' + clientHeight);
-    console.log('///////////pro//s//crollPos' + scrollPos);
-    
-    // Check if scroll bar position is just 50px above the max, if yes, initiate an update
-    if (pageHeight - (scrollPos + clientHeight) < scroller.options.distance) {
-      scroller.updateInitiated = true;
-  
-      scroller.options.callback(function() {
-        scroller.updateInitiated = false;
-      });
-    }
-    
-    prevScrollPos = scrollPos;  
-  }
-})();
-
-		
-// setup infinite scroll
-infiniteScroll(options);
 
 </script>
 

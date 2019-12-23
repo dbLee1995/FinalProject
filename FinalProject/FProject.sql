@@ -278,7 +278,9 @@ CREATE TABLE emoshop
 	-- 카테고리
 	category varchar2(20) NOT NULL UNIQUE,
 	-- 대표이미지
-	repreImg varhcar2(50) NOT NULL
+	repreImg varhcar2(50) NOT NULL,
+	-- 등록일
+	regdate date NOT NULL
 );
 
 
