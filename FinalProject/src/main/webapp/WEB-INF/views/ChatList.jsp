@@ -996,7 +996,9 @@ a.btn-layerClose:hover {
 					</span>
 					<a href="#" class="btn-RoomClose" >수정</a>
 					<i class="" aria-hidden="true"></i>
-					<a href="${cp }/removeChatRoom?clnum=${sessionScope.clnum}&num=${sessionScope.num}" class="btn-RoomClose" >방 나가기</a>
+					<a href="#" class="btn-RoomClose" 
+						data-toggle="modal" data-target="#exampleModalCenter">방 나가기</a>
+						<!-- ${cp }/removeChatRoom?clnum=${sessionScope.clnum}&num=${sessionScope.num} -->
 					<i class="" aria-hidden="true"></i>
 				</div>
 			</div>
@@ -1118,6 +1120,28 @@ a.btn-layerClose:hover {
 			        </div>
 			    </div>
 			</div>	 -->
+			
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">채팅 방 나가기</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        대화 내용을 삭제하시겠습니까?
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-primary" id="deleteY">대화내용 삭제하기</button>
+			        <button type="button" class="btn btn-primary" id="deleteN">대화내용 유지하기</button>
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 			
 </body>
 
