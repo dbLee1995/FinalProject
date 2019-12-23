@@ -44,10 +44,8 @@ public class ProfilesController {
 	@RequestMapping(value="profiles/info",method=RequestMethod.GET)
 	public ModelAndView info(int num){
 		ProfilesVo pvo=pservice.info(num);
-		AccountVo avo=aservice.info(num);
 		ModelAndView mv=new ModelAndView("profiles/profiles");
 		mv.addObject("pvo",pvo);
-		mv.addObject("id",avo.getId());
 		return mv;
 	}
 	@RequestMapping(value="profiles/update",method=RequestMethod.POST)
@@ -58,9 +56,20 @@ public class ProfilesController {
 			return "redirect:/profiles/profiles?num=" + num;
 		}else{
 			return "test/error";
-		}
-		
+		}		
 	}	
+	
+	@RequestMapping(value="profiles/updateName",method=RequestMethod.POST)
+	@ResponseBody
+	public String updateName(ProfilesVo vo,int num){
+		int n=pservice.updateName(vo);
+		if(n>0){
+			return "redirect:/profiles/profiles?num=" + num;
+		}else{
+			return "test/error";
+		}		
+	}	
+	
 	@RequestMapping(value="profile/updateBackImg",method=RequestMethod.POST,produces="text/plain")
 	@ResponseBody
 	public String setBackImg(int num,MultipartFile file1,HttpSession session,Model model){
