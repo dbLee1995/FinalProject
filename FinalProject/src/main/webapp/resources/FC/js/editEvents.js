@@ -10,6 +10,7 @@ var editEvent = function (event, element, view) {
     	$("#updateEvent").css("display","none");
     	$("#deleteEvent").css("display","none");
     	$(".col-xs-12 input").prop("readonly",true);
+    	
 
     	
     }else{
