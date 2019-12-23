@@ -50,11 +50,10 @@ public class ProfilesController {
 		mv.addObject("id",avo.getId());
 		return mv;
 	}
-	@RequestMapping(value="profiles/updateBirth",method=RequestMethod.POST)
+	@RequestMapping(value="profiles/update",method=RequestMethod.POST)
 	@ResponseBody
-	public String updateBirth(ProfilesVo vo,int num){
-		int n=pservice.updateBirth(vo);
-		System.out.println(">>>>>>>>>>>>>>>" + n);
+	public String update(ProfilesVo vo,int num){
+		int n=pservice.update(vo);
 		if(n>0){
 			return "redirect:/profiles/profiles?num=" + num;
 		}else{
@@ -99,8 +98,47 @@ public class ProfilesController {
             return "redirect:/profiles/info?num="+num;
           }catch(Exception e){
             e.printStackTrace();
-            return "test/error";
-            
+            return "test/error";           
+          }
+	}
+	@RequestMapping(value="profile/updateProfImg",method=RequestMethod.POST,produces="text/plain")
+	@ResponseBody
+	public String setProfImg(int num,MultipartFile uploadProfImg,HttpSession session,Model model){
+		try{			
+			if(!uploadProfImg.isEmpty()){ // 첨부된파일이 있는 경우
+          // 1. 기존파일 삭제
+            String path=session.getServletContext()
+                               .getRealPath("/resources/upload");
+            System.out.println("경로::::"+path+",,,,,,,uploadProfImg:"+uploadProfImg);
+            ProfilesVo pvo1=pservice.info(num);
+            String profileimg2=pvo1.getProfileimg();
+            File f=new File(path + "\\" + profileimg2);
+            if(!f.delete()){
+               new Exception("파일삭제실패!");
+            }
+            // 2. 첨부된 파일 저장
+            profileimg2=uploadProfImg.getOriginalFilename();
+            String profileimg = UUID.randomUUID() +"_" + profileimg2;
+            InputStream is=uploadProfImg.getInputStream();
+            FileOutputStream fos=
+                    new FileOutputStream(path +"\\" + profileimg);
+            FileCopyUtils.copy(is,fos);
+            is.close();
+            fos.close();
+            //3. db수정            
+            ProfilesVo pvo=new ProfilesVo(num,null,null,null,null,profileimg,null,null);
+            pservice.updateProfImg(pvo);
+                      
+          }else {//첨부된 파일이 없는 경우
+            //db수정하기       	  
+        	  ProfilesVo pvo=new ProfilesVo(num,null,null,null,null,null,null,null);  
+        	  pservice.updateProfImg(pvo);        	  
+          }        
+			String profileimg=pservice.info(num).getProfileimg();
+            return "redirect:/profiles/info?num="+num;
+          }catch(Exception e){
+            e.printStackTrace();
+            return "test/error";           
           }
 	}
 }

@@ -9,9 +9,9 @@
 	<insert id="insert" parameterType="fproject.app.fproject.vo.ProfilesVo">
 		insert into profiles values(#{num}, #{name}, #{phone}, #{email}, #{birth}, '', '', '')
 	</insert>
-	<update id="updateBirth" parameterType="fproject.app.fproject.vo.ProfilesVo">
+	<update id="updateProfImg" parameterType="fproject.app.fproject.vo.ProfilesVo">
 		update profiles 
-		set birth=#{birth}
+		set profileimg=#{profileimg}
 		where num=#{num}
 	</update>
 	<update id="updateBackimg" parameterType="fproject.app.fproject.vo.ProfilesVo">
@@ -19,10 +19,9 @@
 		set backimg=#{backimg}
 		where num=#{num}
 	</update>
-	<update id="setupdate" parameterType="fproject.app.fproject.vo.ProfilesVo">
+	<update id="update" parameterType="fproject.app.fproject.vo.ProfilesVo">
 		update profiles 
-		set name=#{name},phone=#{phone},email=#{email},birth=#{birth},
-		profileimg=#{profileimg},backimg=#{backimg},msg=#{msg}
+		set phone=#{phone},email=#{email},birth=#{birth}
 		where num=#{num}
 	</update>
 </mapper>
