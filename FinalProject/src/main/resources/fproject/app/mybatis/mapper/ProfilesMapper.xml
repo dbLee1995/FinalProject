@@ -19,6 +19,11 @@
 		set backimg=#{backimg}
 		where num=#{num}
 	</update>
+	<update id="updateName" parameterType="fproject.app.fproject.vo.ProfilesVo">
+		update profiles 
+		set name=#{name}
+		where num=#{num}
+	</update>
 	<update id="update" parameterType="fproject.app.fproject.vo.ProfilesVo">
 		update profiles 
 		set phone=#{phone},email=#{email},birth=#{birth}

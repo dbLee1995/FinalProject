@@ -18,6 +18,9 @@ public class ProfilesService {
 	 public int updateBackimg(ProfilesVo vo){
 		 return profilesDao.updateBackimg(vo);
 	 }
+	 public int updateName(ProfilesVo vo){
+		 return profilesDao.updateName(vo);
+	 }
 	 public int update(ProfilesVo vo){
 		 return profilesDao.update(vo);
 	 }

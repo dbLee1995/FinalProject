@@ -27,9 +27,10 @@
 			font-size:40px;
     		color:#343a40;
 		}
-		#idpen.icon-pencil{
+		#idclick.icon-pencil{
 			font-size:20px;
 			color:white;
+			padding-left:10px;
 		}
     </style>
     <meta charset="utf-8">
@@ -57,11 +58,20 @@
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="fashion.html">Fashion</a></li>
-					<li><a href="travel.html">Travel</a></li>
-					<li class="colorlib-active"><a href="about.html">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
+					<li class="colorlib-active"><a href="${cp}/./">Home</a></li>
+					<c:choose>
+						<c:when test="${empty sessionScope.id}">					
+							<li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
+						</c:when>	
+				 		<c:otherwise>
+							<li><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>
+							<li><a href="${cp }/friends/list?num=${sessionScope.num}">Friends</a></li>			
+						</c:otherwise>	 
+					</c:choose>
+					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">WebSocket</a></li>
+					<li><a href="${cp }/emoShop/main">이모티콘(원래 위치는 about.html)</a></li>
+					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
+					
 				</ul>
 			</nav>
 
@@ -79,29 +89,27 @@
 	    		<c:choose>	
 	    			<c:when test="${sessionScope.num eq pvo.num}">
 	    			<div class="col-md-6 d-flex">
-	    				<div style="width:100%;height:100%;margin-left:50px;">	
-	    				<c:if test="${pvo.backimg ne null}"/>
-	    				<div style="width:95%;height:830px;margin:auto;background-color:aliceblue;color:black;">
-	    				    				
- <!-- background이미지 --><div class="img d-flex align-items-center full-img" style="background-image:url(${cp}/resources/upload/${pvo.backimg});">					    					
+	    				<div style="width:100%;height:100%;margin-left:50px;">		    				
+	    					<div style="width:95%;height:830px;margin:auto;background-color:aliceblue;color:black;">  			    				
+ <!-- background이미지 --><div class="img d-flex align-items-center full-img" style="background-image:url(${cp}/resources/upload/${pvo.backimg});">					    						    					
 	    					<div style="width:90%;height:830px;margin:auto;padding-top:250px;padding-bottom:30px;">	    						
-	    	  <!-- 이미지 -->		<div style="width:270px;height:290px;margin-top: -65PX;margin-left: 160px;">
-	    	  						<img src="${cp}/resources/upload/${pvo.profileimg}" id="imgprof" class="img prof" style="position:relative;border-bottom-style:inset;background:aliceblue;">
+	    	  <!-- 이미지 -->		<div id="setId" style="width:270px;height:290px;margin-top:-65PX;margin-left: 160px;">
+	    	  						<img src="${cp}/resources/upload/${pvo.profileimg}"  id="imgprof" class="img prof" style="position:relative;">
 	    	  						<input type="file" name="changeprofimg" id="changeprofimg" onChange="changeprofimg(this)" style="display:none;"/>
 	    	   						<a href="javascript:void(0);" id="uploadProfImg" onClick="uploadProfImg();" style="margin-left:250px;margin-top:-30px;position:absolute;top:428px;left:218px;">
 	    	  							<b id="profcamera" class="icon-camera"></b>
 	    	  						</a>
 	    	     	   	    	</div> 								    						
-	    					<div style="text-align:center;width:100%;height:50%;padding-bottom:400px;font-size:large;margin-top:-20px;"><!-- 전화번호/이메일 -->
-	    			<!-- 이름 --><label style="color:white;font-size:30px;">${id}</label> <a href="#" id="idpen" class="icon-pencil"></a>
+	    					<div style="text-align:center;width:100%;height:50%;padding-bottom:400px;font-size:large;margin-top:-20px;">
+	    			<!-- 이름 --><label id="updateId" style="color:white;font-size:30px;margin-left:45px;">${pvo.name}</label><a href="javascript:void(0);" id="idclick" class="icon-pencil"></a>
 	    						<hr style="border: 1px solid white;width:95%;margin-top:-3px;margin-bottom:20px;">
-	    						<table class="tb" style="width:400px;margin:auto;">
+	    	<!-- 전화번호/이메일 --><table class="tb" style="width:400px;margin:auto;">
 	    								<tr><th>Birth : </th><td><b id="birth">${pvo.birth}</b></td></tr>
 	    								<tr><th>Phone : </th><td><b id="phone">${pvo.phone}</b></td></tr>
 	    								<tr><th>Email : </th><td><b id="email">${pvo.email}</b></td></tr>   								
 	    						</table>	
 	    						<hr style="width:95%;border:1px solid white;">		
-	    						<table class="tb" style="width:530px;margin-top:10px;margin-left:45px;">
+	    						<table class="tb" style="width:530px;margin-top:10px;margin-left:20px;">
 	    							<tr>
 	    								<th style="width:130px;text-align:center;padding-left:initial;">
 	    									<form method="post" id="setform" enctype="multipart/form-data">
@@ -118,7 +126,7 @@
 	    					</div>	    						
 	    					</div>
 	    				</div>
-	    				</div>
+	    					</div>  
 	    				</div>
 	    			</div>
 	    			</c:when>
@@ -132,7 +140,7 @@
 	    	   						<img src="${cp}/resources/upload/image_4.jpg" class="img prof">				
 								 </div> 								    						
 	    					<div style="text-align:center;width:100%;height:50%;padding-bottom:500px;font-size:large;"><!-- 전화번호/이메일 -->
-	    			<!-- 이름 --><label>${id}</label> <a href="#" class="icon-pencil"></a>
+	    			<!-- 이름 --><label id="setId">${pvo.name}</label><a href="#" id="updateId" onClick="updateId(this);" class="icon-pencil"></a>
 	    						<hr style="border: 1px solid white;width:95%;margin-top: -3px;">
 	    						<form method="post" id="profform" style="display:inline-flex;">
 	    						<table class="tb" style="width:400px;margin:auto;">
@@ -153,10 +161,56 @@
 	    			</div>
 	    				</c:otherwise>
 	    			</c:choose>
+	    	<!-- 친구목록 //////////////////// -->
 	    			<div class="col-md-6 d-flex align-items-center">
 	    				<div class="text px-4 pt-5 pt-md-0 px-md-4 pr-md-5 ftco-animate">
-		            <h2 class="mb-4">I'm <span>Andrea Moore</span> a Scotish Blogger &amp; Explorer</h2>
-		            <p>${pvo.num}; A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+	    					<!-- 친구 div  -->
+								<c:forEach var="newfri" items="${list }">
+								<c:if test="${newfri.APPROV==4 }">
+									<div class="col-md-12" >
+										<div class="blog-entry ftco-animate d-md-flex" style="margin-top:30px;">
+											<a href="javascript:void(0);" onclick="showprofile(${sessionScope.num },${newfri.FNUM})" class="img img-2"
+												style="background-image:url(${cp}/resources/upload/${newfri.PROFILEIMG});"></a>
+											<div class="text text-2 pl-md-4">
+												<c:choose>
+														<c:when test="${empty newfri.MSG}">
+														<h3 class="mb-2" style="margin-top:15px;">
+															<a href="single.html"  >${newfri.NAME}</a>
+														</h3>
+														</c:when>
+														<c:otherwise>
+															<h3 class="mb-2">
+															<a href="single.html" >${newfri.NAME}</a>
+															</h3>
+															<p>${newfri.MSG }</p>
+														</c:otherwise>
+													</c:choose>																												
+												<div class="meta-wrap">
+													<p class="meta"></p>
+												</div>
+											</div>
+										</div>
+									</div>
+									</c:if>	
+								</c:forEach>
+								
+				<div class="col-xl-4 sidebar ftco-animate bg-light pt-5" style="height: 850px;padding: 20px;">    			
+	    			<a href='javascript:void(0);' onclick='showAddfriends();' class="icon-people" ></a>
+	    			<a href='javascript:void(0);' onclick='showAddfriends();' class="icon-plus"></a>
+	            <div class="sidebar-box pt-md-4">
+	              <form action="javascript:void(0);" class="search-form">
+	                <div class="form-group">
+	                  <span class="icon icon-search"></span>
+	                  <input type="text" class="form-control" placeholder="이름 검색" onkeyup="searchFri(this,${sessionScope.num})">
+	                </div>
+	              </form>
+	            </div>
+	            <div class="sidebar-box ftco-animate" id="friprofile" >	            	
+	            </div>
+	          </div><!-- END COL -->
+								
+								
+								
 	            </div>
 		        </div>
 	        </div>
@@ -256,6 +310,33 @@
 			formData.append("email",$("#emailcheck").val());
 			$.ajax({
 				url:"${cp}/profiles/update?num=${pvo.num}",
+				type:"POST",
+				processData:false,
+				contentType:false,
+				data:formData,
+				success:function(){					
+					alert("업로드완료!!!");
+					location.reload();
+				}
+			});
+		}
+		
+		$(function(){
+			$("#idclick").click(function(){
+				$(this).hide();
+				$("#updateId").html("<input type='text' name='namecheck' id='namecheck' value='${pvo.name}' style='width:190px;height:35px;text-align:center;margin-left:10px;'>" +
+									"<a href='javascript:void(0);' name='savename' id='savename' onClick='saveName(this);' style='color:white;font-size:20px;margin-left:10px;'>수정</a>" +
+									"<a href='javascript:void(0);' id='re' onclick='reset();' style='color:white;font-size:20px;padding-left:10px;'>취소</a>");
+				$("#updateId").focus();
+			});
+		});
+		
+		function saveName(e){			
+			var name=document.getElementById("namecheck").value;
+			var formData=new FormData();
+			formData.append("name",$("#namecheck").val());
+			$.ajax({
+				url:"${cp}/profiles/updateName?num=${pvo.num}",
 				type:"POST",
 				processData:false,
 				contentType:false,

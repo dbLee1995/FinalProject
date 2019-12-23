@@ -23,6 +23,9 @@ public class ProfilesDao {
 	public int updateProfImg(ProfilesVo vo){
 		return sqlSessionTemplate.update(NAMESPACE + ".updateProfImg",vo);
 	}
+	public int updateName(ProfilesVo vo){
+		return sqlSessionTemplate.update(NAMESPACE + ".updateName",vo);
+	}
 	public int update(ProfilesVo vo){
 		return sqlSessionTemplate.update(NAMESPACE + ".update",vo);
 	}
