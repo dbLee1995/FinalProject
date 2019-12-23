@@ -114,7 +114,7 @@
 									<div class="col-md-12" >
 										<div class="blog-entry ftco-animate d-md-flex">
 											<a href="javascript:void(0);" onclick="showprofile(${sessionScope.num },${newfri.FNUM})" class="img img-2"
-												style="background-image:url(${cp}/resources/profile/person_1.jpg)"></a>
+												style="background-image:url(${cp}/resources/upload/${newfri.PROFILEIMG});"></a>
 											<div class="text text-2 pl-md-4">
 												<c:choose>
 														<c:when test="${empty newfri.MSG}">
@@ -160,7 +160,7 @@
 									<div class="col-md-12" >
 										<div class="blog-entry ftco-animate d-md-flex">
 											<a href="javascript:void(0);" onclick="showprofile(${sessionScope.num },${friends.FNUM})" class="img img-2"
-												style="background-image:url(${cp}/resources/profile/person_1.jpg)"></a>
+												style="background-image:url(${cp}/resources/upload/${friends.PROFILEIMG});"></a>
 											<div class="text text-2 pl-md-4">
 												<c:choose>
 														<c:when test="${empty friends.MSG}">
@@ -248,7 +248,7 @@
 			$(".col-md-12").remove();
             	$(response).each(function(){
             		var str="<div class='col-md-12'><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>"
-        				+"<a href='javascript:void(0);' onclick='showprofile(${sessionScope.num },"+this.fnum+")' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+        				+"<a href='javascript:void(0);' onclick='showprofile(${sessionScope.num },"+this.fnum+")' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
         				+"<div class='text text-2 pl-md-4'>"
         					+"<h3 class='mb-2'>"
         						+"<a href='single.html'>"+this.name+"</a>"
@@ -281,13 +281,13 @@
             success: function (response) {
             	$("#friprofile").empty();
             	$(response).each(function(){
-            		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/images/image_1.jpg)';></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
+            		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/upload/"+this.backimg+");'></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
             		if(this.favo==0){
             			str=str+"<a href='javascript:void(0);' onclick='favo(${sessionScope.num },"+this.fnum+")' class='icon-star-o'></a><br>";
             		}else{
             			str=str+"<a href='javascript:void(0);' onclick='unfavo(${sessionScope.num },"+this.fnum+")' class='icon-star'></a><br>";
             		}
-        			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+        			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
         				+"</div>"
         				+"<div class='text text-2 pl-md-4'>"
         					+"<h3 class='mb-2'>"
@@ -332,13 +332,13 @@
                 success: function (response) {
                 	$("#friprofile").empty();
                 	$(response).each(function(){
-                		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/images/image_1.jpg)';></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
+                		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/upload/"+this.backimg+");'></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
                 		if(this.favo==0){
                 			str=str+"<a href='javascript:void(0);' onclick='favo(${sessionScope.num },"+this.fnum+")' class='icon-star-o'></a><br>";
                 		}else{
                 			str=str+"<a href='javascript:void(0);' onclick='unfavo(${sessionScope.num },"+this.fnum+")' class='icon-star'></a><br>";
                 		}
-            			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+            			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
             				+"</div>"
             				+"<div class='text text-2 pl-md-4'>"
             					+"<h3 class='mb-2'>"
@@ -383,13 +383,13 @@
                     success: function (response) {
                     	$("#friprofile").empty();
                     	$(response).each(function(){
-                    		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/images/image_1.jpg)';></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
+                    		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/upload/"+this.backimg+");'></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
                     		if(this.favo==0){
                     			str=str+"<a href='javascript:void(0);' onclick='favo(${sessionScope.num },"+this.fnum+")' class='icon-star-o'></a><br>";
                     		}else{
                     			str=str+"<a href='javascript:void(0);' onclick='unfavo(${sessionScope.num },"+this.fnum+")' class='icon-star'></a><br>";
                     		}
-                			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+                			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
                 				+"</div>"
                 				+"<div class='text text-2 pl-md-4'>"
                 					+"<h3 class='mb-2'>"

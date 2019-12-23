@@ -81,12 +81,12 @@
             	$("#tabs-2 .content").empty();
             	$(response).each(function(){
             	if(this.isme){
-            		var str="<a href='/fproject/story/list?num="+this.num+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+            		var str="<a href='/fproject/story/list?num="+this.num+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
 					+"<p>"+this.name+"</p>"
 					+"<input type='button' value='나와의 대화'  id='messageBtn' class='btns' onclick='gomymessage("+this.fnum+")'>";
 		$("#tabs-2 .content").append(str);
             	}else if(this.isfri){
-            		var str="<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+            		var str="<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
             					+"<p>"+this.name+"</p>";
             					if(this.msg!=null){
             						str=str	+"<span>"+this.msg+"</span><br>";
@@ -99,7 +99,7 @@
             			+"<span>아이디를 확인해 주세요</span>";
 					$("#tabs-2 .content").append(str);
             	}else if(this.ismem){
-            		var str="<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+            		var str="<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
 					+"<p>"+this.name+"</p>";
             		if(this.msg!=null){
 						str=str	+"<span>"+this.msg+"</span><br>";
@@ -124,12 +124,12 @@
             	$("#tabs-1 .content").empty();
             	$(response).each(function(){
             	if(this.isme){
-            		var str="<a href='/fproject/story/list?num="+this.num+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+            		var str="<a href='/fproject/story/list?num="+this.num+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
 					+"<p>"+this.name+"</p>"
 					+"<input type='button' value='나와의 대화'  id='messageBtn' class='btns' onclick='gomymessage("+this.fnum+")'>";
 		$("#tabs-1 .content").append(str);
             	}else if(this.isfri){
-            		var str="<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+            		var str="<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
             					+"<p>"+this.name+"</p>";
             					if(this.msg!=null){
             						str=str	+"<span>"+this.msg+"</span><br>";
@@ -142,7 +142,7 @@
             			+"<span>전화번호를 확인해 주세요</span>";
 					$("#tabs-1 .content").append(str);
             	}else if(this.ismem){
-            		var str="<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(/fproject/resources/profile/person_1.jpg)'></a>"
+            		var str="<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
 					+"<p>"+this.name+"</p>";
             		if(this.msg!=null){
 						str=str	+"<span>"+this.msg+"</span><br>";
