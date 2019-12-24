@@ -38,4 +38,7 @@ public class FriendsService {
 	public int addfri(FriendlistVo vo){
 		return dao.addfri(vo);
 	}
+	public int setnewfri(){
+		return dao.setnewfri();
+	}
 }	

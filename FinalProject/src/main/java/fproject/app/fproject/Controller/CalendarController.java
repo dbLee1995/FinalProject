@@ -80,7 +80,7 @@ public class CalendarController {
 				json.put("title", fri.get("NAME")+" 积老");
 				json.put("description","模备 积老");	
 				json.put("type","焊烹");
-				json.put("username","惫啊傍绒老");
+				json.put("username","模备积老");
 				json.put("backgroundColor", "#5ea4df");
 				json.put("textColor", "#ffffff");
 				json.put("start",j+"-"+array[1]+"-"+array[2]);	

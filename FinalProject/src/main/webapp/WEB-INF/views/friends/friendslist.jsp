@@ -101,7 +101,7 @@
 	    			<c:set var="newfriends" value="false" />
 	    			<c:forEach var="newfri" items="${list }">
 					    		<c:if test="${not newfriends }">
-				        <c:if test="${newfri.APPROV==4 }">
+				        <c:if test="${newfri.APPROV==2 }">
 				        <div class="row pt-md-4" id="newfri">
 							<h2>새로운친구</h2>
 				            <c:set var="newfriends" value="true" />
@@ -110,7 +110,7 @@
 						</c:forEach>
 								<!-- 친구 div  -->
 								<c:forEach var="newfri" items="${list }">
-								<c:if test="${newfri.APPROV==4 }">
+								<c:if test="${newfri.APPROV==2 }">
 									<div class="col-md-12" >
 										<div class="blog-entry ftco-animate d-md-flex">
 											<a href="javascript:void(0);" onclick="showprofile(${sessionScope.num },${newfri.FNUM})" class="img img-2"
@@ -143,7 +143,7 @@
 					<c:set var="newfriendss" value="false" />
 	    			<c:forEach var="newfri" items="${list }">
 					    		<c:if test="${not newfriendss }">
-				       			 <c:if test="${newfri.APPROV==4 }">
+				       			 <c:if test="${newfri.APPROV==2 }">
 						        </div>
 						        <hr>
 						            <c:set var="newfriendss" value="true" />
@@ -230,6 +230,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
+   <script src="${pageContext.request.contextPath }/resources/js/alarm.js"></script>
     <script type="text/javascript">
     
     function searchFri(e,num){

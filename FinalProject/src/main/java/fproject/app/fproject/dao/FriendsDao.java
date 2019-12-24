@@ -39,4 +39,7 @@ public class FriendsDao {
 	public int addfri(FriendlistVo vo){
 		return sqlSessionTemplate.insert(NAMESPACE+".addfri",vo);
 	}
+	public int setnewfri(){
+		return sqlSessionTemplate.update(NAMESPACE+".setnewfri");
+	}
 }
