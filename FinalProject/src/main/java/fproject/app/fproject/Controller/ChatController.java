@@ -392,10 +392,10 @@ public class ChatController {
 		
 		return "ChatList";
 	}
-	@RequestMapping(value="updateRoomName")
-	public String updateRoomName(int clnum,String name){
+	@RequestMapping(value="/updateRoomName")
+	public String updateRoomName(int clnum,int num,String name,Model model,HttpSession session){
 		ChatlistVo clvo=new ChatlistVo(clnum, name);
 		chatService.updateChatName(clvo);
-		return "ChatList";
+		return moveChatRoom(model, clnum, num, session);
 	}
 }
