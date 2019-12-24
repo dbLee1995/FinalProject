@@ -25,7 +25,7 @@
 		}
 		#profcamera.icon-camera{
 			font-size:40px;
-    		color:#343a40;
+    		color:#8a8989;
 		}
 		#idclick.icon-pencil{
 			font-size:20px;
@@ -36,8 +36,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="${cp}/resources/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="${cp}/resources/css/animate.css">   
     <link rel="stylesheet" href="${cp}/resources/css/owl.carousel.min.css">
@@ -93,10 +93,12 @@
 	    					<div style="width:95%;height:830px;margin:auto;background-color:aliceblue;color:black;">  			    				
  <!-- background이미지 --><div class="img d-flex align-items-center full-img" style="background-image:url(${cp}/resources/upload/${pvo.backimg});">					    						    					
 	    					<div style="width:90%;height:830px;margin:auto;padding-top:250px;padding-bottom:30px;">	    						
-	    	  <!-- 이미지 -->		<div id="setId" style="width:270px;height:290px;margin-top:-65PX;margin-left: 160px;">
+	    	  <!-- 이미지 -->		<div id="setId" style="width:270px;height:290px;margin-top:-65PX;margin-left: 155px;">
+	    	  						<a href="${cp}/resources/upload/${pvo.profileimg}" id="showprofimg" class="showprofimg"><!-- image gallery -->
 	    	  						<img src="${cp}/resources/upload/${pvo.profileimg}"  id="imgprof" class="img prof" style="position:relative;">
+	    	  						</a>
 	    	  						<input type="file" name="changeprofimg" id="changeprofimg" onChange="changeprofimg(this)" style="display:none;"/>
-	    	   						<a href="javascript:void(0);" id="uploadProfImg" onClick="uploadProfImg();" style="margin-left:250px;margin-top:-30px;position:absolute;top:428px;left:218px;">
+	    	   						<a href="javascript:void(0);" id="uploadProfImg" onClick="uploadProfImg();" style="margin-left:250px;margin-top:-30px;position:absolute;top:428px;left:225px;">
 	    	  							<b id="profcamera" class="icon-camera"></b>
 	    	  						</a>
 	    	     	   	    	</div> 								    						
@@ -132,43 +134,43 @@
 	    			</c:when>
 	    				<c:otherwise>
 	    					<div class="col-md-6 d-flex">
-	    				<div style="width:100%;height:100%;margin-left:50px;">	    				
- <!-- background이미지 --><div class="img d-flex align-self-stretch align-items-center js-fullheight" style="margin:auto;padding-top:250px;padding-bottom:30px;">					    					
-	    					<img src="${pvo.backImg}">
-	    					<div style="background-image:url(${pvo.backImg})">	    						
-					<!-- 이미지 --><div style="width:280px;height:300px;margin:auto;">
-	    	   						<img src="${cp}/resources/upload/image_4.jpg" class="img prof">				
-								 </div> 								    						
-	    					<div style="text-align:center;width:100%;height:50%;padding-bottom:500px;font-size:large;"><!-- 전화번호/이메일 -->
-	    			<!-- 이름 --><label id="setId">${pvo.name}</label><a href="#" id="updateId" onClick="updateId(this);" class="icon-pencil"></a>
-	    						<hr style="border: 1px solid white;width:95%;margin-top: -3px;">
-	    						<form method="post" id="profform" style="display:inline-flex;">
-	    						<table class="tb" style="width:400px;margin:auto;">
-	    							<tr><th>Birth : </th><td>${pvo.birth}</td></tr>
-	    							<tr><th>Phone : </th><td>${pvo.phone}</td></tr>
-	    							<tr><th>Email : </th><td>${pvo.email}</td></tr>
-	    						</table>			
-	    						</form>
-	    						<table class="tb" style="margin-top:10px;margin-left:210px;">
-	    							<tr><th><hr style="color:white;border:1px"></th></tr>
-	    							<tr>    							
-	    							<th><a href="${pageContext.request.contextPath}/story/list?num=${pvo.num}">CocoaStory</a></th> 							
+	    				<div style="width:100%;height:100%;margin-left:50px;">		    				
+	    					<div style="width:95%;height:830px;margin:auto;background-color:aliceblue;color:black; filter: drop-shadow(2px 4px 6px lightgray);">  			    				
+ <!-- background이미지 --><div class="img d-flex align-items-center full-img" style="background-image:url(${cp}/resources/upload/${pvo.backimg});">					    						    					
+	    					<div style="width:90%;height:830px;margin:auto;padding-top:250px;padding-bottom:30px;">	    						
+	    	  <!-- 이미지 -->		<div id="setId" style="width:270px;height:290px;margin-top:-65PX;margin-left: 155px;">
+	    	  						<a href="${cp}/resources/upload/${pvo.profileimg}" id="showprofimg" class="showprofimg">
+	    	  							<img src="${cp}/resources/upload/${pvo.profileimg}" id="imgprof" class="img prof">
+	    	  						</a>				
+	    	     	   	    	</div> 								    						
+	    					<div style="text-align:center;width:100%;height:50%;padding-bottom:400px;font-size:large;margin-top:-20px;">
+	    			<!-- 이름 --><label id="updateId" style="color:white;font-size:30px;margin-left:45px;">${pvo.name}</label>
+	    						<hr style="border: 1px solid white;width:95%;margin-top:-3px;margin-bottom:20px;">
+	    	<!-- 전화번호/이메일 --><table class="tb" style="width:400px;margin:auto;">
+	    								<tr><th>Birth : </th><td><b id="birth">${pvo.birth}</b></td></tr>
+	    								<tr><th>Phone : </th><td><b id="phone">${pvo.phone}</b></td></tr>
+	    								<tr><th>Email : </th><td><b id="email">${pvo.email}</b></td></tr>   								
+	    						</table>	
+	    						<hr style="width:95%;border:1px solid white;">		
+	    						<table class="tb" style="width:530px;margin-top:10px;margin-left:20px;">
+	    							<tr>	    								
+	    							<th style="width:130px;text-align:center;padding-left:initial;"><a href="${pageContext.request.contextPath}/story/list?num=${pvo.num}" id="story" style="color:white;font-size:20px;"><b class="icon-comments"></b><br>COCOA Story</a></th>   							
 	    						</table>	    						
 	    					</div>	    						
 	    					</div>
 	    				</div>
+	    					</div>  
 	    				</div>
 	    			</div>
 	    				</c:otherwise>
 	    			</c:choose>
+	    			
 	    	<!-- 친구목록 //////////////////// -->
-	    			<div class="col-md-6 d-flex align-items-center">
-	    				<div class="text px-4 pt-5 pt-md-0 px-md-4 pr-md-5 ftco-animate">
 	    					<!-- 친구 div  -->
 								<c:forEach var="newfri" items="${list }">
 								<c:if test="${newfri.APPROV==4 }">
-									<div class="col-md-12" >
-										<div class="blog-entry ftco-animate d-md-flex" style="margin-top:30px;">
+									<div class="col-md-12">
+										<div class="blog-entry ftco-animate d-md-flex" >
 											<a href="javascript:void(0);" onclick="showprofile(${sessionScope.num },${newfri.FNUM})" class="img img-2"
 												style="background-image:url(${cp}/resources/upload/${newfri.PROFILEIMG});"></a>
 											<div class="text text-2 pl-md-4">
@@ -194,7 +196,7 @@
 									</c:if>	
 								</c:forEach>
 								
-				<div class="col-xl-4 sidebar ftco-animate bg-light pt-5" style="height: 850px;padding: 20px;">    			
+				<div class="col-xl-4 sidebar ftco-animate bg-light pt-5" style="height:830px;padding:20px;margin-top:30px;">    			
 	    			<a href='javascript:void(0);' onclick='showAddfriends();' class="icon-people" ></a>
 	    			<a href='javascript:void(0);' onclick='showAddfriends();' class="icon-plus"></a>
 	            <div class="sidebar-box pt-md-4">
@@ -205,14 +207,9 @@
 	                </div>
 	              </form>
 	            </div>
-	            <div class="sidebar-box ftco-animate" id="friprofile" >	            	
-	            </div>
+					
 	          </div><!-- END COL -->
-								
-								
-								
-	            </div>
-		        </div>
+
 	        </div>
 	    	</div>
 	    </section>
@@ -377,6 +374,214 @@
 	function reset(){
 		location.reload();
 	}
+
+// 이미지갤러리(profileimg)
+	$(function(){
+		$(".showprofimg").magnificPopup({
+			type:'image',
+			gallery:{enabled:true}	
+		});		
+	});	
+	
+// 친구목록	
+	function searchFri(e,num){
+		if(e.value==""){
+			location.reload();
+		}
+		$.ajax({
+	        type: "post",
+	        url: "${cp}/friends/searchlist",
+	        data: {
+	        	friname:e.value,
+	        	num:num
+	        },
+	        success: function (response) {
+	       	$("#newfri").remove();
+			$(".col-md-12").remove();
+	        	$(response).each(function(){
+	        		var str="<div class='col-md-12'><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>"
+	    				+"<a href='javascript:void(0);' onclick='showprofile(${sessionScope.num },"+this.fnum+")' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
+	    				+"<div class='text text-2 pl-md-4'>"
+	    					+"<h3 class='mb-2'>"
+	    						+"<a href='single.html'>"+this.name+"</a>"
+	    					+"</h3>";
+	        		if(this.msg!=null){
+	    				str=str+"<p>"+this.msg+"</p>";
+	    			}else{
+	    				str=str+"<p style='margin-top:15%'></p>";
+	    			}
+	    			str=str   +"<div class='meta-wrap'>"
+	    						+"<p class='meta'></p>"
+	    					+"</div>"
+	    				+"</div>"
+	    			+"</div>"
+	    		+"</div>";
+	        		$("#frilist").append(str);
+	        		
+	        	});
+	        }
+	    });
+	}
+	function showprofile(num,fnum){
+		$.ajax({
+	        type: "post",
+	        url: "${cp}/friends/friprofile",
+	        data: {
+	        	num:num,
+	        	fnum:fnum
+	        },
+	        success: function (response) {
+	        	$("#friprofile").empty();
+	        	$(response).each(function(){
+	        		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/upload/"+this.backimg+");'></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
+	        		if(this.favo==0){
+	        			str=str+"<a href='javascript:void(0);' onclick='favo(${sessionScope.num },"+this.fnum+")' class='icon-star-o'></a><br>";
+	        		}else{
+	        			str=str+"<a href='javascript:void(0);' onclick='unfavo(${sessionScope.num },"+this.fnum+")' class='icon-star'></a><br>";
+	        		}
+	    			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
+	    				+"</div>"
+	    				+"<div class='text text-2 pl-md-4'>"
+	    					+"<h3 class='mb-2'>"
+	    						+"<a href='single.html'>"+this.name+"</a>"
+	    					+"</h3>";
+	    			if(this.msg!=null){
+	    				str=str+"<p>"+this.msg+"</p>";
+	    			}else{
+	    				str=str+"<p style='margin-top:15%'></p>";
+	    			}
+	    			str=str+"</div>"
+	    					+"<hr>"
+	    					+"<div class='meta-wrap'>"
+	    					+"<div class='frimenus' >"
+	    					+"<a href='#' class='icon-message'></a><br>"
+	    					+"<a href='${pageContext.request.contextPath}/CreateChat?num=${sessionScope.num}&fvalue="+this.fnum+"'>1:1 대화</a>"
+	    					+"</div>"		
+	    					+"<div class='frimenus'>"
+	    					+"<a href='#' class='icon-phone'></a><br>"
+	    					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>무료통화</a>"
+	    					+"</div>"	
+	    					+"<div class='frimenus'>"
+	    					+"<a href='#' class='icon-comments'></a><br>"
+	    					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>코코아 스토리</a>"
+	    					+"</div>"	
+	    				+"</div>"
+	    		+"</div>";
+	        		$("#friprofile").append(str);
+	        		
+	        	});
+	        }
+	    });
+	}    
+		function favo(num,fnum){
+	    	$.ajax({
+	            type: "post",
+	            url: "${cp}/friends/favo",
+	            data: {
+	            	num:num,
+	            	fnum:fnum
+	            },
+	            success: function (response) {
+	            	$("#friprofile").empty();
+	            	$(response).each(function(){
+	            		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/upload/"+this.backimg+");'></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
+	            		if(this.favo==0){
+	            			str=str+"<a href='javascript:void(0);' onclick='favo(${sessionScope.num },"+this.fnum+")' class='icon-star-o'></a><br>";
+	            		}else{
+	            			str=str+"<a href='javascript:void(0);' onclick='unfavo(${sessionScope.num },"+this.fnum+")' class='icon-star'></a><br>";
+	            		}
+	        			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
+	        				+"</div>"
+	        				+"<div class='text text-2 pl-md-4'>"
+	        					+"<h3 class='mb-2'>"
+	        						+"<a href='single.html'>"+this.name+"</a>"
+	        					+"</h3>"
+	        					if(this.msg!=null){
+	                				str=str+"<p>"+this.msg+"</p>";
+	        					}else{
+	        						str=str+"<p style='margin-top:15%'></p>";
+	                			}
+	                			str=str+"</div>"
+	        					+"<hr>"
+	        					+"<div class='meta-wrap'>"
+	        					+"<div class='frimenus' >"
+	        					+"<a href='#' class='icon-message'></a><br>"
+	        					+"<a href='${pageContext.request.contextPath}/CreateChat?num=${sessionScope.num}&fvalue="+this.fnum+"'>1:1 대화</a>"
+	        					+"</div>"		
+	        					+"<div class='frimenus'>"
+	        					+"<a href='#' class='icon-phone'></a><br>"
+	        					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>무료통화</a>"
+	        					+"</div>"	
+	        					+"<div class='frimenus'>"
+	        					+"<a href='#' class='icon-comments'></a><br>"
+	        					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>코코아 스토리</a>"
+	        					+"</div>"	
+	        				+"</div>"
+	        		+"</div>";
+	            		$("#friprofile").append(str);
+	            		
+	            	});
+	            }
+	        });
+		}
+	    	function unfavo(num,fnum){
+	        	$.ajax({
+	                type: "post",
+	                url: "${cp}/friends/unfavo",
+	                data: {
+	                	num:num,
+	                	fnum:fnum
+	                },
+	                success: function (response) {
+	                	$("#friprofile").empty();
+	                	$(response).each(function(){
+	                		var str="<div id='friendsprofile' class='friendsprofile' ><div class='backimg' style='background-image:url(${cp}/resources/upload/"+this.backimg+");'></div><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>";
+	                		if(this.favo==0){
+	                			str=str+"<a href='javascript:void(0);' onclick='favo(${sessionScope.num },"+this.fnum+")' class='icon-star-o'></a><br>";
+	                		}else{
+	                			str=str+"<a href='javascript:void(0);' onclick='unfavo(${sessionScope.num },"+this.fnum+")' class='icon-star'></a><br>";
+	                		}
+	            			str=str	+"<a href='/fproject/story/list?num="+this.fnum+"' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
+	            				+"</div>"
+	            				+"<div class='text text-2 pl-md-4'>"
+	            					+"<h3 class='mb-2'>"
+	            						+"<a href='single.html'>"+this.name+"</a>"
+	            					+"</h3>"
+	            					if(this.msg!=null){
+	                    				str=str+"<p>"+this.msg+"</p>";
+	            					}else{
+	            						str=str+"<p style='margin-top:15%'></p>";
+	                    			}
+	                    			str=str+"</div>"
+	            					+"<hr>"
+	            					+"<div class='meta-wrap'>"
+	            					+"<div class='frimenus' >"
+	            					+"<a href='#' class='icon-message'></a><br>"
+	            					+"'${pageContext.request.contextPath}/CreateChat?num=${sessionScope.num}&fvalue="+this.fnum+"'>1:1 대화</a>"
+	            					+"</div>"		
+	            					+"<div class='frimenus'>"
+	            					+"<a href='#' class='icon-phone'></a><br>"
+	            					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>무료통화</a>"
+	            					+"</div>"	
+	            					+"<div class='frimenus'>"
+	            					+"<a href='#' class='icon-comments'></a><br>"
+	            					+"<a href='${pageContext.request.contextPath}/story/list?num=${friends.FNUM}''>코코아 스토리</a>"
+	            					+"</div>"	
+	            				+"</div>"
+	            		+"</div>";
+	                		$("#friprofile").append(str);
+	                		
+	                	});
+	                }
+	            });
+	        
+	}
+		function showCalendar(){
+			window.open("calendar", "[캘린더]", "width=900, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no" );    
+		};
+		function showAddfriends(){
+			window.open("addfriends", '[친구추가]', 'width=300, height=320, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no' );    
+		};
 	</script>
   </body>
 </html>

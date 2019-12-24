@@ -50,6 +50,7 @@
 					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">WebSocket</a></li>
 					<li><a href="${cp }/emoShop/main">이모티콘(원래 위치는 about.html)</a></li>
 					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
+					<li><a href="${cp}/nquire/list?num=${sessionSope.num}">문의하기</a></li>
 					
 				</ul>
 			</nav>
