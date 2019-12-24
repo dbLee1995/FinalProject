@@ -51,7 +51,6 @@
 					<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
 					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
 					<li><a href="${cp}/nquire/list?num=${sessionSope.num}">문의하기</a></li>
-					
 				</ul>
 			</nav>
 
@@ -456,4 +455,3 @@
   </script>
   </body>
 </html>
-

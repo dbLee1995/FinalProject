@@ -73,15 +73,24 @@ public class EmoShopController {
 		return jsonArr.toString();
 	}
 	
-	@RequestMapping(value="/putBasket")
+	@RequestMapping(value="/putBasket", method=RequestMethod.POST)
 	@ResponseBody
-	public String putBasket(Model model, HttpSession session, EmoshopVo vo) {
+	public String putBasket(Model model, HttpSession session, int num) {
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
 		basketList.add(vo);
 		session.setAttribute("basketList", basketList);
-		JSONObject json = new JSONObject("'result':'장바구니에 담았습니다.'");
-		return json.toString();
+		return "바구니에 담았습니다.";
+	}
+	
+	@RequestMapping(value="/putWish", method=RequestMethod.POST)
+	@ResponseBody
+	public String putWishList(Model model, HttpSession session, EmoshopVo vo) {
+		int userNum = (int)session.getAttribute("num");
+		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
+		basketList.add(vo);
+		session.setAttribute("basketList", basketList);
+		return "찜 목록에 추가했습니다.";
 	}
 	
 	@RequestMapping(value="/basket", method=RequestMethod.GET)

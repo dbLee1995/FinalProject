@@ -15,6 +15,10 @@
 	cursor: pointer;
 	background-color: 66ccff;
 }
+button:hover {
+	cursor: pointer;
+	background-color: 66ccff;
+}
 </style>
 </head>
 <body class="form-v5">
