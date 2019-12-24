@@ -1161,7 +1161,7 @@ a.btn-layerClose:hover {
 			        <input type="text" id="newroomname">
 			      </div>
 			      <div class="modal-footer">
-			        <a href="${cp }/updateRoomName?clnum=${sessionScope.clnum}&name=$('#newroomname').value"
+			        <a href="javascript:void(0);" onclick="updateRoomName()"
 			        	class="btn-layerMake">방이름 저장</a>
 			        <a href="${cp }/moveChatRoom?clnum=${sessionScope.clnum}&num=${sessionScope.num}" 
 			        	class="btn-layerMake">취소</a>
@@ -1173,6 +1173,10 @@ a.btn-layerClose:hover {
 </body>
 
 <script type="text/javascript">
+	function updateRoomName(){
+		var name=$("#newroomname").val();
+		location.href="${cp}/updateRoomName?clnum=${sessionScope.clnum}&num=${sessionScope.num}&name="+name;
+	}
 	var index=0;
 	var count=0;
 	$(function(){

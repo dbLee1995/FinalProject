@@ -24,7 +24,7 @@
 	<insert id="addfri" parameterType="fproject.app.fproject.vo.FriendlistVo">
 		insert into friendlist values(#{num},#{fnum},#{favo},#{spam},#{approv})
 	</insert>
-	<select id="searchphone" resultType="hashmap" parameterType="hashmap">
-		
-	</select>
+	<update id="setnewfri" >
+		update friendlist set approv=1
+	</update>
 </mapper>

@@ -25,6 +25,7 @@
 	<context:annotation-config/>
 	<context:component-scan base-package="fproject.app.fproject.Controller" />
 	
+	
 	<!-- 파일 업로드 모듈 bean 등록 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10485760"/>
