@@ -57,7 +57,7 @@ public class LoginController_kh {
 			}
 			session.setAttribute("basketList", basketList);
 			
-			return "redirect:/";
+			return "home";
 
 		} else {
 			return "member/login";

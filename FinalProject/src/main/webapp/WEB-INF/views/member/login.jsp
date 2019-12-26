@@ -40,7 +40,9 @@
 		$("#find_pw_btn").click(function(){
 			location.href='${cp}/member/find_pw';	//히스토리를 기록해서 지정한 새로운페이지로 이동한다. 
 		});
-		
+		(() => {
+			if("${auth}"=="lack") alert("로그인이 필요합니다.");
+		})();
 	});
 </script>
 <title>member/login.jsp</title>
@@ -53,11 +55,11 @@
 					<form class="login100-form validate-form flex-sb flex-w"
 						method="post" action="${pageContext.request.contextPath }/member/login">
 						<span class="login100-form-title p-b-32">
-							코코아톡
+							CoCoa Talk
 						</span>
 	
 						<span class="txt1 p-b-11">
-							아이디
+							ID
 						</span>
 						<div class="wrap-input100 validate-input m-b-36" data-validate = "Username is required">
 							<input class="input100"
@@ -66,7 +68,7 @@
 						</div>
 						
 						<span class="txt1 p-b-11">
-								비밀번호
+								Password
 						</span>
 						<div class="wrap-input100 validate-input m-b-12" data-validate = "Password is required">
 							<span class="btn-show-pass">
