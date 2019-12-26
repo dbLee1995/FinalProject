@@ -10,4 +10,21 @@
 	<select id="selectPopulEmoList" resultType="fproject.app.fproject.vo.EmoticongroupVo">
 		select * from (select emognum, count(*) num from purchase group by emognum order by num desc) where rownum <![CDATA[<=]]> 10
 	</select>
+	
+	<select id="selectPopulEmoListTotalCount" resultType="int">
+		select count(*) count from purchase group by emognum
+	</select>
+	
+	<select id="selectPopulEmoPagingList" parameterType="hashmap" resultType="fproject.app.fproject.vo.EmoticongroupVo">
+		select b.emognum, b.num
+		from
+    		(select rownum rnum, a.emognum, a.num
+    		from
+        		(select emognum, count(*) num
+        		from purchase
+        		group by emognum
+        		order by num desc) a
+    		where rownum <![CDATA[<=]]> #{endRow}) b
+		where b.rnum <![CDATA[>=]]> #{startRow}
+	</select>
 </mapper>

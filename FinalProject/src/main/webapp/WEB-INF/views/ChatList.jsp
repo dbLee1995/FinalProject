@@ -39,7 +39,10 @@
 			href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 <%-- 	<link rel="stylesheet" type="text/css" href='${cp }/resources/css/jquery-ui.css'> --%>
 	
-	<script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
+<%-- 	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script> --%>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   	<script src="${pageContext.request.contextPath }/resources/js/popper.min.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/jquery.easing.1.3.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/jquery.waypoints.min.js"></script>
@@ -53,8 +56,7 @@
 	<script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
 
-	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
+
 	<script src="${pageContext.request.contextPath }/resources/js/sockjs.js"></script>
 	<script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 <%-- 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/animateScroll/animatescroll.js"></script> --%>
@@ -1043,7 +1045,7 @@ a.btn-layerClose:hover {
 			<div class="message-input">
 				<div class="wrap">
 				<input type="text" placeholder="Write your message..." id="textID" name="chatInput">
-				<i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+				<button type="button" id="sendEmoBtn" style=""><i class="fa fa-paperclip attachment" aria-hidden="true"></i></button>
 				<button class="submit" id="buttonMessage"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
 				</div>
 			</div>
@@ -1151,6 +1153,12 @@ a.btn-layerClose:hover {
 			  </div>
 			</div>
 			
+			<div id="emoDialog" title="선택하세요." style='display:none'>
+  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
+  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
+  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
+  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
+			</div>
 </body>
 
 <script type="text/javascript">
@@ -1373,6 +1381,41 @@ a.btn-layerClose:hover {
         });
     }
     function onMakeRoom(){ $("#makefrm").submit(); }
-	
+
+    var emoDial = document.getElementById('emoDialog');
+    document.getElementById('sendEmoBtn').addEventListener('click', e => {
+    	var userNum = Number.parseInt('${sessionScope.num}');
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', '${cp}/chat/sendEmoticon');
+        xhr.onreadystatechange = function () {
+            if(xhr.status === 200 && xhr.readyState === 4) {
+            	var data = JSON.parse(xhr.responseText);
+            	console.log(data);
+            	
+            	$('#emoDialog').dialog('open');
+            }
+        }
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+        xhr.send('userNum=' + userNum);
+    });
+    
+    $('#emoDialog').dialog({
+        modal: false,
+        draggable: false,
+        resizable: false,
+        autoOpen: false,
+        title: '이모티콘을 선택해주세요.',
+        hide: 'puff',
+        show: 'slide',
+        height: 200,
+        buttons: {
+        	'전송': function() {
+        		dialog.close();
+        	},
+            '닫기': function() {
+                dialog.colse();
+            }
+        }
+    });
 </script>
 </html>

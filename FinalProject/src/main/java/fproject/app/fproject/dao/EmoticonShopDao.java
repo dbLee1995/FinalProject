@@ -1,5 +1,6 @@
 package fproject.app.fproject.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -56,5 +57,29 @@ public class EmoticonShopDao {
 	
 	public List<EmoshopVo> selectCatogoryEmoList(String emoCategory) {
 		return sqlSessionTemplate.selectList(EmoticonShopMapper + ".selectCatogoryEmoList", emoCategory);
+	}
+	
+	public List<EmoticonVo> selectEmoticonList(int emognum) {
+		return sqlSessionTemplate.selectList(EmoticonShopMapper + ".selectEmoticonList", emognum);
+	}
+	
+	public int selectNewEmoticonTotalCount() {
+		return sqlSessionTemplate.selectOne(EmoticonShopMapper + ".selectNewEmoticonTotalCount");
+	}
+	
+	public List<EmoshopVo> selectNewEmoticonPagingList(HashMap<String, Integer> map) {
+		return sqlSessionTemplate.selectList(EmoticonShopMapper + ".selectNewEmoticonPagingList", map);
+	}
+	
+	public List<EmoticongroupVo> selectUserEmoList(int userNum) {
+		return sqlSessionTemplate.selectList(EmoticonShopMapper + ".selectUserEmoList", userNum);
+	}
+	
+	public int selectPopulEmoListTotalCount() {
+		return sqlSessionTemplate.selectOne(EmoticonShopMapper + ".selectPopulEmoListTotalCount");
+	}
+	
+	public List<EmoticongroupVo> selectPopulEmoPagingList(HashMap<String, Integer> map) {
+		return sqlSessionTemplate.selectList(PurchaseMapper + ".selectPopulEmoPagingList", map);
 	}
 }

@@ -120,7 +120,7 @@ button:hover {
 		var idxhr = null;
 
 		moveLoginBtn.addEventListener("click", () => {
-			location.href="login";
+			location.href="${cp}/member/login";
 		});
 		
 	   /// 아이디 검사(DB확인을 위해 컨트롤러 ajax로 호출)

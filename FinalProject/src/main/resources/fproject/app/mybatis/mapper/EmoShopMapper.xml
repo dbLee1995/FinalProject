@@ -59,4 +59,20 @@
 	<select id="selectCatogoryEmoList" parameterType="String" resultType="fproject.app.fproject.vo.EmoshopVo">
 		select * from emoshop where category = #{emoCategory}
 	</select>
+	
+	<select id="selectEmoticonList" parameterType="int" resultType="fproject.app.fproject.vo.EmoticonVo">
+		select * from emoticon where emognum=#{emognum}
+	</select>
+	
+	<select id="selectNewEmoticonTotalCount" resultType="int">
+		select count(*) count from emoshop where regdate >= sysdate-29
+	</select>
+	
+	<select id="selectEmoticonTotalCount" resultType="int">
+		select count(*) count from emoshop 
+	</select>
+	
+	<select id="selectUserEmoList" parameterType="int" resultType="fproject.app.fproject.vo.EmoticongroupVo">
+		select * from emoticongroup where num = #{userNum}
+	</select>
 </mapper>

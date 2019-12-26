@@ -73,6 +73,97 @@ public class EmoShopController {
 		return jsonArr.toString();
 	}
 	
+	@RequestMapping(value="/basket", method=RequestMethod.GET)
+	public String basketPage(Model model, HttpServletRequest req) {
+		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList"); // basketList의 컬렉션(?)이 <EmoshopVo>여야 함
+		req.getSession().setAttribute("basketList", basketList);
+		model.addAttribute("list", basketList);
+		return "emoShop/basket";
+	}
+	
+	@RequestMapping(value="/emoticon", method=RequestMethod.GET)
+	public String emoDetail(Model model, HttpServletRequest req, int emognum) {
+		EmoshopVo emo = emoShopService.getEmogInfo(emognum);
+		model.addAttribute("vo", emo);
+		model.addAttribute("list", emoShopService.getEmoticonList(emognum));
+		model.addAttribute("category", emoShopService.getCategoryEmoList(emo.getCategory()));
+		return "emoShop/emoticon";
+	}
+	
+	@RequestMapping(value="/new", method=RequestMethod.GET)
+	public String emoNew(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
+		Paging pg = new Paging(8, emoShopService.getNewEmoTotalCount(), 3, thisPage);
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", pg.getStartRow());
+		map.put("endRow", pg.getEndRow());
+		model.addAttribute("list", emoShopService.getNewEmoPagingList(map));
+		model.addAttribute("pg", pg);
+		return "emoShop/new";
+	}
+	
+	@RequestMapping(value="/popular", method=RequestMethod.GET)
+	public String popular(Model model, HttpServletRequest req) {
+		List<EmoticongroupVo> sortList = emoShopService.getPopulEmoList();
+		List<EmoshopVo> popularList = new ArrayList<EmoshopVo>();
+		for(EmoticongroupVo gvo : sortList) {
+			popularList.add(emoShopService.getEmogInfo(gvo.getEmognum()));
+		}
+		model.addAttribute("list", popularList);
+		return "emoShop/popular";
+	}
+	
+	@RequestMapping(value="/category", method=RequestMethod.GET)
+	public String category(Model model, HttpServletRequest req, String category) {
+		return "emoShop/category";
+	}
+	
+	@RequestMapping(value="/wishList", method=RequestMethod.GET)
+	public String wishListPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
+		int userNum = (int)req.getSession().getAttribute("num"); // 사용자 번호 받아오기
+		Paging pg = new Paging(4, favorListService.getCount(userNum), 7, thisPage);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", pg.getStartRow());
+		map.put("endRow", pg.getEndRow());
+		map.put("userNum", userNum);
+		map.put("startPage", pg.getStartPage());
+		map.put("endPage", pg.getEndPage());
+		map.put("thisPage", pg.getThisPage());
+		List<EmoWishListVo> list = favorListService.getUserWishListPaging(map);
+		model.addAttribute("newEmoList", list);
+		model.addAttribute("map", map);
+		return "emoShop/wishList";
+	}
+	
+	@RequestMapping(value="/purchase", method=RequestMethod.POST)
+	public String purchasePageMove(Model model, HttpServletRequest req, int[] emognum, int[] prices) {
+		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList");
+		int userNum = (int)req.getSession().getAttribute("num");
+		List<PurchaseVo> list = new ArrayList<PurchaseVo>();
+		for(int i : emognum) {
+			PurchaseVo vo = new PurchaseVo(0, null, i, userNum);
+			list.add(vo);
+		}
+		emoShopService.savePurchaseList(list);
+		return "emoShop/main";
+	}
+	
+	@RequestMapping(value="/category", method=RequestMethod.POST)
+	@ResponseBody
+	public String wishListPage(Model model, HttpServletRequest req, @RequestBody Map<String, Integer> paging) {
+		
+		return json.toString();
+	}
+	
+	@RequestMapping(value="/popular", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
+	@ResponseBody
+	public String morePopularList(int thisPage) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", thisPage*10-9);
+		map.put("endRow", thisPage*10);
+		JSONArray jArray = new JSONArray(emoShopService.getPopularEmoPagingList(map));
+		return jArray.toString();
+	}
+	
 	@RequestMapping(value="/putBasket", method=RequestMethod.POST)
 	@ResponseBody
 	public String putBasket(Model model, HttpSession session, int num) {
@@ -91,14 +182,6 @@ public class EmoShopController {
 		basketList.add(vo);
 		session.setAttribute("basketList", basketList);
 		return "찜 목록에 추가했습니다.";
-	}
-	
-	@RequestMapping(value="/basket", method=RequestMethod.GET)
-	public String basketPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
-		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList"); // basketList의 컬렉션(?)이 <EmoshopVo>여야 함
-		req.getSession().setAttribute("basketList", basketList);
-		model.addAttribute("list", basketList);
-		return "emoShop/basket";
 	}
 	
 	@RequestMapping(value="/moveBaskettoWish", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
@@ -134,23 +217,6 @@ public class EmoShopController {
 		}
 		session.setAttribute("basketList", basketList);
 		return "선택한 항목을 삭제했습니다.";
-	}
-	
-	@RequestMapping(value="/wishList", method=RequestMethod.GET)
-	public String wishListPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
-		int userNum = (int)req.getSession().getAttribute("num"); // 사용자 번호 받아오기
-		Paging pg = new Paging(4, favorListService.getCount(userNum), 7, thisPage);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("startRow", pg.getStartRow());
-		map.put("endRow", pg.getEndRow());
-		map.put("userNum", userNum);
-		map.put("startPage", pg.getStartPage());
-		map.put("endPage", pg.getEndPage());
-		map.put("thisPage", pg.getThisPage());
-		List<EmoWishListVo> list = favorListService.getUserWishListPaging(map);
-		model.addAttribute("list", list);
-		model.addAttribute("map", map);
-		return "emoShop/wishList";
 	}
 	
 	@RequestMapping(value="/moveWishtoBasket", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
@@ -189,18 +255,5 @@ public class EmoShopController {
 			favorListService.delUserWishItem(map);
 		}
 		return "선택한 항목을 삭제했습니다.";
-	}
-	
-	@RequestMapping(value="/purchase", method=RequestMethod.POST)
-	public String purchasePageMove(Model model, HttpServletRequest req, int[] emognum, int[] prices) {
-		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList");
-		int userNum = (int)req.getSession().getAttribute("num");
-		List<PurchaseVo> list = new ArrayList<PurchaseVo>();
-		for(int i : emognum) {
-			PurchaseVo vo = new PurchaseVo(0, null, i, userNum);
-			list.add(vo);
-		}
-		emoShopService.savePurchaseList(list);
-		return "emoShop/main";
 	}
 }

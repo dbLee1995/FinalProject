@@ -45,5 +45,4 @@ public class EmoticonVo{
 	public void setEmoimgsize(long emoimgsize) {
 		this.emoimgsize = emoimgsize;
 	}
-	
 }
