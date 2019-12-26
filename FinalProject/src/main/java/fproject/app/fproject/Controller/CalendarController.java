@@ -18,12 +18,14 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import fproject.app.fproject.service.CalendarService;
 import fproject.app.fproject.service.FriendsService;
@@ -44,6 +46,7 @@ public class CalendarController {
 	public String calendar(){
 		return "calendar";
 	};
+
 	@RequestMapping(value="/calendar/list",produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String list(HttpSession session){

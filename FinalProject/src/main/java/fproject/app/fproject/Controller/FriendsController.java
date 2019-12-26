@@ -21,6 +21,7 @@ import org.springframework.validation.support.BindingAwareModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import fproject.app.fproject.service.AccountService;
 import fproject.app.fproject.service.FriendsService;
@@ -38,6 +39,12 @@ public class FriendsController {
 	public String addfriends(){
 		return "friends/addfriends";
 	}
+	@RequestMapping("/friends/showalarm")
+	public ModelAndView alarm(String title){
+		ModelAndView mv=new ModelAndView("showalarm");
+		mv.addObject("title", title);	
+		return mv;
+	};
 	@RequestMapping(value="/friends/list",method = RequestMethod.GET)
 	public String list(Model model,int num,String friname){
 		if(friname==null){
