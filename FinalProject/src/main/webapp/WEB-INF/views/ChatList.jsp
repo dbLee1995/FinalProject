@@ -921,27 +921,10 @@ a.btn-layerClose:hover {
 		<div id="sidepanel">
 			<div id="profile">
 				<div class="wrap">
-					<img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
 					<p>${sessionScope.id }</p>
 					<input type="hidden" id="sessionnum" value="${sessionScope.num }">
 					<input type="hidden" id="sessionclnum" value="${sessionScope.clnum }">
-					<i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
-					<div id="status-options">
-						<ul>
-							<li id="status-online" class="active"><span class="status-circle"></span> <p>Online</p></li>
-							<li id="status-away"><span class="status-circle"></span> <p>Away</p></li>
-							<li id="status-busy"><span class="status-circle"></span> <p>Busy</p></li>
-							<li id="status-offline"><span class="status-circle"></span> <p>Offline</p></li>
-						</ul>
-					</div>
-					<div id="expanded">
-						<label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
-						<input name="twitter" type="text" value="mikeross" />
-						<label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
-						<input name="twitter" type="text" value="ross81" />
-						<label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
-						<input name="twitter" type="text" value="mike.ross" />
-					</div>
+
 				</div>
 			</div>
 			<div id="search">
@@ -984,8 +967,7 @@ a.btn-layerClose:hover {
 		<c:if test="${clnum > 0 }">
 		<div class="content">
 			<div class="contact-profile">
-				<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-				<p>${clvo.name }</p>
+				<p style="margin-left:20px;">${clvo.name }</p>
 				<div class="social-media">
 
 					<span class="accordion" id="accordionExample">
@@ -1038,8 +1020,7 @@ a.btn-layerClose:hover {
 						<c:otherwise>
 							<li class="sent">
 							<div style="display:inline;">
-								<div style="margin-left: 35px; margin-bottom: 2px;">${attname[cvo.num] }</div>
-								<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+								<div style="margin-left: 10px; margin-bottom: 2px;">${attname[cvo.num] }</div>
 								<p>${cvo.content }</p>
 								<c:forEach var="ct" items="${chattime }">
 									<c:if test="${ct.cnum == cvo.cnum }">
@@ -1303,8 +1284,8 @@ a.btn-layerClose:hover {
 				+'<div id="'+msgArr[3]+'"></div>'
 				+ msgArr[1] +'<p>' + msgArr[0] + '</p></div></li>').appendTo($('.messages ul'));
 			}else{
-				$('<li class="sent"><div style="margin-left: 35px; margin-bottom: 2px;">'+ msgArr[4]
-						+ '</div><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' 
+				$('<li class="sent"><div style="margin-left: 10px; margin-bottom: 2px;">'+ msgArr[4]
+						+ '</div><p>' 
 						+ msgArr[0] + '</p>'+msgArr[1]+'<span id="'+msgArr[3]+'"></span></li>').appendTo($('.messages ul'));
 			}
 			$.ajax({
