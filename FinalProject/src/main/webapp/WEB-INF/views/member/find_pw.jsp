@@ -81,13 +81,13 @@
 							<div class="contact100-form-checkbox">
 								<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
 								<label class="label-checkbox100" for="ckb1">
-									Remember me
+									자동 로그인
 								</label>
 							</div>
 							
 							<div>
-								<a href="${cp }/member/find_id" class="txt3" style="padding-right:10px;">Forgot Id?</a> 		
-								<a href="${cp }/member/find_pw" class="txt3">Forgot Password?</a> 
+								<a href="${cp }/member/find_id" class="txt3" style="padding-right:10px;">아이디 찾기</a> 		
+								<a href="${cp }/member/find_pw" class="txt3">비밀번호 찾기</a> 
 							</div>
 					
 							
@@ -95,7 +95,7 @@
 	
 						<div class="container-login100-form-btn">
 							<button class="login100-form-btn">
-								Login
+								로그인
 							</button>
 						</div>
 	

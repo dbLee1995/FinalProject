@@ -22,6 +22,6 @@ public class HomeController {
 	
 		
 		
-		return "home";
+		return "member/login";
 	}
 }
