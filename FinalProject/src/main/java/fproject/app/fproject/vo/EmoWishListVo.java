@@ -8,11 +8,12 @@ public class EmoWishListVo {
 	private String category;
 	private String name;
 	private int price;
+	private String repreImg;
 	
 	public EmoWishListVo() {
 		super();
 	}
-	public EmoWishListVo(int rnum, int num, int emogNum, String category, String name, int price) {
+	public EmoWishListVo(int rnum, int num, int emogNum, String category, String name, int price, String repreImg) {
 		super();
 		this.rnum = rnum;
 		this.num = num;
@@ -20,8 +21,14 @@ public class EmoWishListVo {
 		this.category = category;
 		this.name = name;
 		this.price = price;
+		this.repreImg = repreImg;
 	}
-	
+	public String getRepreImg() {
+		return repreImg;
+	}
+	public void setRepreImg(String repreImg) {
+		this.repreImg = repreImg;
+	}
 	public int getRnum() {
 		return rnum;
 	}

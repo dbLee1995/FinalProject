@@ -48,10 +48,13 @@ public class EmoShopController {
 		}
 		model.addAttribute("newEmoList", emoShopService.getNewEmoList());
 		model.addAttribute("populEmoList", populEmoList);
-		model.addAttribute("category1", emoShopService.getCategoryEmoList("카테고리1"));
+		model.addAttribute("category3", emoShopService.getCategoryEmoList("분위기"));
+		model.addAttribute("category2", emoShopService.getCategoryEmoList("동물"));
+		model.addAttribute("category1", emoShopService.getCategoryEmoList("연말"));
 		return "emoShop/main";
 	}
 	
+	/*
 	@RequestMapping(value="/main", produces={"application/json;charset=UTF-8"}, method=RequestMethod.POST)
 	@ResponseBody
 	public String addEmoticonList(Model model, HttpServletRequest req, int count) {
@@ -60,7 +63,6 @@ public class EmoShopController {
 		JSONArray jsonArr = new JSONArray();
 		for(int i=182; i<=182+4; i++) {
 			vo = emoShopService.getEmogInfo(i);
-			System.out.println("아씨: " + vo.getRepreImg());
 			JSONObject json = new JSONObject();
 			json.put("emogNum", vo.getEmognum());
 			json.put("emogName", vo.getName());
@@ -72,6 +74,7 @@ public class EmoShopController {
 		System.out.println(jsonArr.toString());
 		return jsonArr.toString();
 	}
+	*/
 	
 	@RequestMapping(value="/basket", method=RequestMethod.GET)
 	public String basketPage(Model model, HttpServletRequest req) {
@@ -120,6 +123,7 @@ public class EmoShopController {
 	@RequestMapping(value="/wishList", method=RequestMethod.GET)
 	public String wishListPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
 		int userNum = (int)req.getSession().getAttribute("num"); // 사용자 번호 받아오기
+		if(thisPage > 1) thisPage = 1;
 		Paging pg = new Paging(4, favorListService.getCount(userNum), 7, thisPage);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pg.getStartRow());
@@ -129,13 +133,13 @@ public class EmoShopController {
 		map.put("endPage", pg.getEndPage());
 		map.put("thisPage", pg.getThisPage());
 		List<EmoWishListVo> list = favorListService.getUserWishListPaging(map);
-		model.addAttribute("newEmoList", list);
+		model.addAttribute("wishList", list);
 		model.addAttribute("map", map);
 		return "emoShop/wishList";
 	}
 	
 	@RequestMapping(value="/purchase", method=RequestMethod.POST)
-	public String purchasePageMove(Model model, HttpServletRequest req, int[] emognum, int[] prices) {
+	public String purchase(Model model, HttpServletRequest req, int[] emognum, int[] prices) {
 		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList");
 		int userNum = (int)req.getSession().getAttribute("num");
 		List<PurchaseVo> list = new ArrayList<PurchaseVo>();
@@ -144,7 +148,28 @@ public class EmoShopController {
 			list.add(vo);
 		}
 		emoShopService.savePurchaseList(list);
-		return "emoShop/main";
+		return mainPage(model, req);
+	}
+	
+	@RequestMapping(value="/purchaseOne", produces={"application/text;charset=UTF-8"},method=RequestMethod.POST)
+	@ResponseBody
+	public String purchaseOne(Model model, HttpServletRequest req, String emognum) {
+		int emonum = Integer.parseInt(emognum);
+		int userNum = (int)req.getSession().getAttribute("num");
+		List<EmoshopVo> userEmoList = emoShopService.getUserEmoList(userNum);
+		boolean c = true;
+		for(EmoshopVo evo : userEmoList) {
+			if(evo.getEmognum() != emonum) continue;
+			c = false;
+		}
+		if(c) {
+			List<PurchaseVo> list = new ArrayList<PurchaseVo>();
+			list.add(new PurchaseVo(0, null, emonum, userNum));
+			emoShopService.savePurchaseList(list);
+			return "구매하였습니다.";
+		} else {
+			return "이미 구매한 이모티콘입니다.";
+		}
 	}
 	
 	@RequestMapping(value="/category", method=RequestMethod.POST)
@@ -164,24 +189,52 @@ public class EmoShopController {
 		return jArray.toString();
 	}
 	
-	@RequestMapping(value="/putBasket", method=RequestMethod.POST)
+	@RequestMapping(value="/putBasket", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
 	@ResponseBody
-	public String putBasket(Model model, HttpSession session, int num) {
+	public String putBasket(Model model, HttpSession session, String emognum, String check) {
+		int emonum = Integer.parseInt(emognum);
+		int checknum = Integer.parseInt(check);
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
-		basketList.add(vo);
-		session.setAttribute("basketList", basketList);
-		return "바구니에 담았습니다.";
+		boolean c = true;
+		JSONObject json = new JSONObject();
+		for(EmoshopVo evo : basketList) {
+			if(evo.getEmognum() != emonum || evo == null) continue;
+			c = false;
+		}
+		if(c) {
+			basketList.add(emoShopService.getEmogInfo(emonum));
+			json.put("text", "바구니에 담았습니다.");
+			json.put("check", 1);
+		} else {
+			json.put("text", "이미 담아둔 이모티콘입니다.");
+			json.put("check", 0);
+		}
+		return json.toString();
 	}
 	
-	@RequestMapping(value="/putWish", method=RequestMethod.POST)
+	@RequestMapping(value="/putWish", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
 	@ResponseBody
-	public String putWishList(Model model, HttpSession session, EmoshopVo vo) {
+	public String putWishList(Model model, HttpSession session, String emognum, String check) {
+		int emonum = Integer.parseInt(emognum);
+		int checknum = Integer.parseInt(check);
 		int userNum = (int)session.getAttribute("num");
-		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
-		basketList.add(vo);
-		session.setAttribute("basketList", basketList);
-		return "찜 목록에 추가했습니다.";
+		List<EmoshopVo> wishList = favorListService.getUserWishList(userNum);
+		boolean c = true;
+		JSONObject json = new JSONObject();
+		for(EmoshopVo evo : wishList) {
+			if(evo.getEmognum() != emonum || evo == null) continue;
+			c = false;
+		}
+		if(c) {
+			favorListService.addUserWishList(new FavorlistVo(0, 0, emonum, userNum));
+			json.put("text", "찜 목록에 추가했습니다.");
+			json.put("check", 1);
+		} else {
+			json.put("text", "이미 찜해둔 이모티콘입니다.");
+			json.put("check", 0);
+		}
+		return json.toString();
 	}
 	
 	@RequestMapping(value="/moveBaskettoWish", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
@@ -203,7 +256,7 @@ public class EmoShopController {
 			basketList.remove(i);
 		}
 		session.setAttribute("basketList", basketList);
-		return "선택한 항목을 보관함으로 옮겼습니다.";
+		return "선택한 항목을 찜 목록으로 옮겼습니다.";
 	}
 	
 	@RequestMapping(value="/delBasketItem", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)

@@ -5,13 +5,64 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>코코아톡:: 이모티콘 찜 목록</title>
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/open-iconic-bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/magnific-popup.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/aos.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/ionicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/flaticon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/icomoon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
+
 <link rel="stylesheet" href="${cp }/resources/css/page_cart.css"/>
 <link rel="stylesheet" href="${cp }/resources/css/page_base.css"/>
 <link rel="stylesheet" href="${cp }/resources/css/page_btn.css"/>
 </head>
 <body>
-
+  <div id="colorlib-page">
+	<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+	  <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="max-width: 250px;">
+		<nav id="colorlib-main-menu" role="navigation">
+		  <ul>
+			<li><a href="${cp}/./">Home</a></li><br>
+			  <c:choose>
+				<c:when test="${empty sessionScope.id}">					
+				  <li><a href="${pageContext.request.contextPath}/member/login">Login</a></li><br>
+				</c:when>	
+				<c:otherwise>
+				  <li style="position:relative; right:54px;"><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li><br>
+				  <li style="position:relative; right:100px;"><a href="${cp }/friends/list?num=${sessionScope.num}">Friends</a></li><br>
+				</c:otherwise>	 
+			  </c:choose>
+			<li style="position:relative; right:0px;"><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">WebSocket</a></li><br>
+			<li class="colorlib-active"><a href="${cp }/emoShop/main">코코아 이모티콘</a>
+				<ul style="padding: 5px 0px 0px 15px;">
+					<li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li><br>
+					<li style="margin:0px;"><a href="${cp }/emoShop/wishList" style="font-size:15px;">내 찜목록</a></li>
+				</ul>
+			</li>
+			<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
+		  </ul>
+		</nav>
+		<div class="colorlib-footer">
+	<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		  <p class="pfooter">
+	  	    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+	  	  </p>
+	  	</div>
+	  </aside> <!-- END COLORLIB-ASIDE -->
+	</div>
+	
+	
   <section id="page_cart">
 	<h2 class="article_title">찜 목록</h2>
 	  <div class="cart_wrapper js_cart_wrapper">
@@ -37,35 +88,35 @@
               </div>
               <div id="cart_wrap">
               
-<!-- -->       <c:forEach items="${list }" var="vo" varStatus="s">     <!-- ///////////////////////////////////////////////////////////////// -->
+<!-- -->       <c:forEach items="${wishList }" var="vo" begin="${map.startRow }" end="${map.endRow }" varStatus="s">     <!-- ///////////////////////////////////////////////////////////////// -->
 
-				<div class="bookmacro_wrapper" id="book${vo.emognum}" data-book-index="${s.index}">
-				  <div id="book_${vo.emognum }" class="book_macro_60 book_macro_landscape book_macro_metadata_portrait js_cart_book" style="display: flex; flex-flow: row nowrap;">
+				<div class="bookmacro_wrapper" id="book${vo.emogNum}" data-book-index="${s.index}">
+				  <div id="book_${vo.emogNum }" class="book_macro_60 book_macro_landscape book_macro_metadata_portrait js_cart_book" style="display: flex; flex-flow: row nowrap;">
 					<div class="book_thumbnail_wrapper has_checkbox" style="display:inline-block; padding: 20px 20px 15px 18px;">
 					  <div class="book_thumbnail" style="display:inline-block;">
 						<div class="thumbnail_checkbox">
-						  <input type="checkbox" id="${vo.emognum}" class="rui_checkbox_input" title="${vo.name } 선택" name="emognum" value="${vo.emognum }" data-book-index="${s.index}" data-book-price="${vo.price }">
+						  <input type="checkbox" id="${vo.emogNum}" class="rui_checkbox_input" title="${vo.name } 선택" name="emognum" value="${vo.emogNum }" data-book-index="${s.index}" data-book-price="${vo.price }">
 						</div>
 					    <div class="thumbnail_image">
 						  <img class="thumbnail ls-is-cached lazyloaded border" src="${cp }/resources/uploadImage/admin/emoticon/${vo.category }/${vo.name }/${vo.repreImg }" alt="${vo.name }">
 					    </div>
-					    <a class="thumbnail_btn" href="여기이모티콘들어가야함ㅅㅂ" style="display:inline-block;">
+					    <a class="thumbnail_btn" href="${cp }/emoShop/emoticon?emognum=${vo.emogNum}" style="display:inline-block;">
 						  <span style="display:none;">상세페이지 바로가기</span>
 					    </a>
  					  </div>
 					</div>
 					<div class="table_cell_wrapper" style="display:flex; flex-flow: row nowrap; justify-content:center; align-items:center;">
-					  <div class="table_wrapper">
+					  <div class="table_wrapper" style="padding:13px 0px 0px 35px">
 						<div class="book_metadata_wrapper">
 						  <h3 class="book_metadata meta_title">
-						    <a class="title_link " href="해당 이모티콘 판매 페이지로" data-track-params="" data-track-type="">
+						    <a class="title_link " href="${cp }/emoShop/emoticon?emognum=${vo.emogNum}" data-track-params="" data-track-type="">
 						      <span class="title_text js_highlight_helper" style="display:inline-block;">${vo.name }</span>
 						    </a>
 						  </h3>
 					    </div>
 					    <ul class="cart_wish_buttons_wrapper rui_button_group_5">
                           <li class="rui_button_item">
-							<button type="button" class="rui_button_white_30 rui_button_eink_black_line_30 book_button btn_move_to_wishlist js_btn_move_to_wishlist" data-book-index="${s.index }">보관함으로 이동</button>
+							<button type="button" class="rui_button_white_30 rui_button_eink_black_line_30 book_button btn_move_to_wishlist js_btn_move_to_wishlist" data-book-index="${s.index }">바구니로 이동</button>
                           </li>
                           <li><span>&nbsp;&nbsp;</span></li>
                           <li class="rui_button_item">
@@ -99,7 +150,7 @@
                 <div class="buttons_wrapper" style="display:flex; flex-flow: row-reverse nowrap;">
                   <ul class="rui_button_group_5">
                     <li class="rui_button_item">
-                      <button type="button" class="handling_button rui_button_white_30 js_btn_selected_move_to_wishlist" data-name="moveSelectItemBtn">선택 보관함으로 이동</button>
+                      <button type="button" class="handling_button rui_button_white_30 js_btn_selected_move_to_wishlist" data-name="moveSelectItemBtn">선택 바구니로 이동</button>
                     </li>
                     <li>
                     <li><span>&nbsp;&nbsp;</span></li>
@@ -112,6 +163,22 @@
           </div>
         </article>
       </form>
+      <div>
+        <a href="${cp }/emoShop/wishList?thisPage=1">&lt;&lt;</a>
+        <a href="${cp }/emoShop/wishList?thisPage=${i-10}">&lt;</a>
+        <c:forEach var="i" begin="${map.startPage }" end="${map.endPage }">
+        	<c:choose>
+        	  <c:when test="${i } == ${map.thisPage }">
+        		<b><a href="${cp }/emoShop/wishList?thisPage=${i}" style="font-size: 15px;">${i }</a></b>
+        	  </c:when>
+        	  <c:otherwise>
+        	    <a href="${cp }/emoShop/wishList?thisPage=${i}">${i }</a>
+        	  </c:otherwise>
+        	</c:choose>
+        </c:forEach>
+        <a href="${cp }/emoShop/wishList?thisPage=1">&gt;</a>
+        <a href="${cp }/emoShop/wishList?thisPage=${i+10}">&gt;&gt;</a>
+      </div>
     </div>
   </section>
 
@@ -237,6 +304,7 @@
 			var json = JSON.stringify(checkedItemList);
 			return json;
 		}
+				if (checkedItemList == null) return alert("선택한 항목이 없습니다.");
 		
 		function call(e) {
 			xhr = new XMLHttpRequest();

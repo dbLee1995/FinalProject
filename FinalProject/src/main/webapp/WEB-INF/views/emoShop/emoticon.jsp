@@ -164,9 +164,9 @@
 		  	        <span><b>${vo.price }</b></span><span>&nbsp;원</span>
 		  	      </div>
 		  	      <div style="display:flex; align-items:center; justify-content:flex-start; padding:0px 0px 0px 0px; width: 100%;">
-		  	        <button type="submit" class="buyBtn">&nbsp;&nbsp;&nbsp;&nbsp;구매하기&nbsp;&nbsp;&nbsp;&nbsp;</button>
-		  	        <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${vo.emognum }" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;"></i></button>
-		  	        <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${vo.emognum }" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;"></i></button>
+		  	        <button type="button" id="buyBtn" class="buyBtn" data-value="${vo.emognum }">&nbsp;&nbsp;&nbsp;&nbsp;구매하기&nbsp;&nbsp;&nbsp;&nbsp;</button>
+		  	        <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${vo.emognum }" data-check="0" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;" data-value="${vo.emognum }" data-check="0"></i></button>
+		  	        <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${vo.emognum }" data-check="0" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;" data-value="${vo.emognum }" data-check="0"></i></button>
 		  	      </div>
 		  	    </div>
 		    </div>
@@ -187,7 +187,7 @@
 		  <hr>
 		</div>
 		<article title="anotherEmoticon">
-		  <h2 style="padding:150px 0px 0px 100px;">관련 이모티콘</h2>
+		  <h2 style="padding:150px 0px 0px 180px;">관련 이모티콘</h2>
 		  <div class="emobox" style="display:flex; padding-top: 65px;">
 		  	<a href="${cp }/emoShop/category?c=${vo.category}" class="categoryBox" style="border:1px solid rgb(254, 149, 68); width: 200px;">
 		  		<span style="font-size: 18px; color: rgb(254, 149, 68);">#${vo.category }</span><br>
@@ -225,34 +225,61 @@
 <script type="text/javascript">
 
 	function putBasket(e) {
+		console.log(e.target);
 		var xhr = new XMLHttpRequest();
 		xhr.open('post', '${cp}/emoShop/putBasket');
 		xhr.onreadystatechange = function() {
 			if(xhr.status === 200 && xhr.readyState === 4) {
-				alert(xhr.responseText);
+				var data = JSON.parse(xhr.responseText);
+				if(e.target.dataset.check == 0) {
+					e.target.dataset.check = 1;
+					e.target.style.color = '#333333';
+				}
+				alert(data.text);
 			}
 		}
-		xhr.send('emognum=' + e.target.dataset.value);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+		xhr.send('emognum=' + e.target.dataset.value + '&check=' + e.target.dataset.check);
 	}
-	
+
 	function putWish(e) {
+		console.log(e.target);
 		var xhr = new XMLHttpRequest();
 		xhr.open('post', '${cp}/emoShop/putWish');
 		xhr.onreadystatechange = function() {
 			if(xhr.status === 200 && xhr.readyState === 4) {
-				alert(xhr.responseText);
+				var data = JSON.parse(xhr.responseText);
+				if(e.target.dataset.check == 0) {
+					e.target.dataset.check = 1;
+					e.target.style.color = '#333333';
+				}
+				alert(data.text);
 			}
 		}
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+		xhr.send('emognum=' + e.target.dataset.value + '&check=' + e.target.dataset.check);
 	}
-	
+
 	var basketBtnList = document.querySelectorAll('.emoBasketBtn');
 	var wishBtnList = document.querySelectorAll('.emoWishBtn');
-	
+
 	basketBtnList.forEach((value, number, listObj) => {
-		value.addEventListener('click', putBasket);
+		value.addEventListener('click', putBasket, true);
 	});
 	wishBtnList.forEach((value, number, listObj) => {
-		value.addEventListener('click', putWish);
+		value.addEventListener('click', putWish, true);
+	});
+	
+	document.getElementById('buyBtn').addEventListener('click', e => {
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', '${cp}/emoShop/purchaseOne');
+        xhr.onreadystatechange = function() {
+            if(xhr.status === 200 && xhr.readyState === 4) {
+                alert(xhr.responseText);
+            }
+        }
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        xhr.send('emognum=' + e.target.dataset.value);
 	});
 
 </script>

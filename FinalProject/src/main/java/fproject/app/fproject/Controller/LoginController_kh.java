@@ -52,10 +52,6 @@ public class LoginController_kh {
 			// 장바구니 생성합니다.
 			List<EmoshopVo> basketList = new ArrayList<EmoshopVo>();
 			session.setAttribute("basketList", basketList);
-			for(int i=63; i<=77; i++) {
-				basketList.add(emoShopService.getEmogInfo(i));
-			}
-			session.setAttribute("basketList", basketList);
 			
 			return "home";
 
