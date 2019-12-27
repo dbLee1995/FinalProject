@@ -93,8 +93,10 @@
 	    					<div style="width:95%;height:830px;margin:auto;background-color:aliceblue;color:black;">  			    				
  <!-- background이미지 --><div class="img d-flex align-items-center full-img" style="background-image:url(${cp}/resources/upload/${pvo.backimg});">					    						    					
 	    					<div style="width:90%;height:830px;margin:auto;padding-top:250px;padding-bottom:30px;">	 
-	    							<h3 style="font-weight:bold;color:white;font-size:large;bottom:700px;position:absolute;left:290px;">${pvo.msg}</h3>					
-	    	  <!-- 이미지 -->		<div id="setId" style="width:270px;height:290px;margin-top:-65PX;margin-left: 155px;">
+	    						<div style="width:580px;">
+	    							<h3 style="font-weight:bold;color:white;bottom:700px;position:absolute;left:290px;">${pvo.msg}</h3>					
+	    	  <!-- 이미지 -->		</div>
+	    	  						<div id="setId" style="width:270px;height:290px;margin-top:-65PX;margin-left: 155px;">
 	    	  						<a href="${cp}/resources/upload/${pvo.profileimg}" id="showprofimg" class="showprofimg"><!-- image gallery -->
 	    	  						<img src="${cp}/resources/upload/${pvo.profileimg}"  id="imgprof" class="img prof" style="position:relative;">
 	    	  						</a>
