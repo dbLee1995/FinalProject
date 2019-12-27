@@ -43,12 +43,22 @@
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="fashion.html">Fashion</a></li>
-					<li class="colorlib-active"><a href="${pageContext.request.contextPath}/story/list">story</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
+					
+						<c:choose>
+						<c:when test="${empty sessionScope.id}">					
+							<li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
+						</c:when>	
+				 		<c:otherwise>
+				 			<li><a href="${cp}/profiles/info?num=${sessionScope.num}">마이페이지</a></li>
+							<li class="colorlib-active" ><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">코코아 스토리</a></li>
+							<li ><a href="${cp }/friends/list?num=${sessionScope.num}">친구들</a></li>			
+						</c:otherwise>	 
+					</c:choose>
+					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
+					<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
+					<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
+					<li><a href="${cp}/nquire/list?num=${sessionSope.num}">문의하기</a></li>
+					</ul>
 			</nav>
 
 			<div class="colorlib-footer">
