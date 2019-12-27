@@ -1188,7 +1188,7 @@ a.btn-layerClose:hover {
 						count=parseInt(data.chatcount);
 						var a=$(".messages").scrollTop();
 						var offset = $("#"+chatnum).offset();
-						var aaa=a+offset.top-220;
+						var aaa=a+offset.top-280;
 						$(".messages").scrollTop(aaa);
 					}else{
 						index=0;
@@ -1212,7 +1212,7 @@ a.btn-layerClose:hover {
 						var chatnum=parseInt(data.chatnum);
 						var a=$(".messages").scrollTop();
 						var offset = $("#"+chatnum).offset();
-						var aaa=a+offset.top-220;
+						var aaa=a+offset.top-280;
 						$(".messages").scrollTop(aaa);
 						$("#searchcount").html(index+"/"+count);
 					}
@@ -1233,7 +1233,7 @@ a.btn-layerClose:hover {
 						var chatnum=parseInt(data.chatnum);
 						var a=$(".messages").scrollTop();
 						var offset = $("#"+chatnum).offset();
-						var aaa=a+offset.top-220;
+						var aaa=a+offset.top-280;
 						$(".messages").scrollTop(aaa);
 						$("#searchcount").html(index+"/"+count);
 					}

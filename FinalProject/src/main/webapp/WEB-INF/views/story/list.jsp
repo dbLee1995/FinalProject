@@ -40,7 +40,7 @@
 						</c:otherwise>	 
 					</c:choose>
 					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}">WebSocket</a></li>
-					<li><a href="${cp }/emoShop">이모티콘(원래 위치는 about.html)</a></li>
+					<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
 					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
 				</ul>
 			</nav>
