@@ -43,6 +43,9 @@
 		if(${login}){
 			alert("아이디 혹은 비밀번호를 확인하고 다시 로그인 해주세요.");
 		}
+		$("#registerBtn").click(function() {
+			location.href='${cp}/member/register';
+		});
 	});
 </script>
 <title>member/login.jsp</title>
@@ -98,6 +101,10 @@
 						<div class="container-login100-form-btn">
 							<button class="login100-form-btn">
 								로그인
+							</button>
+							<span>&nbsp;&nbsp;</span>
+							<button class="login100-form-btn" id="registerBtn">
+								회원가입
 							</button>
 						</div>
 	
