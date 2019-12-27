@@ -99,7 +99,7 @@
 				            		<a href="${pageContext.request.contextPath}/profiles/info?num=${num}" class="img" style="background-image: url(${pageContext.request.contextPath}/resources/upload/${profileimg});"></a>
 				            		<div class="ml-3 info">
 				            			<span>Written by</span>
-				            			<h3><a href="${cp}/profiles/info?num=${num}">${id}</a>, <span>${list.sregdate}</span></h3>
+				            			<h3><a href="${cp}/profiles/info?num=${num}">${name}</a>, <span>${list.sregdate}</span></h3>
 				            		</div>
 				            	</div>
 				              <div class="meta-wrap d-md-flex align-items-center">

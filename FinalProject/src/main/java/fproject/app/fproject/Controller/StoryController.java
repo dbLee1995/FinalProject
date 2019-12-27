@@ -53,11 +53,10 @@ public class StoryController {
 	@RequestMapping(value="/story/list",method=RequestMethod.GET)
 	public ModelAndView list(int num){
 		List<StoryVo> list=service.list(num);
-		AccountVo vo=aservice.info(num);
 		ProfilesVo pvo=pservice.info(num);
 		ModelAndView mv=new ModelAndView("story/list");		
 		mv.addObject("list",list);
-		mv.addObject("id",vo.getId());
+		mv.addObject("name",pvo.getName());
 		mv.addObject("profileimg",pvo.getProfileimg());
 		mv.addObject("num",pvo.getNum());		
 		return mv;		
