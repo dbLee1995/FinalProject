@@ -81,8 +81,9 @@
 											</div>
 									</div>           
 									<h1 style="width:700px;">${vo.stitle}</h1>                        
-                                </div>
-								<img src="${pageContext.request.contextPath}/resources/upload/${vo.saveimg}"class="img-fluid"> 
+                                </div><div style="width:700px;">
+								<img src="${pageContext.request.contextPath}/resources/upload/${vo.saveimg}"class="img-fluid">
+								</div> 
 								<h3>${vo.scontent}</h3>                           
 <!-- ////////////////// title End ##################/////////////////////////////// -->  
          
