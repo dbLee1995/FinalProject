@@ -27,16 +27,25 @@
 		<div id="colorlib-page">
 			<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 				<aside id="colorlib-aside" role="complementary" class="js-fullheight">
-				<nav id="colorlib-main-menu" role="navigation">
-				<ul>
-					<li><a href="${pageContext.request.contextPath}/./">Home</a></li>
-					<li><a href="fashion.html">Fashion</a></li>
-					<li class="colorlib-active"><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-				</nav>
-
+					<nav id="colorlib-main-menu" role="navigation">
+						<ul>
+							<li class="colorlib-active"><a href="${cp}/./">Home</a></li>
+							<c:choose>
+								<c:when test="${empty sessionScope.id}">					
+									<li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
+								</c:when>	
+						 		<c:otherwise>
+									<li><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>
+									<li><a href="${cp }/friends/list?num=${sessionScope.num}">Friends</a></li>			
+								</c:otherwise>	 
+							</c:choose>
+							<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">WebSocket</a></li>
+							<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
+							<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
+							<li><a href="${cp}/qna/list">문의하기</a></li>
+							<li><a href="${cp}/profiles/info?num=${sessionScope.num}">마이페이지</a></li>
+						</ul>
+					</nav>
 		<div class="colorlib-footer">
 			<h1 id="colorlib-logo" class="mb-4"><a href="index.html" style="background-image: url(images/bg_1.jpg);">Andrea <span>Moore</span></a></h1>
 			
@@ -67,11 +76,11 @@
 <!-- ////////////////// title ##################/////////////////////////////// -->                                                                                                                                                                       
 								<div class="blog-entry-2 ftco-animate">                                                                                        
 									<div class="author mb-4 d-flex align-items-center">
-										<a href="#" class="img" style="background-image:${cp}/resources/upload/${profileimg};"></a>
+										<a href="#" class="img" style="background-image:url(${cp}/resources/upload/${profileimg})"></a>
 											<div class="mb-3" style="margin-top:20px;margin-left:20px;">${name}
 											</div>
 									</div>           
-									<h1>${vo.stitle}</h1>                        
+									<h1 style="width:700px;">${vo.stitle}</h1>                        
                                 </div>
 								<img src="${pageContext.request.contextPath}/resources/upload/${vo.saveimg}"class="img-fluid"> 
 								<h3>${vo.scontent}</h3>                           
