@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>코코아톡:: 코코아 메신저</title>
+<title>Insert title here</title>
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
@@ -39,10 +39,7 @@
 			href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 <%-- 	<link rel="stylesheet" type="text/css" href='${cp }/resources/css/jquery-ui.css'> --%>
 	
-<%-- 	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script> --%>
-	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/popper.min.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/jquery.easing.1.3.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/jquery.waypoints.min.js"></script>
@@ -56,7 +53,8 @@
 	<script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
 
-
+	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/sockjs.js"></script>
 	<script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 <%-- 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/animateScroll/animatescroll.js"></script> --%>
@@ -806,8 +804,8 @@ a.btn-layerClose:hover {
   float: right;
 }
 #frame .content .messages ul li img {
-  width: 22px;
-  border-radius: 50%;
+
+ 
   float: left;
 }
 #frame .content .messages ul li p {
@@ -887,17 +885,10 @@ a.btn-layerClose:hover {
 #frame .content .message-input .wrap button:focus {
   outline: none;
 }
-
-.emoticon {
-	width: 130px;
-	height: 130px;
-	padding: 3px;
-	background-color: white;
-}
-
 </style>
 	<style type="text/css">
 	#colorlib-aside #colorlib-main-menu ul li{padding: 6px;}
+	.messages p img{width:100px;height: 100px;}
 	</style>
 </head>
 <body>
@@ -1054,7 +1045,8 @@ a.btn-layerClose:hover {
 			<div class="message-input">
 				<div class="wrap">
 				<input type="text" placeholder="Write your message..." id="textID" name="chatInput">
-				<button type="button" id="sendEmoBtn" style=""><i class="fa fa-paperclip attachment" aria-hidden="true"></i></button>
+				<i class="fa fa-smile-o attachment" aria-hidden="true" data-toggle="modal" data-target="#showEmoji"></i>
+<!-- 				<button type="button" id="sendEmoBtn" style=""><i class="fa fa-paperclip attachment" aria-hidden="true"></i></button> -->
 				<button class="submit" id="buttonMessage"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
 				</div>
 			</div>
@@ -1161,19 +1153,59 @@ a.btn-layerClose:hover {
 			    </div>
 			  </div>
 			</div>
-			
-
-			<div id="emoDialog" title="선택하세요." style='display:none'>
-				<div id="emoBox" style="display:flex; flex-flow:row wrap; width:800px; ">
-  				  <button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg" style="width:120px; height:120px;"></button>
-  				  <button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg" style="width:120px; height:120px;"></button>
-  				  <button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg" style="width:120px; height:120px;"></button>
-  				</div>
+			<div class="modal fade" id="showEmoji" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document">
+			    <div class="modal-content">
+			    	
+			      <div class="modal-header">
+			      <div id="emogiMenu">
+			      		<ul>
+				    		<li><img src="${cp }/resources/uploadImage/admin/emoticon/카테고리1/이미지/3.PNG" name="이미지"></li>
+			    		</ul>
+			    		</div>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          
+			        </button>
+			      </div>
+			      <div class="modal-body">	
+			      		<div>
+			      		<c:forEach var="i" begin="2" end="21">
+			      			<c:if test="${i%2==1}">
+			        		<img src='${cp }/resources/uploadImage/admin/emoticon/카테고리1/이미지/${i}.PNG' >
+			        		</c:if>			        		
+			        	</c:forEach>
+			        	</div>
+			        	
+			      </div>
+			      
+			    </div>
+			  </div>
 			</div>
-
+			
+			<!-- 
+			<div id="emoDialog" title="선택하세요." style='display:none'>
+  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
+  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
+  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
+  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
+			</div>
+			 -->
 </body>
 
 <script type="text/javascript">
+	$("#emogiMenu img").click(function(e){
+		
+	});
+	$("#showEmoji .modal-body img").dblclick(function(e){
+		
+		var emoji="<img src='"+$(this).attr("src")+"'>";
+		$('#textID').val(emoji);
+		sendMessage();
+	});
+		
+	
+
+
 	function updateRoomName(){
 		var name=$("#newroomname").val();
 		location.href="${cp}/updateRoomName?clnum=${sessionScope.clnum}&num=${sessionScope.num}&name="+name;
@@ -1394,7 +1426,7 @@ a.btn-layerClose:hover {
     }
     function onMakeRoom(){ $("#makefrm").submit(); }
 
-    
+    /*
     var emoDial = document.getElementById('emoDialog');
     document.getElementById('sendEmoBtn').addEventListener('click', e => {
     	var userNum = Number.parseInt('${sessionScope.num}');
@@ -1404,14 +1436,7 @@ a.btn-layerClose:hover {
             if(xhr.status === 200 && xhr.readyState === 4) {
             	var data = JSON.parse(xhr.responseText);
             	console.log(data);
-				console.log(data.length);
-// 				document.getElementById('emoBox').removeChild();
-				for(var i=0; i<data.length; i++) {
-					var emoticon = document.createElement('button');
-					emoticon.className = 'emoticon';
-					emoticon.innerHTML = '<img src="${cp}/resources/uploadImage/admin/emoticon/' + data[i].category + '/' + data[i].name + '/' + data[i].repreImg + '" style="width:100%">';
-					document.getElementById('emoBox').append(emoticon);
-				}
+            	
             	$('#emoDialog').dialog('open');
             }
         }
@@ -1430,13 +1455,13 @@ a.btn-layerClose:hover {
         height: 200,
         buttons: {
         	'전송': function() {
-        		$('#emoDialog').dialog('close');
+        		dialog.close();
         	},
             '닫기': function() {
-            	$('#emoDialog').dialog('close');
+                dialog.colse();
             }
         }
     });
-    
+    */
 </script>
 </html>
