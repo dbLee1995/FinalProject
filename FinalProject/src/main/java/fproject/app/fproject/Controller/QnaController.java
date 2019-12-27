@@ -27,10 +27,10 @@ public class QnaController {
     @RequestMapping(value="qna/list",method=RequestMethod.GET)
     public ModelAndView list(){
     	List<QnaVo> list=qservice.select();
-    	ProfilesVo pvo=pservice.info(num);
+    	List<ProfilesVo> pvo=pservice.select();
     	ModelAndView mv=new ModelAndView("qna/qna");
     	mv.addObject("list",list);
-    	mv.addObject("pvo",pvo.getName());
+    	mv.addObject("pvo",pvo);
     	return mv;
     }
     @RequestMapping(value="qna/insert",method=RequestMethod.GET)

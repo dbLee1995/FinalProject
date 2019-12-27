@@ -53,22 +53,21 @@
 		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
 			<nav id="colorlib-main-menu" role="navigation">
-				<ul>
-					<li class="colorlib-active"><a href="${cp}/./">Home</a></li>
+				<ul>		
 					<c:choose>
 						<c:when test="${empty sessionScope.id}">					
 							<li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
 						</c:when>	
 				 		<c:otherwise>
-							<li><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>
-							<li><a href="${cp }/friends/list?num=${sessionScope.num}">Friends</a></li>			
+				 			<li><a href="${cp}/profiles/info?num=${sessionScope.num}">마이페이지</a></li>
+							<li class="colorlib-active" ><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">코코아 스토리</a></li>
+							<li ><a href="${cp }/friends/list?num=${sessionScope.num}">친구들</a></li>			
 						</c:otherwise>	 
 					</c:choose>
-					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">WebSocket</a></li>
-					<li><a href="${cp }/emoShop/main">이모티콘(원래 위치는 about.html)</a></li>
-					<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
-					<li><a href="${cp}/nquire/list?num=${sessionSope.num}">문의하기</a></li>
-					
+					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
+					<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
+					<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
+					<li><a href="${cp}/qna/list">문의하기</a></li>
 				</ul>
 			</nav>
 			</aside>
@@ -104,7 +103,7 @@
                         		<td>${lis.qnatitle}</td>
                         	</c:otherwise>
                         </c:choose>
-                        <td>${lis.name}</td>
+                        <td>${pvo[status.index].name}</td>
                         <td>${lis.qnaregdate}</td>
                         <td></td>
                     </tr>
