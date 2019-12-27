@@ -166,7 +166,7 @@
 						<a href="#" class="img" style="background-image: url(${cp}/resources/upload/${profileimg});"></a>
 							<div class="ml-3 info">
 								<label for="num" >Name *</label><br>
-								<label for="name" style="font-size:1.2em;">${sessionScope.name}</label>
+								<label for="name" style="font-size:1.2em;">${name}</label>
 							</div>
 					</div>
 				</div>                                 
