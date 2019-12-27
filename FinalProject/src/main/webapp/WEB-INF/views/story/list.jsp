@@ -105,10 +105,10 @@
 					              		<span><i class="icon-heart"></i>3</span>
 					              		<span><i class="icon-eye"></i>100</span>
 					              		<span><a href="${pageContext.request.contextPath}/story/comments?storynum=${list.storynum}&num=${list.num}"><i class="icon-comment"></i>5</a></span>
-					              		<c:if test="${sessionScope.id == id}">
+					              		<c:if test="${sessionScope.name == name}">
 					              			<span><a href="${pageContext.request.contextPath}/story/update?storynum=${list.storynum}&num=${sessionScope.num}"><i class="icon-person"></i>수정</a></span>
 					              		</c:if>
-					              		<c:if test="${sessionScope.id == id}">
+					              		<c:if test="${sessionScope.name == name}">
 					              			<span><a href="${pageContext.request.contextPath}/story/delete?storynum=${list.storynum}&num=${sessionScope.num}"><i class="icon-trash"></i>삭제</a></span>
 					              		</c:if>
 					              		
