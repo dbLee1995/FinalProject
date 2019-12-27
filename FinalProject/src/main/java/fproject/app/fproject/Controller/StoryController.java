@@ -188,7 +188,7 @@ public class StoryController {
 		mv.addObject("cvoa",cvoa);
 		mv.addObject("pname",pvoName);
 		mv.addObject("name",pvo.getName());
-//		mv.addObject("profileimg",pvo.getProfileimg());
+		mv.addObject("profileimg",pvo.getProfileimg());
 		mv.addObject("usernameMap",usernameMap);
 		mv.addObject("usernameMapReal",usernameMapReal);
 		return mv;	
