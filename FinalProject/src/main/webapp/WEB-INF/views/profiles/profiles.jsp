@@ -167,48 +167,9 @@
 	    			
 	    	<!-- 친구목록 //////////////////// -->
 	    					<!-- 친구 div  -->
-								<c:forEach var="newfri" items="${list }">
-								<c:if test="${newfri.APPROV==4 }">
-									<div class="col-md-12">
-										<div class="blog-entry ftco-animate d-md-flex" >
-											<a href="javascript:void(0);" onclick="showprofile(${sessionScope.num },${newfri.FNUM})" class="img img-2"
-												style="background-image:url(${cp}/resources/upload/${newfri.PROFILEIMG});"></a>
-											<div class="text text-2 pl-md-4">
-												<c:choose>
-														<c:when test="${empty newfri.MSG}">
-														<h3 class="mb-2" style="margin-top:15px;">
-															<a href="single.html"  >${newfri.NAME}</a>
-														</h3>
-														</c:when>
-														<c:otherwise>
-															<h3 class="mb-2">
-															<a href="single.html" >${newfri.NAME}</a>
-															</h3>
-															<p>${newfri.MSG }</p>
-														</c:otherwise>
-													</c:choose>																												
-												<div class="meta-wrap">
-													<p class="meta"></p>
-												</div>
-											</div>
-										</div>
-									</div>
-									</c:if>	
-								</c:forEach>
+							
 								
-				<div class="col-xl-4 sidebar ftco-animate bg-light pt-5" style="height:830px;padding:20px;margin-top:30px;">    			
-	    			<a href='javascript:void(0);' onclick='showAddfriends();' class="icon-people" ></a>
-	    			<a href='javascript:void(0);' onclick='showAddfriends();' class="icon-plus"></a>
-	            <div class="sidebar-box pt-md-4">
-	              <form action="javascript:void(0);" class="search-form">
-	                <div class="form-group">
-	                  <span class="icon icon-search"></span>
-	                  <input type="text" class="form-control" placeholder="이름 검색" onkeyup="searchFri(this,${sessionScope.num})">
-	                </div>
-	              </form>
-	            </div>
-					
-	          </div><!-- END COL -->
+			
 
 	        </div>
 	    	</div>
