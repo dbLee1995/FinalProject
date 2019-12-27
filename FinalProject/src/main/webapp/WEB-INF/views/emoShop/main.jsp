@@ -113,7 +113,7 @@
 				<ul style="padding: 5px 0px 0px 15px;">
 					<li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li>
 					<li style="margin:0px;"><a href="${cp }/emoShop/wishList" style="font-size:15px;">내 찜목록</a></li>
-					<li style="margin:0px;"><a href="${cp }/emoShop/uploadEmoFile">이모티콘 올리기</a>
+					<li style="margin:0px;"><a href="${cp }/emoShop/uploadEmoFile" style="font-size:15px;">이모티콘 올리기</a>
 				</ul>
 			</li>
 			<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
@@ -222,7 +222,7 @@
 		  <div class="emobox" style="display:flex; padding-top: 65px;">
 		  	<a href="${cp }/emoShop/category?c=${category1[0].category}" class="categoryBox" style="border:1px solid rgb(236, 65, 65); width: 200px;">
 		  		<span style="font-size: 18px; color: rgb(236, 65, 65);">#주제별</span><br>
-		  		<span style="font-size: 18px; color: rgb(236, 65, 65);">#送舊迎新</span><br><br><br><br>
+		  		<span style="font-size: 18px; color: rgb(236, 65, 65);">#송구영신</span><br><br><br><br>
 				<span class="icon-arrow-right" style="color: rgb(236, 65, 65); font-size: 40px;"></span>
 		  	</a>
 		  	<c:forEach items="${category1 }" end="3" var="cate1" varStatus="cate1Status">
