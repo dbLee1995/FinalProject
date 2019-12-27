@@ -71,9 +71,10 @@
 	    	<div class="container">
 	    		<div class="row d-flex">
 	    			<div class="col-xl-8 px-md-5 py-5">
+	    			<h1>COCOA Story</h1>
 	    				<c:choose>
 	    					<c:when test="${sessionScope.num eq num }">
-	    						<h3><a href="${pageContext.request.contextPath}/story/insert?num=${sessionScope.num}">COCOA Story</a></h3>
+	    						<h3><a href="${pageContext.request.contextPath}/story/insert?num=${sessionScope.num}">글등록해봐요</a></h3>
 	    					</c:when>
 	    					<c:otherwise>
 	    						<h3>COCOA Story</h3>
