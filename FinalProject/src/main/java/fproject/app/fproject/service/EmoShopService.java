@@ -1,6 +1,8 @@
 package fproject.app.fproject.service;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,5 +99,39 @@ public class EmoShopService {
 	
 	public List<EmoshopVo> getCategoryEmoList(String emoCategory) {
 		return dao.selectCatogoryEmoList(emoCategory);
+	}
+	
+	public List<EmoticonVo> getEmoticonList(int emognum) {
+		return dao.selectEmoticonList(emognum);
+	}
+	
+	public int getNewEmoTotalCount() {
+		return dao.selectNewEmoticonTotalCount();
+	}
+	
+	public List<EmoshopVo> getNewEmoPagingList(HashMap<String, Integer> map) {
+		return dao.selectNewEmoticonPagingList(map);
+	}
+	
+	public List<EmoshopVo> getUserEmoList(int userNum) {
+		List<EmoticongroupVo> glist = dao.selectUserEmoList(userNum);
+		List<EmoshopVo> userEmoList = new ArrayList<EmoshopVo>();
+		for(EmoticongroupVo v : glist) {
+			userEmoList.add(getEmogInfo(v.getEmognum()));
+		}
+		return userEmoList;
+	}
+	
+	public int getPopularEmoListTotalCount() {
+		return dao.selectPopulEmoListTotalCount();
+	}
+	
+	public List<EmoshopVo> getPopularEmoPagingList(HashMap<String, Integer> map) {
+		List<EmoticongroupVo> gvoList = dao.selectPopulEmoPagingList(map);
+		List<EmoshopVo> populList = new ArrayList<EmoshopVo>();
+		for(EmoticongroupVo gvo : gvoList) {
+			populList.add(getEmogInfo(gvo.getEmognum()));
+		}
+		return populList;
 	}
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fproject.app.fproject.service.AccountService;
 import fproject.app.fproject.service.ChatService;
+import fproject.app.fproject.service.EmoShopService;
 import fproject.app.fproject.service.FriendsService;
 import fproject.app.fproject.service.ProfilesService;
 import fproject.app.fproject.vo.AccountVo;
@@ -36,6 +37,7 @@ public class ChatController {
 	@Autowired AccountService accountService;
 	@Autowired FriendsService friendsService;
 	@Autowired ProfilesService profilesService;
+	@Autowired EmoShopService emoService;
 	
 	@RequestMapping(value="/ChatList")
 	public String chat(Model model, HttpServletRequest req, int num, int clnum){
@@ -98,12 +100,12 @@ public class ChatController {
 		}
 		
 		if(fvalue==null || fintvalue==num){
-			int clnum=chatService.getRoomforName("�굹���쓽 梨꾪똿");
+			int clnum=chatService.getRoomforName("나와의 채팅");
 			if(clnum>0){
 				chatService.updateAttendinfo(new AttendinfoVo(clnum, num, 1));
 			}else{
-				chatService.createChatRoom("�굹���쓽 梨꾪똿");
-				clnum=chatService.getRoomforName("�굹���쓽 梨꾪똿");
+				chatService.createChatRoom("나와의 채팅");
+				clnum=chatService.getRoomforName("나와의 채팅");
 				chatService.addAttendInfo(new AttendinfoVo(clnum, num, 1));
 			}
 			
@@ -131,9 +133,9 @@ public class ChatController {
 				chatService.addAttendInfo(new AttendinfoVo(clnum, fnum, 1));
 			}else{
 				chatService.updateAttendinfo(new AttendinfoVo(alreadyHave, num, 1));
-				System.out.println("�궡�젙蹂� �닔�젙! alreadyHave:"+alreadyHave+",num:"+num);
+				System.out.println("내 정보 수정! alreadyHave:"+alreadyHave+",num:"+num);
 				chatService.updateAttendinfo(new AttendinfoVo(alreadyHave, fnum, 1));
-				System.out.println("移쒓뎄�젙蹂� �닔�젙! alreadyHave:"+alreadyHave+",num:"+fnum);
+				System.out.println("친구정보 수정! alreadyHave:"+alreadyHave+",num:"+fnum);
 				Fclnum=alreadyHave;
 			}
 		}else{
@@ -142,7 +144,7 @@ public class ChatController {
 				int fnum=Integer.parseInt(fvalue[i]);
 				ProfilesVo pvo=profilesService.info(fnum);
 				if(i==0){
-					String strChatName=pvo.getName()+"�쇅 "+((fvalue.length)-1)+"紐�";
+					String strChatName=pvo.getName()+"외 "+((fvalue.length)-1)+"명";
 					chatService.createChatRoom(strChatName);
 					clnum=chatService.getRoomforName(strChatName);
 				}
@@ -168,7 +170,7 @@ public class ChatController {
 		AccountVo accvo=accountService.info(num);
 		model.addAttribute("id",accvo.getId());
 		
-		// �깮�꽦�븳 諛⑹쑝濡� 諛붾줈 �꽭�똿�븯湲� �쐞�븳 �젙蹂� �쟾�떖
+		// 생성한 방으로 바로 세팅하기 위한 정보 전달
 		model.addAttribute("clnum",Fclnum);
 		if(Fclnum>0){
 			ChatlistVo cvo=chatService.checkRoom(Fclnum);
@@ -197,75 +199,75 @@ public class ChatController {
 			HttpSession session){
 		
 		List<ChatlistVo> clist=chatService.getRoomList();
-		model.addAttribute("ChatList",clist); // 紐⑤뱺 梨꾪똿由ъ뒪�듃 (�씠由꾩쓣 媛��졇�삤湲� �쐞�븿)
+		model.addAttribute("ChatList",clist); // 모든 채팅리스트 (이름을 가져오기 위함)
 		
-		Map<Integer, String> clnameMap=new HashMap<>(); // �씠由꾩쓣 �떞湲곗쐞�븳 留�
+		Map<Integer, String> clnameMap=new HashMap<>(); // 이름을 담기위한 맵
 		for(int i=0;i<clist.size();++i){
 			String clname=chatService.getLastChat(clist.get(i).getClnum());
 			clnameMap.put(clist.get(i).getClnum(), clname); // key:clnum,value:clname
 		}
 		model.addAttribute("clnameMap", clnameMap);
 		
-		List<AttendinfoVo> ailist=chatService.getAttendInfo(num); // �쁽�옱 �룷�븿�릺�뼱�엳�뒗 諛� �쟾泥대ぉ濡�
+		List<AttendinfoVo> ailist=chatService.getAttendInfo(num); // 현재 포함되어있는 방 전체목록
 		model.addAttribute("AcList",ailist);
 		
-		model.addAttribute("clnum",clnum); // �쁽�옱 �뱾�뼱���엳�뒗 諛�
+		model.addAttribute("clnum",clnum); // 현재 들어와있는 방
 		
 		if(clnum>0){
-			ChatlistVo cvo=chatService.checkRoom(clnum); // �쁽�옱 �뱾�뼱���엳�뒗 諛� �젙蹂�
+			ChatlistVo cvo=chatService.checkRoom(clnum); // 현재 들어와있는 방 정보
 			model.addAttribute("clvo",cvo);
 		}
 		session.setAttribute("clnum", clnum);
 		
-		List<ChatVo> cvolist=chatService.getChat(clnum); // �빐�떦 諛⑹쓽 梨꾪똿 紐⑸줉
+		List<ChatVo> cvolist=chatService.getChat(clnum); // 해당 방의 채팅 목록
 		model.addAttribute("chat",cvolist);
 		
-		Map<Integer, Integer> readinfomap=new HashMap<>(); // �씫�� �궗�엺 �젙蹂대�� �떞湲곗쐞�븳 留�
+		Map<Integer, Integer> readinfomap=new HashMap<>(); // 읽은 사람 정보를 담기위한 맵
 		for(int i=0;i<cvolist.size();++i){
 			ReadinfoVo readvo=new ReadinfoVo(cvolist.get(i).getCnum(), clnum, num);
-			// 梨꾪똿�쓣 �븳媛쒖뵫 �룎硫댁꽌 �쐞�쓽 �젙蹂닿� �뱾�뼱�엳�뒗吏� �솗�씤(clnum, num)
-			int is=chatService.getReadInfo(readvo); // clnum,num �씠 �룞�씪�븳 �젙蹂닿� �엳�뒗吏� �솗�씤
+			// 채팅을 한개씩 돌면서 위의 정보가 들어있는지 확인(clnum, num)
+			int is=chatService.getReadInfo(readvo); // clnum,num 이 동일한 정보가 있는지 확인
 			if(is==0){
-				chatService.addReadInfo(readvo); // �뾾�쑝硫� 異붽�
+				chatService.addReadInfo(readvo); // 없으면 추가
 			}
-			int readcount=chatService.getCountReadInfo(cvolist.get(i).getCnum()); // �씫�� �궗�엺 �닔
-			int usercount=chatService.getAttendCount(clnum); // �쁽�옱 諛� �씤�썝�닔
+			int readcount=chatService.getCountReadInfo(cvolist.get(i).getCnum()); // 읽은 사람 수
+			int usercount=chatService.getAttendCount(clnum); // 현재 방 인원수
 			int rc=usercount-readcount;
 			readinfomap.put(cvolist.get(i).getCnum(), rc); // key:cnum,value:count
 		}
 		model.addAttribute("readinfomap",readinfomap);
 		
-		List<ChatVo> cvotimelist=chatService.getChattime(clnum); // 梨꾪똿 �엯�젰�떆媛� �젙蹂�
+		List<ChatVo> cvotimelist=chatService.getChattime(clnum); // 채팅 입력시간 정보
 		model.addAttribute("chattime",cvotimelist);
 		
 		String friname="";
 		HashMap<String, Object> map=new HashMap<>();
-		map.put("friname",friname); // 議고쉶�븷 �씠由�
+		map.put("friname",friname); // 조회할 이름
 		map.put("num", num);
-		List<HashMap<String, Object>> fvolist=friendsService.list(map); // �빐�떦 �쉶�썝�쓽 移쒓뎄紐⑸줉
+		List<HashMap<String, Object>> fvolist=friendsService.list(map); // 해당 회원의 친구목록
 		
 		List<ProfilesVo> pvolist=new ArrayList<ProfilesVo>();
 		for(HashMap<String,Object> aa:fvolist){
 			int fnum=((BigDecimal)aa.get("FNUM")).intValue();
-			ProfilesVo fvo=profilesService.info(fnum); // 移쒓뎄 紐⑸줉�쓣 �룎硫댁꽌 �젙蹂대�� 由ъ뒪�듃�뿉 �떞湲� 
+			ProfilesVo fvo=profilesService.info(fnum); // 친구 목록을 돌면서 정보를 리스트에 담기 
 			pvolist.add(fvo);
 		}
 		model.addAttribute("pvolist",pvolist);
 		
-		List<AttendinfoVo> savolist=chatService.sameAttendInfo(clnum); // 媛숈�諛⑹뿉 議댁옱�븯�뒗 �궗�엺 �젙蹂�
+		List<AttendinfoVo> savolist=chatService.sameAttendInfo(clnum); // �같은방에 존재하는 사람 정보
 		Map<Integer, String> attname=new HashMap<>();
 		for(int i=0;i<savolist.size();++i){
 			ProfilesVo p=profilesService.info(savolist.get(i).getNum());
-			attname.put(p.getNum(), p.getName()); // key:�빐�떦�궗�엺�쓽 踰덊샇, value:�씠由�
+			attname.put(p.getNum(), p.getName()); // key:해당사람의 번호, value:이름
 		}
-		model.addAttribute("attname",attname); // 梨꾪똿 �쐞�뿉 �씠由꾩쓣 �쓣�슦湲� �쐞�븿
+		model.addAttribute("attname",attname); // 채팅 위에 이름을 띄우기 위함
 		
 		Map<Integer, Integer> chatCountMap= new HashMap<>();
-		for(int i=0;i<ailist.size();++i){ // �쁽�옱 �룷�븿�릺�뼱�엳�뒗 諛⑸뱾�쓣 �룎硫댁꽌
-			int aclnum=ailist.get(i).getClnum(); // 諛⑸뱾�쓽 踰덊샇 �뼸湲� 
+		for(int i=0;i<ailist.size();++i){ // 현재 포함되어있는 방들을 돌면서
+			int aclnum=ailist.get(i).getClnum(); // 방들의 번호 얻기 
 			int readChatCount=chatService.getChatReadCount(new ReadinfoVo(0, aclnum, num));
-			// �빐�떦 諛⑹뿉�꽌 �궡媛� �씫�� 湲��쓽 媛��닔 �뼸湲�
-			int chatCount=chatService.getChatCount(aclnum); // �빐�떦 諛⑹쓽 珥� 梨꾪똿 媛��닔 �뼸湲�
+			// 해당 방에서 내가 읽은 글의 갯수 얻기
+			int chatCount=chatService.getChatCount(aclnum); // 해당 방의 총 채팅 갯수 얻기
 			int fChatCount=chatCount-readChatCount;
 			chatCountMap.put(aclnum, fChatCount);
 		}
@@ -398,4 +400,14 @@ public class ChatController {
 		chatService.updateChatName(clvo);
 		return moveChatRoom(model, clnum, num, session);
 	}
+	
+	/*
+	@RequestMapping(value="/chat/sendEmoticon", produces={"application/text;charset=UTF-8"})
+	@ResponseBody
+	public String sendEmoticon(int userNum) {
+		JSONArray list = new JSONArray(emoService.getUserEmoList(userNum));
+		System.out.println(list.toString());
+		return list.toString();
+	}
+	*/
 }

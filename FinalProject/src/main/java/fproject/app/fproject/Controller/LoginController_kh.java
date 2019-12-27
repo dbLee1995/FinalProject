@@ -55,6 +55,7 @@ public class LoginController_kh {
 			// 장바구니 생성합니다.
 			List<EmoshopVo> basketList = new ArrayList<EmoshopVo>();
 			session.setAttribute("basketList", basketList);
+
 		
 			HashMap<String, Object> map=new HashMap<>();
 			map.put("friname","");
@@ -62,6 +63,11 @@ public class LoginController_kh {
 			List<HashMap<String, Object>> list=Fservice.list(map);
 			model.addAttribute("list", list);
 			return "friends/friendslist";
+
+			
+		
+
+
 		} else {
 			model.addAttribute("login", true);
 			return "member/login";

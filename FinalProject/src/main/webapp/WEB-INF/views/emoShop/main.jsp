@@ -134,12 +134,13 @@
 		<article id="newEmo">
 		  <div id="newEmoHeadline" class="emoHeadline">
 			<h3>신규 이모티콘</h3>
-			<a href="" class="allView">전체보기<span class="ion-ios-arrow-forward"></span></a>
+			<a href="${cp }/emoShop/new" class="allView">전체보기<span class="ion-ios-arrow-forward"></span></a>
 		  </div>
 		  <div class="emobox" style="display: inline-block;">
 		  	<c:forEach items="${newEmoList }" var="vo" varStatus="newEmoStatus">
 		  	<div class="emo" style="display:inline-block;" data-value="${vo.emognum }" data-name="new" data-new-index="${newEmoStatus.index }">
-		  	  <a href="" style="display: flex; flex-flow: column nowrap; padding: 30px 40px 30px 40px;">
+		  	  <!--
+		  	  <a href="${cp }/emoShop/emoticon?emognum=${vo.emognum}" style="display: flex; flex-flow: column nowrap; padding: 30px 40px 30px 40px;">
 		  	  	<div style="padding:0px 0px 10px 0px;">
 		  	      <img src="${cp }/resources/uploadImage/admin/emoticon/${vo.category }/${vo.name }/${vo.repreImg }" style="width:160px; height:160px;">
 		  	    </div>
@@ -147,10 +148,25 @@
 		  	      <span style="font-size:9px; color:royalblue;">신규</span>
 		  	      <h5>${vo.name }</h5>
 		  	      <span style="font-size:11px; color:dimgrey;">${vo.category }</span>
-		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;"></i></button>
-		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;"></i></button>
+		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" data-check="0" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;"></i></button>
+		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" data-check="0" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;"></i></button>
 		  	    </div>
 		  	  </a>
+		  	  -->
+		  	  <div style="display: flex; flex-flow: column nowrap; padding: 30px 40px 30px 40px;">
+		  	  	<a href="${cp }/emoShop/emoticon?emognum=${vo.emognum}" style="padding:0px 0px 10px 0px;">
+		  	      <img src="${cp }/resources/uploadImage/admin/emoticon/${vo.category }/${vo.name }/${vo.repreImg }" style="width:160px; height:160px;">
+		  	    </a>
+		  	    <div>
+		  	      <a href="${cp }/emoShop/emoticon?emognum=${vo.emognum}">
+		  	        <span style="font-size:9px; color:royalblue;">신규</span>
+		  	        <h5>${vo.name }</h5>
+		  	        <span style="font-size:11px; color:dimgrey;">${vo.category }</span>
+		  	      </a>
+		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" data-check="0" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;" data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" data-check="0"></i></button>
+		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" data-check="0" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;" data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" data-check="0"></i></button>
+		  	    </div>
+		  	  </div>
 		  	</div>
 		  	</c:forEach>
 		  </div>
@@ -158,40 +174,40 @@
 		<article id="populEmo" style="background-color: #ffffff">
 		  <div id="populEmoHeadline" class="emoHeadline">
 			<h3>인기 이모티콘</h3>
-			<a href="" class="allView">전체보기<span class="ion-ios-arrow-forward"></span></a>
+			<a href="${cp }/emoShop/popular" class="allView">전체보기<span class="ion-ios-arrow-forward"></span></a>
 		  </div>
 		  <div class="emobox" style="display:flex; justify-content: flex-start">
 		  	<div style="display:flex; flex-flow: column nowrap">
 		  	  <c:forEach items="${populEmoList }" var="populVo" end="4" varStatus="s1">
 		  	  <div class="emo" style="display:flex; width: 500px; padding: 40px 0px 10px 25px; margin-left: 75px;" data-name="popul" data-popul-index="${s1.index }">
-		  	  	<a href="" style="display: flex; flex-flow: row nowrap;">
+		  	  	<a href="${cp }/emoShop/emoticon?emognum=${populVo.emognum}" style="display: flex; flex-flow: row nowrap;">
 		  	  	  <h2 style="align-self:center;">${s1.count }</h2>
 		  	      <img src="${cp }/resources/uploadImage/admin/emoticon/${populVo.category }/${populVo.name }/${populVo.repreImg }" style="width:140px; height:120px; padding: 0px 0px 0px 30px;">
 		  	    </a>
-		  	    <a href="" style="display: flex; flex-flow: column nowrap; padding: 30px 60px 30px 60px;"> 
+		  	    <a href="${cp }/emoShop/emoticon?emognum=${populVo.emognum}" style="display: flex; flex-flow: column nowrap; padding: 30px 60px 30px 60px;"> 
 		  	      <span style="font-size:9px; color:#dc3545;">인기!</span>
 		  	      <h5>${populVo.name }</h5>
 		  	      <span style="font-size:11px; color:dimgrey;">${populVo.category }</span>
 		  	    </a>
-		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${populVo.emognum }" data-popul-index="${s1.index }" class="emoBasketBtn jsEmoBtn" style="left:-10px; top:70px;"><i class="icon-shopping-cart linkIcon" style="font-size:18px;"></i></button>
-		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${populVo.emognum }" data-popul-index="${s1.index }" class="emoWishBtn jsEmoBtn" style="left:-3px; top:70px;"><i class="icon-heart linkIcon" style="font-size:15px;"></i></button>
+		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${populVo.emognum }" data-popul-index="${s1.index }" data-check="0" class="emoBasketBtn jsEmoBtn" style="left:-10px; top:70px;"><i class="icon-shopping-cart linkIcon" style="font-size:18px;"></i></button>
+		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${populVo.emognum }" data-popul-index="${s1.index }" data-check="0" class="emoWishBtn jsEmoBtn" style="left:-3px; top:70px;"><i class="icon-heart linkIcon" style="font-size:15px;"></i></button>
 		  	  </div>
 		  	  </c:forEach>
 		  	</div>
 		  	<div style="display:flex; flex-flow: column nowrap">
 		  	  <c:forEach items="${populEmoList }" var="populVo2" begin="5" varStatus="s2">
 		  	  <div class="emo" style="display:flex; width: 500px; padding: 40px 0px 10px 25px; margin-left: 75px;" data-name="popul" data-popul-index="${s2.index+5 }">
-		  	  	<a href="" style="display: flex; flex-flow: row nowrap;">  
+		  	  	<a href="${cp }/emoShop/emoticon?emognum=${populVo2.emognum}" style="display: flex; flex-flow: row nowrap;">  
 		  	  	  <h2 style="align-self:center;">${s2.count+5 }</h2>
 		  	      <img src="${cp }/resources/uploadImage/admin/emoticon/${populVo2.category }/${populVo2.name }/${populVo2.repreImg }" style="width:140px; height:120px; padding: 0px 0px 0px 30px;">
 		  	    </a>
-		  	    <a href="" style="display: flex; flex-flow: column nowrap; padding: 30px 60px 30px 60px;">
+		  	    <a href="${cp }/emoShop/emoticon?emognum=${populVo2.emognum}" style="display: flex; flex-flow: column nowrap; padding: 30px 60px 30px 60px;">
 		  	      <span style="font-size:9px; color:#dc3545;">인기!</span>
 		  	      <h5>${populVo2.name }</h5>
 		  	      <span style="font-size:11px; color:dimgrey;">${populVo2.category }</span>
 		  	    </a>
-		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${populVo2.emognum }" data-popul-index="${s2.index+5 }" class="emoBasketBtn jsEmoBtn" style="left:-10px; top:70px;"><i class="icon-shopping-cart linkIcon" style="font-size:18px;"></i></button>
-		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${populVo2.emognum }" data-popul-index="${s2.index+5 }" class="emoWishBtn jsEmoBtn" style="left:-3px; top:70px;"><i class="icon-heart linkIcon" style="font-size:15px;"></i></button>
+		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${populVo2.emognum }" data-popul-index="${s2.index+5 }" data-check="0" class="emoBasketBtn jsEmoBtn" style="left:-10px; top:70px;"><i class="icon-shopping-cart linkIcon" style="font-size:18px;" data-value="${populVo2.emognum }" data-popul-index="${s2.index+5 }" data-check="0"></i></button>
+		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${populVo2.emognum }" data-popul-index="${s2.index+5 }" data-check="0" class="emoWishBtn jsEmoBtn" style="left:-3px; top:70px;"><i class="icon-heart linkIcon" style="font-size:15px;" data-value="${populVo2.emognum }" data-popul-index="${s2.index+5 }" data-check="0"></i></button>
 		  	  </div>
 		  	  </c:forEach>
 		  	</div>
@@ -203,71 +219,77 @@
 			<a href="" class="allView">전체보기<span class="ion-ios-arrow-forward"></span></a>
 		  </div>
 		  <div class="emobox" style="display:flex; padding-top: 65px;">
-		  	<a href="" class="categoryBox" style="border:1px solid rgb(236, 65, 65); width: 200px;">
+		  	<a href="${cp }/emoShop/category?c=${category1[0].category}" class="categoryBox" style="border:1px solid rgb(236, 65, 65); width: 200px;">
 		  		<span style="font-size: 18px; color: rgb(236, 65, 65);">#주제별</span><br>
-		  		<span style="font-size: 18px; color: rgb(236, 65, 65);">#크리스마스</span><br><br><br><br>
+		  		<span style="font-size: 18px; color: rgb(236, 65, 65);">#送舊迎新</span><br><br><br><br>
 				<span class="icon-arrow-right" style="color: rgb(236, 65, 65); font-size: 40px;"></span>
 		  	</a>
 		  	<c:forEach items="${category1 }" end="3" var="cate1" varStatus="cate1Status">
 		  	<div class="emo" style="display:inline-block;" data-name="style1" data-style1-index="${cate1Status.index }">
-		  	  <a href="" style="display: flex; flex-flow: column nowrap; padding: 30px 40px 30px 40px;">
-		  	  	<div style="padding:0px 0px 10px 0px;">
+		  	  <div style="display: flex; flex-flow: column nowrap; padding: 30px 40px 30px 40px;">
+		  	  	<a href="${cp }/emoShop/emoticon?emognum=${cate1.emognum}" style="padding:0px 0px 10px 0px;">
 		  	      <img src="${cp }/resources/uploadImage/admin/emoticon/${cate1.category }/${cate1.name }/${cate1.repreImg }" style="width:160px; height:160px;">
-		  	    </div>
+		  	    </a>
 		  	    <div>
-		  	      <span style="font-size:9px; color:royalblue;">신규</span>
-		  	      <h5>${cate1.name }</h5>
-		  	      <span style="font-size:11px; color:dimgrey;">${cate1.category }</span>
-		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${cate1.emognum }" data-style1-index="${cate1Status.index }" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;"></i></button>
-		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${cate1.emognum }" data-style1-index="${cate1Status.index }" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;"></i></button>
+		  	      <a href="${cp }/emoShop/emoticon?emognum=${cate1.emognum}">
+		  	        <span style="font-size:9px; color:royalblue;">신규</span>
+		  	        <h5>${cate1.name }</h5>
+		  	        <span style="font-size:11px; color:dimgrey;">${cate1.category }</span>
+		  	      </a>
+		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${cate1.emognum }" data-style1-index="${cate1Status.index }" data-check="0" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;" data-value="${cate1.emognum }" data-style1-index="${cate1Status.index }" data-check="0"></i></button>
+		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${cate1.emognum }" data-style1-index="${cate1Status.index }" data-check="0" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;" data-value="${cate1.emognum }" data-style1-index="${cate1Status.index }" data-check="0"></i></button>
 		  	    </div>
-		  	  </a>
+		  	  </div>
 		  	</div>
 		  	</c:forEach>
 		  </div>
 		  <div class="emobox" style="display:flex; padding-top: 65px;">
-		  	<a href="" class="categoryBox" style="border:1px solid rgb(254, 149, 68); width: 200px;">
+		  	<a href="${cp }/emoShop/category?c=${category2[0].category}" class="categoryBox" style="border:1px solid rgb(254, 149, 68); width: 200px;">
 		  		<span style="font-size: 18px; color: rgb(254, 149, 68);">#동물</span><br>
 		  		<span style="font-size: 18px; color: rgb(254, 149, 68);">#토끼</span><br><br><br><br>
 				<span class="icon-arrow-right" style="color: rgb(254, 149, 68); font-size: 40px;"></span>
 		  	</a>
-		  	<c:forEach items="${category1 }" end="3" var="cate2" varStatus="cate2Status">
+		  	<c:forEach items="${category2 }" end="3" var="cate2" varStatus="cate2Status">
 		  	<div class="emo" style="display:inline-block;" data-name="style2" data-style2-index="${cate2Status.index }">
-		  	  <a href="" style="display: flex; flex-flow: column nowrap; padding: 30px 40px 30px 40px;">
-		  	  	<div style="padding:0px 0px 10px 0px;">
+		  	  <div style="display: flex; flex-flow: column nowrap; padding: 30px 40px 30px 40px;">
+		  	  	<a href="${cp }/emoShop/emoticon?emognum=${cate2.emognum}" style="padding:0px 0px 10px 0px;">
 		  	      <img src="${cp }/resources/uploadImage/admin/emoticon/${cate2.category }/${cate2.name }/${cate2.repreImg }" style="width:160px; height:160px;">
-		  	    </div>
+		  	    </a>
 		  	    <div>
-		  	      <span style="font-size:9px; color:royalblue;">신규</span>
-		  	      <h5>${cate2.name }</h5>
-		  	      <span style="font-size:11px; color:dimgrey;">${cate2.category }</span>
-		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${cate2.emognum }" data-style2-index="${cate2Status.index }" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;"></i></button>
-		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${cate2.emognum }" data-style2-index="${cate2Status.index }" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;"></i></button>
+		  	      <a href="${cp }/emoShop/emoticon?emognum=${cate2.emognum}">
+		  	        <span style="font-size:9px; color:royalblue;">신규</span>
+		  	        <h5>${cate2.name }</h5>
+		  	        <span style="font-size:11px; color:dimgrey;">${cate2.category }</span>
+		  	      </a>
+		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${cate2.emognum }" data-style2-index="${cate2Status.index }" data-check="0" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;" data-value="${cate2.emognum }" data-style2-index="${cate2Status.index }" data-check="0"></i></button>
+		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${cate2.emognum }" data-style2-index="${cate2Status.index }" data-check="0" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;" data-value="${cate2.emognum }" data-style2-index="${cate2Status.index }" data-check="0"></i></button>
 		  	  	</div>
-		  	  </a>
+		  	  </div>
 		  	</div>
 		  	</c:forEach>
 		  </div>
 		  <div class="emobox" style="display:flex; padding-top: 65px;">
-		  	<a href="" class="categoryBox" style="border:1px solid rgb(92, 184, 253); width: 200px;">
+		  	<a href="${cp }/emoShop/category?c=${category3[0].category}" class="categoryBox" style="border:1px solid rgb(92, 184, 253); width: 200px;">
 		  		<span style="font-size: 18px; color: rgb(92, 184, 253);">#분위기</span><br>
 		  		<span style="font-size: 19px; color: rgb(92, 184, 253);">#고요한</span><br><br><br><br>
 				<span class="icon-arrow-right" style="color: rgb(92, 184, 253); font-size: 40px;"></span>
 		  	</a>
-		  	<c:forEach items="${category1 }" end="3" var="cate3" varStatus="cate3Status">
+		  	<c:forEach items="${category3 }" end="3" var="cate3" varStatus="cate3Status">
 		  	<div class="emo" style="display:inline-block;" data-name="style3" data-style3-index="${cate3Status.index }">
-		  	  <a href="" style="display: flex; flex-flow: column nowrap; padding: 30px 40px 30px 40px;">
-		  	  	<div style="padding:0px 0px 10px 0px;">
+		  	  <div style="display: flex; flex-flow: column nowrap; padding: 30px 40px 30px 40px;">
+		  	  	<a href="${cp }/emoShop/emoticon?emognum=${cate3.emognum}" style="padding:0px 0px 10px 0px;">
 		  	      <img src="${cp }/resources/uploadImage/admin/emoticon/${cate3.category }/${cate3.name }/${cate3.repreImg }" style="width:160px; height:160px;">
-		  	    </div>
+		  	    </a>
 		  	    <div>
-		  	      <span style="font-size:9px; color:royalblue;">신규</span>
-		  	      <h5>${cate3.name }</h5>
-		  	      <span style="font-size:11px; color:dimgrey;">${cate3.category }</span>
-		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${cate3.emognum }" data-style3-index="${cate3Status.index }" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;"></i></button>
-		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${cate3.emognum }" data-style3-index="${cate3Status.index }" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;"></i></button>
+		  	      <a href="${cp }/emoShop/emoticon?emognum=${cate3.emognum}">
+		  	        <span style="font-size:9px; color:royalblue;">신규</span>
+		  	        <h5>${cate3.name }</h5>
+		  	        <span style="font-size:11px; color:dimgrey;">${cate3.category }</span>
+		  	      </a>
+		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${cate3.emognum }" data-style3-index="${cate3Status.index }" data-check="0" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;"  data-value="${cate3.emognum }" data-style3-index="${cate3Status.index }" data-check="0" ></i></button>
+		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${cate3.emognum }" data-style3-index="${cate3Status.index }" data-check="0" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;"  data-value="${cate3.emognum }" data-style3-index="${cate3Status.index }" data-check="0" ></i></button>
 		  	    </div>
-		  	  </a>
+		  	  </div>
 		  	</div>
 		  	</c:forEach>
 		  </div>
@@ -282,9 +304,10 @@
 		  <span>중앙HTA 19-?? 파이널 프로젝트</span>
 	  	</div>
 	  </footer>
-	  
+
 
 <script type="text/javascript">
+
 	var newNodeList = document.querySelectorAll('div[data-name="new"]');
 	newNodeList.forEach((value, number, listobj) => {
 		value.addEventListener('mouseover', e => {
@@ -355,35 +378,49 @@
 	});
 
 	function putBasket(e) {
+		console.log(e.target);
 		var xhr = new XMLHttpRequest();
 		xhr.open('post', '${cp}/emoShop/putBasket');
 		xhr.onreadystatechange = function() {
 			if(xhr.status === 200 && xhr.readyState === 4) {
-				alert(xhr.responseText);
+				var data = JSON.parse(xhr.responseText);
+				if(e.target.dataset.check == 0) {
+					e.target.dataset.check = 1;
+					e.target.style.color = '#333333';
+				}
+				alert(data.text);
 			}
 		}
-		xhr.send('emognum=' + e.target.dataset.value);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+		xhr.send('emognum=' + e.target.dataset.value + '&check=' + e.target.dataset.check);
 	}
 	
 	function putWish(e) {
+		console.log(e.target);
 		var xhr = new XMLHttpRequest();
 		xhr.open('post', '${cp}/emoShop/putWish');
 		xhr.onreadystatechange = function() {
 			if(xhr.status === 200 && xhr.readyState === 4) {
-				
-				alert(xhr.responseText);
+				var data = JSON.parse(xhr.responseText);
+				if(e.target.dataset.check == 0) {
+					e.target.dataset.check = 1;
+					e.target.style.color = '#333333';
+				}
+				alert(data.text);
 			}
 		}
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+		xhr.send('emognum=' + e.target.dataset.value + '&check=' + e.target.dataset.check);
 	}
 	
 	var basketBtnList = document.querySelectorAll('.emoBasketBtn');
 	var wishBtnList = document.querySelectorAll('.emoWishBtn');
 	
 	basketBtnList.forEach((value, number, listObj) => {
-		value.addEventListener('click', putBasket);
+		value.addEventListener('click', putBasket, true);
 	});
 	wishBtnList.forEach((value, number, listObj) => {
-		value.addEventListener('click', putWish);
+		value.addEventListener('click', putWish, true);
 	});
 
 </script>

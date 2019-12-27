@@ -5,11 +5,11 @@
   
 <mapper namespace="fproject.app.mybatis.mapper.EmoShopMapper">
 	<select id="getUserWishListPaging" parameterType="hashmap" resultType="fproject.app.fproject.vo.EmoWishListVo">
-		select a.rnum, a.num, a.emognum, a.category, a.name, a.price
+		select a.rnum, a.num, a.emognum, a.category, a.name, a.price, a.repreimg
 		from(
-			select rownum rnum, j.num, j.emognum, j.category, j.name, j.price
+			select rownum rnum, j.num, j.emognum, j.category, j.name, j.price, j.repreimg
 			from (
-				select userfavo.favor num, userfavo.emognum emognum, es.category category, es.name name, es.price price
+				select userfavo.favor num, userfavo.emognum emognum, es.category category, es.name name, es.price price, es.repreimg repreimg
 				from 
 					(select *
 					from favorlist
@@ -58,5 +58,21 @@
 	
 	<select id="selectCatogoryEmoList" parameterType="String" resultType="fproject.app.fproject.vo.EmoshopVo">
 		select * from emoshop where category = #{emoCategory}
+	</select>
+	
+	<select id="selectEmoticonList" parameterType="int" resultType="fproject.app.fproject.vo.EmoticonVo">
+		select * from emoticon where emognum=#{emognum}
+	</select>
+	
+	<select id="selectNewEmoticonTotalCount" resultType="int">
+		select count(*) count from emoshop where regdate >= sysdate-29
+	</select>
+	
+	<select id="selectEmoticonTotalCount" resultType="int">
+		select count(*) count from emoshop 
+	</select>
+	
+	<select id="selectUserEmoList" parameterType="int" resultType="fproject.app.fproject.vo.EmoticongroupVo">
+		select * from emoticongroup where num = #{userNum}
 	</select>
 </mapper>
