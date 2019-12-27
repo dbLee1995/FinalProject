@@ -123,12 +123,7 @@ public class EmoShopController {
 	@RequestMapping(value="/wishList", method=RequestMethod.GET)
 	public String wishListPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
 		int userNum = (int)req.getSession().getAttribute("num"); // 사용자 번호 받아오기
-		System.out.println("thisPage: " + thisPage);
 		Paging pg = new Paging(4, favorListService.getCount(userNum), 7, thisPage);
-		System.out.println(favorListService.getCount(userNum));
-		System.out.println(pg.getStartRow());
-		System.out.println(pg.getEndRow());
-		System.out.println(pg.getStartPage());
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pg.getStartRow());
 		map.put("endRow", pg.getEndRow());
@@ -138,7 +133,6 @@ public class EmoShopController {
 		map.put("thisPage", pg.getThisPage());
 		map.put("lastPage", pg.getTotalPageCount());
 		List<EmoWishListVo> list = favorListService.getUserWishListPaging(map);
-		System.out.println(list);
 		model.addAttribute("wishList", list);
 		model.addAttribute("map", map);
 		return "emoShop/wishList";
@@ -153,8 +147,14 @@ public class EmoShopController {
 			PurchaseVo vo = new PurchaseVo(0, null, i, userNum);
 			list.add(vo);
 		}
-		emoShopService.savePurchaseList(list);
-		return mainPage(model, req);
+		try {
+			emoShopService.savePurchaseList(list);
+			return mainPage(model, req);
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("purchaseError", false);
+			return mainPage(model, req);
+		}
 	}
 	
 	@RequestMapping(value="/purchaseOne", produces={"application/text;charset=UTF-8"},method=RequestMethod.POST)
@@ -168,6 +168,7 @@ public class EmoShopController {
 			if(evo.getEmognum() != emonum) continue;
 			c = false;
 		}
+		
 		if(c) {
 			List<PurchaseVo> list = new ArrayList<PurchaseVo>();
 			list.add(new PurchaseVo(0, null, emonum, userNum));
@@ -240,7 +241,7 @@ public class EmoShopController {
 			json.put("check", 1);
 		} else {
 			json.put("text", "이미 찜해둔 이모티콘입니다.");
-			json.put("check", 0);
+			json.put("check", 0);// 라아아아아ㅇ
 		}
 		return json.toString();
 	}
@@ -251,6 +252,7 @@ public class EmoShopController {
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
 		List<EmoshopVo> wishList = favorListService.getUserWishList(userNum);
+		List<>  purchase
 		Collections.reverse(moveList);
 		for(int i : moveList) {
 			boolean count = true;
@@ -258,6 +260,7 @@ public class EmoShopController {
 				if(vo.getEmognum() != basketList.get(i).getEmognum()) continue;
 				count = false;
 			}
+			for()
 			if(count) {
 				favorListService.addUserWishList(new FavorlistVo(0, 0, basketList.get(i).getEmognum(), userNum));
 			}

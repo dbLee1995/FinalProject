@@ -7,4 +7,8 @@
 	<insert id="insert" parameterType="fproject.app.fproject.vo.EmoticongroupVo">
 		insert into emoticongroup values(#{emognum}, #{num})
 	</insert>
+	
+	<select id="selectUserEmoList" parameterType="int" resultType="fproject.app.fproject.vo.EmoticongroupVo">
+		select * from emoticongroup where num = #{userNum}
+	</select>
 </mapper>

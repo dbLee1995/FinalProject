@@ -71,8 +71,4 @@
 	<select id="selectEmoticonTotalCount" resultType="int">
 		select count(*) count from emoshop 
 	</select>
-	
-	<select id="selectUserEmoList" parameterType="int" resultType="fproject.app.fproject.vo.EmoticongroupVo">
-		select * from emoticongroup where num = #{userNum}
-	</select>
 </mapper>

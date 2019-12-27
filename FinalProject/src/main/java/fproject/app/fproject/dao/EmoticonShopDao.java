@@ -72,7 +72,7 @@ public class EmoticonShopDao {
 	}
 	
 	public List<EmoticongroupVo> selectUserEmoList(int userNum) {
-		return sqlSessionTemplate.selectList(EmoticonShopMapper + ".selectUserEmoList", userNum);
+		return sqlSessionTemplate.selectList(EmoticonGroupMapper + ".selectUserEmoList", userNum);
 	}
 	
 	public int selectPopulEmoListTotalCount() {
