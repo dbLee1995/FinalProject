@@ -401,7 +401,6 @@ public class ChatController {
 		return moveChatRoom(model, clnum, num, session);
 	}
 	
-	/*
 	@RequestMapping(value="/chat/sendEmoticon", produces={"application/text;charset=UTF-8"})
 	@ResponseBody
 	public String sendEmoticon(int userNum) {
@@ -409,5 +408,4 @@ public class ChatController {
 		System.out.println(list.toString());
 		return list.toString();
 	}
-	*/
 }

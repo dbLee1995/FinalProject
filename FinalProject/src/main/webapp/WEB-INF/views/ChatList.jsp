@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>코코아톡:: 코코아 메신저</title>
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
@@ -39,7 +39,10 @@
 			href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 <%-- 	<link rel="stylesheet" type="text/css" href='${cp }/resources/css/jquery-ui.css'> --%>
 	
-<script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
+<%-- 	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script> --%>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   	<script src="${pageContext.request.contextPath }/resources/js/popper.min.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/jquery.easing.1.3.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/jquery.waypoints.min.js"></script>
@@ -53,8 +56,7 @@
 	<script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
 
-	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
+
 	<script src="${pageContext.request.contextPath }/resources/js/sockjs.js"></script>
 	<script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 <%-- 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/animateScroll/animatescroll.js"></script> --%>
@@ -885,6 +887,14 @@ a.btn-layerClose:hover {
 #frame .content .message-input .wrap button:focus {
   outline: none;
 }
+
+.emoticon {
+	width: 130px;
+	height: 130px;
+	padding: 3px;
+	background-color: white;
+}
+
 </style>
 	<style type="text/css">
 	#colorlib-aside #colorlib-main-menu ul li{padding: 6px;}
@@ -1044,8 +1054,7 @@ a.btn-layerClose:hover {
 			<div class="message-input">
 				<div class="wrap">
 				<input type="text" placeholder="Write your message..." id="textID" name="chatInput">
-				<i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-<!-- 				<button type="button" id="sendEmoBtn" style=""><i class="fa fa-paperclip attachment" aria-hidden="true"></i></button> -->
+				<button type="button" id="sendEmoBtn" style=""><i class="fa fa-paperclip attachment" aria-hidden="true"></i></button>
 				<button class="submit" id="buttonMessage"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
 				</div>
 			</div>
@@ -1153,14 +1162,15 @@ a.btn-layerClose:hover {
 			  </div>
 			</div>
 			
-			<!-- 
+
 			<div id="emoDialog" title="선택하세요." style='display:none'>
-  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
-  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
-  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
-  				<button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg"></button>
+				<div id="emoBox" style="display:flex; flex-flow:row wrap; width:800px; ">
+  				  <button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg" style="width:120px; height:120px;"></button>
+  				  <button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg" style="width:120px; height:120px;"></button>
+  				  <button type="button"><img src="${cp }/resources/uploadImage/admin/emoticon/1.jpg" style="width:120px; height:120px;"></button>
+  				</div>
 			</div>
-			 -->
+
 </body>
 
 <script type="text/javascript">
@@ -1384,7 +1394,7 @@ a.btn-layerClose:hover {
     }
     function onMakeRoom(){ $("#makefrm").submit(); }
 
-    /*
+    
     var emoDial = document.getElementById('emoDialog');
     document.getElementById('sendEmoBtn').addEventListener('click', e => {
     	var userNum = Number.parseInt('${sessionScope.num}');
@@ -1394,7 +1404,14 @@ a.btn-layerClose:hover {
             if(xhr.status === 200 && xhr.readyState === 4) {
             	var data = JSON.parse(xhr.responseText);
             	console.log(data);
-            	
+				console.log(data.length);
+// 				document.getElementById('emoBox').removeChild();
+				for(var i=0; i<data.length; i++) {
+					var emoticon = document.createElement('button');
+					emoticon.className = 'emoticon';
+					emoticon.innerHTML = '<img src="${cp}/resources/uploadImage/admin/emoticon/' + data[i].category + '/' + data[i].name + '/' + data[i].repreImg + '" style="width:100%">';
+					document.getElementById('emoBox').append(emoticon);
+				}
             	$('#emoDialog').dialog('open');
             }
         }
@@ -1413,13 +1430,13 @@ a.btn-layerClose:hover {
         height: 200,
         buttons: {
         	'전송': function() {
-        		dialog.close();
+        		$('#emoDialog').dialog('close');
         	},
             '닫기': function() {
-                dialog.colse();
+            	$('#emoDialog').dialog('close');
             }
         }
     });
-    */
+    
 </script>
 </html>
