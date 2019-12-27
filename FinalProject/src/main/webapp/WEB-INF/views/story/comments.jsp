@@ -140,7 +140,7 @@
 								
 							</c:forEach>                                  
 						</div> 
-						<div class="img" name="profileimg" style="background-image: ${profileimg};">${sessionScope.name} &nbsp; &nbsp;
+						<div class="img" name="profileimg" style="background-image: ${profileimg};">${id} &nbsp; &nbsp;
 							<input type="hidden" name="commnum" value="${voa.commnum }">
 							<input type="text" name="commcontent" style="width:600px;height:80px;">
 							<input type="submit" value="저장" class="reply">
@@ -166,7 +166,7 @@
 							<div class="ml-3 info">
 							<a href="#" class="img" style="background-image:url(${profileimg})"></a>
 								<label for="num" >Name *</label> &nbsp;
-								<label for="name" style="font-size:1.2em;">${name}</label>
+								<label for="name" style="font-size:1.2em;">${sessionScope.id}</label>
 							</div>
 					</div>
 				</div>                                 
