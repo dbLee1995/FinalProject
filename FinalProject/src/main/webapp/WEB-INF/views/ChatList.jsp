@@ -1436,7 +1436,14 @@ a.btn-layerClose:hover {
             if(xhr.status === 200 && xhr.readyState === 4) {
             	var data = JSON.parse(xhr.responseText);
             	console.log(data);
-            	
+            	console.log(data.length);
+// 				document.getElementById('emoBox').removeChild();
+				for(var i=0; i<data.length; i++) {
+					var emoticon = document.createElement('button');
+					emoticon.className = 'emoticon';
+					emoticon.innerHTML = '<img src="${cp}/resources/uploadImage/admin/emoticon/' + data[i].category + '/' + data[i].name + '/' + data[i].repreImg + '" style="width:100%">';
+					document.getElementById('emoBox').append(emoticon);
+				}
             	$('#emoDialog').dialog('open');
             }
         }

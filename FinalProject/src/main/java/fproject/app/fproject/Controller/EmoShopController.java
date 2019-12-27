@@ -46,6 +46,12 @@ public class EmoShopController {
 		for(EmoticongroupVo vo : emogroupList) {
 			populEmoList.add(emoShopService.getEmogInfo(vo.getEmognum())); 
 		}
+		List<EmoshopVo> userEmoList = emoShopService.getUserEmoList(userNum);
+		Map<Integer, Integer> purchaseMap = new HashMap<Integer, Integer>();
+		for(EmoshopVo userEvo : userEmoList) {
+			purchaseMap.put(userEvo.getEmognum(), 0);
+		}
+		model.addAttribute("purchaseMap", purchaseMap);
 		model.addAttribute("newEmoList", emoShopService.getNewEmoList());
 		model.addAttribute("populEmoList", populEmoList);
 		model.addAttribute("category3", emoShopService.getCategoryEmoList("ºÐÀ§±â"));
@@ -252,7 +258,6 @@ public class EmoShopController {
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
 		List<EmoshopVo> wishList = favorListService.getUserWishList(userNum);
-		List<>  purchase
 		Collections.reverse(moveList);
 		for(int i : moveList) {
 			boolean count = true;
@@ -260,7 +265,6 @@ public class EmoShopController {
 				if(vo.getEmognum() != basketList.get(i).getEmognum()) continue;
 				count = false;
 			}
-			for()
 			if(count) {
 				favorListService.addUserWishList(new FavorlistVo(0, 0, basketList.get(i).getEmognum(), userNum));
 			}
