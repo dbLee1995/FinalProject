@@ -76,9 +76,6 @@
 	    					<c:when test="${sessionScope.num eq num }">
 	    						<h3><a href="${pageContext.request.contextPath}/story/insert?num=${sessionScope.num}">글등록해봐요</a></h3>
 	    					</c:when>
-	    					<c:otherwise>
-	    						<h3>COCOA Story</h3>
-	    					</c:otherwise>
 	    				</c:choose>
 	    				<c:forEach var="list" items="${list}">	
 	    				<c:choose>
