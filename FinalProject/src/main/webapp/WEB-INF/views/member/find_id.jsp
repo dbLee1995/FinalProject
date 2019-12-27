@@ -41,7 +41,31 @@
 			location.href='${cp}/member/find_pw';	//히스토리를 기록해서 지정한 새로운페이지로 이동한다. 
 		});
 		
+		
 	});
+	function gologin(){
+		location.href='${cp}/';
+	}
+	function checkId(){
+		$.ajax({
+            type: "post",
+            url: "${cp}/member/find_id",
+            data: {
+            	email:$("#email").val()
+            },
+            success: function (response) {
+            	$("#checkedid").empty();
+            	$(response).each(function(){
+           			
+           			if(this.mem){
+           				$("#checkedid").append("<span>귀하의 아이디는 "+this.id+" 입니다.</span>");
+           			}else {
+           				$("#checkedid").append("<span>입력하신 이메일은 가입되지 않은 이메일입니다.</span>");		
+           			}
+            	});
+            }
+        });
+	}
 </script>
 <title>member/login.jsp</title>
 </head>
@@ -50,8 +74,7 @@
 		<div class="limiter">
 			<div class="container-login100">
 				<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-					<form class="login100-form validate-form flex-sb flex-w"
-						method="post" action="${pageContext.request.contextPath }/member/login">
+					<div class="login100-form validate-form flex-sb flex-w">
 						<span class="login100-form-title p-b-32">
 							아이디 찾기
 						</span>
@@ -61,45 +84,28 @@
 						</span>
 						<div class="wrap-input100 validate-input m-b-36" data-validate = "Username is required">
 							<input class="input100"
-								id="id" name="id" type="text" value="${param.id}" required>
+								id="email"  type="text" >
 							<span class="focus-input100"></span>
-						</div>
-						
-						<span class="txt1 p-b-11">
-								PASSWORD
-						</span>
-						<div class="wrap-input100 validate-input m-b-12" data-validate = "Password is required">
-							<span class="btn-show-pass">
-								<i class="fa fa-eye"></i>
-							</span>
-							<input class="input100"
-								id="pwd" name="pwd" type="password" value="${param.pwd}" required>
-							<span class="focus-input100"></span>
-						</div>
-						
+						</div>	
 						<div class="flex-sb-m w-full p-b-48">
-							<div class="contact100-form-checkbox">
-								<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-								<label class="label-checkbox100" for="ckb1">
-									Remember me
-								</label>
-							</div>
+							<div class="contact100-form-checkbox" id="checkedid">
 							
-							<div>
-								<a href="${cp }/member/find_id" class="txt3" style="padding-right:10px;">Forgot Id?</a> 		
-								<a href="${cp }/member/find_pw" class="txt3">Forgot Password?</a> 
 							</div>
 					
 							
 						</div>
 	
 						<div class="container-login100-form-btn">
-							<button class="login100-form-btn">
-								Login
+							<button class="login100-form-btn" onclick="checkId()">
+								찾기
 							</button>
+						<button class="login100-form-btn" onclick="gologin()" style="margin-left: 90px;">
+								로그인
+						</button>
 						</div>
 	
-					</form>
+					</div>
+						
 				</div>
 			</div>
 		</div>

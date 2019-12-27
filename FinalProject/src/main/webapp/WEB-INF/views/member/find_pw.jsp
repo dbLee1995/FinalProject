@@ -40,8 +40,30 @@
 		$("#find_pw_btn").click(function(){
 			location.href='${cp}/member/find_pw';	//히스토리를 기록해서 지정한 새로운페이지로 이동한다. 
 		});
-		
 	});
+	function gologin(){
+		location.href='${cp}/member/login';
+	}
+	function checkPwd(){
+		$.ajax({
+            type: "post",
+            url: "${cp}/member/find_pw",
+            data: {
+            	id:$("#id").val(),
+            	email:$("#email").val()
+            },
+            success: function (response) {
+            	$("#checkpwd").empty();
+            	$(response).each(function(){
+           			if(this.mem){
+           				$("#checkpwd").append("<span>귀하의 메일 "+$("#email").val()+" 로 임시비밀번호를 발송 했습니다.</span>");
+           			}else {
+           				$("#checkpwd").append("<span>입력하신 아이디 또는 이메일이 정확하지 않습니다.</span>");		
+           			}
+            	});
+            }
+        });
+	}
 </script>
 <title>member/login.jsp</title>
 </head>
@@ -50,8 +72,7 @@
 		<div class="limiter">
 			<div class="container-login100">
 				<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-					<form class="login100-form validate-form flex-sb flex-w"
-						method="post" action="${pageContext.request.contextPath }/member/login">
+					<div class="login100-form validate-form flex-sb flex-w"	>
 						<span class="login100-form-title p-b-32">
 							비밀번호 찾기
 						</span>
@@ -59,47 +80,47 @@
 						<span class="txt1 p-b-11">
 							아이디
 						</span>
-						<div class="wrap-input100 validate-input m-b-36" data-validate = "Username is required">
+						<div class="wrap-input100 validate-input m-b-36" >
 							<input class="input100"
-								id="id" name="id" type="text" value="${param.id}" required>
+								id="id"  type="text" >
 							<span class="focus-input100"></span>
 						</div>
 						
 						<span class="txt1 p-b-11">
-								비밀번호
+								이메일
 						</span>
-						<div class="wrap-input100 validate-input m-b-12" data-validate = "Password is required">
+						<div class="wrap-input100 validate-input m-b-12" >
 							<span class="btn-show-pass">
-								<i class="fa fa-eye"></i>
+								
 							</span>
 							<input class="input100"
-								id="pwd" name="pwd" type="password" value="${param.pwd}" required>
+								id="email"  type="text" >
 							<span class="focus-input100"></span>
 						</div>
 						
 						<div class="flex-sb-m w-full p-b-48">
-							<div class="contact100-form-checkbox">
-								<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-								<label class="label-checkbox100" for="ckb1">
-									자동 로그인
-								</label>
+							<div class="contact100-form-checkbox" id="checkpwd">
+								
+							
 							</div>
 							
 							<div>
-								<a href="${cp }/member/find_id" class="txt3" style="padding-right:10px;">아이디 찾기</a> 		
-								<a href="${cp }/member/find_pw" class="txt3">비밀번호 찾기</a> 
+							
 							</div>
 					
 							
 						</div>
 	
 						<div class="container-login100-form-btn">
-							<button class="login100-form-btn">
+							<button class="login100-form-btn" onclick="checkPwd()">
+								찾기
+							</button>
+							<button class="login100-form-btn" onclick="gologin()" style="margin-left: 90px;">
 								로그인
 							</button>
 						</div>
 	
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>

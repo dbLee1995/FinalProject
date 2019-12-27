@@ -182,7 +182,8 @@ public class FriendsController {
 		map.put("num", num);
 		List<HashMap<String, Object>> list=service.searchId(map);
 		if(list.isEmpty()){
-			AccountVo vo=Aservice.ismem(id);
+			AccountVo vo1=Aservice.info(num);
+			AccountVo vo=Aservice.ismem(vo1);
 			if(vo==null){
 				JSONObject json=new JSONObject();
 				json.put("nomem", true);

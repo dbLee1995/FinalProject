@@ -6,13 +6,19 @@
 	<select id="info" resultType="fproject.app.fproject.vo.AccountVo" parameterType="int">
 		select * from account where num=#{num}
 	</select>
-	<select id="ismem" resultType="fproject.app.fproject.vo.AccountVo" parameterType="String">
-		select * from account where id=#{id}
+	<select id="ismem" resultType="fproject.app.fproject.vo.AccountVo" parameterType="fproject.app.fproject.vo.AccountVo">
+		select * from account where id=#{id} and pwd=#{pwd}
 	</select>
 	<select id="list" resultType="fproject.app.fproject.vo.AccountVo">
 		select * from account
 	</select>
 	<select id="ismemphone" resultType="hashmap" parameterType="String">
 		select * from account a,profiles p where phone=#{phone} and a.num=p.num 
+	</select>
+	<select id="getid" resultType="hashmap" parameterType="String">
+		select * from account a,profiles p where email=#{email} and a.num=p.num
+	</select>
+	<select id="getinfo" resultType="hashmap" parameterType="hashmap">
+		select * from account a,profiles p where id=#{id} and email=#{email} and a.num=p.num
 	</select>
 </mapper>

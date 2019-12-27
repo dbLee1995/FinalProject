@@ -40,9 +40,9 @@
 		$("#find_pw_btn").click(function(){
 			location.href='${cp}/member/find_pw';	//히스토리를 기록해서 지정한 새로운페이지로 이동한다. 
 		});
-		(() => {
-			if("${auth}"=="lack") alert("로그인이 필요합니다.");
-		})();
+		if(${login}){
+			alert("아이디 혹은 비밀번호를 확인하고 다시 로그인 해주세요.");
+		}
 	});
 </script>
 <title>member/login.jsp</title>
@@ -55,11 +55,11 @@
 					<form class="login100-form validate-form flex-sb flex-w"
 						method="post" action="${pageContext.request.contextPath }/member/login">
 						<span class="login100-form-title p-b-32">
-							CoCoa Talk
+							코코아톡
 						</span>
 	
 						<span class="txt1 p-b-11">
-							ID
+							아이디
 						</span>
 						<div class="wrap-input100 validate-input m-b-36" data-validate = "Username is required">
 							<input class="input100"
@@ -68,7 +68,7 @@
 						</div>
 						
 						<span class="txt1 p-b-11">
-								Password
+								비밀번호
 						</span>
 						<div class="wrap-input100 validate-input m-b-12" data-validate = "Password is required">
 							<span class="btn-show-pass">
@@ -83,13 +83,13 @@
 							<div class="contact100-form-checkbox">
 								<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
 								<label class="label-checkbox100" for="ckb1">
-									Remember me
+									자동 로그인
 								</label>
 							</div>
 							
 							<div>
-								<a href="${cp }/member/find_id" class="txt3" style="padding-right:10px;">Forgot Id?</a> 		
-								<a href="${cp }/member/find_pw" class="txt3">Forgot Password?</a> 
+								<a href="${cp }/member/find_id" class="txt3" style="padding-right:10px;">아이디 찾기</a> 		
+								<a href="${cp }/member/find_pw" class="txt3">비밀번호 찾기</a> 
 							</div>
 					
 							
@@ -97,7 +97,7 @@
 	
 						<div class="container-login100-form-btn">
 							<button class="login100-form-btn">
-								Login
+								로그인
 							</button>
 						</div>
 	

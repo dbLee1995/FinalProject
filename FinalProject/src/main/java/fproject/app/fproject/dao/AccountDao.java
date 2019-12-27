@@ -23,10 +23,16 @@ public class AccountDao {
 	public List<AccountVo> list(){
 		return sqlSessionTemplate.selectList(NAMESPACE + ".list");
 	}
-	public AccountVo ismem(String id){
-		return sqlSessionTemplate.selectOne(NAMESPACE + ".ismem",id);
+	public AccountVo ismem(AccountVo vo){
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".ismem",vo);
 	}
 	public List<HashMap<String, Object>> ismemphone(String phone){
 		return sqlSessionTemplate.selectList(NAMESPACE+".ismemphone",phone);
+	}
+	public List<HashMap<String, Object>> getid(String email){
+		return sqlSessionTemplate.selectList(NAMESPACE+".getid",email);
+	}
+	public List<HashMap<String, Object>> getinfo(HashMap<String, Object> map){
+		return sqlSessionTemplate.selectList(NAMESPACE+".getinfo",map);
 	}
 }

@@ -23,10 +23,16 @@ public class AccountService {
 	 public List<AccountVo> list(){
 		 return accountDao.list();
 	 }
-	 public AccountVo ismem(String id){
-		 return accountDao.ismem(id);
+	 public AccountVo ismem(AccountVo vo){
+		 return accountDao.ismem(vo);
 	 }
 	 public List<HashMap<String,Object>> ismemphone(String phone){
 		 return accountDao.ismemphone(phone);
+	 }
+	 public List<HashMap<String,Object>> getid(String email){
+		 return accountDao.getid(email);
+	 }
+	 public List<HashMap<String,Object>> getinfo(HashMap<String, Object> map){
+		 return accountDao.getinfo(map);
 	 }
 }	
