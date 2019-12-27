@@ -123,7 +123,7 @@ button:hover {
 			location.href="${cp}/.";
 		});
 		
-	   /// 아이디 검사(DB확인을 위해 컨트롤러 ajax로 호출)
+	   /// 아이디 검사(DB확인을 위해 컨트롤러 ajax로 호출)asrtasrt
 	   	window.addEventListener("load", () => {
 	   		idCheck();
 	   		pwdCheck();
