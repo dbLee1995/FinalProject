@@ -140,9 +140,9 @@
 								
 							</c:forEach>                                  
 						</div> 
-						<div class="img" name="profileimg" style="background-image: ${profileimg};">
+						<div class="img" name="profileimg" style="background-image: ${profileimg};">${sessionScope.name} &nbsp; &nbsp;
 							<input type="hidden" name="commnum" value="${voa.commnum }">
-							${sessionScope.id}<input type="text" name="commcontent" style="width:600px;height:80px;">
+							<input type="text" name="commcontent" style="width:600px;height:80px;">
 							<input type="submit" value="저장" class="reply">
 							<input type="reset" value="취소" class="reply">         
 						</div>                                                                                       
@@ -162,10 +162,10 @@
 			<h3 class="mb-5">댓글쓰기</h3>                        
 			<form method="post" action="${pageContext.request.contextPath}/story/comments?storynum=${vo.storynum}&num=${sessionScope.num}" class="p-3 p-md-5 bg-light">
 				<div class="form-group">
-					<div class="author mb-4 d-flex align-items-center">
-						<a href="#" class="img" style="background-image: url(${cp}/resources/upload/${profileimg});"></a>
+					<div class="author mb-4 d-flex align-items-center">					
 							<div class="ml-3 info">
-								<label for="num" >Name *</label><br>
+							<a href="#" class="img" style="background-image:url(${profileimg})"></a>
+								<label for="num" >Name *</label> &nbsp;
 								<label for="name" style="font-size:1.2em;">${name}</label>
 							</div>
 					</div>
