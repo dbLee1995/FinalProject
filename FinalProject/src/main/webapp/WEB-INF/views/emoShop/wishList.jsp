@@ -44,7 +44,7 @@
 				<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
 				<li class="colorlib-active"><a href="${cp }/emoShop/main">코코아 이모티콘</a>
 				  <ul style="padding: 5px 0px 0px 15px;">
-				    <li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li>
+				    <li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li><br>
 				    <li style="margin:0px;"><a href="${cp }/emoShop/wishList" style="font-size:15px;">내 찜목록</a></li>
 				    <li style="margin:0px;"><a href="${cp }/emoShop/uploadEmoFile" style="font-size:15px;">이모티콘 올리기</a>
 				  </ul>
@@ -134,9 +134,7 @@
 						  </ul>
 						</div>
                       </div>
-                        
                     </div>
-					<input type="hidden" name="prices" class="r_price" value="${vo.price }" readonly>
                   </div>
                   <hr>
 				</div>
@@ -188,14 +186,12 @@
 
 	var selectBtnSwitch = false; // 전체선택버튼 이벤트용 변수
 	var checkboxNodeList = document.querySelectorAll('input[type="checkbox"]');
-// 	console.log(checkboxNodeList);
 	(() => {
 		var selectAllBtn = document.getElementsByClassName('js_checkbox_all');
 		for(var i=0; i<selectAllBtn.length; i++) {
 			selectAllBtn[i].addEventListener("click", selectAllItem);
 		}
 		var moveSelectItemBtn = document.getElementsByClassName('js_btn_selected_move_to_wishlist');
-// 		console.log(moveSelectItemBtn);
 		for(var i=0; i<moveSelectItemBtn.length; i++) {
 			moveSelectItemBtn[i].addEventListener("click", ajax);
 		}

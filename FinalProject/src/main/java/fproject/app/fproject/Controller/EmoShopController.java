@@ -123,6 +123,7 @@ public class EmoShopController {
 	@RequestMapping(value="/wishList", method=RequestMethod.GET)
 	public String wishListPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
 		int userNum = (int)req.getSession().getAttribute("num"); // 사용자 번호 받아오기
+		System.out.println("thisPage: " + thisPage);
 		Paging pg = new Paging(4, favorListService.getCount(userNum), 7, thisPage);
 		System.out.println(favorListService.getCount(userNum));
 		System.out.println(pg.getStartRow());
@@ -186,10 +187,12 @@ public class EmoShopController {
 	
 	@RequestMapping(value="/popular", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
 	@ResponseBody
-	public String morePopularList(int thisPage) {
+	public String morePopularList(String thisPage) {
+		int page = Integer.parseInt(thisPage);
+		System.out.println(page);
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("startRow", thisPage*10-9);
-		map.put("endRow", thisPage*10);
+		map.put("startRow", page*10-9);
+		map.put("endRow", page*10);
 		JSONArray jArray = new JSONArray(emoShopService.getPopularEmoPagingList(map));
 		return jArray.toString();
 	}

@@ -36,7 +36,10 @@ public class Paging {
 		this.endPage = thisPage+indexLength/2;
 		if(endPage>totalPageCount) endPage=totalPageCount;
 		this.endRow = thisPage * pageRow;
+		if(endRow>totalCount) endRow = totalCount;
+		if(endRow<1) endRow = 1;
 		this.startRow = endRow - (pageRow-1);
+		if(startRow<1) startRow = 1;
 	}
 	
 	/**
