@@ -86,7 +86,7 @@
 	    				<div class="row pt-md-4">    				
 	    					<div class="col-md-12">	    				    			
 		    					<div class="blog-entry-2 ftco-animate">		    					
-	    							<a href="single.html" class="img" style="background-image: url(${pageContext.request.contextPath}/resources/upload/${list.saveimg});'>"></a>
+	    							<a href="#" class="img" style="background-image: url(${pageContext.request.contextPath}/resources/upload/${list.saveimg});'>"></a>
 	    							<div class="text pt-4">
 				              <h3 class="mb-4"><a href="#">${list.stitle}</a></h3>
 				              <p class="mb-4">${list.scontent}</p>
@@ -103,7 +103,7 @@
 					              	<p class="meta">
 					              		<span><i class="icon-heart"></i>3</span>
 					              		<span><i class="icon-eye"></i>100</span>
-					              		<span><a href="${pageContext.request.contextPath}/story/comments?storynum=${list.storynum}&num=${list.num}&num=${sessionScope.num}"><i class="icon-comment"></i>5</a></span>
+					              		<span><a href="${pageContext.request.contextPath}/story/comments?storynum=${list.storynum}&num=${list.num}"><i class="icon-comment"></i>5</a></span>
 					              		<c:if test="${sessionScope.id == id}">
 					              			<span><a href="${pageContext.request.contextPath}/story/update?storynum=${list.storynum}&num=${sessionScope.num}"><i class="icon-person"></i>수정</a></span>
 					              		</c:if>
@@ -114,7 +114,7 @@
 					              	</p>
 				              	</div>
 				              	<div class="half">
-					              	<p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Continue Reading</a></p>
+					            
 				              	</div>
 				              </div>
 				            </div>
@@ -126,23 +126,7 @@
 			    		</c:forEach>
 			    				    			    
 			    		<!--///// END //////////////////////////////////////////////////////-->
-			    		<!--  -->
-			    			
-			    		<div class="row">
-			          <div class="col">
-			            <div class="block-27">
-			              <ul>
-			                <li><a href="#">&lt;</a></li>
-			                <li class="active"><span>1</span></li>
-			                <li><a href="#">2</a></li>
-			                <li><a href="#">3</a></li>
-			                <li><a href="#">4</a></li>
-			                <li><a href="#">5</a></li>
-			                <li><a href="#">&gt;</a></li>
-			              </ul>
-			            </div>
-			          </div>
-			        </div>
+
 			    	</div>
 	    			<div class="col-xl-4 sidebar ftco-animate bg-light pt-5">
 	            <div class="sidebar-box pt-md-4">
