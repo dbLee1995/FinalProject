@@ -427,10 +427,10 @@
             
     }
   	function showCalendar(){
-  		window.open("calendar", "[캘린더]", "width=900, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no" );    
+  		window.open("${cp}/calendar", "[캘린더]", "width=900, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no" );    
   	};
   	function showAddfriends(){
-  		window.open("addfriends", '[친구추가]', 'width=300, height=320, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no' );    
+  		window.open("${cp}/friends/addfriends", '[친구추가]', 'width=300, height=320, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no' );    
   	};
   </script>
   </body>
