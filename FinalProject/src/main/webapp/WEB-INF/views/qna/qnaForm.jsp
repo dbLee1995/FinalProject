@@ -63,10 +63,10 @@
 	    			
 	    			<!-- insertForm ///////////////////////////////////////////// -->             
 		                <h3 class="mb-5">MyStory Upload</h3>
-		                <form method="post" action="${cp}/story/insert?num=${sessionScope.num}" enctype="multipart/form-data" class="p-3 p-md-5 bg-light">
+		                <form method="post" action="${cp}/qna/insert?num=${qvo.num}" enctype="multipart/form-data" class="p-3 p-md-5 bg-light">
 		                  <div class="form-group">
 		                    
-		                    <input type="hidden" id="num" name="num" value="${sessionScope.num}">
+		                    <input type="hidden" id="num" name="num" value="${qvo.num}">
 		                    <label for="id">작성자</label>
 		                    <input type="text" class="form-control" id="id" value="${qvo.num}" disabled>
 		                  </div>

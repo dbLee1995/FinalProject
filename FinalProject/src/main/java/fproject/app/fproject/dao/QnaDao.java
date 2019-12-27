@@ -10,9 +10,9 @@ import fproject.app.fproject.vo.QnaVo;
 
 
 @Repository
-public class NquireDao {
+public class QnaDao {
 	@Autowired private SqlSessionTemplate sqlSessionTemplate;
-	private final String NAMESPACE="fproject.app.mybatis.mapper.NquireMapper";
+	private final String NAMESPACE="fproject.app.mybatis.mapper.QnaMapper";
 	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}

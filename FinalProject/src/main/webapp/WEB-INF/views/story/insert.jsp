@@ -69,7 +69,7 @@
 		                <div class="form-group">
 		                    <label for="website">파일첨부</label><br>
 		                    <div id="show">
-		                    	<img id="showimg" src="#" style="width:500px;height:300px;"/><br>                  
+		  	<!--                 <img id="showimg" src="#" style="width:500px;height:300px;"/><br>-->                  
 		                    </div>
 		                    <input type="file" id="file1" name="file1" accept=".jpg,.jpeg,.png,.gif"/>
 		                  </div>

@@ -19,7 +19,7 @@
 </sql>
 <!-- 조회 ////////////////////// -->		
 	<select id="list" resultType="fproject.app.fproject.vo.CommentsVo">
-		select * from comments order by regdate desc
+		select * from comments
 	</select>
 	<select id="infoCommNum" resultType="fproject.app.fproject.vo.CommentsVo" parameterType="int">
 		select * from comments where commnum=#{commnum}
@@ -28,6 +28,7 @@
 		select * from comments where commlev<![CDATA[<]]>=all(<include refid="sel"/>)
 		order by regdate desc
 	</select>	
+	
 <!-- 추가 //////////////////////// -->
 	<insert id="insert" parameterType="fproject.app.fproject.vo.CommentsVo">		
 		insert into comments

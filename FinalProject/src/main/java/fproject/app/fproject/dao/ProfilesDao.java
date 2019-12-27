@@ -1,5 +1,7 @@
 package fproject.app.fproject.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,6 +15,15 @@ public class ProfilesDao {
 	private final String NAMESPACE="fproject.app.mybatis.mapper.ProfilesMapper";
 	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
 		this.sqlSessionTemplate = sqlSessionTemplate;
+	}
+	public List<ProfilesVo> select() {
+		return sqlSessionTemplate.selectList(NAMESPACE + ".select");
+	}
+	public List<ProfilesVo> selectName() {
+		return sqlSessionTemplate.selectList(NAMESPACE + ".selectName");
+	}
+	public ProfilesVo selectProfImg(String name) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectProfImg",name);
 	}
 	public ProfilesVo info(int num) {
 		return sqlSessionTemplate.selectOne(NAMESPACE + ".info",num);

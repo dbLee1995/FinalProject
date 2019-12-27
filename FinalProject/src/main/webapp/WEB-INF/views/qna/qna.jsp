@@ -98,13 +98,13 @@
                         <td>${lis.qnanum}</td>
                         <c:choose>
                         	<c:when test="${sessionScope.num eq lis.num or sessionScope.id eq 'admin'}">
-                        		<td><a href="${cp}/nquire/insert?num=${lis.num}">${lis.qnatitle}</a></td>
+                        		<td><a href="${cp}/qna/insert?num=${lis.num}">${lis.qnatitle}</a></td>
                         	</c:when>
                         	<c:otherwise>
                         		<td>${lis.qnatitle}</td>
                         	</c:otherwise>
                         </c:choose>
-                        <td>${lis.num }</td>
+                        <td>${lis.name}</td>
                         <td>${lis.qnaregdate}</td>
                         <td></td>
                     </tr>

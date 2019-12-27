@@ -67,13 +67,14 @@
 <!-- ////////////////// title ##################/////////////////////////////// -->                                                                                                                                                                       
 								<div class="blog-entry-2 ftco-animate">                                                                                        
 									<div class="author mb-4 d-flex align-items-center">
-										<a href="#" class="img" style="background-image: ${profileimg};"></a>
-											<div class="mb-3" style="margin-top:20px;margin-left:20px;">${id}
+										<a href="#" class="img" style="background-image:${cp}/resources/upload/${profileimg};"></a>
+											<div class="mb-3" style="margin-top:20px;margin-left:20px;">${name}
 											</div>
 									</div>           
 									<h1>${vo.stitle}</h1>                        
                                 </div>
-								<img src="${pageContext.request.contextPath}/resources/upload/${vo.saveimg}"class="img-fluid">                            
+								<img src="${pageContext.request.contextPath}/resources/upload/${vo.saveimg}"class="img-fluid"> 
+								<h3>${vo.scontent}</h3>                           
 <!-- ////////////////// title End ##################/////////////////////////////// -->  
          
 <!-- ////////////////// tag start ##################/////////////////////////////// -->                          
@@ -90,12 +91,16 @@
 <!-- ///////////////////// 댓글리스트 //////////////////////////////////////// -->
 		<div class="pt-5 mt-5">  
 			<h3 class="mb-5 font-weight-bold">Comments</h3>        
-			<c:forEach var="voa" items="${cvoa}" varStatus="status">                                                
+			<c:forEach var="voa" items="${cvoa}" varStatus="status">           
+			
+			<c:if test="${voa.storynum == storynum }">
+			
+			                                     
 				<ul class="comment-list">                                                                                       
 					<li class="comment">                             
-					<div class="vcard bio">
-						<img src="${pageContext.request.contextPath}/resources/upload/${profileimg}">
-							${id}
+					<div class="vcard bio" style="width:50px;">
+						<img src="${pageContext.request.contextPath}/resources/upload/${pname[status.index].profileimg}">
+							${pname[status.index].name}
 					</div>
 					<div class="comment-body">
 						<div>${voa.commcontent}<br>
@@ -108,14 +113,21 @@
 						<input type="button" class="replyBtn ${status.index}" class="reply" value="Reply">                            
 						<form class="replyForm ${status.index}" method="post" action="${pageContext.request.contextPath}/story/commentsReply?storynum=${voa.storynum}&num=${sessionScope.num}" style="display:none">                                                                                                                                                         
 						<div>
-							<c:forEach var="ccvo" items="${cvo }">
-								<c:if test="${ccvo.commref == voa.commnum }"> <!-- 자식댓글 -->
-								<div>${usernameMap[ccvo.num]} &nbsp; ${ccvo.commcontent} &nbsp;
+							<c:forEach var="ccvo" items="${cvo}">
+								<c:if test="${ccvo.commref == voa.commnum && ccvo.commref != ccvo.commnum}"> <!-- 자식댓글 -->
+								<div>
+								<div class="vcard bio" style="width:50px;">
+								<img src="${pageContext.request.contextPath}/resources/upload/${usernameMap[ccvo.num]}">
+								${usernameMapReal[ccvo.num]}
+								</div>
+								&nbsp; ${ccvo.commcontent} &nbsp;
 									<a href="${pageContext.request.contextPath}/story/commentsDel" class="icon-trash"></a>
 									<a href="${pageContext.request.contextPath}/story/commentsUpdate?storynum=${voa.storynum}&num=${sessionScope.num}" class="icon-update"></a>&nbsp; &nbsp; &nbsp; 
 									${ccvo.regdate}
 								</div>
+								<br><br>
 								</c:if>
+								
 							</c:forEach>                                  
 						</div> 
 						<div class="img" name="profileimg" style="background-image: ${profileimg};">
@@ -128,7 +140,11 @@
 <!--////////////////// reply 답글end /////-->      
 					</div>  
 					</li>                                           
-				</ul>        
+				</ul>     
+				
+				
+				</c:if>
+				   
 			</c:forEach><!--/////// END comment-list -->
 
 <!-- Form Start /////////////////////////////////////////////////--> 

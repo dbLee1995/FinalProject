@@ -169,31 +169,34 @@ public class StoryController {
 	// 댓글페이지이동
 	@RequestMapping(value="story/comments",method=RequestMethod.GET)
 	public ModelAndView commentsForm(int storynum,int num){
-		StoryVo vo=service.info(storynum);
-		List<CommentsVo> cvo=cservice.list();
+		StoryVo vo=service.info(storynum); // 스토리번호
+		List<CommentsVo> cvo=cservice.list(); // 댓글리스트
+		List<ProfilesVo> pvoName=pservice.selectName(); // 프로필리스트
 		Map<Integer, String> usernameMap=new HashMap<Integer, String>();
+		Map<Integer, String> usernameMapReal=new HashMap<Integer, String>();
 		for(int i=0;i<cvo.size();++i){
-			AccountVo aavo=aservice.info(cvo.get(i).getNum());
-			usernameMap.put(aavo.getNum(), aavo.getId());
+			ProfilesVo ppvo=pservice.info(cvo.get(i).getNum());
+			usernameMap.put(ppvo.getNum(), ppvo.getProfileimg());
+			usernameMapReal.put(ppvo.getNum(), ppvo.getName());
 		}
-		AccountVo avo=aservice.info(num);
-		ProfilesVo pvo=pservice.info(num);
-		List<CommentsVo> cvoa=cservice.getReplyA();
+		ProfilesVo pvo=pservice.info(num); // 프로필select번호
+		List<CommentsVo> cvoa=cservice.getReplyA(); // 댓글 자식댓글 리스트
 		ModelAndView mv=new ModelAndView("story/comments");
 		mv.addObject("vo",vo);
-		mv.addObject("id",avo.getId());
-		mv.addObject("profileimg",pvo.getProfileimg());
 		mv.addObject("storynum",storynum);
 		mv.addObject("cvo",cvo);
 		mv.addObject("cvoa",cvoa);
+		mv.addObject("pname",pvoName);
+		mv.addObject("name",pvo.getName());
+//		mv.addObject("profileimg",pvo.getProfileimg());
 		mv.addObject("usernameMap",usernameMap);
-		return mv;
-		
-		
+		mv.addObject("usernameMapReal",usernameMapReal);
+		return mv;	
 	}
+		
 	// 답글입력
 	@RequestMapping(value="story/commentsReply",method=RequestMethod.GET)
-	public String commentsForm(CommentsVo vo,int num,int storynum){				
+	public String commentsForm(CommentsVo vo,int num,int storynum){		
 		return "redirect:/story/commentsReply?num=" + num + "&storynum=" + storynum;
 	}
 			
@@ -204,8 +207,6 @@ public class StoryController {
 		if(n>0){		
 			StoryVo svo=service.info(storynum);
 			ProfilesVo pvo=pservice.info(num);
-			AccountVo avo=aservice.info(num);	
-			model.addAttribute("profileimg",pvo.getProfileimg());
 			return "redirect:/story/comments?num=" + num + "&storynum=" + storynum;
 		}else{
 			return "test/error";
@@ -214,11 +215,11 @@ public class StoryController {
 		
 	// 답글입력
 	@RequestMapping(value="story/commentsReply",method=RequestMethod.POST)
-	public String commentsReply(CommentsVo vo,int commnum,int num,int storynum,Model model){		
+	public String commentsReply(int commnum, String commcontent, int num,int storynum,Model model){		
 		CommentsVo cvo=cservice.infoCommNum(commnum);	
-		CommentsVo rvo=new CommentsVo(0, storynum, num, vo.getCommcontent(), 
+		CommentsVo rvo=new CommentsVo(0, storynum, num, commcontent, 
 										cvo.getCommref(), cvo.getCommlev()+1, cvo.getCommstep(),null);		
 		int n=cservice.insertReply(rvo);		// 새글	
-		return "redirect:/story/commentsReply?num=" + num + "&storynum=" + storynum;
+		return "redirect:/story/comments?num=" + num + "&storynum=" + storynum;
 	}
 }

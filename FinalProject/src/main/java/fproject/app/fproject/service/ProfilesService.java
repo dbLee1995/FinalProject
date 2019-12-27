@@ -1,5 +1,7 @@
 package fproject.app.fproject.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,17 @@ public class ProfilesService {
 	 public void setProfilesDao(ProfilesDao profilesDao){
 		 this.profilesDao=profilesDao;
 	 }
+	 public List<ProfilesVo> select(){
+		 return profilesDao.select();
+	 }
+	 public List<ProfilesVo> selectName(){
+		 return profilesDao.selectName();
+	 }
 	 public ProfilesVo info(int num){
 		 return profilesDao.info(num);
+	 }
+	 public ProfilesVo selectProfImg(String name){
+		 return profilesDao.selectProfImg(name);
 	 }
 	 public int updateBackimg(ProfilesVo vo){
 		 return profilesDao.updateBackimg(vo);
