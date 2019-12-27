@@ -889,6 +889,7 @@ a.btn-layerClose:hover {
 	<style type="text/css">
 	#colorlib-aside #colorlib-main-menu ul li{padding: 6px;}
 	.messages p img{width:100px;height: 100px;}
+	#emogiMenu ul li{display: inline;}
 	</style>
 </head>
 <body>
@@ -1160,24 +1161,27 @@ a.btn-layerClose:hover {
 			      <div class="modal-header">
 			      <div id="emogiMenu">
 			      		<ul>
-				    		<li><img src="${cp }/resources/uploadImage/admin/emoticon/카테고리1/이미지/3.PNG" name="이미지"></li>
+			      			<c:forEach var="emog" items="${emoglist }">
+			      				<li><img src="${cp }/resources/uploadImage/admin/emoticon/${emog.CATEGORY }/${emog.NAME}/${emog.REPREIMG}" name="${emog.NAME}"></li>
+			      			</c:forEach>
+				    		
 			    		</ul>
 			    		</div>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: black">
 			          
 			        </button>
 			      </div>
 			      <div class="modal-body">	
-			      		<div>
-			      		<c:forEach var="i" begin="2" end="21">
-			      			<c:if test="${i%2==1}">
-			        		<img src='${cp }/resources/uploadImage/admin/emoticon/카테고리1/이미지/${i}.PNG' >
+			      	<c:forEach var="emog" items="${emoglist }">
+			      		<div id="${emog.NAME }" style="display: none;" class="emojis">
+			      			<c:forEach var="emo" items="${emolist }">
+			      			<c:if test="${emog.NAME==emo.NAME}">
+			        		<img src='${cp }/resources/uploadImage/admin/emoticon/${emog.CATEGORY }/${emog.NAME}/${emo.EMOSAVEIMG}' >
 			        		</c:if>			        		
 			        	</c:forEach>
-			        	</div>
-			        	
-			      </div>
-			      
+			      		</div>
+			      	</c:forEach>
+			      </div>		      
 			    </div>
 			  </div>
 			</div>
@@ -1193,11 +1197,11 @@ a.btn-layerClose:hover {
 </body>
 
 <script type="text/javascript">
-	$("#emogiMenu img").click(function(e){
-		
+	$("#emogiMenu img").click(function(e){	
+		$(".emojis").css("display","none");
+		$("#"+this.name).css("display","block");
 	});
 	$("#showEmoji .modal-body img").dblclick(function(e){
-		
 		var emoji="<img src='"+$(this).attr("src")+"'>";
 		$('#textID').val(emoji);
 		sendMessage();
@@ -1436,14 +1440,7 @@ a.btn-layerClose:hover {
             if(xhr.status === 200 && xhr.readyState === 4) {
             	var data = JSON.parse(xhr.responseText);
             	console.log(data);
-            	console.log(data.length);
-// 				document.getElementById('emoBox').removeChild();
-				for(var i=0; i<data.length; i++) {
-					var emoticon = document.createElement('button');
-					emoticon.className = 'emoticon';
-					emoticon.innerHTML = '<img src="${cp}/resources/uploadImage/admin/emoticon/' + data[i].category + '/' + data[i].name + '/' + data[i].repreImg + '" style="width:100%">';
-					document.getElementById('emoBox').append(emoticon);
-				}
+            	
             	$('#emoDialog').dialog('open');
             }
         }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import fproject.app.fproject.service.AccountService;
 import fproject.app.fproject.service.ChatService;
 import fproject.app.fproject.service.EmoShopService;
+import fproject.app.fproject.service.EmogroupService;
 import fproject.app.fproject.service.FriendsService;
 import fproject.app.fproject.service.ProfilesService;
 import fproject.app.fproject.vo.AccountVo;
@@ -38,6 +39,7 @@ public class ChatController {
 	@Autowired FriendsService friendsService;
 	@Autowired ProfilesService profilesService;
 	@Autowired EmoShopService emoService;
+	@Autowired EmogroupService myemoService;
 	
 	@RequestMapping(value="/ChatList")
 	public String chat(Model model, HttpServletRequest req, int num, int clnum){
@@ -84,6 +86,12 @@ public class ChatController {
 		}
 		model.addAttribute("chatCountMap",chatCountMap);
 		
+		
+		List<HashMap<String, Object>> emoglist=myemoService.getmyemogro(num);
+		List<HashMap<String, Object>> emolist=myemoService.getmyemo(num);
+		model.addAttribute("emoglist",emoglist);
+		model.addAttribute("emolist",emolist);
+
 		return "ChatList";
 	}
 	@RequestMapping(value="/CreateChat", 
@@ -192,6 +200,12 @@ public class ChatController {
 		}
 		model.addAttribute("readinfomap",readinfomap);
 		
+		List<HashMap<String, Object>> emoglist=myemoService.getmyemogro(num);
+		List<HashMap<String, Object>> emolist=myemoService.getmyemo(num);
+		model.addAttribute("emoglist",emoglist);
+		model.addAttribute("emolist",emolist);
+
+		
 		return "ChatList";
 	}
 	@RequestMapping(value="/moveChatRoom")
@@ -272,6 +286,13 @@ public class ChatController {
 			chatCountMap.put(aclnum, fChatCount);
 		}
 		model.addAttribute("chatCountMap",chatCountMap);
+		
+		
+		List<HashMap<String, Object>> emoglist=myemoService.getmyemogro(num);
+		List<HashMap<String, Object>> emolist=myemoService.getmyemo(num);
+		model.addAttribute("emoglist",emoglist);
+		model.addAttribute("emolist",emolist);
+
 		
 		return "ChatList";
 	}
@@ -401,6 +422,7 @@ public class ChatController {
 		return moveChatRoom(model, clnum, num, session);
 	}
 	
+	/*
 	@RequestMapping(value="/chat/sendEmoticon", produces={"application/text;charset=UTF-8"})
 	@ResponseBody
 	public String sendEmoticon(int userNum) {
@@ -408,4 +430,5 @@ public class ChatController {
 		System.out.println(list.toString());
 		return list.toString();
 	}
+	*/
 }
