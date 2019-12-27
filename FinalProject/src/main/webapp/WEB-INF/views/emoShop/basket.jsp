@@ -365,7 +365,6 @@
 			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 			xhr.send(itemCheckedList());
 		}
-		
 		return call(e);
 	}
 	

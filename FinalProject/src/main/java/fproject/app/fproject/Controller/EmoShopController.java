@@ -123,8 +123,11 @@ public class EmoShopController {
 	@RequestMapping(value="/wishList", method=RequestMethod.GET)
 	public String wishListPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
 		int userNum = (int)req.getSession().getAttribute("num"); // 사용자 번호 받아오기
-		if(thisPage > 1) thisPage = 1;
 		Paging pg = new Paging(4, favorListService.getCount(userNum), 7, thisPage);
+		System.out.println(favorListService.getCount(userNum));
+		System.out.println(pg.getStartRow());
+		System.out.println(pg.getEndRow());
+		System.out.println(pg.getStartPage());
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pg.getStartRow());
 		map.put("endRow", pg.getEndRow());
@@ -132,7 +135,9 @@ public class EmoShopController {
 		map.put("startPage", pg.getStartPage());
 		map.put("endPage", pg.getEndPage());
 		map.put("thisPage", pg.getThisPage());
+		map.put("lastPage", pg.getTotalPageCount());
 		List<EmoWishListVo> list = favorListService.getUserWishListPaging(map);
+		System.out.println(list);
 		model.addAttribute("wishList", list);
 		model.addAttribute("map", map);
 		return "emoShop/wishList";

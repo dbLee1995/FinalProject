@@ -88,7 +88,7 @@
               </div>
               <div id="cart_wrap">
               
-<!-- -->       <c:forEach items="${wishList }" var="vo" begin="${map.startRow }" end="${map.endRow }" varStatus="s">     <!-- ///////////////////////////////////////////////////////////////// -->
+<!-- -->       <c:forEach items="${wishList }" var="vo" begin="0" end="4" varStatus="s">     <!-- ///////////////////////////////////////////////////////////////// -->
 
 				<div class="bookmacro_wrapper" id="book${vo.emogNum}" data-book-index="${s.index}">
 				  <div id="book_${vo.emogNum }" class="book_macro_60 book_macro_landscape book_macro_metadata_portrait js_cart_book" style="display: flex; flex-flow: row nowrap;">
@@ -116,11 +116,11 @@
 					    </div>
 					    <ul class="cart_wish_buttons_wrapper rui_button_group_5">
                           <li class="rui_button_item">
-							<button type="button" class="rui_button_white_30 rui_button_eink_black_line_30 book_button btn_move_to_wishlist js_btn_move_to_wishlist" data-book-index="${s.index }">바구니로 이동</button>
+							<button type="button" class="rui_button_white_30 rui_button_eink_black_line_30 book_button btn_move_to_wishlist js_btn_move_to_wishlist" data-book-value="${vo.emogNum }" data-book-index="${s.index }">바구니로 이동</button>
                           </li>
                           <li><span>&nbsp;&nbsp;</span></li>
                           <li class="rui_button_item">
-                            <button type="button" class="rui_button_white_30 rui_button_eink_black_line_30 book_button btn_delete js_btn_delete" data-book-index="${s.index}">삭제</button>
+                            <button type="button" class="rui_button_white_30 rui_button_eink_black_line_30 book_button btn_delete js_btn_delete" data-book-value="${vo.emogNum }" data-book-index="${s.index}">삭제</button>
                           </li>
                         </ul>
                         <div style="width:370px"></div>
@@ -169,28 +169,31 @@
         <c:forEach var="i" begin="${map.startPage }" end="${map.endPage }">
         	<c:choose>
         	  <c:when test="${i } == ${map.thisPage }">
-        		<b><a href="${cp }/emoShop/wishList?thisPage=${i}" style="font-size: 15px;">${i }</a></b>
+        		<b><a href="${cp }/emoShop/wishList?thisPage=${i }" style="font-size:15px; font-weight:600; width:100px;">${i }</a></b>
         	  </c:when>
         	  <c:otherwise>
-        	    <a href="${cp }/emoShop/wishList?thisPage=${i}">${i }</a>
+        	    <a href="${cp }/emoShop/wishList?thisPage=${i }">${i }</a>
         	  </c:otherwise>
         	</c:choose>
         </c:forEach>
-        <a href="${cp }/emoShop/wishList?thisPage=1">&gt;</a>
-        <a href="${cp }/emoShop/wishList?thisPage=${i+10}">&gt;&gt;</a>
+        <a href="${cp }/emoShop/wishList?thisPage=${endPage+10}">&gt;</a>
+        <a href="${cp }/emoShop/wishList?thisPage=${lastPage }">&gt;&gt;</a>
       </div>
     </div>
   </section>
 
 <script type="text/javascript">
+
 	var selectBtnSwitch = false; // 전체선택버튼 이벤트용 변수
-	var checkboxNodeList = document.querySelectorAll("input[type='checkbox']");
+	var checkboxNodeList = document.querySelectorAll('input[type="checkbox"]');
+// 	console.log(checkboxNodeList);
 	(() => {
 		var selectAllBtn = document.getElementsByClassName('js_checkbox_all');
 		for(var i=0; i<selectAllBtn.length; i++) {
 			selectAllBtn[i].addEventListener("click", selectAllItem);
 		}
 		var moveSelectItemBtn = document.getElementsByClassName('js_btn_selected_move_to_wishlist');
+// 		console.log(moveSelectItemBtn);
 		for(var i=0; i<moveSelectItemBtn.length; i++) {
 			moveSelectItemBtn[i].addEventListener("click", ajax);
 		}
@@ -227,10 +230,10 @@
 	function delThisItem(e) {
 		var xhr = new XMLHttpRequest();
 		var itemIndexList = [];
-		itemIndexList.push(e.target.dataset.bookIndex);
+		itemIndexList.push(e.target.dataset.bookValue);
 		var json = JSON.stringify(itemIndexList);
 		var selectedItemTotalPrice = 0;
-		xhr.open('post', '${cp}/emoShop/delBasketItem');
+		xhr.open('post', '${cp}/emoShop/delWishItem');
 		xhr.onreadystatechange = function() {
 			if(xhr.status === 200 && xhr.readyState === 4) {
 				var list = document.getElementsByClassName('bookmacro_wrapper');
@@ -254,17 +257,20 @@
 			}
 		};
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		console.log(json);
 		xhr.send(json);
 	}
 	
 	function moveThisItem(e) {
 		var xhr = new XMLHttpRequest();
 		var itemIndexList = [];
-		itemIndexList.push(e.target.dataset.bookIndex);
+		itemIndexList.push(e.target.dataset.bookValue);
 		var json = JSON.stringify(itemIndexList);
-		xhr.open('post', '${cp}/emoShop/moveBaskettoWish');
+		xhr.open('post', '${cp}/emoShop/moveWishtoBasket');
 		xhr.onreadystatechange = function() {
 			if(xhr.status === 200 && xhr.readyState === 4) {
+				var list = document.getElementsByClassName('bookmacro_wrapper');
+				list[e.target.dataset.bookIndex].remove();
 				var delItemBtnList = document.querySelectorAll('.bookmacro_wrapper .js_btn_delete');
 				delItemBtnList.forEach((value, index, listObj) => {
 					value.dataset.bookIndex = index;
@@ -284,6 +290,7 @@
 			}
 		};
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		console.log(json);
 		xhr.send(json);
 	}
 
@@ -297,26 +304,26 @@
 			checkboxNodeList.forEach((value, index, listObj) => {
 				switch (value.checked) {
 					case true:
-						checkedItemList.push(value.dataset.bookIndex);
+						checkedItemList.push(value.value);
 				}
 			});
 			if (checkedItemList == null) return alert("선택한 항목이 없습니다.");
 			var json = JSON.stringify(checkedItemList);
+			console.log(json);
 			return json;
 		}
-				if (checkedItemList == null) return alert("선택한 항목이 없습니다.");
 		
 		function call(e) {
 			xhr = new XMLHttpRequest();
-			console.log(e.target);
-			console.log(e.target.dataset.name);
+// 			console.log(e.target);
+// 			console.log(e.target.dataset.name);
 			switch(e.target.dataset.name) {
 				case 'moveSelectItemBtn':
-					xhr.open('post', '${cp}/emoShop/moveBaskettoWish'); break;
+					xhr.open('post', '${cp}/emoShop/moveWishtoBasket'); break;
 				case 'delSelectItemBtn':
-					xhr.open('post', '${cp}/emoShop/delBasketItem'); break;
+					xhr.open('post', '${cp}/emoShop/delWishItem'); break;
 				default:
-					xhr.open('post', '${cp}/emoShop/delBasketItem');
+					xhr.open('post', '${cp}/emoShop/delWishItem');
 			}
 			xhr.onreadystatechange = function() {
 				if(xhr.status === 200 && xhr.readyState === 4) {
@@ -342,7 +349,6 @@
 								});
 								var list = document.getElementsByClassName('bookmacro_wrapper');
 								list[value.dataset.bookIndex].remove();
-								document.querySelector('.js_price_wrapper .price_num').innerText = totalPrice();
 						}
 					});
 					alert(xhr.responseText);
@@ -351,7 +357,6 @@
 			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 			xhr.send(itemCheckedList());
 		}
-		
 		return call(e);
 	}
 	
