@@ -163,10 +163,10 @@
 			<form method="post" action="${pageContext.request.contextPath}/story/comments?storynum=${vo.storynum}&num=${sessionScope.num}" class="p-3 p-md-5 bg-light">
 				<div class="form-group">
 					<div class="author mb-4 d-flex align-items-center">
-						<a href="#" class="img" style="background-image: url(${profileimg});"></a>
+						<a href="#" class="img" style="background-image: url(${cp}/resources/upload/${profileimg});"></a>
 							<div class="ml-3 info">
 								<label for="num" >Name *</label><br>
-								<label for="id" style="font-size:1.2em;">${sessionScope.id}</label>
+								<label for="name" style="font-size:1.2em;">${sessionScope.name}</label>
 							</div>
 					</div>
 				</div>                                 
