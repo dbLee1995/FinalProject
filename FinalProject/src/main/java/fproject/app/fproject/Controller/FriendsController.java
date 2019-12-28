@@ -181,13 +181,14 @@ public class FriendsController {
 		map.put("id",id);
 		map.put("num", num);
 		List<HashMap<String, Object>> list=service.searchId(map);
-		if(list.isEmpty()){
-			AccountVo vo1=Aservice.info(num);
-			AccountVo vo=Aservice.ismem(vo1);
+		if(list.isEmpty()){			
+			AccountVo vo=Aservice.ismemid(id);
 			if(vo==null){
+				JSONArray arr=new JSONArray();
 				JSONObject json=new JSONObject();
 				json.put("nomem", true);
-				return json.toString();
+				arr.put(json);
+				return arr.toString();
 			}else if(vo.getNum()==num){
 				JSONArray arr=new JSONArray();
 				List<HashMap<String, Object>> list1=service.mempro(vo.getNum());
@@ -258,7 +259,7 @@ public class FriendsController {
 	public String searchPhone(String phone,int num){		
 		
 		List<HashMap<String, Object>> mem=Aservice.ismemphone(phone);
-		System.out.println(mem.isEmpty());
+		
 		if(mem.isEmpty()){
 			JSONObject json=new JSONObject();
 			json.put("nomem", true);

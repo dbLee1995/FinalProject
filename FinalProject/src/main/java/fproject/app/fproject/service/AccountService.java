@@ -35,4 +35,7 @@ public class AccountService {
 	 public List<HashMap<String,Object>> getinfo(HashMap<String, Object> map){
 		 return accountDao.getinfo(map);
 	 }
+	 public AccountVo ismemid(String id){
+		 return accountDao.ismemid(id);
+	 }
 }	
