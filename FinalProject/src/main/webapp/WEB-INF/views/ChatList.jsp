@@ -890,6 +890,8 @@ a.btn-layerClose:hover {
 	#colorlib-aside #colorlib-main-menu ul li{padding: 6px;}
 	.messages p img{width:100px;height: 100px;}
 	#emogiMenu ul li{display: inline;}
+	#showEmoji .modal-body img{width:100px;height: 100px;}
+	#emogiMenu img{width:100px;height: 100px;}
 	</style>
 </head>
 <body>
