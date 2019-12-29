@@ -19,10 +19,13 @@ public class QnaDao {
 	public List<QnaVo> select() {
 		return sqlSessionTemplate.selectList(NAMESPACE + ".select");
 	}
-	public QnaVo selectInfo(int num) {
-		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectInfo",num);
+	public QnaVo selectInfo(int qnanum) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectInfo",qnanum);
 	}
 	public int insert(QnaVo vo) {
 		return sqlSessionTemplate.insert(NAMESPACE + ".insert", vo);
+	}
+	public int update(QnaVo vo){
+		return sqlSessionTemplate.update(NAMESPACE + ".update",vo);
 	}
 }

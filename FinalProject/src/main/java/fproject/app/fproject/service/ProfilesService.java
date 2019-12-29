@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import fproject.app.fproject.dao.ProfilesDao;
 import fproject.app.fproject.vo.ProfilesVo;
+import fproject.app.fproject.vo.QnaVo;
 
 @Service
 public class ProfilesService {
@@ -20,8 +21,14 @@ public class ProfilesService {
 	 public List<ProfilesVo> selectName(){
 		 return profilesDao.selectName();
 	 }
+	 public List<ProfilesVo> selectQnaName(){
+			return profilesDao.selectQnaName();
+	 }
 	 public ProfilesVo info(int num){
 		 return profilesDao.info(num);
+	 }
+	 public ProfilesVo selectProfName(int qnanum){
+		 return profilesDao.selectProfName(qnanum);
 	 }
 	 public ProfilesVo selectProfImg(String name){
 		 return profilesDao.selectProfImg(name);

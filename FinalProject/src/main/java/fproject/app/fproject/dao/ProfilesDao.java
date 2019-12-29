@@ -22,8 +22,14 @@ public class ProfilesDao {
 	public List<ProfilesVo> selectName() {
 		return sqlSessionTemplate.selectList(NAMESPACE + ".selectName");
 	}
+	public List<ProfilesVo> selectQnaName() {
+		return sqlSessionTemplate.selectList(NAMESPACE + ".selectQnaName");
+	}
 	public ProfilesVo selectProfImg(String name) {
 		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectProfImg",name);
+	}
+	public ProfilesVo selectProfName(int qnanum) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectProfName",qnanum);
 	}
 	public ProfilesVo info(int num) {
 		return sqlSessionTemplate.selectOne(NAMESPACE + ".info",num);
