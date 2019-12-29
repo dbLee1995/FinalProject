@@ -247,7 +247,7 @@ public class EmoShopController {
 			json.put("check", 1);
 		} else {
 			json.put("text", "이미 찜해둔 이모티콘입니다.");
-			json.put("check", 0);// 라아아아아ㅇ
+			json.put("check", 0);
 		}
 		return json.toString();
 	}

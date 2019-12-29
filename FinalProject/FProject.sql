@@ -1,4 +1,4 @@
-DROP TRIGGER TRI_account_num;
+`DROP TRIGGER TRI_account_num;
 DROP TRIGGER TRI_ad_adnum;
 DROP TRIGGER TRI_calender_anivernum;
 DROP TRIGGER TRI_chatlist_clnum;
@@ -146,7 +146,7 @@ CREATE TABLE attendinfo
 
 
 -- 달력
-CREATE TABLE calender
+CREATE TABLE calendar
 (
 	-- 일정번호
 	anivernum number(5) primary key,

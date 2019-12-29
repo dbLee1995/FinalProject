@@ -165,10 +165,10 @@
 		  	        <h5>${vo.name }</h5>
 		  	        <span style="font-size:11px; color:dimgrey;">${vo.category }</span>
 		  	      </a>
-<%-- 		  	      <c:if test="${purchaseMap[vo.emognum] != 0}"> --%>
+		  	      <c:if test="${!(empty purchaseMap[vo.emognum])}">
 		  	        <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" data-check="0" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;" data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" data-check="0"></i></button>
 		  	        <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" data-check="0" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;" data-value="${vo.emognum }" data-new-index="${newEmoStatus.index }" data-check="0"></i></button>
-<%-- 		  	      </c:if> --%>
+		  	      </c:if>
 		  	    </div>
 		  	  </div>
 		  	</div>
