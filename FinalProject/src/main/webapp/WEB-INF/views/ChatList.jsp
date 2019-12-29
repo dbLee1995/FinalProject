@@ -914,7 +914,7 @@ a.btn-layerClose:hover {
 					<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
 					<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
 					<li><a href="${cp}/nquire/list?num=${sessionSope.num}">문의하기</a></li>
-					
+					<li><a href="${cp }/logout">로그아웃</a>
 				</ul>
 			</nav>
 

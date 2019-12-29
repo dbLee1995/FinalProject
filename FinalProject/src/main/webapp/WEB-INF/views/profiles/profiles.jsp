@@ -65,13 +65,14 @@
 				 		<c:otherwise>
 				 			<li><a href="${cp}/profiles/info?num=${sessionScope.num}">마이페이지</a></li>
 							<li class="colorlib-active" ><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">코코아 스토리</a></li>
-							<li ><a href="${cp }/friends/list?num=${sessionScope.num}">친구들</a></li>			
+							<li ><a href="${cp }/friends/list?num=${sessionScope.num}">친구들</a></li>
+							<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
+							<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
+							<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
+							<li><a href="${cp}/qna/list">문의하기</a></li>
+							<li><a href="${cp }/logout">로그아웃</a>		
 						</c:otherwise>	 
 					</c:choose>
-					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
-					<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
-					<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
-					<li><a href="${cp}/qna/list">문의하기</a></li>
 				</ul>
 			</nav>
 

@@ -116,6 +116,7 @@
 				</li>
 				<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
 				<li><a href="${cp}/nquire/list?num=${sessionSope.num}">문의하기</a></li>
+				<li><a href="${cp }/logout">로그아웃</a>
 			  </c:otherwise>	 
 			</c:choose>
 		  </ul>
