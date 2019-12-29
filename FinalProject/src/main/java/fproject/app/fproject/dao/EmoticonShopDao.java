@@ -68,7 +68,7 @@ public class EmoticonShopDao {
 	}
 	
 	public List<EmoshopVo> selectNewEmoticonPagingList(HashMap<String, Integer> map) {
-		return sqlSessionTemplate.selectList(EmoticonShopMapper + ".selectNewEmoticonPagingList", map);
+		return sqlSessionTemplate.selectList(EmoticonShopMapper + ".getNewEmoticonPagingList", map);
 	}
 	
 	public List<EmoticongroupVo> selectUserEmoList(int userNum) {
@@ -76,10 +76,22 @@ public class EmoticonShopDao {
 	}
 	
 	public int selectPopulEmoListTotalCount() {
-		return sqlSessionTemplate.selectOne(EmoticonShopMapper + ".selectPopulEmoListTotalCount");
+		return sqlSessionTemplate.selectOne(PurchaseMapper+ ".selectPopulEmoListTotalCount");
 	}
 	
 	public List<EmoticongroupVo> selectPopulEmoPagingList(HashMap<String, Integer> map) {
 		return sqlSessionTemplate.selectList(PurchaseMapper + ".selectPopulEmoPagingList", map);
+	}
+	
+	public int selectCateEmoticonTotalCount(String c) {
+		return sqlSessionTemplate.selectOne(EmoticonShopMapper + ".selectCateEmoticonTotalCount", c);
+	}
+	
+	public List<EmoshopVo> getCateEmoticonPagingList(HashMap<String, Object> map) {
+		return sqlSessionTemplate.selectList(EmoticonShopMapper + ".getCateEmoticonPagingList", map);
+	}
+	
+	public List<EmoshopVo> getCategoryList() {
+		return sqlSessionTemplate.selectList(EmoticonShopMapper + ".getCategoryList");
 	}
 }

@@ -26,13 +26,34 @@
 <link rel="stylesheet" href="${cp }/resources/css/page_cart.css"/>
 <link rel="stylesheet" href="${cp }/resources/css/page_base.css"/>
 <link rel="stylesheet" href="${cp }/resources/css/page_btn.css"/>
+
+<style type="text/css">
+    	.pageIndex {
+			display: inline-block;
+			border: 1px solid #d1d5d9;
+			font-size: 13px;
+			font-weight: 700;
+			color: #808991;
+			height: 30px;
+			line-height: 30px;
+			padding: 0 10px;
+			text-align: center;
+			min-width: 30px;
+			box-shadow: 0 1px 1px 0 rgba(210,210,210,.3);
+    	}
+    	.pageIndex:hover {
+			background: #f2f4f5;
+    	}
+
+</style>
+
 </head>
 <body>
   <div id="colorlib-page">
 	<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 	  <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="max-width: 250px;">
 		<nav id="colorlib-main-menu" role="navigation">
-		  <ul>
+		  <ul style="display:flex; flex-flow:column wrap;">
 			<c:choose>
 			  <c:when test="${empty sessionScope.id}">					
 			    <li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
@@ -43,8 +64,8 @@
 				<li><a href="${cp }/friends/list?num=${sessionScope.num}">친구들</a></li>			
 				<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
 				<li class="colorlib-active"><a href="${cp }/emoShop/main">코코아 이모티콘</a>
-				  <ul style="padding: 5px 0px 0px 15px;">
-				    <li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li><br>
+				  <ul style="padding: 5px 0px 0px 15px; display:flex; flex-flow:column wrap;"">
+				    <li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li>
 				    <li style="margin:0px;"><a href="${cp }/emoShop/wishList" style="font-size:15px;">내 찜목록</a></li>
 				    <li style="margin:0px;"><a href="${cp }/emoShop/uploadEmoFile" style="font-size:15px;">이모티콘 올리기</a>
 				  </ul>
@@ -164,21 +185,22 @@
           </div>
         </article>
       </form>
-      <div>
-        <a href="${cp }/emoShop/wishList?thisPage=1">&lt;&lt;</a>
-        <a href="${cp }/emoShop/wishList?thisPage=${i-10}">&lt;</a>
-        <c:forEach var="i" begin="${map.startPage }" end="${map.endPage }">
+      <br>
+      <div style="display:flex; flex-flow:row nowrap; justify-content:center;">
+		  	<a href="${cp }/emoShop/wishList?thisPage=1" class="pageIndex">&lt;&lt;</a>
+<%--         	<a href="${cp }/emoShop/wishList?thisPage=${i-10}" class="pageIndex" style="margin-right:5px;">&lt;</a> --%>
+        	<c:forEach var="i" begin="${map.startPage }" end="${map.endPage }">
         	<c:choose>
         	  <c:when test="${i } == ${map.thisPage }">
-        		<b><a href="${cp }/emoShop/wishList?thisPage=${i }" style="font-size:15px; font-weight:600; width:100px;">${i }</a></b>
+        		<a href="${cp }/emoShop/wishList?thisPage=${i }" style="background-color: #43c7ff" class="pageIndex">${i }</a>
         	  </c:when>
         	  <c:otherwise>
-        	    <a href="${cp }/emoShop/wishList?thisPage=${i }">${i }</a>
+        	    <a href="${cp }/emoShop/wishList?thisPage=${i }" class="pageIndex">${i }</a>
         	  </c:otherwise>
         	</c:choose>
-        </c:forEach>
-        <a href="${cp }/emoShop/wishList?thisPage=${endPage+10}">&gt;</a>
-        <a href="${cp }/emoShop/wishList?thisPage=${lastPage }">&gt;&gt;</a>
+        	</c:forEach>
+        	<a href="${cp }/emoShop/wishList?thisPage=${map.endPage+10}" class="pageIndex" style="margin-left:5px;">&gt;</a>
+        	<a href="${cp }/emoShop/wishList?thisPage=${map.lastPage }" class="pageIndex">&gt;&gt;</a>
       </div>
     </div>
   </section>

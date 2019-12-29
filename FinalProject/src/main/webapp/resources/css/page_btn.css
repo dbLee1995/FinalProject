@@ -97,11 +97,11 @@
 	-webkit-transition: background .3s;
 	transition: background .3s;
 	color: #fff;
-	background: #1EAFED;
+	background: #435f7a;
 	border: 1px solid #1EAFED;
 	box-shadow: 0 2px 4px 0 rgba(31,140,230,.3);
 }
 .blue_button:hover {
-	background: #1f8ce6;
+	background: #1EAFED;
 	cursor: pointer;
 }

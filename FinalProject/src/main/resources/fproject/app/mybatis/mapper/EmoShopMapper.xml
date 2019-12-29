@@ -20,6 +20,31 @@
 		where a.rnum <![CDATA[>=]]> #{startRow}
 	</select>
 	
+	<select id="getNewEmoticonPagingList" parameterType="hashmap" resultType="fproject.app.fproject.vo.EmoshopVo">
+		select b.*
+		from
+    		(select a.rnum, a.emognum, a.category, a.name, a.price, a.repreimg
+    		from
+        		(select rownum rnum, emognum, category, name, price, repreimg
+        		from emoshop
+        		order by emognum desc) a
+    		where rownum <![CDATA[<=]]> #{endRow}) b
+		where b.rnum <![CDATA[>=]]> #{startRow}
+	</select>
+	
+	<select id="getCateEmoticonPagingList" parameterType="hashmap" resultType="fproject.app.fproject.vo.EmoshopVo">
+		select b.*
+		from
+    		(select a.rnum, a.emognum, a.category, a.name, a.price, a.repreimg
+    		from
+        		(select rownum rnum, emognum, category, name, price, repreimg
+        		from emoshop
+        		where category=#{category}
+        		order by emognum desc) a
+    		where rownum <![CDATA[<=]]> #{endRow}) b
+		where b.rnum <![CDATA[>=]]> #{startRow}
+	</select>
+	
 	<select id="getUserWishList" parameterType="int" resultType="fproject.app.fproject.vo.EmoshopVo">
 		select * from favorlist where num=#{userNum}
 	</select>
@@ -68,7 +93,15 @@
 		select count(*) count from emoshop where regdate >= sysdate-29
 	</select>
 	
+	<select id="selectCateEmoticonTotalCount" resultType="int">
+		select count(*) count from emoshop where category = #{c}
+	</select>
+	
 	<select id="selectEmoticonTotalCount" resultType="int">
-		select count(*) count from emoshop 
+		select count(*) count from emoshop
+	</select>
+	
+	<select id="getCategoryList" resultType="fproject.app.fproject.vo.EmoshopVo">
+		select category from emoshop group by category order by category
 	</select>
 </mapper>

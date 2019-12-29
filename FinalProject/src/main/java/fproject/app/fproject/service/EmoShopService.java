@@ -134,4 +134,16 @@ public class EmoShopService {
 		}
 		return populList;
 	}
+	
+	public int getCateEmoTotalCount(String c) {
+		return dao.selectCateEmoticonTotalCount(c);
+	}
+	
+	public List<EmoshopVo> getCateEmoPagingList(HashMap<String, Object> map) {
+		return dao.getCateEmoticonPagingList(map);
+	}
+	
+	public List<EmoshopVo> getCategoryList() {
+		return dao.getCategoryList();
+	}
 }
