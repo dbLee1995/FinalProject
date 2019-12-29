@@ -57,7 +57,7 @@
 		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
 			<nav id="colorlib-main-menu" role="navigation">
-				<ul>		
+				<ul>
 					<c:choose>
 						<c:when test="${empty sessionScope.id}">					
 							<li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
@@ -70,7 +70,9 @@
 							<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
 							<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
 							<li><a href="${cp}/qna/list">문의하기</a></li>
-							<li><a href="${cp }/logout">로그아웃</a>		
+							
+							
+							<li><a href="${cp }/logout">로그아웃</a></li>
 						</c:otherwise>	 
 					</c:choose>
 				</ul>
