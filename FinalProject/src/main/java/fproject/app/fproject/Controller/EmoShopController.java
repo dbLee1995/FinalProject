@@ -3,6 +3,7 @@ package fproject.app.fproject.Controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -110,7 +111,6 @@ public class EmoShopController {
 		}
 		model.addAttribute("list", popularList);
 		
-		
 		Paging pg = new Paging(10, emoShopService.getPopularEmoListTotalCount(), 10, thisPage);
 
 		System.out.println(emoShopService.getPopularEmoListTotalCount());
@@ -187,13 +187,14 @@ public class EmoShopController {
 			PurchaseVo vo = new PurchaseVo(0, null, i, userNum);
 			list.add(vo);
 		}
+		System.out.println("purchase///////");
 		try {
 			emoShopService.savePurchaseList(list);
 			return mainPage(model, req);
 		} catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("purchaseError", false);
-			return mainPage(model, req);
+			return "test/error";
 		}
 	}
 	
@@ -208,11 +209,20 @@ public class EmoShopController {
 			if(evo.getEmognum() != emonum) continue;
 			c = false;
 		}
-		
 		if(c) {
-			List<PurchaseVo> list = new ArrayList<PurchaseVo>();
-			list.add(new PurchaseVo(0, null, emonum, userNum));
-			emoShopService.savePurchaseList(list);
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("userNum", userNum);
+			map.put("emogNum", emonum);
+			emoShopService.savePurchaseOne(new PurchaseVo(0, null, emonum, userNum), map);
+			List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList");
+			int index = 0;
+			for(EmoshopVo i : basketList) {
+				if(i.getEmognum() == emonum) {
+					basketList.remove(index);
+					break;
+				}
+			}
+			req.getSession().setAttribute("basketList", basketList);
 			return "구매하였습니다.";
 		} else {
 			return "이미 구매한 이모티콘입니다.";
@@ -238,19 +248,35 @@ public class EmoShopController {
 		int checknum = Integer.parseInt(check);
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
+		List<EmoshopVo> buyList = emoShopService.getUserEmoList(userNum);
 		boolean c = true;
+		boolean c2 = true;
 		JSONObject json = new JSONObject();
-		for(EmoshopVo evo : basketList) {
-			if(evo.getEmognum() != emonum || evo == null) continue;
-			c = false;
+		if(!basketList.isEmpty()) {
+			for(EmoshopVo evo : basketList) {
+				if(evo.getEmognum() != emonum) continue;
+				c = false;
+			}
 		}
-		if(c) {
+		if(!buyList.isEmpty()) {
+			for(EmoshopVo pvo : buyList) {
+				if(pvo.getEmognum() != emonum) continue;
+				c2 = false;
+			}
+		}
+		System.out.println("///putBasket///");
+		System.out.println(c);
+		System.out.println(c2);
+		if(c && c2) {
 			basketList.add(emoShopService.getEmogInfo(emonum));
 			json.put("text", "바구니에 담았습니다.");
-			json.put("check", 1);
-		} else {
-			json.put("text", "이미 담아둔 이모티콘입니다.");
 			json.put("check", 0);
+		} else if (!c) {
+			json.put("text", "이미 담아둔 이모티콘입니다.");
+			json.put("check", 1);
+		} else if (!c2) {
+			json.put("text", "이미 구매한 이모티콘입니다.");
+			json.put("check", 2);
 		}
 		return json.toString();
 	}
@@ -262,18 +288,35 @@ public class EmoShopController {
 		int checknum = Integer.parseInt(check);
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> wishList = favorListService.getUserWishList(userNum);
+		List<EmoshopVo> buyList = emoShopService.getUserEmoList(userNum);
 		boolean c = true;
+		boolean c2 = true;
+		boolean c3 = true;
 		JSONObject json = new JSONObject();
-		for(EmoshopVo evo : wishList) {
-			if(evo.getEmognum() != emonum || evo == null) continue;
-			c = false;
+		if(!wishList.isEmpty()) {
+			for(EmoshopVo evo : wishList) {
+				if(evo.getEmognum() != emonum) continue;
+				c = false;
+			}
 		}
-		if(c) {
+		if(!buyList.isEmpty()) {
+			for(EmoshopVo pvo : buyList) {
+				if(pvo.getEmognum() != emonum) continue;
+				c2 = false;
+			}
+		}
+		System.out.println("///putWish///");
+		System.out.println(c);
+		System.out.println(c2);
+		if(c && c2) {
 			favorListService.addUserWishList(new FavorlistVo(0, 0, emonum, userNum));
 			json.put("text", "찜 목록에 추가했습니다.");
 			json.put("check", 1);
-		} else {
+		} else if (!c) {
 			json.put("text", "이미 찜해둔 이모티콘입니다.");
+			json.put("check", 0);
+		} else if (!c2) {
+			json.put("text", "이미 구매한 이모티콘입니다.");
 			json.put("check", 0);
 		}
 		return json.toString();
@@ -318,21 +361,22 @@ public class EmoShopController {
 	@RequestMapping(value="/moveWishtoBasket", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
 	@ResponseBody()
 	public String moveWishtoBasket(Model model, HttpSession session, @RequestBody List<Integer> moveList) {
+		System.out.println(moveList);
 		int userNum = (int)session.getAttribute("num");
 		List<EmoshopVo> basketList = (List)session.getAttribute("basketList");
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		for(int i : moveList) {
 			boolean count = true;
+			map.put("emogNum", i);
+			map.put("userNum", userNum);
+			favorListService.delUserWishItem(map);
 			for(EmoshopVo vo : basketList) {
 				if(vo.getEmognum() != i) continue;
 				count = false;
 			}
 			if(count) {
 				EmoshopVo vo = emoShopService.getEmogInfo(i);
-				Map<String, Integer> map = new HashMap<String, Integer>();
 				basketList.add(vo);
-				map.put("emogNum", vo.getEmognum());
-				map.put("userNum", userNum);
-				favorListService.delUserWishItem(map);
 			}
 		}
 		session.setAttribute("basketList", basketList);
