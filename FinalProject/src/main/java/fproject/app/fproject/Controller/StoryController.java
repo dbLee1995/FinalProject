@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,17 @@ public class StoryController {
 	public ModelAndView list(int num){
 		List<StoryVo> list=service.list(num);
 		ProfilesVo pvo=pservice.info(num);
-		ModelAndView mv=new ModelAndView("story/list");		
+		
+		for(StoryVo svo:list){
+			int storyn=svo.getStorynum();
+		
+			int storycnt=cservice.count(storyn);
+		
+			svo.setFavor(storycnt);
+		
+		}
+		ModelAndView mv=new ModelAndView("story/list");	
+		
 		mv.addObject("list",list);
 		mv.addObject("name",pvo.getName());
 		mv.addObject("profileimg",pvo.getProfileimg());
@@ -94,7 +105,7 @@ public class StoryController {
 			AccountVo avo=aservice.info(num);
 			ProfilesVo pvo=pservice.info(num);
 			long imgsize=file1.getSize();
-			StoryVo vo=new StoryVo(0,num,stitle,scontent,sregdate,orgimg,saveimg,imgsize);
+			StoryVo vo=new StoryVo(0,num,stitle,scontent,sregdate,orgimg,saveimg,imgsize,0,0);
 			service.insert(vo);	
 			
 			return "redirect:/story/list?num=" + num + "&id=" + avo.getId() + "&profileimg=" + pvo.getProfileimg();
@@ -137,12 +148,12 @@ public class StoryController {
             fos.close();
             //3. db수정            
             long imgsize=file1.getSize();
-            StoryVo vo1=new StoryVo(storynum,num,stitle,scontent,null,orgimg,saveimg,imgsize); 
+            StoryVo vo1=new StoryVo(storynum,num,stitle,scontent,null,orgimg,saveimg,imgsize,0,0); 
             service.update(vo1);
                       
           }else {//첨부된 파일이 없는 경우
             //db수정하기       	  
-        	  StoryVo vo1=new StoryVo(storynum,num,stitle,scontent,null,null,null,0);      
+        	  StoryVo vo1=new StoryVo(storynum,num,stitle,scontent,null,null,null,0,0,0);      
         	  service.update(vo1);        	  
           }        
 			String profileimg=pservice.info(num).getProfileimg();
@@ -169,6 +180,7 @@ public class StoryController {
 	@RequestMapping(value="story/comments",method=RequestMethod.GET)
 	public ModelAndView commentsForm(int storynum,int num){
 		StoryVo vo=service.info(storynum); // 스토리번호
+		service.upcount(storynum);
 		List<CommentsVo> cvo=cservice.list(); // 댓글리스트
 		List<ProfilesVo> pvoName=pservice.selectName(); // 프로필리스트
 		Map<Integer, String> usernameMap=new HashMap<Integer, String>();

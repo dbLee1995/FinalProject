@@ -36,5 +36,8 @@ public class StoryDao {
 	}
 	public int delete(int storynum){
 		return sqlSessionTemplate.delete(NAMESPACE + ".delete",storynum);
-	}	
+	}
+	public int upcount(int storynum){
+		return sqlSessionTemplate.update(NAMESPACE+".upcount",storynum);
+	}
 }

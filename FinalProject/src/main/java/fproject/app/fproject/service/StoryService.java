@@ -32,5 +32,8 @@ public class StoryService {
 	 public int delete(int storynum){
 		 return storyDao.delete(storynum);
 	 }
+	 public int upcount(int storynum){
+		 return storyDao.upcount(storynum);
+	 }
 	 
 }

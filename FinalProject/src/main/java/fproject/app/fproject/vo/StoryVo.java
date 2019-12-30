@@ -11,9 +11,11 @@ public class StoryVo{
 	private String orgimg;
 	private String saveimg;
 	private long imgsize;
+	private int favor;
+	private int count;
 	public StoryVo() {}
 	public StoryVo(int storynum, int num, String stitle, String scontent, Date sregdate, String orgimg, String saveimg,
-			long imgsize) {
+			long imgsize, int favor, int count) {
 		super();
 		this.storynum = storynum;
 		this.num = num;
@@ -23,6 +25,8 @@ public class StoryVo{
 		this.orgimg = orgimg;
 		this.saveimg = saveimg;
 		this.imgsize = imgsize;
+		this.favor = favor;
+		this.count = count;
 	}
 	public int getStorynum() {
 		return storynum;
@@ -71,6 +75,18 @@ public class StoryVo{
 	}
 	public void setImgsize(long imgsize) {
 		this.imgsize = imgsize;
+	}
+	public int getFavor() {
+		return favor;
+	}
+	public void setFavor(int favor) {
+		this.favor = favor;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 }
