@@ -51,7 +51,7 @@ window.onload=function(){
             				showAlarm(this.title);   
             			}
             		}else if(this.alarm==3){
-            			alarm=alarm+"19290";
+            			alarm=alarm+"10110";
             			
             			if(today==alarm){
             				showAlarm(this.title);   
