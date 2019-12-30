@@ -366,6 +366,7 @@ public class EmoShopController {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		for(int i : moveList) {
 			boolean count = true;
+			boolean count2 = true;
 			map.put("emogNum", i);
 			map.put("userNum", userNum);
 			favorListService.delUserWishItem(map);
@@ -373,7 +374,12 @@ public class EmoShopController {
 				if(vo.getEmognum() != i) continue;
 				count = false;
 			}
-			if(count) {
+			List<EmoshopVo> buyList = emoShopService.getUserEmoList(userNum);
+			for(EmoshopVo pvo : buyList) {
+				if(pvo.getEmognum() != i) continue;
+				count2 = false;
+			}
+			if(count && count2) {
 				EmoshopVo vo = emoShopService.getEmogInfo(i);
 				basketList.add(vo);
 			}
