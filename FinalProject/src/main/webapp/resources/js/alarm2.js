@@ -22,7 +22,7 @@ window.onload=function(){
 		// 시간비교
 		$.ajax({
             type: "post",
-            url: "http://localhost:9090/fproject/calendar/list",
+            url: "http://192.168.0.30:9090/fproject/calendar/list",
             data: {
             	num:"${sessionScope.num}"
             },
@@ -51,7 +51,7 @@ window.onload=function(){
             				showAlarm(this.title);   
             			}
             		}else if(this.alarm==3){
-            			alarm=alarm+"10260";
+            			alarm=alarm+"12400";
             			
             			if(today==alarm){
             				showAlarm(this.title);   
@@ -66,5 +66,5 @@ window.onload=function(){
 
 }
 function showAlarm(title){
-	window.open("http://localhost:9090/fproject/showalarm?title="+title, '[알람]', 'width=250, height=150, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no' );
+	window.open("http://192.168.0.30:9090/fproject/showalarm?title="+title, '[알람]', 'width=250, height=150, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no' );
 }
