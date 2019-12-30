@@ -103,7 +103,7 @@
 								로그인
 							</button>
 							<span>&nbsp;&nbsp;</span>
-							<button class="login100-form-btn" id="registerBtn">
+							<button class="login100-form-btn" id="registerBtn" style="margin-left: 82px;">
 								회원가입
 							</button>
 						</div>
