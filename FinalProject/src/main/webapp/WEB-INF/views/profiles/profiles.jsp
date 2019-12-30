@@ -57,7 +57,7 @@
 		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
 			<nav id="colorlib-main-menu" role="navigation">
-				<ul>
+				<ul>		
 					<c:choose>
 						<c:when test="${empty sessionScope.id}">					
 							<li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
@@ -65,14 +65,14 @@
 				 		<c:otherwise>
 				 			<li><a href="${cp}/profiles/info?num=${sessionScope.num}">마이페이지</a></li>
 							<li class="colorlib-active" ><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">코코아 스토리</a></li>
-							<li ><a href="${cp }/friends/list?num=${sessionScope.num}">친구들</a></li>
-							<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
-							<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
-							<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
-							<li><a href="${cp}/qna/list">문의하기</a></li>
-							<li><a href="${cp }/logout">로그아웃</a></li>	
+							<li ><a href="${cp }/friends/list?num=${sessionScope.num}">친구들</a></li>			
 						</c:otherwise>	 
 					</c:choose>
+					<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
+					<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
+					<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
+					<li><a href="${cp}/qna/list">문의하기</a></li>
+					<li><a href="${cp }/logout">로그아웃</a>
 				</ul>
 			</nav>
 		</aside> <!-- END COLORLIB-ASIDE -->
@@ -86,8 +86,16 @@
 	    				<div style="width:100%;height:100%;margin-left:50px;">		    				
 	    					<div style="width:95%;height:830px;margin:auto;background-color:aliceblue;color:black;">  			    				
  <!-- background이미지 --><div class="img d-flex align-items-center full-img" style="background-image:url(${cp}/resources/upload/${pvo.backimg});">					    						    					
-	    					<div style="width:90%;height:830px;margin:auto;padding-top:250px;padding-bottom:30px;">	    			
-	    							<h3 id="msg" style="font-weight:bold;color:white;bottom:700px;position:absolute;width:585px;text-align:center;">${pvo.msg} &nbsp; <a href="javascript:void(0);" id="msgclick" class="icon-pencil" style="color:white;"> </a></h3>					
+	    					<div style="width:90%;height:830px;margin:auto;padding-top:250px;padding-bottom:30px;">	 
+	    					<c:choose>
+	    						<c:when test="${pvo.msg == null}">
+	    							<h3 id="msg" style="font-weight:bold;color:white;bottom:700px;position:absolute;width:585px;text-align:center;">메세지를 입력해봐요 &nbsp; <a href="javascript:void(0);" id="msgclick" class="icon-pencil" style="color:white;"> </a></h3>
+	    						</c:when>
+	    						<c:otherwise>
+	    							<h3 id="msg" style="font-weight:bold;color:white;bottom:700px;position:absolute;width:585px;text-align:center;">${pvo.msg} &nbsp; <a href="javascript:void(0);" id="msgclick" class="icon-pencil" style="color:white;"> </a></h3>
+	    						</c:otherwise>
+	    					</c:choose>   			
+	    												
 	    	  <!-- 이미지 -->	
 	    	  						<div id="setId" style="width:270px;height:290px;margin-top:-65PX;margin-left: 155px;">
 	    	  						<a href="${cp}/resources/upload/${pvo.profileimg}" id="showprofimg" class="showprofimg"><!-- image gallery -->
