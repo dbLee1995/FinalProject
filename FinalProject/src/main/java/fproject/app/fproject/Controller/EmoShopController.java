@@ -60,28 +60,6 @@ public class EmoShopController {
 		return "emoShop/main";
 	}
 	
-	/*
-	@RequestMapping(value="/main", produces={"application/json;charset=UTF-8"}, method=RequestMethod.POST)
-	@ResponseBody
-	public String addEmoticonList(Model model, HttpServletRequest req, int count) {
-		System.out.println("count: " + count);
-		EmoshopVo vo = null;
-		JSONArray jsonArr = new JSONArray();
-		for(int i=182; i<=182+4; i++) {
-			vo = emoShopService.getEmogInfo(i);
-			JSONObject json = new JSONObject();
-			json.put("emogNum", vo.getEmognum());
-			json.put("emogName", vo.getName());
-			json.put("emogCategory", vo.getCategory());
-			json.put("emogPrice", vo.getPrice());
-			json.put("emogRepreImg", vo.getRepreImg());
-			jsonArr.put(json);
-		}
-		System.out.println(jsonArr.toString());
-		return jsonArr.toString();
-	}
-	*/
-	
 	@RequestMapping(value="/basket", method=RequestMethod.GET)
 	public String basketPage(Model model, HttpServletRequest req) {
 		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList"); // basketList의 컬렉션(?)이 <EmoshopVo>여야 함
@@ -240,15 +218,6 @@ public class EmoShopController {
 			return "이미 구매한 이모티콘입니다.";
 		}
 	}
-	
-	/*
-	@RequestMapping(value="/category", method=RequestMethod.POST)
-	@ResponseBody
-	public String wishListPage(Model model, HttpServletRequest req, @RequestBody Map<String, Integer> paging) {
-		
-		return json.toString();
-	}
-	*/
 	
 	@RequestMapping(value="/popular", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
 	@ResponseBody
