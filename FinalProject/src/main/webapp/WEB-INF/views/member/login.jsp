@@ -7,6 +7,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="${cp }/resources/images/icons/favicon.ico">
+	<link rel="icon" href="${cp }/resources/images/icons/favicon.ico">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!--===============================================================================================-->	
@@ -32,7 +34,7 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/main.css">
 	<!--===============================================================================================-->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
+<script>	
 	$(function(){
 		$("#find_id_btn").click(function(){
 			location.href='${cp}/member/find_id';	// 참고= ..은 상위경로
@@ -102,7 +104,6 @@
 							<button class="login100-form-btn">
 								로그인
 							</button>
-							<span>&nbsp;&nbsp;</span>
 							<button class="login100-form-btn" id="registerBtn" style="margin-left: 82px;">
 								회원가입
 							</button>

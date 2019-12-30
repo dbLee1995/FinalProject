@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Andrea - Free Bootstrap 4 Template by Colorlib</title>
+    <title>코코아톡:: 내 프로필</title>
 	<style>
 		.img.prof{
 			width:40px;

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>친구추가</title>
+<title>코코아톡:: 친구추가</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/JqueryUi/css/jquery-ui4.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/icomoon.css">
 
