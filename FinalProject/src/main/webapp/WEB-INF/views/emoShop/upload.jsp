@@ -7,7 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>코코아톡:: 이모티콘 업로드</title>
-    
+
+<link rel="shortcut icon" href="${cp }/resources/images/icons/favicon.ico">
+<link rel="icon" href="${cp }/resources/images/icons/favicon.ico">
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
@@ -32,6 +34,7 @@
 		display: flex;
 	}
 </style>
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/alarm2.js"></script>
 <body>
   <div id="colorlib-page" style="width:15%">

@@ -8,7 +8,9 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>코코아톡:: 일정관리</title>
-    <link rel=" shortcut icon" href="image/favicon.ico">
+    
+    <link rel="shortcut icon" href="${cp }/resources/images/icons/favicon.ico">
+	<link rel="icon" href="${cp }/resources/images/icons/favicon.ico">
 
     <link rel="stylesheet" href="${cp }/resources/FC/vendor/css/fullcalendar.min.css" />
     <link rel="stylesheet" href="${cp }/resources/FC/vendor/css/bootstrap.min.css">

@@ -6,6 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>코코아톡:: 이모티콘 구매</title>
+<link rel="shortcut icon" href="${cp }/resources/images/icons/favicon.ico">
+<link rel="icon" href="${cp }/resources/images/icons/favicon.ico">
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/alarm2.js"></script>
 </head>
 <body>

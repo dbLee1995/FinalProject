@@ -10,6 +10,9 @@
 <head>
 <meta charset="UTF-8">
 <title>코코아톡:: 코코아 채팅</title>
+
+	<link rel="shortcut icon" href="${cp }/resources/images/icons/favicon.ico">
+	<link rel="icon" href="${cp }/resources/images/icons/favicon.ico">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
@@ -39,7 +42,7 @@
 			href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 <%-- 	<link rel="stylesheet" type="text/css" href='${cp }/resources/css/jquery-ui.css'> --%>
 	
-<script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/popper.min.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/jquery.easing.1.3.js"></script>
   	<script src="${pageContext.request.contextPath }/resources/js/jquery.waypoints.min.js"></script>

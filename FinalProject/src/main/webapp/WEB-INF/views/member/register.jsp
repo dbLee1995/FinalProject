@@ -9,6 +9,8 @@
 <!-- Mobile Specific Metas -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <!-- Main Style Css -->
+<link rel="shortcut icon" href="${cp }/resources/images/icons/favicon.ico">
+<link rel="icon" href="${cp }/resources/images/icons/favicon.ico">
 <link rel="stylesheet" href="${cp }/resources/css/colorlib/style.css"/>
 <style type="text/css">
 #moveLoginBtn:hover {

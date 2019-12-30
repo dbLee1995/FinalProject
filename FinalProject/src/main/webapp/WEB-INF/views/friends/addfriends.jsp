@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/JqueryUi/css/jquery-ui4.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/icomoon.css">
 
+<link rel="shortcut icon" href="${cp }/resources/images/icons/favicon.ico">
+<link rel="icon" href="${cp }/resources/images/icons/favicon.ico">
 <style type="text/css">
 	body{background-color: #f8f9fa !important;}
 	#tabs{border: none;}
