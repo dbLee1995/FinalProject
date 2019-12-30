@@ -91,6 +91,7 @@
     		transition: border 0.2s, box-shadow 0.3s;
     	}
     </style>
+    <script src="${pageContext.request.contextPath }/resources/js/alarm1.js"></script>
 </head>
 <body>
   <div id="colorlib-page">

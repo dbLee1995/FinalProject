@@ -102,6 +102,7 @@
 }
 
 </style>
+<script src="${pageContext.request.contextPath }/resources/js/alarm1.js"></script>
 </head>
 <body>
   <div id="colorlib-page">

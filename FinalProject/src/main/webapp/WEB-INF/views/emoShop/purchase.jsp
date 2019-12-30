@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>코코아톡:: 이모티콘 구매</title>
+<script src="${pageContext.request.contextPath }/resources/js/alarm1.js"></script>
 </head>
 <body>
 	<section id="page_cart">
