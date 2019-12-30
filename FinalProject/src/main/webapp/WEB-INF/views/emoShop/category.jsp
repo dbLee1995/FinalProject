@@ -169,13 +169,13 @@
 		  <div id="cateEmoHeadline" class="emoHeadline">
 			<h1 style="padding:0px 0px 50px 0px; border-bottom:1px solid black">스타일</h1>
 			<div style="display:flex; flex-flow:row wrap; padding:35px 0px 50px 0px;">
-				<c:forEach items="${cateList }" var="cateList">
+				<c:forEach items="${cateList }" var="list">
 				  <c:choose>
-				    <c:when test="${cateList.category == cateEmoList[0].category }">
-				      <a href="${cp }/emoShop/style/category?c=${cateList.category }" class="category" style="background-color:#d1d5d9; color:white;"># ${cateList.category }</a>
+				    <c:when test="${list.category == cateEmoList[0].category }">
+				      <a href="${cp }/emoShop/style/category?c=${list.category }" class="category" style="background-color:#d1d5d9; color:white;"># ${list.category }</a>
 				    </c:when>
 				    <c:otherwise>
-					  <a href="${cp }/emoShop/style/category?c=${cateList.category }" class="category"># ${cateList.category }</a>
+					  <a href="${cp }/emoShop/style/category?c=${list.category }" class="category"># ${list.category }</a>
 				    </c:otherwise>
 				  </c:choose>
 				</c:forEach>
@@ -204,20 +204,20 @@
 		  	</c:forEach>
 		  </div>
 		  <div style="display:flex; flex-flow:row nowrap; justify-content:center;">
-		  	<a href="${cp }/emoShop/wishList?thisPage=1" class="pageIndex" style="margin-right:5px;">&lt;&lt;</a>
+		  	<a href="${cp }/emoShop/style/category?c=${map.category }&thisPage=1" class="pageIndex" style="margin-right:5px;">&lt;&lt;</a>
 <%--         	<a href="${cp }/emoShop/wishList?thisPage=${i-10}" class="pageIndex" style="margin-right:5px;">&lt;</a> --%>
         	<c:forEach var="i" begin="${map.startPage }" end="${map.endPage }">
         	<c:choose>
         	  <c:when test="${i } == ${map.thisPage }">
-        		<b><a href="${cp }/emoShop/new?thisPage=${i }" style="background-color: #43c7ff" class="pageIndex">${i }</a></b>
+        		<b><a href="${cp }/emoShop/style/category?c=${map.category }&thisPage=${i }" style="background-color: #43c7ff" class="pageIndex">${i }</a></b>
         	  </c:when>
         	  <c:otherwise>
-        	    <a href="${cp }/emoShop/new?thisPage=${i }" class="pageIndex">${i }</a>
+        	    <a href="${cp }/emoShop/style/category?c=${map.category }&thisPage=${i }" class="pageIndex">${i }</a>
         	  </c:otherwise>
         	</c:choose>
         	</c:forEach>
 <%--         	<a href="${cp }/emoShop/new?thisPage=${map.endPage+10}" class="pageIndex" style="margin-left:5px;">&gt;</a> --%>
-        	<a href="${cp }/emoShop/new?thisPage=${map.lastPage }" class="pageIndex" style="margin-left:5px;">&gt;&gt;</a>
+        	<a href="${cp }/emoShop/style/category?c=${map.category }&thisPage=${map.lastPage }" class="pageIndex" style="margin-left:5px;">&gt;&gt;</a>
       	  </div>
 		</article>
 	  </section>

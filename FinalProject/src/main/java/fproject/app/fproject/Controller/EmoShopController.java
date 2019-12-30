@@ -132,7 +132,12 @@ public class EmoShopController {
 		}
 		model.addAttribute("list", popularList);
 		
+		
 		Paging pg = new Paging(10, emoShopService.getPopularEmoListTotalCount(), 10, thisPage);
+
+		System.out.println(emoShopService.getPopularEmoListTotalCount());
+		System.out.println(pg.getStartRow());
+		System.out.println(pg.getEndRow());
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startRow", pg.getStartRow());
 		map.put("endRow", pg.getEndRow());
