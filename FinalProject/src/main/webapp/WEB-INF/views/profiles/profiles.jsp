@@ -75,13 +75,6 @@
 					</c:choose>
 				</ul>
 			</nav>
-
-			<div class="colorlib-footer">
-				<h1 id="colorlib-logo" class="mb-5"><a href="index.html" style="background-image: url(images/bg_1.jpg);">Andrea <span>Moore</span></a></h1>
-				<p class="pfooter"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-	  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-	  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-			</div>
 		</aside> <!-- END COLORLIB-ASIDE -->
 		<div id="colorlib-main">
 			<section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">

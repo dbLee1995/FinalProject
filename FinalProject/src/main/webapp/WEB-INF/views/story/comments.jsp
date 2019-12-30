@@ -46,25 +46,7 @@
 					<li><a href="${cp}/qna/list">문의하기</a></li>
 					</ul>
 					</nav>
-		<div class="colorlib-footer">
-			<h1 id="colorlib-logo" class="mb-4"><a href="index.html" style="background-image: url(images/bg_1.jpg);">Andrea <span>Moore</span></a></h1>
-			
-			<div class="mb-4">
-				<h3>Subscribe for newsletter</h3>
-				<form action="#" class="colorlib-subscribe-form">
-					<div class="form-group d-flex">
-						<div class="icon"><span class="icon-paper-plane"></span></div>
-							<input type="text" class="form-control" placeholder="Enter Email Address">
-					</div>
-				</form>
-			</div>
-			<p class="pfooter"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-			Copyright &copy;<script>document.write(new Date().getFullYear());</script> 
-			All rights reserved | This template is made with 
-			<i class="icon-heart" aria-hidden="true"></i> by 
-			<a href="https://colorlib.com" target="_blank">Colorlib</a>
-			<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-		</div>
+
 			</aside> <!-- END COLORLIB-ASIDE -->
 		<div id="colorlib-main">
 			<section class="ftco-section ftco-no-pt ftco-no-pb">
@@ -120,13 +102,13 @@
 						</div>        
                                                                                                    
 <!--/////////////////// reply 답글 /////-->                                                                                   
-						<input type="button" class="replyBtn ${status.index}" class="reply" value="Reply">                            
+						<input type="button" class="replyBtn ${status.index}" value="Reply">                            
 						<form class="replyForm ${status.index}" method="post" action="${pageContext.request.contextPath}/story/commentsReply?storynum=${voa.storynum}&num=${sessionScope.num}" style="display:none">                                                                                                                                                         
 						<div>
 							<c:forEach var="ccvo" items="${cvo}">
 								<c:if test="${ccvo.commref == voa.commnum && ccvo.commref != ccvo.commnum}"> <!-- 자식댓글 -->
 								<div>
-								<div class="vcard bio" style="width:50px;">
+								<div class="vcard bio" style="width:100px;">
 								<img src="${pageContext.request.contextPath}/resources/upload/${usernameMap[ccvo.num]}">
 								${usernameMapReal[ccvo.num]}
 								</div>
@@ -135,9 +117,8 @@
 									<a href="${pageContext.request.contextPath}/story/commentsUpdate?storynum=${voa.storynum}&num=${sessionScope.num}" class="icon-update"></a>&nbsp; &nbsp; &nbsp; 
 									${ccvo.regdate}
 								</div>
-								<br><br>
-								</c:if>
-								
+								<br>
+								</c:if>				
 							</c:forEach>                                  
 						</div> 
 						<div class="img" name="profileimg" style="background-image: ${profileimg};">${id} &nbsp; &nbsp;
@@ -187,9 +168,6 @@
 			</section>
 		</div><!-- END COLORLIB-MAIN -->
 		</div><!-- END COLORLIB-PAGE -->
-
-		<!-- loader -->
-		<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
