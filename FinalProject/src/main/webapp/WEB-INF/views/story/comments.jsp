@@ -94,8 +94,10 @@
 				<ul class="comment-list">                                                                                       
 					<li class="comment">                             
 					<div class="vcard bio" style="width:50px;">
+					
 						<img src="${pageContext.request.contextPath}/resources/upload/${pname[status.index].profileimg}">
 							${pname[status.index].name}
+					
 					</div>
 					<div class="comment-body">
 						<div>${voa.commcontent}<br>

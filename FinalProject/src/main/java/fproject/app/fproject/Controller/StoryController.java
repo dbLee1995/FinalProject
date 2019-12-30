@@ -173,12 +173,12 @@ public class StoryController {
 		List<ProfilesVo> pvoName=pservice.selectName(); // 프로필리스트
 		Map<Integer, String> usernameMap=new HashMap<Integer, String>();
 		Map<Integer, String> usernameMapReal=new HashMap<Integer, String>();
-		for(int i=0;i<cvo.size();++i){
+		for(int i=0;i<cvo.size();i++){
 			ProfilesVo ppvo=pservice.info(cvo.get(i).getNum());
 			usernameMap.put(ppvo.getNum(), ppvo.getProfileimg());
 			usernameMapReal.put(ppvo.getNum(), ppvo.getName());
 		}
-		ProfilesVo pvo=pservice.info(num); // 프로필select번호
+		ProfilesVo pvo=pservice.info(vo.getNum()); // 프로필select번호
 		List<CommentsVo> cvoa=cservice.getReplyA(); // 댓글 자식댓글 리스트
 		ModelAndView mv=new ModelAndView("story/comments");
 		mv.addObject("vo",vo);
