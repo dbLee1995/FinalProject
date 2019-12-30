@@ -42,7 +42,7 @@
 		});
 	});
 	function gologin(){
-		location.href='${cp}/member/login';
+		location.href='${cp}/';
 	}
 	function checkPwd(){
 		$.ajax({
