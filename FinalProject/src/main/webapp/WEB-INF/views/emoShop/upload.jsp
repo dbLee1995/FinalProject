@@ -32,7 +32,7 @@
 		display: flex;
 	}
 </style>
-<script src="${pageContext.request.contextPath }/resources/js/alarm1.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/alarm2.js"></script>
 <body>
   <div id="colorlib-page" style="width:15%">
 	<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>

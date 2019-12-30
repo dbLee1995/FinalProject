@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="${cp }/resources/css/page_base.css"/>
 <link rel="stylesheet" href="${cp }/resources/css/page_btn.css"/>
 
-<script src="${pageContext.request.contextPath }/resources/js/alarm1.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/alarm2.js"></script>
 </head>
 <body>
   <div id="colorlib-page">
