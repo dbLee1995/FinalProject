@@ -199,6 +199,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="${cp}/resources/js/google-map.js"></script>
   <script src="${cp}/resources/js/main.js"></script>   
+    <script src="${pageContext.request.contextPath }/resources/js/alarm1.js"></script>
   <script type="text/javascript">
   	// profile background이미지
 		function uploadFile(){		// a태그	onClick=함수
