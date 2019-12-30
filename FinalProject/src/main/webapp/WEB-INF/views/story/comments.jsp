@@ -94,8 +94,10 @@
 				<ul class="comment-list">                                                                                       
 					<li class="comment">                             
 					<div class="vcard bio" style="width:50px;">
+					
 						<img src="${pageContext.request.contextPath}/resources/upload/${pname[status.index].profileimg}">
 							${pname[status.index].name}
+					
 					</div>
 					<div class="comment-body">
 						<div>${voa.commcontent}<br>
@@ -107,18 +109,19 @@
 <!--/////////////////// reply 답글 /////-->                                                                                   
 						<input type="button" class="replyBtn ${status.index}" value="Reply">                            
 						<form class="replyForm ${status.index}" method="post" action="${pageContext.request.contextPath}/story/commentsReply?storynum=${voa.storynum}&num=${sessionScope.num}" style="display:none">                                                                                                                                                         
-						<div>
+						<div style="margin-top:20px;">
 							<c:forEach var="ccvo" items="${cvo}">
 								<c:if test="${ccvo.commref == voa.commnum && ccvo.commref != ccvo.commnum}"> <!-- 자식댓글 -->
-								<div>
+								<div style="width:620px;">
 								<div class="vcard bio" style="width:100px;">
 								<img src="${pageContext.request.contextPath}/resources/upload/${usernameMap[ccvo.num]}">
 								${usernameMapReal[ccvo.num]}
 								</div>
-								&nbsp; ${ccvo.commcontent} &nbsp;
+								<div style="width:620px;padding-top:4px;">${ccvo.commcontent} &nbsp;
 									<a href="${pageContext.request.contextPath}/story/commentsDel" class="icon-trash"></a>
 									<a href="${pageContext.request.contextPath}/story/commentsUpdate?storynum=${voa.storynum}&num=${sessionScope.num}" class="icon-update"></a>&nbsp; &nbsp; &nbsp; 
 									${ccvo.regdate}
+								</div>
 								</div>
 								<br>
 								</c:if>				

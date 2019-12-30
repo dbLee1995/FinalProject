@@ -48,5 +48,8 @@
 	<delete id="delete" parameterType="int">
 		delete from comments where commnum=#{commnum}
 	</delete>
-	
+	<select id="count" parameterType="int" resultType="int">
+		select count(*) from comments c where storynum=#{storynum}
+		
+	</select>
 </mapper>

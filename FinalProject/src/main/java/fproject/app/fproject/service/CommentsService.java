@@ -41,4 +41,7 @@ public class CommentsService {
 	 public int delete(int commnum){
 		 return commentsDao.delete(commnum);
 	 }
+	 public int count(int storynum){
+		 return commentsDao.count(storynum);
+	 }
 }

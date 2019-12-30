@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fproject.app.fproject.dao.EmoticonShopDao;
+import fproject.app.fproject.dao.FavorListDao;
 import fproject.app.fproject.vo.EmoshopVo;
 import fproject.app.fproject.vo.EmoticonVo;
 import fproject.app.fproject.vo.EmoticongroupVo;
@@ -19,6 +20,8 @@ import fproject.app.fproject.vo.PurchaseVo;
 public class EmoShopService {
 	@Autowired 
 	private EmoticonShopDao dao;
+	@Autowired
+	private FavorListDao fDao;
 	private static final String PrefixUrl = "/emoticon/";
 	
 	// 경로에 들어가는 폴더 유무를 검사 후 생성하는 메소드(이모티콘 카테고리나 그룹을 신규 생성해야 하는 경우)
@@ -76,6 +79,13 @@ public class EmoShopService {
 		for(PurchaseVo i : list) {
 			dao.insertEmoticonGroup(new EmoticongroupVo(i.getEmognum(), i.getNum()));
 		}
+	}
+	
+	@Transactional(rollbackFor=Exception.class)
+	public void savePurchaseOne(PurchaseVo vo, HashMap<String, Integer> map) {
+		dao.insertPurchase(vo);
+		dao.insertEmoticonGroup(new EmoticongroupVo(vo.getEmognum(), vo.getNum()));
+		fDao.delUserWishItem(map);
 	}
 	
 	public int getEmognum(String name) {

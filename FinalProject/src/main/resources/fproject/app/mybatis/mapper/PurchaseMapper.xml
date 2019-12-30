@@ -27,5 +27,4 @@
     		where rownum <![CDATA[<=]]> #{endRow}) b
 		where b.rnum <![CDATA[>=]]> #{startRow}
 	</select>
-	
 </mapper>

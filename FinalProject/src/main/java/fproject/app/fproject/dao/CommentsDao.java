@@ -41,4 +41,7 @@ public class CommentsDao {
 	public int delete(int commnum){
 		return sqlSessionTemplate.delete(NAMESPACE + ".delete",commnum);
 	}
+	public int count(int storynum){
+		return sqlSessionTemplate.selectOne(NAMESPACE+".count",storynum);
+	}
 }
