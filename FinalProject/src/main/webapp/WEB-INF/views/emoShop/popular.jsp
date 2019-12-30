@@ -204,20 +204,20 @@
 		  </div>
 		  
 		  <div style="display:flex; flex-flow:row nowrap; justify-content:center;">
-		  	<a href="${cp }/emoShop/wishList?thisPage=1" class="pageIndex" style="margin-right:5px;">&lt;&lt;</a>
+		  	<a href="${cp }/emoShop/popular?thisPage=1" class="pageIndex" style="margin-right:5px;">&lt;&lt;</a>
 <%--         	<a href="${cp }/emoShop/wishList?thisPage=${i-10}" class="pageIndex" style="margin-right:5px;">&lt;</a> --%>
         	<c:forEach var="i" begin="${map.startPage }" end="${map.endPage }">
         	<c:choose>
         	  <c:when test="${i } == ${map.thisPage }">
-        		<b><a href="${cp }/emoShop/new?thisPage=${i }" style="background-color: #43c7ff" class="pageIndex">${i }</a></b>
+        		<b><a href="${cp }/emoShop/popular?thisPage=${i }" style="background-color: #43c7ff" class="pageIndex">${i }</a></b>
         	  </c:when>
         	  <c:otherwise>
-        	    <a href="${cp }/emoShop/new?thisPage=${i }" class="pageIndex">${i }</a>
+        	    <a href="${cp }/emoShop/popular?thisPage=${i }" class="pageIndex">${i }</a>
         	  </c:otherwise>
         	</c:choose>
         	</c:forEach>
 <%--         	<a href="${cp }/emoShop/new?thisPage=${map.endPage+10}" class="pageIndex" style="margin-left:5px;">&gt;</a> --%>
-        	<a href="${cp }/emoShop/new?thisPage=${map.lastPage }" class="pageIndex" style="margin-left:5px;">&gt;&gt;</a>
+        	<a href="${cp }/emoShop/popular?thisPage=${map.lastPage }" class="pageIndex" style="margin-left:5px;">&gt;&gt;</a>
       	  </div>
 		</article>
 	  </section>
@@ -357,5 +357,4 @@
 
 </script>
 </body>
->>>>>>> branch 'master' of https://github.com/dbLee1995/FinalProject.git
 </html>

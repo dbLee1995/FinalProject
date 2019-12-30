@@ -39,7 +39,7 @@ public class RegisterController {
 			model.addAttribute("feature", "회원가입");
 			try {
 				service.resistering(email, id, pwd, name, birthDate, phone);
-				return "test/success";
+				return "member/login";
 			} catch(Exception e) {
 				e.printStackTrace();
 				System.out.println("회원가입 과정 중 DB저장 오류");
