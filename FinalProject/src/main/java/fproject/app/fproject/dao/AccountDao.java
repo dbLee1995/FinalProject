@@ -35,4 +35,7 @@ public class AccountDao {
 	public List<HashMap<String, Object>> getinfo(HashMap<String, Object> map){
 		return sqlSessionTemplate.selectList(NAMESPACE+".getinfo",map);
 	}
+	public AccountVo ismemid(String id){
+		return sqlSessionTemplate.selectOne(NAMESPACE+".ismemid",id);
+	}
 }

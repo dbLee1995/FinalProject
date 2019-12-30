@@ -57,32 +57,50 @@
 			<section class="ftco-section ftco-no-pt ftco-no-pb">
 	    	<div class="container">
 	    		<div class="row d-flex">
-	    			<div class="col-lg-8 px-md-5 py-5" style="margin-top:50px;">
-	    			   			 
+	    			<div class="col-lg-8 px-md-5 py-5" style="margin-top:70px;">			   			 
 	    			<!-- insertForm ///////////////////////////////////////////// -->             
 	                <h3 class="mb-5" style="margin-bottom:30px;">Question & Answer</h3>
-		                <form method="post" action="${cp}/qna/insert?num=${sessionScope.num}" enctype="multipart/form-data" class="p-3 p-md-5 bg-light">
-		                  <div class="form-group">
-
-		                    <label for="name">작성자</label>
-		                    <input type="text" class="form-control" id="name" value="${name}" >
+	               	
+	               		 <form method="post" action="${cp}/qna/update?qnanum=${qvo.qnanum}" class="p-3 p-md-5 bg-light">
+		                  <div class="form-group">		                  
+		                    <label for="num">작성자</label>
+		                    <input type="text" class="form-control" id="num" value="${name}" disabled="disabled">
 		                  </div>
 		                  <div class="form-group">
 		                    <label for="email">제목</label>
-		                    <input type="text" class="form-control" id="qnatitle" name="qnatitle">
+		                    <input type="text" class="form-control" id="qnatitle" name="qnatitle" value="${qvo.qnatitle}" disabled="disabled" style="background-color:lightgray;">
 		                  </div>	                  
 		                  <div class="form-group">
 		                    <label for="message">내용</label>
-		                    <textarea id="qnacontent" cols="30" rows="10" class="form-control" name="qnacontent"></textarea>
-		                  </div>
-		                  
+		                    <textarea id="qnacontent" cols="30" rows="10" class="form-control" name="qnacontent" disabled="disabled" style="background-color:lightgray;">${qvo.qnacontent}</textarea>
+		                  </div> 
+		                  <c:choose>
+		                  	<c:when test="${qvo.qnaanswer != null}">
+		                  		<div class="form-group">
+		                    	<label for="message">답변</label>
+		                   		<textarea id="qnaanswer" cols="30" rows="10" class="form-control" name="qnaanswer" disabled="disabled">${qvo.qnaanswer}</textarea>	                  		
+		                 		 </div>
+		                  	</c:when>
+		                  	<c:otherwise>
+		                  		<input type="button" value="수정" id="update" class="btn py-3 px-4 btn-primary">
+		                  	</c:otherwise>
+		                  </c:choose>
+			    		<!-- END ///////////////////////////-->	
+			    	<!-- 관리자답변 -->	
+			    	<c:choose>
+	            		<c:when test="${sessionScope.id == 'admin'}">
+	            			<div class="form-group">
+		                    <label for="message">답변</label>
+		                    <textarea id="qnaanswer" cols="30" rows="10" class="form-control" name="qnaanswer">${qvo.qnaanswer}</textarea>
+		                  </div>	                  
 		                  <div class="form-group">		                  
-		                    <input type="submit" value="Post Story" class="btn py-3 px-4 btn-primary">                  
+		                    <input type="submit" value="Post Story" class="btn py-3 px-4 btn-primary">
 		                  </div>
-		                </form>		      
-			    		<!-- END ///////////////////////////-->
-			    		
+	            		</c:when>
+	           		 </c:choose>		    			                                    
+		                </form>	    		
 			    	</div>
+			    	
 	    			<div class="col-lg-4 sidebar ftco-animate bg-light pt-5">	      
 	            <div class="sidebar-box ftco-animate">
 	              <div class="block-21 mb-4 d-flex">
@@ -90,8 +108,8 @@
 	              </div>
 	            </div>
 	            <div class="sidebar-box ftco-animate">
-	              <h3 class="sidebar-heading">Paragraph</h3>
-	              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut.</p>
+	              <h3 class="sidebar-heading">주의*</h3>
+	              <p>관련없는 내용은 모두 삭제 처리합니다.</p>
 	            </div>
 	          </div><!-- END COL -->
 	    		</div>
@@ -104,8 +122,15 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
   <script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
   <script type="text/javascript">
- 			
-</script> 
+  	$(function(){
+  		$("#update").click(function(){
+  	//		$("#qnacontent").html("<textarea id='updateContent' cols='30' rows='10' disabled='none' class='form-control' name='updateContent' style='background-color:lightgray;'>${qvo.qnacontent}</textarea>");
+	//		$("#updateContent").focus();
+  		});
+  	});
+  
+  
+  </script> 
   <script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/popper.min.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>

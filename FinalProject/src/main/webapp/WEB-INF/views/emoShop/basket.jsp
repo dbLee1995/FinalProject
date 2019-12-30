@@ -32,9 +32,9 @@
 <body>
   <div id="colorlib-page">
 	<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
-	  <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="max-width: 250px; display:block;">
+	  <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="max-width: 250px;">
 		<nav id="colorlib-main-menu" role="navigation">
-		  <ul>
+		  <ul style="display:flex; flex-flow:column wrap;">
 			<c:choose>
 			  <c:when test="${empty sessionScope.id}">					
 			    <li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
@@ -45,14 +45,15 @@
 				<li><a href="${cp }/friends/list?num=${sessionScope.num}">친구들</a></li>			
 				<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
 				<li class="colorlib-active"><a href="${cp }/emoShop/main">코코아 이모티콘</a>
-				  <ul style="padding: 5px 0px 0px 15px;">
-				    <li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li><br>
+				  <ul style="padding: 5px 0px 0px 15px; display:flex; flex-flow:column wrap;"">
+				    <li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li>
 				    <li style="margin:0px;"><a href="${cp }/emoShop/wishList" style="font-size:15px;">내 찜목록</a></li>
 				    <li style="margin:0px;"><a href="${cp }/emoShop/uploadEmoFile" style="font-size:15px;">이모티콘 올리기</a>
 				  </ul>
 				</li>
 				<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
 				<li><a href="${cp}/nquire/list?num=${sessionSope.num}">문의하기</a></li>
+				<li><a href="${cp }/logout">로그아웃</a>
 			  </c:otherwise>	 
 			</c:choose>
 		  </ul>
@@ -326,11 +327,9 @@
 		
 		function call(e) {
 			xhr = new XMLHttpRequest();
-			console.log(e.target);
-			console.log(e.target.dataset.name);
 			switch(e.target.dataset.name) {
 				case 'moveSelectItemBtn':
-					xhr.open('post', '${cp}/emoShop/moveBaskettoWish'); break;
+					xhr.open('post', '${cp}/emoShop/moveBaskettoWish', false); break;
 				case 'delSelectItemBtn':
 					xhr.open('post', '${cp}/emoShop/delBasketItem'); break;
 				default:

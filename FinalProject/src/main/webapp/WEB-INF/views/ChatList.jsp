@@ -52,7 +52,7 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
-
+  <script src="${pageContext.request.contextPath }/resources/js/alarm1.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.2.1.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/sockjs.js"></script>
@@ -889,6 +889,9 @@ a.btn-layerClose:hover {
 	<style type="text/css">
 	#colorlib-aside #colorlib-main-menu ul li{padding: 6px;}
 	.messages p img{width:100px;height: 100px;}
+	#emogiMenu ul li{display: inline;}
+	#showEmoji .modal-body img{width:100px;height: 100px;}
+	#emogiMenu img{width:100px;height: 100px;}
 	</style>
 </head>
 <body>
@@ -910,8 +913,8 @@ a.btn-layerClose:hover {
 					<li class="colorlib-active"><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
 					<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
 					<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
-					<li><a href="${cp}/nquire/list?num=${sessionSope.num}">문의하기</a></li>
-					
+					<li><a href="${cp}/qna/list">문의하기</a></li>
+					<li><a href="${cp }/logout">로그아웃</a></li>
 				</ul>
 			</nav>
 
@@ -1160,24 +1163,27 @@ a.btn-layerClose:hover {
 			      <div class="modal-header">
 			      <div id="emogiMenu">
 			      		<ul>
-				    		<li><img src="${cp }/resources/uploadImage/admin/emoticon/카테고리1/이미지/3.PNG" name="이미지"></li>
+			      			<c:forEach var="emog" items="${emoglist }">
+			      				<li><img src="${cp }/resources/uploadImage/admin/emoticon/${emog.CATEGORY }/${emog.NAME}/${emog.REPREIMG}" name="${emog.NAME}"></li>
+			      			</c:forEach>
+				    		
 			    		</ul>
 			    		</div>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: black">
 			          
 			        </button>
 			      </div>
 			      <div class="modal-body">	
-			      		<div>
-			      		<c:forEach var="i" begin="2" end="21">
-			      			<c:if test="${i%2==1}">
-			        		<img src='${cp }/resources/uploadImage/admin/emoticon/카테고리1/이미지/${i}.PNG' >
+			      	<c:forEach var="emog" items="${emoglist }">
+			      		<div id="${emog.NAME }" style="display: none;" class="emojis">
+			      			<c:forEach var="emo" items="${emolist }">
+			      			<c:if test="${emog.NAME==emo.NAME}">
+			        		<img src='${cp }/resources/uploadImage/admin/emoticon/${emog.CATEGORY }/${emog.NAME}/${emo.EMOSAVEIMG}' >
 			        		</c:if>			        		
 			        	</c:forEach>
-			        	</div>
-			        	
-			      </div>
-			      
+			      		</div>
+			      	</c:forEach>
+			      </div>		      
 			    </div>
 			  </div>
 			</div>
@@ -1193,11 +1199,11 @@ a.btn-layerClose:hover {
 </body>
 
 <script type="text/javascript">
-	$("#emogiMenu img").click(function(e){
-		
+	$("#emogiMenu img").click(function(e){	
+		$(".emojis").css("display","none");
+		$("#"+this.name).css("display","block");
 	});
 	$("#showEmoji .modal-body img").dblclick(function(e){
-		
 		var emoji="<img src='"+$(this).attr("src")+"'>";
 		$('#textID').val(emoji);
 		sendMessage();
@@ -1436,14 +1442,7 @@ a.btn-layerClose:hover {
             if(xhr.status === 200 && xhr.readyState === 4) {
             	var data = JSON.parse(xhr.responseText);
             	console.log(data);
-            	console.log(data.length);
-// 				document.getElementById('emoBox').removeChild();
-				for(var i=0; i<data.length; i++) {
-					var emoticon = document.createElement('button');
-					emoticon.className = 'emoticon';
-					emoticon.innerHTML = '<img src="${cp}/resources/uploadImage/admin/emoticon/' + data[i].category + '/' + data[i].name + '/' + data[i].repreImg + '" style="width:100%">';
-					document.getElementById('emoBox').append(emoticon);
-				}
+            	
             	$('#emoDialog').dialog('open');
             }
         }

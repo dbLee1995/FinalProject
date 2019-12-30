@@ -7,16 +7,25 @@
 		select * from profiles where num=#{num}
 	</select>
 	<select id="select" resultType="fproject.app.fproject.vo.ProfilesVo">
-		select * from qna
+		select * from profiles
+	</select>
+	<select id="selectQnaName" resultType="fproject.app.fproject.vo.ProfilesVo">
+		select * from qna q,profiles p
+		where q.num=p.num
+		order by q.qnaregdate desc
 	</select>
 	<select id="selectName" resultType="fproject.app.fproject.vo.ProfilesVo">
 		select * from comments c,profiles p
 		where p.num=c.num
 		order by c.regdate desc
 	</select>
+	<select id="selectProfName" resultType="fproject.app.fproject.vo.ProfilesVo" parameterType="int">
+		select * from profiles p,qna q 
+		where p.num=q.num and q.qnanum=#{qnanum}
+	</select>
 	<select id="selectProfImg" resultType="fproject.app.fproject.vo.ProfilesVo" parameterType="String">
 		select * from profiles p,comments c 
-		where p.num=c.num and p.name=${name}
+		where p.num=c.num and p.name=#{name}
 	</select>
 	
 	<insert id="insert" parameterType="fproject.app.fproject.vo.ProfilesVo">

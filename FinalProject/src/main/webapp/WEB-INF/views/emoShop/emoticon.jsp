@@ -119,24 +119,20 @@
 	  <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="max-width: 250px;">
 		<nav id="colorlib-main-menu" role="navigation">
 		  <ul>
-			<li><a href="${cp}/./">Home</a></li>
-			  <c:choose>
-				<c:when test="${empty sessionScope.id}">					
-				  <li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
-				</c:when>	
-				<c:otherwise>
-				  <li><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">Story</a></li>
-				  <li><a href="${cp }/friends/list?num=${sessionScope.num}">Friends</a></li>			
-				</c:otherwise>	 
-			  </c:choose>
-			<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">WebSocket</a></li>
+			<li><a href="${cp}/profiles/info?num=${sessionScope.num}">마이페이지</a></li>
+			<li><a href="${pageContext.request.contextPath}/story/list?num=${sessionScope.num}">코코아 스토리</a></li>
+			<li><a href="${cp }/friends/list?num=${sessionScope.num}">친구들</a></li>			
+			<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
 			<li class="colorlib-active"><a href="${cp }/emoShop/main">코코아 이모티콘</a>
-				<ul style="padding: 5px 0px 0px 15px;">
-					<li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li>
-					<li style="margin:0px;"><a href="${cp }/emoShop/wishList" style="font-size:15px;">내 찜목록</a></li>
-				</ul>
+			  <ul style="padding: 5px 0px 0px 15px; display:flex; flex-flow:column wrap;"">
+				<li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li>
+				<li style="margin:0px;"><a href="${cp }/emoShop/wishList" style="font-size:15px;">내 찜목록</a></li>
+				<li style="margin:0px;"><a href="${cp }/emoShop/uploadEmoFile" style="font-size:15px;">이모티콘 올리기</a>
+			  </ul>
 			</li>
-			<li><a href="javascript:void(0);" onclick="showCalendar();">Calendar</a></li>
+			<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
+			<li><a href="${cp}/nquire/list?num=${sessionSope.num}">문의하기</a></li>
+			<li><a href="${cp }/logout">로그아웃</a>
 		  </ul>
 		</nav>
 		<div class="colorlib-footer">
@@ -166,8 +162,10 @@
 		  	      </div>
 		  	      <div style="display:flex; align-items:center; justify-content:flex-start; padding:0px 0px 0px 0px; width: 100%;">
 		  	        <button type="button" id="buyBtn" class="buyBtn" data-value="${vo.emognum }">&nbsp;&nbsp;&nbsp;&nbsp;구매하기&nbsp;&nbsp;&nbsp;&nbsp;</button>
+		  	        <c:if test="${empty purchaseMap[vo.emognum]}">
 		  	        <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${vo.emognum }" data-check="0" class="emoBasketBtn jsEmoBtn"><i class="icon-shopping-cart linkIcon" style="font-size:18px;" data-value="${vo.emognum }" data-check="0"></i></button>
 		  	        <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${vo.emognum }" data-check="0" class="emoWishBtn jsEmoBtn"><i class="icon-heart linkIcon" style="font-size:15px;" data-value="${vo.emognum }" data-check="0"></i></button>
+		  	        </c:if>
 		  	      </div>
 		  	    </div>
 		    </div>

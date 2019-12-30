@@ -44,6 +44,7 @@
 					<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
 					<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
 					<li><a href="${cp}/qna/list">문의하기</a></li>
+					<li><a href="${cp }/logout">로그아웃</a>
 				</ul>
 			</nav>
 
@@ -253,6 +254,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
-    
+      <script src="${pageContext.request.contextPath }/resources/js/alarm1.js"></script>
   </body>
 </html>

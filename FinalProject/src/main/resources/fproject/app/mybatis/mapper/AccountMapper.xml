@@ -21,4 +21,7 @@
 	<select id="getinfo" resultType="hashmap" parameterType="hashmap">
 		select * from account a,profiles p where id=#{id} and email=#{email} and a.num=p.num
 	</select>
+	<select id="ismemid" resultType="fproject.app.fproject.vo.AccountVo" parameterType="String">
+		select * from account where id=#{id}
+	</select>
 </mapper>

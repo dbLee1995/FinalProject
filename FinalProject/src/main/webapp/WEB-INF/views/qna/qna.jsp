@@ -37,7 +37,7 @@
 		margin-left:-130px; 
 	}
 	.btn.btn-success{
-		margin-left: 1100px;
+		margin-left: 900px;
 		margin-bottom: 5px;
 		background-color:lightblue;
 		border:none;
@@ -47,6 +47,11 @@
 	}
 	table{
 		text-align:center;
+	}
+	.container{
+		width:1000px;
+		margin-top:30px;
+		margin-left: 50px;
 	}
 	</style>
   <div id="colorlib-page">
@@ -68,6 +73,7 @@
 					<li><a href="${cp }/emoShop/main">코코아 이모티콘</a></li>
 					<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
 					<li><a href="${cp}/qna/list">문의하기</a></li>
+					<li><a href="${cp }/logout">로그아웃</a></li>
 				</ul>
 			</nav>
 			</aside>
@@ -77,9 +83,9 @@
 	    		<div class="row d-flex">
 	    			<div class="col-xl-8 px-md-5 py-5">
 <div class="container">
-    <form id="boardForm" name="boardForm" method="post" >
-    	<div>            
-            <a href='#' onClick='fn_write()' class="btn btn-success">글쓰기</a>            
+ 
+    	<div style="width:1000px;">            
+            <a href="${cp}/qna/insert?num=${num}"  class="btn btn-success">글쓰기</a>            
         </div>
         <table class="table table-striped table-hover">
             <thead>
@@ -97,22 +103,21 @@
                         <td>${lis.qnanum}</td>
                         <c:choose>
                         	<c:when test="${sessionScope.num eq lis.num or sessionScope.id eq 'admin'}">
-                        		<td><a href="${cp}/qna/insert?num=${lis.num}">${lis.qnatitle}</a></td>
+                        		<td><a href="${cp}/qna/info?qnanum=${lis.qnanum}">${lis.qnatitle}</a></td>
                         	</c:when>
                         	<c:otherwise>
                         		<td>${lis.qnatitle}</td>
                         	</c:otherwise>
                         </c:choose>
-                        <td>${pvo[status.index].name}</td>
+                        <td>${plist[status.index].name}</td>
                         <td>${lis.qnaregdate}</td>
+                        <td><c:if test="${lis.qnaanswer == null}">X</c:if><c:if test="${lis.qnaanswer != null}">O</c:if></td>
                         <td></td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-        
-        
-    </form>
+
     </div>
     </div>
     </div>
@@ -142,6 +147,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
+    <script src="${pageContext.request.contextPath }/resources/js/alarm1.js"></script>
     
   </body>
 </html>

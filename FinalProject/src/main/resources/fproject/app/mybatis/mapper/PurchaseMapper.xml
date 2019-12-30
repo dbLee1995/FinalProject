@@ -12,7 +12,7 @@
 	</select>
 	
 	<select id="selectPopulEmoListTotalCount" resultType="int">
-		select count(*) count from purchase group by emognum
+		select count(count(emognum)) count from purchase group by emognum
 	</select>
 	
 	<select id="selectPopulEmoPagingList" parameterType="hashmap" resultType="fproject.app.fproject.vo.EmoticongroupVo">
@@ -27,6 +27,5 @@
     		where rownum <![CDATA[<=]]> #{endRow}) b
 		where b.rnum <![CDATA[>=]]> #{startRow}
 	</select>
-	
 	
 </mapper>

@@ -100,16 +100,31 @@
 	box-shadow: 0px 0px 10px 0px #43c7ff;
 	transition: border 0.2s, box-shadow 0.3s;
 }
+.pageIndex {
+			display: inline-block;
+			border: 1px solid #d1d5d9;
+			font-size: 13px;
+			font-weight: 700;
+			color: #808991;
+			height: 30px;
+			line-height: 30px;
+			padding: 0 10px;
+			text-align: center;
+			min-width: 30px;
+			box-shadow: 0 1px 1px 0 rgba(210,210,210,.3);
+    	}
+.pageIndex:hover {
+			background: #f2f4f5;
+    	}
 
 </style>
-<script src="${pageContext.request.contextPath }/resources/js/alarm1.js"></script>
 </head>
 <body>
   <div id="colorlib-page">
 	<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 	  <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="max-width: 250px;">
 		<nav id="colorlib-main-menu" role="navigation">
-		  <ul>
+		  <ul style="display:flex; flex-flow:column wrap;">
 			<c:choose>
 			  <c:when test="${empty sessionScope.id}">					
 			    <li><a href="${pageContext.request.contextPath}/member/login">Login</a></li>		
@@ -120,7 +135,7 @@
 				<li><a href="${cp }/friends/list?num=${sessionScope.num}">친구들</a></li>			
 				<li><a href="${pageContext.request.contextPath}/ChatList?num=${sessionScope.num}&clnum=-1">채팅</a></li>
 				<li class="colorlib-active"><a href="${cp }/emoShop/main">코코아 이모티콘</a>
-				  <ul style="padding: 5px 0px 0px 15px;">
+				  <ul style="padding: 5px 0px 0px 15px; display:flex; flex-flow:column wrap;"">
 				    <li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li>
 				    <li style="margin:0px;"><a href="${cp }/emoShop/wishList" style="font-size:15px;">내 찜목록</a></li>
 				    <li style="margin:0px;"><a href="${cp }/emoShop/uploadEmoFile" style="font-size:15px;">이모티콘 올리기</a>
@@ -128,6 +143,7 @@
 				</li>
 				<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>
 				<li><a href="${cp}/nquire/list?num=${sessionSope.num}">문의하기</a></li>
+				<li><a href="${cp }/logout">로그아웃</a>
 			  </c:otherwise>	 
 			</c:choose>
 		  </ul>
@@ -142,10 +158,6 @@
 	</div>
 	  
 	  <section id="emoContainer" class="emoContainer">
-	  	<div id="event" style="display:flex; flex-flow:row nowrap; text-align:center; justify-content:center;">
-	  		<img src="${cp }/resources/images/emoShop/blue.png">
-	  	</div>
-	  	
 		<article id="populEmo" style="background-color: #ffffff">
 		  <div id="populEmoHeadline" class="emoHeadline">
 			<h1>인기 이모티콘</h1>
@@ -164,8 +176,10 @@
 		  	      <h5>${vo.name }</h5>
 		  	      <span style="font-size:11px; color:dimgrey;">${vo.category }</span>
 		  	    </a>
+		  	    <c:if test="${empty purchaseMap[vo.emognum]}">
 		  	      <button type="button" title="해당 이모티콘을 바구니에 담습니다." data-value="${vo.emognum }" data-index="${s1.index }" data-check="0" class="emoBasketBtn jsEmoBtn" style="left:35px; top:90px;"><i class="icon-shopping-cart linkIcon" style="font-size:18px;" data-value="${vo2.emognum }" data-index="${s2.index+5 }" data-check="0"></i></button>
 		  	      <button type="button" title="해당 이모티콘을 찜 목록에 추가합니다." data-value="${vo.emognum }" data-index="${s1.index }" data-check="0" class="emoWishBtn jsEmoBtn" style="left:40px; top:90px;"><i class="icon-heart linkIcon" style="font-size:15px;" data-value="${vo2.emognum }" data-index="${s2.index+5 }" data-check="0"></i></button>
+		  	    </c:if>
 		  	  </div>
 		  	  </c:forEach>
 		  	</div>
@@ -187,7 +201,23 @@
 		  	  </c:forEach>
 		  	</div>
 		  </div>
-		  <button type="button" id="moreBtn" data-index="2" style="width:100%; padding:5px; text-align:center">이모티콘 더 보기</button>
+		  
+		  <div style="display:flex; flex-flow:row nowrap; justify-content:center;">
+		  	<a href="${cp }/emoShop/wishList?thisPage=1" class="pageIndex" style="margin-right:5px;">&lt;&lt;</a>
+<%--         	<a href="${cp }/emoShop/wishList?thisPage=${i-10}" class="pageIndex" style="margin-right:5px;">&lt;</a> --%>
+        	<c:forEach var="i" begin="${map.startPage }" end="${map.endPage }">
+        	<c:choose>
+        	  <c:when test="${i } == ${map.thisPage }">
+        		<b><a href="${cp }/emoShop/new?thisPage=${i }" style="background-color: #43c7ff" class="pageIndex">${i }</a></b>
+        	  </c:when>
+        	  <c:otherwise>
+        	    <a href="${cp }/emoShop/new?thisPage=${i }" class="pageIndex">${i }</a>
+        	  </c:otherwise>
+        	</c:choose>
+        	</c:forEach>
+<%--         	<a href="${cp }/emoShop/new?thisPage=${map.endPage+10}" class="pageIndex" style="margin-left:5px;">&gt;</a> --%>
+        	<a href="${cp }/emoShop/new?thisPage=${map.lastPage }" class="pageIndex" style="margin-left:5px;">&gt;&gt;</a>
+      	  </div>
 		</article>
 	  </section>
 	  <footer style="font-size:11px; color:#636363; margin-left:15%; margin-right:2%; padding-bottom:100px; text-align:center;">
@@ -218,6 +248,7 @@
 		});
 	});
 	
+	/*
 	var moreBtn = document.getElementById('moreBtn');
 	moreBtn.addEventListener('click', e => {
         var xhr = new XMLHttpRequest();
@@ -275,6 +306,7 @@
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
         xhr.send('thisPage=' + e.target.dataset.index)
     });
+	*/
 
 	function putBasket(e) {
 		console.log(e.target);
@@ -324,4 +356,5 @@
 
 </script>
 </body>
+>>>>>>> branch 'master' of https://github.com/dbLee1995/FinalProject.git
 </html>

@@ -18,10 +18,11 @@ window.onload=function(){
 		min=now.getMinutes();
 		sec=now.getSeconds();
 		var today = year + "" + month + "" + date+ "" +hour+""+min+""+sec;      //오늘 날짜 완성.
+		
 		// 시간비교
 		$.ajax({
             type: "post",
-            url: "../calendar/list",
+            url: "http://localhost:9090/fproject/calendar/list",
             data: {
             	num:"${sessionScope.num}"
             },
@@ -50,7 +51,7 @@ window.onload=function(){
             				showAlarm(this.title);   
             			}
             		}else if(this.alarm==3){
-            			alarm=alarm+"15000";
+            			alarm=alarm+"19290";
             			
             			if(today==alarm){
             				showAlarm(this.title);   

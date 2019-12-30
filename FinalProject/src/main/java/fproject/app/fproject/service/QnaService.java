@@ -16,11 +16,14 @@ public class QnaService {
 	 }
 	 public List<QnaVo> select(){
 		return qnaDao.select();
-	 }
-	 public QnaVo selectInfo(int num){
-		 return qnaDao.selectInfo(num);
+	 }	 
+	 public QnaVo selectInfo(int qnanum){
+		 return qnaDao.selectInfo(qnanum);
 	 }
 	 public int insert(QnaVo vo){
 		 return qnaDao.insert(vo);
+	 }
+	 public int update(QnaVo vo){
+		 return qnaDao.update(vo);
 	 }
 }
