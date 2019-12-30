@@ -93,7 +93,7 @@
 			                                     
 				<ul class="comment-list">                                                                                       
 					<li class="comment">                             
-					<div class="vcard bio" style="width:50px;">
+					<div class="vcard bio" style="width:50px;text-align:center;">
 					
 						<img src="${pageContext.request.contextPath}/resources/upload/${pname[status.index].profileimg}">
 							${pname[status.index].name}
