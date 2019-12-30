@@ -43,6 +43,9 @@ public class ProfilesDao {
 	public int updateName(ProfilesVo vo){
 		return sqlSessionTemplate.update(NAMESPACE + ".updateName",vo);
 	}
+	public int updateMsg(ProfilesVo vo){
+		return sqlSessionTemplate.update(NAMESPACE + ".updateMsg",vo);
+	}
 	public int update(ProfilesVo vo){
 		return sqlSessionTemplate.update(NAMESPACE + ".update",vo);
 	}

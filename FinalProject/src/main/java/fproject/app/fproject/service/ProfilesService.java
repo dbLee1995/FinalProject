@@ -39,6 +39,9 @@ public class ProfilesService {
 	 public int updateName(ProfilesVo vo){
 		 return profilesDao.updateName(vo);
 	 }
+	 public int updateMsg(ProfilesVo vo){
+		 return profilesDao.updateMsg(vo);
+	 }
 	 public int update(ProfilesVo vo){
 		 return profilesDao.update(vo);
 	 }

@@ -93,10 +93,9 @@
 	    				<div style="width:100%;height:100%;margin-left:50px;">		    				
 	    					<div style="width:95%;height:830px;margin:auto;background-color:aliceblue;color:black;">  			    				
  <!-- background이미지 --><div class="img d-flex align-items-center full-img" style="background-image:url(${cp}/resources/upload/${pvo.backimg});">					    						    					
-	    					<div style="width:90%;height:830px;margin:auto;padding-top:250px;padding-bottom:30px;">	 
-	    						<div style="width:580px;">
-	    							<h3 style="font-weight:bold;color:white;bottom:700px;position:absolute;left:290px;">${pvo.msg}</h3>					
-	    	  <!-- 이미지 -->		</div>
+	    					<div style="width:90%;height:830px;margin:auto;padding-top:250px;padding-bottom:30px;">	    			
+	    							<h3 id="msg" style="font-weight:bold;color:white;bottom:700px;position:absolute;width:585px;text-align:center;">${pvo.msg} &nbsp; <a href="javascript:void(0);" id="msgclick" class="icon-pencil" style="color:white;"> </a></h3>					
+	    	  <!-- 이미지 -->	
 	    	  						<div id="setId" style="width:270px;height:290px;margin-top:-65PX;margin-left: 155px;">
 	    	  						<a href="${cp}/resources/upload/${pvo.profileimg}" id="showprofimg" class="showprofimg"><!-- image gallery -->
 	    	  						<img src="${cp}/resources/upload/${pvo.profileimg}"  id="imgprof" class="img prof" style="position:relative;">
@@ -310,6 +309,34 @@
 				}
 			});
 		}
+		$(function(){
+			$("#msgclick").click(function(){
+				$(this).hide();
+				$("#msg").html("<input type='text' name='msgcheck' id='msgcheck' value='${pvo.msg}' style='width:370px;height:35px;text-align:center;margin-left:10px;'>" +
+									"<a href='javascript:void(0);' name='savemsg' id='savemsg' onClick='saveMsg(this);' style='color:white;font-size:20px;margin-left:10px;'>수정</a>" +
+									"<a href='javascript:void(0);' id='re' onclick='reset();' style='color:white;font-size:20px;padding-left:10px;'>취소</a>");
+				$("#msg").focus();
+			});
+		});
+		
+		function saveMsg(e){			
+			var msg=document.getElementById("msgcheck").value;
+			var formData=new FormData();
+			formData.append("msg",$("#msgcheck").val());
+			$.ajax({
+				url:"${cp}/profiles/updateMsg?num=${pvo.num}",
+				type:"POST",
+				processData:false,
+				contentType:false,
+				data:formData,
+				success:function(){					
+					alert("업로드완료!!!");
+					location.reload();
+				}
+			});
+		}
+		
+		//msgclick
 
 /*		function birthCheck(){
 			 var number = obj.value.replace(/[^0-9]/g, "");
