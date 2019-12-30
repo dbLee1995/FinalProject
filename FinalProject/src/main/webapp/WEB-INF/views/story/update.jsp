@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Andrea - Free Bootstrap 4 Template by Colorlib</title>
+    <title>코코아톡:: 코코아 스토리 수정</title>
    <script type="text/javascript">
 		$(function(){
 			$("#imgInp").click(function(){

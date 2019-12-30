@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Andrea - Free Bootstrap 4 Template by Colorlib</title>
+    <title>코코아톡:: 내 친구</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     

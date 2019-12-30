@@ -112,7 +112,6 @@
 				  <ul style="padding: 5px 0px 0px 15px; display:flex; flex-flow:column wrap;"">
 				    <li style="margin:0px;"><a href="${cp }/emoShop/basket" style="font-size:15px;">내 바구니</a></li>
 				    <li style="margin:0px;"><a href="${cp }/emoShop/wishList" style="font-size:15px;">내 찜목록</a></li>
-				    <li style="margin:0px;"><a href="${cp }/emoShop/uploadEmoFile" style="font-size:15px;">이모티콘 올리기</a>
 				  </ul>
 				</li>
 				<li><a href="javascript:void(0);" onclick="showCalendar();">달력</a></li>

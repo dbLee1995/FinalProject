@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>FullCalendar Example</title>
+    <title>코코아톡:: 일정관리</title>
     <link rel=" shortcut icon" href="image/favicon.ico">
 
     <link rel="stylesheet" href="${cp }/resources/FC/vendor/css/fullcalendar.min.css" />
