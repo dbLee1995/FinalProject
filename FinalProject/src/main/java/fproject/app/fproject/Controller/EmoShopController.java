@@ -187,14 +187,13 @@ public class EmoShopController {
 			PurchaseVo vo = new PurchaseVo(0, null, i, userNum);
 			list.add(vo);
 		}
-		System.out.println("purchase///////");
 		try {
 			emoShopService.savePurchaseList(list);
 			return mainPage(model, req);
 		} catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("purchaseError", false);
-			return "test/error";
+			return mainPage(model, req);
 		}
 	}
 	
