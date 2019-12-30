@@ -39,7 +39,7 @@ public class FriendsController {
 	public String addfriends(){
 		return "friends/addfriends";
 	}
-	@RequestMapping("/friends/showalarm")
+	@RequestMapping("/showalarm")
 	public ModelAndView alarm(String title){
 		ModelAndView mv=new ModelAndView("showalarm");
 		mv.addObject("title", title);	

@@ -18,7 +18,7 @@ window.onload=function(){
 		min=now.getMinutes();
 		sec=now.getSeconds();
 		var today = year + "" + month + "" + date+ "" +hour+""+min+""+sec;      //오늘 날짜 완성.
-		
+		console.log(today);
 		// 시간비교
 		$.ajax({
             type: "post",
@@ -51,7 +51,7 @@ window.onload=function(){
             				showAlarm(this.title);   
             			}
             		}else if(this.alarm==3){
-            			alarm=alarm+"10110";
+            			alarm=alarm+"10260";
             			
             			if(today==alarm){
             				showAlarm(this.title);   
@@ -66,5 +66,5 @@ window.onload=function(){
 
 }
 function showAlarm(title){
-	window.open("showalarm?title="+title, '[알람]', 'width=250, height=150, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no' );
+	window.open("http://localhost:9090/fproject/showalarm?title="+title, '[알람]', 'width=250, height=150, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no' );
 }
