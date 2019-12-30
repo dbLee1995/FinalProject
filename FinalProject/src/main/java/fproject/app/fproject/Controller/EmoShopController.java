@@ -54,9 +54,9 @@ public class EmoShopController {
 		model.addAttribute("purchaseMap", purchaseMap);
 		model.addAttribute("newEmoList", emoShopService.getNewEmoList());
 		model.addAttribute("populEmoList", populEmoList);
-		model.addAttribute("category3", emoShopService.getCategoryEmoList("ºĞÀ§±â"));
-		model.addAttribute("category2", emoShopService.getCategoryEmoList("µ¿¹°"));
-		model.addAttribute("category1", emoShopService.getCategoryEmoList("¿¬¸»"));
+		model.addAttribute("category3", emoShopService.getCategoryEmoList("ì—°ë§"));
+		model.addAttribute("category2", emoShopService.getCategoryEmoList("ë™ë¬¼"));
+		model.addAttribute("category1", emoShopService.getCategoryEmoList("ë¶„ìœ„ê¸°"));
 		return "emoShop/main";
 	}
 	
@@ -84,7 +84,7 @@ public class EmoShopController {
 	
 	@RequestMapping(value="/basket", method=RequestMethod.GET)
 	public String basketPage(Model model, HttpServletRequest req) {
-		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList"); // basketListÀÇ ÄÃ·º¼Ç(?)ÀÌ <EmoshopVo>¿©¾ß ÇÔ
+		List<EmoshopVo> basketList = (List)req.getSession().getAttribute("basketList"); // basketListï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½(?)ï¿½ï¿½ <EmoshopVo>ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		req.getSession().setAttribute("basketList", basketList);
 		model.addAttribute("list", basketList);
 		return "emoShop/basket";
@@ -179,7 +179,7 @@ public class EmoShopController {
 	
 	@RequestMapping(value="/wishList", method=RequestMethod.GET)
 	public String wishListPage(Model model, HttpServletRequest req, @RequestParam(defaultValue="1") int thisPage) {
-		int userNum = (int)req.getSession().getAttribute("num"); // »ç¿ëÀÚ ¹øÈ£ ¹Ş¾Æ¿À±â
+		int userNum = (int)req.getSession().getAttribute("num"); // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½Ş¾Æ¿ï¿½ï¿½ï¿½
 		Paging pg = new Paging(4, favorListService.getCount(userNum), 7, thisPage);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pg.getStartRow());
@@ -230,9 +230,9 @@ public class EmoShopController {
 			List<PurchaseVo> list = new ArrayList<PurchaseVo>();
 			list.add(new PurchaseVo(0, null, emonum, userNum));
 			emoShopService.savePurchaseList(list);
-			return "±¸¸ÅÇÏ¿´½À´Ï´Ù.";
+			return "ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		} else {
-			return "ÀÌ¹Ì ±¸¸ÅÇÑ ÀÌ¸ğÆ¼ÄÜÀÔ´Ï´Ù.";
+			return "ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½Æ¼ï¿½ï¿½ï¿½Ô´Ï´ï¿½.";
 		}
 	}
 	
@@ -272,10 +272,10 @@ public class EmoShopController {
 		}
 		if(c) {
 			basketList.add(emoShopService.getEmogInfo(emonum));
-			json.put("text", "¹Ù±¸´Ï¿¡ ´ã¾Ò½À´Ï´Ù.");
+			json.put("text", "ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½Ò½ï¿½ï¿½Ï´ï¿½.");
 			json.put("check", 1);
 		} else {
-			json.put("text", "ÀÌ¹Ì ´ã¾ÆµĞ ÀÌ¸ğÆ¼ÄÜÀÔ´Ï´Ù.");
+			json.put("text", "ï¿½Ì¹ï¿½ ï¿½ï¿½Æµï¿½ ï¿½Ì¸ï¿½Æ¼ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
 			json.put("check", 0);
 		}
 		return json.toString();
@@ -296,10 +296,10 @@ public class EmoShopController {
 		}
 		if(c) {
 			favorListService.addUserWishList(new FavorlistVo(0, 0, emonum, userNum));
-			json.put("text", "Âò ¸ñ·Ï¿¡ Ãß°¡Çß½À´Ï´Ù.");
+			json.put("text", "ï¿½ï¿½ ï¿½ï¿½Ï¿ï¿½ ï¿½ß°ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 			json.put("check", 1);
 		} else {
-			json.put("text", "ÀÌ¹Ì ÂòÇØµĞ ÀÌ¸ğÆ¼ÄÜÀÔ´Ï´Ù.");
+			json.put("text", "ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½Øµï¿½ ï¿½Ì¸ï¿½Æ¼ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
 			json.put("check", 0);
 		}
 		return json.toString();
@@ -324,7 +324,7 @@ public class EmoShopController {
 			basketList.remove(i);
 		}
 		session.setAttribute("basketList", basketList);
-		return "¼±ÅÃÇÑ Ç×¸ñÀ» Âò ¸ñ·ÏÀ¸·Î ¿Å°å½À´Ï´Ù.";
+		return "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½Ï´ï¿½.";
 	}
 	
 	@RequestMapping(value="/delBasketItem", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
@@ -338,7 +338,7 @@ public class EmoShopController {
 			basketList.remove(i);  
 		}
 		session.setAttribute("basketList", basketList);
-		return "¼±ÅÃÇÑ Ç×¸ñÀ» »èÁ¦Çß½À´Ï´Ù.";
+		return "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.";
 	}
 	
 	@RequestMapping(value="/moveWishtoBasket", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
@@ -362,7 +362,7 @@ public class EmoShopController {
 			}
 		}
 		session.setAttribute("basketList", basketList);
-		return "¼±ÅÃÇÑ Ç×¸ñÀ» ¹Ù±¸´Ï·Î ¿Å°å½À´Ï´Ù.";
+		return "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ù±ï¿½ï¿½Ï·ï¿½ ï¿½Å°ï¿½ï¿½ï¿½Ï´ï¿½.";
 	}
 	
 	@RequestMapping(value="/delWishItem", produces={"application/text;charset=UTF-8"}, method=RequestMethod.POST)
@@ -376,6 +376,6 @@ public class EmoShopController {
 			map.put("userNum", userNum);
 			favorListService.delUserWishItem(map);
 		}
-		return "¼±ÅÃÇÑ Ç×¸ñÀ» »èÁ¦Çß½À´Ï´Ù.";
+		return "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.";
 	}
 }
