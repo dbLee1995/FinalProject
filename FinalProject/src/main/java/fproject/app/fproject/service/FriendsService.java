@@ -41,4 +41,7 @@ public class FriendsService {
 	public int setnewfri(){
 		return dao.setnewfri();
 	}
+	public List<HashMap<String, Object>> favorfri(int num){
+		return dao.favorfri(num);
+	}
 }	

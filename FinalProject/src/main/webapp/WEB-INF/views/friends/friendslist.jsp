@@ -50,6 +50,7 @@
 	#friendsprofile .icon-star{font-size: 20px;margin-left: 30px;margin-top: 30px;}
     #friendsprofile .meta-wrap{position:relative;}
     .col-xl-4.sidebar .icon-people{font-size: 40px;color:#666666;margin-left: 270px;}
+    .col-xl-4.sidebar .icon-star{font-size: 40px;color:#666666;margin-left: 30px; position: absolute;}
     .col-xl-4.sidebar .icon-plus{color:#666666; margin-bottom: 30px; position: absolute;}
     .container h2{font-family: "Poppins", Arial, sans-serif;color: rgba(180, 177, 177, 0.8);}
     .container h3{font-family: "Poppins", Arial, sans-serif;}
@@ -179,11 +180,12 @@
 							<!-- END-->
 						</div>
 	    			<div class="col-xl-4 sidebar ftco-animate bg-light pt-5" style="height: 850px;padding: 20px;">
-	    			
+	    			<a href='javascript:void(0);' onclick='showfavorfri(${sessionScope.num});' class="icon-star"></a>
 	    			<a href='javascript:void(0);' onclick='showAddfriends();' class="icon-people" ></a>
 	    			<a href='javascript:void(0);' onclick='showAddfriends();' class="icon-plus"></a>
 	            <div class="sidebar-box pt-md-4">
 	              <form action="javascript:void(0);" class="search-form">
+	              
 	                <div class="form-group">
 	                  <span class="icon icon-search"></span>
 	                  <input type="text" class="form-control" placeholder="이름 검색" onkeyup="searchFri(this,${sessionScope.num})">
@@ -414,6 +416,45 @@
                 });
             
     }
+        	function showfavorfri(num){
+        		
+            	$.ajax({
+                    type: "post",
+                    url: "${cp}/friends/favorfri",
+                    data: {
+                    	num:num
+                    },
+                    success: function (response) {
+                    	$("#newfri").remove();
+            			$(".col-md-12").remove();
+                        	$(response).each(function(){
+                        		var str="<div class='col-md-12'><div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated'>"
+                    				+"<a href='javascript:void(0);' onclick='showprofile(${sessionScope.num },"+this.fnum+")' class='img img-2' style='background-image:url(${cp}/resources/upload/"+this.profileimg+");'></a>"
+                    				+"<div class='text text-2 pl-md-4'>"
+                    					+"<h3 class='mb-2'>"
+                    						+"<a href='single.html'>"+this.name+"</a>"
+                    					+"</h3>";
+                        		if(this.msg!=null){
+                    				str=str+"<p>"+this.msg+"</p>";
+                    			}else{
+                    				str=str+"<p style='margin-top:15%'></p>";
+                    			}
+                    			str=str   +"<div class='meta-wrap'>"
+                    						+"<p class='meta'></p>"
+                    					+"</div>"
+                    				+"</div>"
+                    			+"</div>"
+                    		+"</div>";
+                        		$("#frilist").append(str);
+                        		
+                        	});
+                    }
+                });
+            
+    }
+        
+        	
+        	
   	function showCalendar(){
   		window.open("${cp}/calendar", "[캘린더]", "width=900, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no" );    
   	};

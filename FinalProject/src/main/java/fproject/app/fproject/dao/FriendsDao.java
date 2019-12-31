@@ -42,4 +42,7 @@ public class FriendsDao {
 	public int setnewfri(){
 		return sqlSessionTemplate.update(NAMESPACE+".setnewfri");
 	}
+	public List<HashMap<String , Object>> favorfri(int num){
+		return sqlSessionTemplate.selectList(NAMESPACE+".favorfri",num);
+	}
 }

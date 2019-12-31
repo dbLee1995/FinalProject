@@ -27,4 +27,7 @@
 	<update id="setnewfri" >
 		update friendlist set approv=1
 	</update>
+	<select id="favorfri" parameterType="int" resultType="hashmap">
+		select * from friendlist f,profiles p where f.num=#{num} and p.num=fnum and favo =1 
+	</select>
 </mapper>
